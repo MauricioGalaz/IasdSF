@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-
+    
     <script>
         tailwind.config = {
             theme: {
@@ -91,11 +91,20 @@
                 <a href="#contacto" class="hover:text-adventist-gold">Contacto</a>
             </div>
 
-            <div class="md:hidden">
-                <button id="menu-button" class="p-2 outline-none">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
+            <div class="md:hidden flex items-center space-x-2">
+    <!-- Botón descarga APK -->
+    <a href="https://drive.google.com/uc?export=download&id=19XrG3oWQXDVXN0jHdafbsMTMUvfrpFVl" 
+        class="bg-adventist-gold text-adventist-blue px-3 py-2 rounded-full font-bold text-xs shadow-lg"
+        download>
+        📱 App
+    </a>
+
+    <!-- Botón menú hamburguesa -->
+    <button id="menu-button" class="p-2 outline-none">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+</div>
+
         </div>
 
         <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-gray-700 md:hidden">
