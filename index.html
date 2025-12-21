@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iglesia Adventista del Séptimo Día - Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f4f4f4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* EVITA EL SCROLL HORIZONTAL QUE DISTORSIONA LA APP */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s ease-out;
+        }
+
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* HERO BACKGROUND OPTIMIZADO */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 48, 94, 0.7), rgba(0, 48, 94, 0.7)), url('imagenes/ig.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Cambiado de fixed a scroll para mejor rendimiento en APK */
+        }
+
+        @media (min-width: 768px) {
+            .hero-bg { background-attachment: fixed; }
+        }
+
+        .pt-nav { padding-top: 70px; }
+
+        /* Estilo para que el menú móvil no se superponga mal */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
+
+    <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="imagenes/logo.jpg" class="h-9 w-9 rounded-full object-cover">
+                <span class="font-heading font-bold text-[10px] sm:text-xs leading-tight uppercase">
+                    IASD<br>San Francisco<br>de Limache
+                </span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6 font-semibold text-xs uppercase tracking-wide">
+                <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+                <a href="#nosotros" class="hover:text-adventist-gold">Nosotros</a>
+                <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
+                <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+                <a href="estudio-biblico.html" class="hover:text-adventist-gold">Estudio Bíblico</a>
+                <a href="avisos.html" class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full font-extrabold shadow-lg">🚨 Avisos</a>
+                <a href="#contacto" class="hover:text-adventist-gold">Contacto</a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="menu-button" class="p-2 outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-gray-700 md:hidden">
+            <div class="flex flex-col px-6 py-4 space-y-3 text-xs font-semibold uppercase">
+                <a href="#inicio" class="mobile-link">Inicio</a>
+                <a href="#nosotros" class="mobile-link">Nosotros</a>
+                <a href="#horarios" class="mobile-link">Actividades</a>
+                <a href="#ministerios" class="mobile-link">Ministerios</a>
+                <a href="estudio-biblico.html" class="mobile-link">Estudio Bíblico</a>
+                <a href="avisos.html" class="mobile-link text-adventist-gold font-bold">Avisos</a>
+                <a href="#contacto" class="mobile-link">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-nav w-full">
+        <div class="bg-blue-900 py-4 flex justify-center px-4">
+            <a href="ORACION/index.html" class="bg-white text-blue-900 px-6 py-3 rounded-full font-bold text-center text-sm sm:text-lg hover:bg-yellow-400 transition transform hover:scale-105 shadow-lg">
+                📖 Oración Intercesora
+            </a>
+        </div>
+    </div>
+
+    <section class="bg-gradient-to-br from-adventist-blue via-blue-900 to-adventist-blue text-white overflow-hidden">
+        <div class="container mx-auto px-6 py-16 text-center max-w-4xl">
+            <h1 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 leading-tight">
+                Un lugar para <span class="text-adventist-gold">crecer</span>, compartir y acercarte a <span class="text-adventist-gold">Dios</span>
+            </h1>
+            <p class="text-base md:text-xl text-gray-200 mb-10">
+                En la Iglesia Adventista de San Francisco de Limache encontrarás una comunidad cercana y un espacio donde siempre serás bienvenido.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#horarios" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-full font-bold shadow-xl">Ver horarios</a>
+                <a href="#contacto" class="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-adventist-blue transition">Primera vez aquí</a>
+            </div>
+        </div>
+    </section>
+
+    <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl text-white">
+            <h2 class="text-lg mb-4 text-adventist-gold uppercase tracking-widest font-bold">Bienvenido a casa</h2>
+            <h1 class="font-heading text-3xl md:text-6xl font-bold mb-6">Una familia de esperanza en el corazón de Limache</h1>
+            <h2 class="text-base md:text-xl mb-10 md:mb-80 text-adventist-gold italic">
+                "Lámpara es a mis pies tu palabra, y lumbrera a mi camino."<br>Salmos 119:105
+            </h2>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#horarios" class="bg-adventist-gold text-adventist-blue px-6 py-3 rounded-full font-bold text-sm">Ver Horarios</a>
+                <a href="#contacto" class="border-2 border-white px-6 py-3 rounded-full font-bold text-sm">Contáctanos</a>
+                <a href="estudio-biblico.html" class="border-2 border-adventist-gold text-adventist-gold px-6 py-3 rounded-full font-bold text-sm hover:bg-adventist-gold hover:text-adventist-blue">📖 Estudiar Biblia</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="nosotros" class="py-16 bg-white overflow-hidden">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative order-2 md:order-1">
+                <img src="imagenes/comunidad.jpg" alt="Comunidad" class="rounded-lg shadow-2xl relative z-10 w-full h-64 md:h-80 object-cover">
+            </div>
+            <div class="order-1 md:order-2">
+                <h3 class="text-adventist-blue font-heading text-3xl font-bold mb-6 border-l-4 border-adventist-gold pl-4">Nuestra Misión</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed text-justify">Somos una comunidad cristiana Adventista de Limache comprometida para compartir el evangelio eterno invitando a todos a aceptar a Jesucristo.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i> <span>Estudio Bíblico</span></div>
+                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i> <span>Vida Saludable</span></div>
+                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i> <span>Educación Cristiana</span></div>
+                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i> <span>Servicio Comunitario</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios" class="py-16 bg-adventist-light">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-adventist-blue">Nuestros Servicios</h2>
+                <div class="w-24 h-1 bg-adventist-gold mx-auto mt-2"></div>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto overflow-hidden rounded-xl shadow-xl mb-12">
+                <img id="carousel" src="imagenes/foto1.jpg" class="w-full h-48 sm:h-64 md:h-[400px] object-cover transition-all duration-700">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-blue text-center">
+                    <i class="fas fa-sun text-adventist-gold text-3xl mb-3"></i>
+                    <h3 class="font-bold mb-2">Sábado (Mañana)</h3>
+                    <p class="text-adventist-blue font-bold">09:30 AM - Escuela Sabática</p>
+                    <p class="text-adventist-blue font-bold">11:00 AM - Culto Adoración</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-gold text-center">
+                    <i class="fas fa-users text-adventist-blue text-3xl mb-3"></i>
+                    <h3 class="font-bold mb-2">Sábado (Tarde)</h3>
+                    <p class="text-adventist-blue font-bold">17:30 PM - Oración</p>
+                    <p class="text-adventist-blue font-bold">19:00 PM - Culto Jóvenes</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-blue text-center">
+                    <i class="fas fa-praying-hands text-adventist-gold text-3xl mb-3"></i>
+                    <h3 class="font-bold mb-2">Miércoles</h3>
+                    <p class="text-adventist-blue font-bold">19:00 PM - Culto Oración</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ministerios" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center mb-10">
+            <h2 class="text-3xl font-heading font-bold text-adventist-blue">Nuestros Ministerios</h2>
+        </div>
+        <div class="container mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+            <a href="Departamentos/jovenes.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/ja.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Jóvenes</p></div>
+            </a>
+            <a href="Departamentos/mujer.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/mujer.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Mujer</p></div>
+            </a>
+            <a href="Departamentos/salud.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/salud.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Salud</p></div>
+            </a>
+            <a href="Departamentos/personal.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/personal.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Personal</p></div>
+            </a>
+            <a href="Departamentos/asa.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/asa.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">ASA</p></div>
+            </a>
+            <a href="Departamentos/escuela-sabatica.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/sabatica.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Escuela Sabática</p></div>
+            </a>
+            <a href="Departamentos/infantil.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/infantil.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Infantil</p></div>
+            </a>
+            <a href="Departamentos/aventureros.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/avent.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Aventureros</p></div>
+            </a>
+            <a href="Departamentos/publicaciones.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/publicaciones.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Publicaciones</p></div>
+            </a>
+            <a href="Departamentos/Dorcas.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/dorcas.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Dorcas</p></div>
+            </a>
+            <a href="Departamentos/Mayordomia.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/mayor.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Mayordomía</p></div>
+            </a>
+            <a href="Departamentos/Diaconos.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
+                <img src="imagenes/diacono.jpg" class="w-full h-32 object-cover">
+                <div class="p-3"><p class="font-bold text-xs uppercase">Diáconos</p></div>
+            </a>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-16 bg-adventist-light">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold text-adventist-blue mb-4">Visítanos</h3>
+                <div class="space-y-4 text-sm">
+                    <p><i class="fas fa-map-marker-alt text-adventist-gold mr-2"></i> Calle Carrera 131, Limache</p>
+                    <p><i class="fas fa-envelope text-adventist-gold mr-2"></i> iasdsanfranciscodelimache@gmail.com</p>
+                    <p><i class="fas fa-phone text-adventist-gold mr-2"></i> +56 9 90724209</p>
+                </div>
+            </div>
+            <div class="bg-gray-200 rounded-xl overflow-hidden h-64 shadow-inner">
+                <iframe width="100%" height="100%" style="border:0;" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.6789!2d-71.261234!3d-32.991234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDU5JzI4LjQiUyA3McKwMTUnNDAuNCJX!5e0!3m2!1ses!2scl!4v1620000000000"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-10 text-center text-xs">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+            </div>
+            <p>© 2025 Iglesia Adventista del Séptimo Día – Limache</p>
+            <p class="mt-2">Desarrollado por <span class="text-adventist-gold font-bold">MGE</span></p>
+            
+            <button onclick="accesoAncianos()" class="mt-6 text-[10px] text-gray-500 hover:text-white underline">
+                Acceso Ancianos
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // LÓGICA DEL MENÚ MÓVIL
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ACCESO ANCIANOS
+        function accesoAncianos() {
+            const clave = prompt("Ingrese la contraseña de Ancianos:");
+            if (clave && clave.trim().toLowerCase() === "iasd") {
+                window.location.href = "./orden_culto.html";
+            }
+        }
+    </script>
+
+    <script>
+/* ==========================
+    CARRUSEL AUTOMÁTICO
+========================== */
+
+const fotos = [
+    "imagenes/foto1.jpg",
+    "imagenes/foto2.jpg",
+    "imagenes/foto3.jpg",
+    "imagenes/foto4.jpg",
+    "imagenes/foto5.jpg",
+    "imagenes/foto6.jpg",
+    "imagenes/foto8.jpg",
+    "imagenes/foto9.jpg",
+    "imagenes/foto10.jpg",
+    "imagenes/foto11.jpg",
+    "imagenes/foto12.jpg",
+    "imagenes/foto13.jpg"
+];
+
+let index = 0;
+const img = document.getElementById("carousel");
+
+if (img) {
+    setInterval(() => {
+        img.classList.add("opacity-0");
+
+        setTimeout(() => {
+            index = (index + 1) % fotos.length;
+            img.src = fotos[index];
+            img.classList.remove("opacity-0");
+        }, 400);
+
+    }, 4000);
+}
+</script>
+
+</body>
+</html>

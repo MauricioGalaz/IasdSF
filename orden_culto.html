@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Plataforma IASD Limache - Gestión de Culto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-main: #1e3a8a;
+            --gold-accent: #b45309;
+            --bg-page: #f8fafc;
+            --white: #ffffff;
+            --gray-text: #475569;
+        }
+
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-page); 
+            margin: 0; 
+            padding: 10px;
+            color: var(--gray-text);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        header { text-align: center; border-bottom: 2px solid var(--blue-main); padding-bottom: 15px; margin-bottom: 25px; }
+        header h1 { color: var(--blue-main); font-family: 'Roboto Slab', serif; margin: 0; font-size: 1.6rem; }
+        header p { color: var(--gold-accent); margin: 5px 0; font-weight: bold; letter-spacing: 1px; }
+
+        .section-header {
+            background: var(--blue-main);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: 20px 0 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--blue-main); }
+        input, select { 
+            width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 0.9rem; 
+        }
+
+        .static-hymn { font-size: 0.85rem; background: #f1f5f9; padding: 10px; border-radius: 8px; border-left: 4px solid var(--gold-accent); margin-bottom: 10px; }
+
+        .actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 30px; }
+        button, a { 
+            padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; text-align: center; text-decoration: none;
+        }
+        .btn-wa { background: #25d366; }
+        .btn-pdf { background: var(--blue-main); }
+        .btn-clear { background: #ef4444; }
+
+        @media print {
+            .actions, input, label, select { display: none !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; }
+            .print-only { display: block !important; border-bottom: 1px solid #eee; padding: 10px 0; }
+            .section-header { background: #eee !important; color: black !important; border: 1px solid #000; }
+        }
+
+        .print-only { display: none; font-size: 1rem; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .actions { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container" id="contenidoPDF">
+    <header>
+        <p>IGLESIA ADVENTISTA DEL SÉPTIMO DÍA</p>
+        <h1>SAN FRANCISCO DE LIMACHE</h1>
+        <small>Planificación creada por MGE</small>
+    </header>
+    
+
+    <div class="grid">
+        <div class="form-group">
+            <label>Sábado Fecha:</label>
+            <input type="date" id="fecha">
+            <div class="print-only" id="p-fecha"></div>
+        </div>
+        <div class="form-group">
+            <label>Predicador(a):</label>
+            <input type="text" id="predicador" placeholder="Nombre">
+            <div class="print-only" id="p-predicador"></div>
+        </div>
+    </div>
+
+    <div class="section-header">1. Preludio e Ingreso</div>
+    <div class="form-group">
+        <label>Cantos Previos (2 a 3 himnos):</label>
+        <input type="text" id="previa" placeholder="N° Himnos">
+        <div class="print-only" id="p-previa"></div>
+    </div>
+    <div class="static-hymn"><strong>Ingreso:</strong> Himno 32 "Nos reunimos en tu santuario" (De pie).</div>
+    <div class="static-hymn"><strong>Con Plataforma:</strong> Himno 135 "Cristo nombre sublime".</div>
+
+    <div class="section-header">2. Liturgia Central - Bloque Acompañante 1</div>
+    <div class="form-group">
+        <label>Nombre Acompañante 1:</label>
+        <input type="text" id="acomp1" placeholder="Encargado Bienvenida">
+        <div class="print-only" id="p-acomp1"></div>
+    </div>
+    <div class="static-hymn">✅ Bienvenida y Saludos</div>
+    <div class="static-hymn">📽️ Video: "Probad y Ved" (Proyectado)</div>
+    <div class="form-group">
+        <label>Diezmos y Ofrendas (Himno. 525):</label>
+        <input type="text" id="ofrendas_enc" placeholder="Ingresa nombres de Diáconos">
+        <div class="print-only" id="p-ofrendas"></div>
+    </div>
+    <div class="form-group">
+        <label>Himno Inicial (N° y Título):</label>
+        <input type="text" id="himno_i" placeholder="Solicitar previamente al predicador">
+        <div class="print-only" id="p-himnoi"></div>
+    </div>
+
+    <div class="section-header">3. Bloque Acompañante 2</div>
+    <div class="form-group">
+        <label>Nombre Acompañante 2:</label>
+        <input type="text" id="acomp2" placeholder="Encargado Oración">
+        <div class="print-only" id="p-acomp2"></div>
+    </div>
+    <div class="form-group">
+        <label>Lectura Bíblica (Cita):</label>
+        <input type="text" id="lectura" placeholder="Solicitar previamente al predicador">
+        <div class="print-only" id="p-lectura"></div>
+    </div>
+    <div class="static-hymn">🛐 Oración Intercesora: <strong>Himno 36</strong> (Fondo Musical)</div>
+    
+    <div class="form-group">
+        <label>Adoración Infantil:</label>
+        <select id="infantil">
+            <option value="Video Proyectado">Video Proyectado</option>
+            <option value="Relator(a) presente">Relator(a) presente</option>
+        </select>
+        <input type="text" id="relatador_nombre" placeholder="Nombre del Relator (si aplica)" style="margin-top:5px;">
+        <div class="print-only" id="p-infantil"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Alabanza Musical (Opcional):</label>
+        <input type="text" id="especial" placeholder="Nombre solista/grupo">
+        <div class="print-only" id="p-especial"></div>
+    </div>
+
+    <div class="section-header">4. Mensaje y Salida</div>
+    <div class="static-hymn">📖 Sermón: <strong>Predicador(a)</strong></div>
+    <div class="form-group">
+        <label>Himno Final (N° y Título):</label>
+        <input type="text" id="himno_f" placeholder="Solicitar previamente al predicador">
+        <div class="print-only" id="p-himnof"></div>
+    </div>
+    <div class="static-hymn">🏁 Cierre: Oración final y Himno 41 (Salida plataforma)</div>
+    <div class="static-hymn">🚪 Salida: Himno 57 (Fondo musical)</div>
+
+    <div class="actions">
+        <button class="btn-wa" onclick="enviarWhatsApp()">📲 Enviar Orden por WhatsApp</button>
+        <button class="btn-pdf" onclick="generarPDFyEnviar()">📄 Enviar Orden PDF por WhatsApp</button>
+        <button type="button" class="btn-clear" onclick="limpiar()">Limpiar</button>
+    </div>
+
+    <footer style="margin-top:40px; text-align:center; font-size:0.9rem; color:#1b1068; font-weight: bold;">
+        ** Coordinación de Plataforma | ANCIANOS | IASD San Francisco de Limache **
+    
+        <!-- Botón Volver al Inicio -->
+<div style="text-align:center; margin: 30px 0;">
+    <a href="index.html" 
+        style="display:inline-block; background:#c7a488; color:#1e3a8a; padding:12px 25px; 
+        border-radius:10px; font-weight:bold; text-decoration:none; transition:0.3s;"
+        onmouseover="this.style.background='#fbbf24'; this.style.color='#000';"
+        onmouseout="this.style.background='#b45309'; this.style.color='#1e3a8a';">
+        ⬅ Volver al Inicio
+    </a>
+</div>
+
+</div>
+</footer>
+<!-- Librería para PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function limpiar() {
+    document.querySelectorAll('input').forEach(i => i.value = '');
+    document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+}
+
+// Generar PDF y abrir WhatsApp
+function generarPDFyEnviar() {
+    const elemento = document.getElementById("contenidoPDF");
+
+    const opciones = {
+        margin: 0.5,
+        filename: 'Orden_Culto_IASD_Limache.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opciones).from(elemento).save().then(() => {
+        alert("PDF generado ✅\nAhora se abrirá WhatsApp para enviar el archivo.");
+        window.open("https://wa.me/", "_blank");
+    });
+}
+</script>
+
+<script>
+function enviarWhatsApp() {
+    const f = id => {
+        const el = document.getElementById(id);
+        return el && el.value ? el.value : "---";
+    };
+
+    const modoInfantil = f("infantil");
+    const relator = f("relatador_nombre");
+    const infoInfantil = relator !== "---" ? `${modoInfantil} (${relator})` : modoInfantil;
+
+    const mensaje = 
+`📋 *ORDEN DE CULTO – IASD LIMACHE*
+
+📅 Fecha: ${f("fecha")}
+🎤 Predicador: ${f("predicador")}
+
+🎶 *PRELUDIO*
+- Himnos previos: ${f("previa")}
+- Ingreso: Himno 32
+- Plataforma: Himno 135
+
+🤝 *LITURGIA CENTRAL*
+- Acompañante 1: ${f("acomp1")}
+- Ofrendas: ${f("ofrendas_enc")}
+- Himno Inicial: ${f("himno_i")}
+
+🙏 *BLOQUE ESPIRITUAL*
+- Acompañante 2: ${f("acomp2")}
+- Lectura Bíblica: ${f("lectura")}
+- Oración Intercesora: Himno 36
+- Adoración Infantil: ${infoInfantil}
+- Especial: ${f("especial")}
+
+📖 *MENSAJE*
+- Sermón: ${f("predicador")}
+
+🎵 *CIERRE*
+- Himno Final: ${f("himno_f")}
+- Oración Final (Himno 41)
+- Salida (Himno 57)
+
+👴 ANCIANOS – IASD San Francisco de Limache`;
+
+    const ancianos = [
+        { nombre: "Mauricio Galaz", numero: "56968401298" },
+        { nombre: "Guillermo Vera", numero: "56990724209" },
+        { nombre: "Victor Recabarren", numero: "56996997577" }
+    ];
+
+    for (let a of ancianos) {
+        const ok = confirm(`¿Enviar Orden de Culto a ${a.nombre}?`);
+        if (ok) {
+            const url = `https://wa.me/${a.numero}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, "_blank");
+        }
+    }
+}
+</script>
+
+
+</body>
+</html>

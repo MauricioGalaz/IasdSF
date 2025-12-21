@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IASD - San Francisco de Limache</title>
+    <meta name="description"
+        content="Comunidad de fe de la Iglesia Adventista del Séptimo Día de San Francisco de Limache. Comparte tus oraciones, testimonios y estudia la Palabra de Dios con nosotros.">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="container nav-container">
+
+                <!-- LOGO -->
+                <div class="logo">
+                    <img src="imagenes/oracion.jpg" alt="Logo IASD" class="logo-img">
+
+                    <div class="logo-text">
+                        <h1>IASD San Francisco</h1>
+                        <p>Limache</p>
+                    </div>
+                </div>
+
+                <!-- BOTÓN HAMBURGUESA -->
+                <button class="mobile-menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- MENÚ -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#inicio" class="nav-link"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#oracion" class="nav-link"><i class="fas fa-praying-hands"></i> Oración</a></li>
+                    <li><a href="#estudio" class="nav-link"><i class="fas fa-bible"></i> Estudio</a></li>
+                    <li>
+                        <a href="../index.html" class="nav-link">
+                            <i class="fas fa-arrow-left"></i> Volver a la App
+                        </a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="container">
+                <h2 class="hero-title">Bienvenidos a Nuestra Familia de Fe</h2>
+                <p class="hero-subtitle">Iglesia Adventista del Séptimo Día - San Francisco de Limache</p>
+                <div class="verse-box">
+                    <i class="fas fa-bible"></i>
+                    <p class="verse-text">"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en
+                        medio de ellos."</p>
+                    <p class="verse-ref">Mateo 18:20</p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#oracion" class="btn btn-primary"><i class="fas fa-praying-hands"></i> Compartir Pedido de
+                        Oración</a>
+                    <a href="#testimonios" class="btn btn-secondary"><i class="fas fa-comment-dots"></i> Compartir
+                        Testimonio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pedidos de Oración Section -->
+    <section id="oracion" class="section prayer-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-praying-hands section-icon"></i>
+                <h2 class="section-title">Pedidos de Oración</h2>
+                <p class="section-description">Comparte tus necesidades con nuestra familia de fe. Oramos unos por
+                    otros.</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- Formulario de Pedido -->
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> Nuevo Pedido de Oración</h3>
+                    <form id="prayer-form" class="prayer-form">
+                        <div class="form-group">
+                            <label for="prayer-name"><i class="fas fa-user"></i> Tu Nombre</label>
+                            <input type="text" id="prayer-name" name="nombre" required placeholder="Ingresa tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prayer-category"><i class="fas fa-list"></i> Categoría</label>
+                            <select id="prayer-category" name="categoria" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="salud">Salud</option>
+                                <option value="familia">Familia</option>
+                                <option value="trabajo">Trabajo/Estudios</option>
+                                <option value="espiritual">Vida Espiritual</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prayer-request"><i class="fas fa-pen"></i> Tu Petición</label>
+                            <textarea id="prayer-request" name="peticion" required rows="5"
+                                placeholder="Comparte tu necesidad de oración..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar Pedido
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Pedidos -->
+                <div class="prayers-list-card">
+                    <h3><i class="fas fa-list"></i> Peticiones Activas</h3>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="todos">Todos</button>
+                        <button class="filter-tab" data-filter="salud">Salud</button>
+                        <button class="filter-tab" data-filter="familia">Familia</button>
+                        <button class="filter-tab" data-filter="trabajo">Trabajo</button>
+                        <button class="filter-tab" data-filter="espiritual">Espiritual</button>
+                    </div>
+                    <div id="prayers-list" class="prayers-list">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando peticiones...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agradecimientos Section -->
+    <section id="agradecimientos" class="section thanksgiving-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-heart section-icon"></i>
+                <h2 class="section-title">Agradecimientos a Dios</h2>
+                <p class="section-description">Celebramos las bendiciones y respuestas a nuestras oraciones.</p>
+            </div>
+
+            <div class="content-grid">
+
+                <!-- Formulario de Agradecimiento -->
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> Compartir Agradecimiento</h3>
+                    <form id="thanksgiving-form" class="thanksgiving-form">
+                        <div class="form-group">
+                            <label for="thanks-name"><i class="fas fa-user"></i> Tu Nombre</label>
+                            <input type="text" id="thanks-name" name="nombre" required placeholder="Ingresa tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="thanks-category"><i class="fas fa-list"></i> Categoría de Bendición</label>
+                            <select id="thanks-category" name="categoria" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="salud">Sanidad</option>
+                                <option value="provision">Provisión</option>
+                                <option value="familia">Familia</option>
+                                <option value="trabajo">Trabajo</option>
+                                <option value="espiritual">Crecimiento Espiritual</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="thanks-testimony"><i class="fas fa-pen"></i> Tu Testimonio de Gratitud</label>
+                            <textarea id="thanks-testimony" name="testimonio" required rows="5"
+                                placeholder="Comparte cómo Dios ha bendecido tu vida..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Compartir Agradecimiento
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Agradecimientos -->
+                <div class="thanksgiving-list-card">
+                    <h3><i class="fas fa-list"></i> Testimonios de Gratitud</h3>
+                    <div id="thanksgiving-list" class="thanksgiving-list">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando agradecimientos...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section id="testimonios" class="section testimonies-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-comment-dots section-icon"></i>
+                <h2 class="section-title">Testimonios de Fe</h2>
+                <p class="section-description">Historias de cómo Dios transforma vidas y fortalece nuestra fe.</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- Formulario de Testimonio -->
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> Compartir Testimonio</h3>
+                    <form id="testimony-form" class="testimony-form">
+                        <div class="form-group">
+                            <label for="testimony-name"><i class="fas fa-user"></i> Tu Nombre</label>
+                            <input type="text" id="testimony-name" name="nombre" required
+                                placeholder="Ingresa tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="testimony-title"><i class="fas fa-heading"></i> Título del Testimonio</label>
+                            <input type="text" id="testimony-title" name="titulo" required
+                                placeholder="Ej: Cómo Dios restauró mi familia">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="testimony-content"><i class="fas fa-pen"></i> Tu Testimonio</label>
+                            <textarea id="testimony-content" name="contenido" required rows="6"
+                                placeholder="Comparte tu experiencia de fe..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="testimony-verse"><i class="fas fa-bible"></i> Versículo Relacionado
+                                (opcional)</label>
+                            <input type="text" id="testimony-verse" name="versiculo" placeholder="Ej: Juan 3:16">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Compartir Testimonio
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Testimonios -->
+                <div class="testimonies-list-card">
+                    <h3><i class="fas fa-list"></i> Testimonios de la Comunidad</h3>
+                    <div id="testimonies-list" class="testimonies-list">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando testimonios...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estudio Bíblico Section -->
+    <section id="estudio" class="section study-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-book-open section-icon"></i>
+                <h2 class="section-title">Estudio Bíblico</h2>
+                <p class="section-description">Recursos y guías para profundizar en la Palabra de Dios.</p>
+            </div>
+
+            <div class="study-grid">
+                <!-- Guías de Estudio -->
+                <div class="study-card">
+                    <div class="study-card-icon">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3>Guías de Estudio Diario</h3>
+                    <p>Recursos para tu estudio personal de la Biblia</p>
+                    <ul class="study-list">
+                        <li><a href="https://am.adventistas.org/es/recursos/videos/" target="_blank"><i
+                                    class="fas fa-video"></i> Lecciones en Video</a></li>
+                        <li><a href="https://escuelasabatica.cl/" target="_blank"><i class="fas fa-book"></i> Lección de
+                                Escuela Sabática</a></li>
+                        <li><a href="https://www.adventistas.org/es/institucional/recursos-biblicos/" target="_blank"><i
+                                    class="fas fa-clipboard-list"></i> Guías Temáticas</a></li>
+                        <li><a href="https://www.biblegateway.com/versions/Reina-Valera-1960-RVR1960-Biblia/"
+                                target="_blank"><i class="fas fa-bible"></i> Biblia en Línea</a></li>
+                    </ul>
+                </div>
+
+                <!-- Estudios Temáticos -->
+                <div class="study-card">
+                    <div class="study-card-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3>Estudios Temáticos</h3>
+                    <p>Profundiza en temas específicos de la fe</p>
+                    <ul class="study-list">
+                        <li><i class="fas fa-cross"></i> El Plan de Salvación</li>
+                        <li><i class="fas fa-dove"></i> El Espíritu Santo</li>
+                        <li><i class="fas fa-hands-praying"></i> La Oración Eficaz</li>
+                        <li><i class="fas fa-heart"></i> El Amor de Dios</li>
+                        <li><i class="fas fa-crown"></i> La Segunda Venida</li>
+                        <li><i class="fas fa-hand-holding-heart"></i> Vida Cristiana Práctica</li>
+                    </ul>
+                </div>
+
+                <!-- Recursos Adventistas -->
+                <div class="study-card">
+                    <div class="study-card-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Recursos Adventistas</h3>
+                    <p>Materiales oficiales de la Iglesia Adventista</p>
+                    <ul class="study-list">
+                        <li><a href="https://www.adventistas.org/es/creencias/" target="_blank"><i
+                                    class="fas fa-list-check"></i> 28 Creencias Fundamentales</a></li>
+                        <li><a href="https://www.ministeriosnpe.org/" target="_blank"><i
+                                    class="fas fa-graduation-cap"></i> Ministerios Nuevos Personas</a></li>
+                        <li><a href="https://www.hopetv.org/es/" target="_blank"><i class="fas fa-tv"></i> HopeTV en
+                                Español</a></li>
+                        <li><a href="https://www.adventistas.org/es/radio/" target="_blank"><i
+                                    class="fas fa-podcast"></i> Radio Adventista</a></li>
+                    </ul>
+                </div>
+
+                <!-- Plan de Lectura -->
+                <div class="study-card">
+                    <div class="study-card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Plan de Lectura Bíblica</h3>
+                    <p>Lee la Biblia completa en un año</p>
+                    <ul class="study-list">
+                        <li><i class="fas fa-calendar-day"></i> Plan de 365 días</li>
+                        <li><i class="fas fa-bookmark"></i> Antiguo y Nuevo Testamento</li>
+                        <li><i class="fas fa-clock"></i> 15-20 minutos diarios</li>
+                        <li><i class="fas fa-chart-line"></i> Seguimiento de progreso</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biblioteca de Esperanza Section -->
+    <section id="biblioteca" class="section library-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-book section-icon"></i>
+                <h2 class="section-title">Biblioteca de Esperanza</h2>
+                <p class="section-description">Obras de Elena G. de White y recursos inspiradores</p>
+            </div>
+
+            <div class="library-intro">
+                <p>Elena G. de White fue una de las fundadoras de la Iglesia Adventista del Séptimo Día. Sus escritos
+                    han inspirado a millones de personas en todo el mundo. Aquí encontrarás acceso a sus obras más
+                    importantes.</p>
+            </div>
+
+            <div class="books-grid">
+                <!-- El Camino a Cristo -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-cross"></i>
+                    </div>
+                    <h3>El Camino a Cristo</h3>
+                    <p>Una guía para encontrar paz y esperanza en Jesús</p>
+                    <a href="https://egwwritings.org/read?panels=p8.1&index=0" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- El Conflicto de los Siglos -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>El Conflicto de los Siglos</h3>
+                    <p>La gran controversia entre Cristo y Satanás</p>
+                    <a href="https://egwwritings.org/read?panels=p132.1&index=0" target="_blank"
+                        class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- El Deseado de Todas las Gentes -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>El Deseado de Todas las Gentes</h3>
+                    <p>La vida de Cristo narrada con profundidad</p>
+                    <a href="https://egwwritings.org/read?panels=p130.1&index=0" target="_blank"
+                        class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- Patriarcas y Profetas -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3>Patriarcas y Profetas</h3>
+                    <p>Historia bíblica desde la creación hasta el rey David</p>
+                    <a href="https://egwwritings.org/read?panels=p84.1&index=0" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- Palabras de Vida del Gran Maestro -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Palabras de Vida del Gran Maestro</h3>
+                    <p>Las parábolas de Jesús explicadas</p>
+                    <a href="https://egwwritings.org/read?panels=p15.1&index=0" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- Hechos de los Apóstoles -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Hechos de los Apóstoles</h3>
+                    <p>Historia de la iglesia primitiva</p>
+                    <a href="https://egwwritings.org/read?panels=p108.1&index=0" target="_blank"
+                        class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- El Ministerio de Curación -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h3>El Ministerio de Curación</h3>
+                    <p>Salud física, mental y espiritual</p>
+                    <a href="https://egwwritings.org/read?panels=p127.1&index=0" target="_blank"
+                        class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+
+                <!-- La Educación -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>La Educación</h3>
+                    <p>Principios de la verdadera educación</p>
+                    <a href="https://egwwritings.org/read?panels=p29.1&index=0" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Leer en Línea
+                    </a>
+                </div>
+            </div>
+
+            <div class="library-footer">
+                <p><i class="fas fa-info-circle"></i> Todos los libros están disponibles gratuitamente en el sitio
+                    oficial:</p>
+                <a href="https://egwwritings.org/" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-globe"></i> Visitar EGW Writings
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Oración Intercesora Section -->
+    <section id="intercesora" class="section intercessory-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-hands section-icon"></i>
+                <h2 class="section-title">Muro de Oración Intercesora</h2>
+                <p class="section-description">Únete en oración por las necesidades de nuestra comunidad</p>
+            </div>
+
+            <div class="intercessory-intro">
+                <div class="intro-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Oremos Juntos</h3>
+                    <p>"La oración ferviente del justo es muy poderosa y efectiva." - Santiago 5:16</p>
+                </div>
+            </div>
+
+            <div id="intercessory-wall" class="intercessory-wall">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Cargando peticiones...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Noticias y Eventos Section -->
+    <section id="noticias" class="section news-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-newspaper section-icon"></i>
+                <h2 class="section-title">Noticias y Eventos</h2>
+                <p class="section-description">Mantente informado sobre las actividades de nuestra iglesia</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- Formulario de Noticia (solo para administradores) -->
+                <div class="form-card">
+                    <h3><i class="fas fa-plus-circle"></i> Publicar Noticia/Evento</h3>
+                    <form id="news-form" class="news-form">
+                        <div class="form-group">
+                            <label for="news-title"><i class="fas fa-heading"></i> Título</label>
+                            <input type="text" id="news-title" name="titulo" required
+                                placeholder="Título de la noticia o evento">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="news-type"><i class="fas fa-list"></i> Tipo</label>
+                            <select id="news-type" name="tipo" required>
+                                <option value="">Selecciona el tipo</option>
+                                <option value="noticia">Noticia</option>
+                                <option value="evento">Evento</option>
+                                <option value="anuncio">Anuncio</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="news-content"><i class="fas fa-pen"></i> Contenido</label>
+                            <textarea id="news-content" name="contenido" required rows="5"
+                                placeholder="Describe la noticia o evento..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="news-event-date"><i class="fas fa-calendar"></i> Fecha del Evento (si
+                                aplica)</label>
+                            <input type="datetime-local" id="news-event-date" name="fecha_evento">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Publicar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Noticias -->
+                <div class="news-list-card">
+                    <h3><i class="fas fa-list"></i> Últimas Publicaciones</h3>
+                    <div class="news-filter">
+                        <button class="filter-btn active" data-type="todos">Todos</button>
+                        <button class="filter-btn" data-type="noticia">Noticias</button>
+                        <button class="filter-btn" data-type="evento">Eventos</button>
+                        <button class="filter-btn" data-type="anuncio">Anuncios</button>
+                    </div>
+                    <div id="news-list" class="news-list">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando publicaciones...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <i class="fas fa-envelope section-icon"></i>
+                <h2 class="section-title">Contáctanos</h2>
+                <p class="section-description">Estamos aquí para servirte y acompañarte en tu caminar de fe</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Información de Contacto -->
+                <div class="contact-info">
+                    <h3>Información de la Iglesia</h3>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Dirección</h4>
+                            <p>San Francisco de Limache<br>Región de Valparaíso, Chile</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horarios de Culto</h4>
+                            <p><strong>Sábados:</strong></p>
+                            <p>Escuela Sabática: 9:30 AM</p>
+                            <p>Culto Divino: 11:00 AM</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>Próximamente</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>Próximamente</p>
+                        </div>
+                    </div>
+
+                    <div class="social-media">
+                        <h4>Síguenos</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Contacto -->
+                <div class="contact-form-card">
+                    <h3>Envíanos un Mensaje</h3>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name"><i class="fas fa-user"></i> Nombre Completo</label>
+                            <input type="text" id="contact-name" required placeholder="Tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="contact-email" required placeholder="tu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone"><i class="fas fa-phone"></i> Teléfono (opcional)</label>
+                            <input type="tel" id="contact-phone" placeholder="+56 9 1234 5678">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message"><i class="fas fa-comment"></i> Mensaje</label>
+                            <textarea id="contact-message" required rows="5"
+                                placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IASD San Francisco de Limache</h4>
+                    <h4>
+                        <center>Salmos 23:1 </center>
+                    </h4>
+                    <h3 class="footer-verse">"El Señor es mi pastor, nada me faltará"</h3>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Enlaces Útiles</h4>
+                    <ul>
+                        <li><a href="https://www.adventistas.org/es/" target="_blank">Iglesia Adventista Mundial</a>
+                        </li>
+                        <li><a href="https://www.adventistas.cl/" target="_blank">Adventistas Chile</a></li>
+                        <li><a href="https://escuelasabatica.cl/" target="_blank">Escuela Sabática</a></li>
+                        <li><a href="https://egwwritings.org/" target="_blank">EGW Writings</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Comunidad</h4>
+                    <ul>
+                        <li><a href="#oraciones">Pedidos de Oración</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#estudio">Estudio Bíblico</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Iglesia Adventista del Séptimo Día - San Francisco de Limache</p>
+                <p>Desarrollado con amor por Mauricio Galaz</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+
+    <script>
+        function volverAPK() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.close();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

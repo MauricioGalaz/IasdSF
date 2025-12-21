@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Ministerio – IASD Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f4f4f4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-700">
+
+        <!-- NAV MINISTERIOS -->
+    <nav class="bg-adventist-blue text-white shadow fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+            <!-- VOLVER -->
+            <a href="../index.html"
+                class="flex items-center space-x-2 text-sm font-semibold hover:text-adventist-gold transition">
+                <i class="fas fa-arrow-left text-lg"></i>
+                <span>Inicio</span>
+            </a>
+
+            <!-- LOGO -->
+            <div class="flex items-center space-x-3">
+                <img src="../imagenes/logo.jpg" class="h-8 rounded-full">
+                <span class="font-heading font-bold text-xs leading-tight">
+                    IASD<br>San Francisco de Limache
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="py-20 bg-adventist-light text-center">
+        <h1 class="text-4xl font-bold text-adventist-blue mb-4">
+            MINISTERIO  DE MAYORDOMIA
+        </h1>
+        <p class="max-w-3xl mx-auto text-gray-600">
+            Fé y Fidelidad a toda prueba.
+        </p>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-6">📹 Videos</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <button onclick="cargarVideo('https://www.youtube.com/embed/dsdjHEMnFJs')"
+                    class="bg-adventist-blue text-white py-2 rounded">Video 1</button>
+                <button onclick="cargarVideo('https://www.youtube.com/embed/yCIyxcDc5Z4')"
+                    class="bg-adventist-blue text-white py-2 rounded">Video 2</button>
+            </div>
+
+            <iframe id="videoFrame" class="w-full h-96 rounded shadow" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOTICIAS -->
+    <section class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📰 Noticias</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Actividad Próxima</h4>
+                    <p class="text-sm text-gray-600">Información destacada del ministerio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Evento Especial</h4>
+                    <p class="text-sm text-gray-600">Invitación o anuncio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Mensaje Espiritual</h4>
+                    <p class="text-sm text-gray-600">Reflexión breve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-6 text-center text-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-youtube fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="border-gray-800 my-6">
+
+            <p>© 2025 Iglesia Adventista del Séptimo Día – Limache</p>
+            <p class="mt-2">
+                Desarrollado con <i class="fas fa-heart text-red-500"></i> por
+                <a href="#" class="text-adventist-gold hover:underline font-bold">MGE</a>
+            </p>
+        </div>
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+    </footer>
+    
+    <script>
+        /* Cambiar video */
+        function cargarVideo(url) {
+            document.getElementById("videoFrame").src = url;
+        }
+
+        /* Botón volver arriba */
+        const btnTop = document.getElementById("btnTop");
+
+        window.addEventListener("scroll", () => {
+            btnTop.classList.toggle("hidden", window.scrollY < 300);
+        });
+
+        btnTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+
+</body>
+
+</html>
