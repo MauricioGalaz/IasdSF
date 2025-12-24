@@ -19,6 +19,62 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+<STYle>
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(30px);
+        background: #1e1e2f;
+        color: #fff;
+        padding: 16px 22px;
+        border-radius: 16px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        opacity: 0;
+        pointer-events: none;
+        transition: all .45s cubic-bezier(.25, .8, .25, 1);
+        z-index: 9999;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+    }
+
+    /* Tipos */
+    .toast.success {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+
+    .toast.error {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .toast.info {
+        background: linear-gradient(135deg, #3498db, #1f6fa8);
+    }
+
+    .toast-icon {
+        font-size: 20px;
+    }
+
+    .toast button {
+        background: rgba(255, 255, 255, .2);
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        line-height: 24px;
+    }
+</STYle>
 
 <body>
     <!-- Header & Navigation -->
@@ -132,12 +188,14 @@
                 <div class="prayers-list-card">
                     <h3><i class="fas fa-list"></i> Peticiones Activas</h3>
                     <div class="filters">
-                        <button class="filter-btn active" data-filter="todos">Todos</button>
-                        <button class="filter-btn" data-filter="Salud">Salud</button>
-                        <button class="filter-btn" data-filter="Familia">Familia</button>
-                        <button class="filter-btn" data-filter="Trabajo">Trabajo</button>
-                        <button class="filter-btn" data-filter="Espiritual">Espiritual</button>
+                        <button class="filter-btn" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="salud">Salud</button>
+                        <button class="filter-btn" data-filter="familia">Familia</button>
+                        <button class="filter-btn" data-filter="trabajo">Trabajo</button>
+                        <button class="filter-btn" data-filter="espiritual">Espiritual</button>
+
                     </div>
+
                     <div id="prayers-list" class="prayers-list">
                         <div class="loading">
                             <i class="fas fa-spinner fa-spin"></i> Cargando peticiones...
@@ -693,7 +751,7 @@
 
             <div class="footer-bottom">
                 <p>&copy; 2025 Iglesia Adventista del Séptimo Día - San Francisco de Limache</p>
-                <p>Desarrollado con amor por MGE</p>
+                <p>Desarrollado con amor MGE</p>
             </div>
         </div>
     </footer>
@@ -710,6 +768,15 @@
             }
         }
     </script>
+    <div id="toast" class="toast success">
+        <span id="toast-icon" class="toast-icon">🙏</span>
+        <span id="toast-text"></span>
+        <button onclick="closeToast()">✕</button>
+    </div>
+
+    <audio id="toast-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3" type="audio/mpeg">
+    </audio>
 
 </body>
 

@@ -18,7 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupContactForm();
 
     renderAll();
+
+    // 📖 Mensaje bíblico automático
+    setTimeout(showVerse, 3000);
 });
+
 // ===============================
 // FILTROS DE PETICIONES
 // ===============================
@@ -78,11 +82,57 @@ function setupSmoothScroll() {
 }
 
 // ===================================
-// MENSAJES
+// MENSAJES PRO (Toast moderno)
 // ===================================
-function showMessage(msg, type = 'success') {
-    alert(msg);
+function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+    const text = document.getElementById("toast-text");
+    const icon = document.getElementById("toast-icon");
+    const sound = document.getElementById("toast-sound");
+
+    if (!toast || !text) return;
+
+    // Reset clases
+    toast.className = "toast show " + type;
+
+    // Iconos según tipo
+    const icons = {
+        success: "🙏",
+        error: "❌",
+        info: "ℹ️"
+    };
+    icon.innerText = icons[type] || "🔔";
+
+    text.innerText = message;
+
+    // Sonido
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(()=>{});
+    }
+
+    // Vibración móvil
+    if (navigator.vibrate) {
+        navigator.vibrate(120);
+    }
+
+    // Auto cerrar
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 4500);
 }
+
+function closeToast(){
+    const toast = document.getElementById("toast");
+    if (toast) toast.classList.remove("show");
+}
+
+// FUNCIÓN GLOBAL (NO CAMBIES EL RESTO DEL SISTEMA)
+function showMessage(msg, type = "success") {
+    showToast(msg, type);
+}
+
+
 
 // ===================================
 // ORACIÓN
@@ -97,7 +147,7 @@ function setupPrayerForm() {
         const prayer = {
             id: Date.now(),
             nombre: form.nombre.value,
-            categoria: form.categoria.value,
+            categoria: form.categoria.value.toLowerCase().trim(),
             peticion: form.peticion.value,
             oraciones: 0,
             estado: 'activo',
@@ -111,8 +161,10 @@ function setupPrayerForm() {
         form.reset();
         loadPrayers();
         loadIntercessoryWall();
-        showMessage('🙏 Pedido de oración guardado correctamente');
-    };
+        showMessage('🙏 Pedido de oración guardado correctamente', 'success');
+        setTimeout(showVerse, 1500);
+
+        };
 }
 
 function loadPrayers() {
@@ -137,6 +189,7 @@ function loadPrayers() {
             </div>
         `).join('');
 }
+
 function prayForRequest(id) {
     const data = getData('prayers');
     const prayer = data.find(p => p.id === id);
@@ -309,4 +362,20 @@ function setupContactForm() {
         showMessage('📩 Mensaje enviado. Nos contactaremos pronto.');
         form.reset();
     };
+}
+
+// ===================================
+// MENSAJES BÍBLICOS DINÁMICOS
+// ===================================
+const versiculos = [
+    "📖 Jehová es mi pastor; nada me faltará. – Salmos 23:1",
+    "📖 Todo lo puedo en Cristo que me fortalece. – Filipenses 4:13",
+    "📖 Clama a mí, y yo te responderé. – Jeremías 33:3",
+    "📖 El Señor te bendiga y te guarde. – Números 6:24",
+    "📖 Confía en Jehová con todo tu corazón. – Proverbios 3:5"
+];
+
+function showVerse(){
+    const verse = versiculos[Math.floor(Math.random() * versiculos.length)];
+    showToast(verse, "info");
 }
