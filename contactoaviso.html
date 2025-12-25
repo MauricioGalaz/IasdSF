@@ -7,9 +7,7 @@
     <title>Contacto - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -32,205 +30,153 @@
         }
     </script>
     <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+        }
         .hover-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .hover-card:hover {
-            transform: translateY(-8px);
+        @media (min-width: 768px) {
+            .hover-card:hover { transform: translateY(-8px); }
         }
-
         .glass-map {
             filter: grayscale(0.5) contrast(1.2);
             transition: all 0.5s ease;
         }
-
-        .glass-map:hover {
-            filter: grayscale(0);
+        .glass-map:hover { filter: grayscale(0); }
+        
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
         }
-
-        @keyframes pulse-subtle {
-
-            0%,
-            100% {
-                transform: scale(1);
-                shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            }
-
-            50% {
-                transform: scale(1.03);
-                shadow: 0 20px 25px -5px rgba(254, 195, 37, 0.4);
-            }
-        }
-
-        .animate-pulse-subtle {
-            animation: pulse-subtle 3s infinite ease-in-out;
+        #mobile-menu.open {
+            max-height: 400px;
+            padding: 1rem 0;
         }
     </style>
 </head>
 
 <body class="bg-slate-100 font-sans text-slate-900">
 
-    <nav
-        class="bg-adventist-blue/95 backdrop-blur-md text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 group">
-                <div class="bg-white p-1 rounded-full transition-transform group-hover:rotate-12">
+                <div class="bg-white p-1 rounded-full shrink-0">
                     <img src="imagenes/logo.jpg" alt="Logo" class="h-8 w-8 rounded-full">
                 </div>
-                <span class="font-heading font-black tracking-tighter text-lg uppercase">IASD LIMACHE</span>
+                <span class="font-heading font-black tracking-tighter text-sm md:text-lg">IASD SAN FRANCISCO DE LIMACHE</span>
             </a>
 
-            <div class="flex items-center gap-4 md:gap-8 font-bold text-[10px] md:text-xs uppercase tracking-widest">
+            <button id="menu-btn" class="md:hidden text-2xl p-2 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
 
-                <a href="avisos.html" class="relative bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full 
-                      flex items-center gap-2 shadow-[0_0_15px_rgba(254,195,37,0.4)] 
-                      hover:bg-white hover:scale-110 hover:shadow-white/20 
-                      transition-all duration-300 group/btn">
-                    <i class="fas fa-bell animate-bounce group-hover/btn:animate-none"></i>
-                    <span class="font-black">Avisos</span>
-                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500 border border-white"></span>
-                    </span>
+            <div class="hidden md:flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
+                <a href="avisos.html" class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white transition-all">
+                    <i class="fas fa-bell"></i> Avisos
                 </a>
-
-                <a href="cronograma.html"
-                    class="hover:text-adventist-gold transition-colors duration-300 hidden sm:block">Cronograma</a>
-
-                <a href="#contacto.html"
-                    class="flex items-center gap-1 text-adventist-gold border-b-2 border-adventist-gold pb-0.5">
-                    <i class="fas fa-envelope text-[10px]"></i>
-                    <span>Contacto</span>
-                </a>
+                <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
+                <span class="text-adventist-gold border-b-2 border-adventist-gold">Contacto</span>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-adventist-blue px-4 flex flex-col gap-4 font-bold text-center border-t border-white/10">
+            <a href="avisos.html" class="py-3 border-b border-white/5 text-adventist-gold italic underline">VER AVISOS</a>
+            <a href="cronograma.html" class="py-3 border-b border-white/5">CRONOGRAMA</a>
+            <a href="index.html" class="py-3">INICIO</a>
         </div>
     </nav>
 
-    <header
-        class="w-full bg-adventist-blue text-white pt-12 pb-24 px-6 text-center rounded-b-[3.5rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+    <header class="w-full bg-adventist-blue text-white pt-10 pb-20 px-4 text-center rounded-b-[3rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
         <div class="relative z-10">
-            <span
-                class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
+            <span class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
                 Canales Oficiales
             </span>
-            <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
+            <h1 class="text-4xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
                 CONTÁCTATE <br> <span class="text-adventist-gold">CON NOSOTROS</span>
             </h1>
-            <p class="text-lg md:text-2xl font-bold opacity-80 uppercase tracking-widest italic">
+            <p class="text-sm md:text-2xl font-bold opacity-80 uppercase tracking-widest italic">
                 Estamos para servirte y orar por ti
             </p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 -mt-12 pb-20 max-w-4xl space-y-8">
+    <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8">
 
-
-
-        <section class="container mx-auto px-4 py-12 max-w-5xl">
-            <div
-                class="hover-card bg-white rounded-[2.5rem] md:rounded-[4rem] shadow-2xl overflow-hidden border-b-[12px] border-adventist-blue">
-                <div class="flex flex-col md:flex-row">
-
-                    <div
-                        class="w-full md:w-1/2 p-10 md:p-16 flex flex-col items-center justify-center text-center bg-white">
-                        <div class="mb-10">
-                            <span
-                                class="text-adventist-gold font-black text-xs uppercase tracking-[0.3em] mb-2 block text-center">Ubicación
-                                Oficial</span>
-                            <h2
-                                class="text-4xl md:text-5xl font-heading font-black text-slate-800 uppercase leading-none text-center">
-                                Visítanos</h2>
-                            <div class="h-1.5 w-20 bg-adventist-gold mt-4 rounded-full mx-auto"></div>
-                        </div>
-
-                        <div class="space-y-10 w-full">
-                            <div class="flex flex-col items-center group">
-                                <div
-                                    class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold shadow-sm border border-slate-100 group-hover:bg-adventist-gold group-hover:text-white transition-all mb-3">
-                                    <i class="fas fa-envelope text-2xl"></i>
-                                </div>
-                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Correo
-                                    Electrónico</h4>
-                                <div class="w-full flex justify-center">
-                                    <a href="mailto:iasdsanfranciscodelimache@gmail.com"
-                                        class="flex items-center justify-center text-center text-slate-600 font-bold text-xs md:text-sm hover:text-adventist-blue transition-colors px-2 min-h-[40px] w-full max-w-full overflow-hidden">
-                                        <span
-                                            class="truncate md:whitespace-normal">iasdsanfranciscodelimache@gmail.com</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col items-center group">
-                                <div
-                                    class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold shadow-sm border border-slate-100 group-hover:bg-adventist-gold group-hover:text-white transition-all mb-3">
-                                    <i class="fas fa-phone-alt text-2xl"></i>
-                                </div>
-                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-                                    Teléfono Directo</h4>
-                                <p class="text-slate-800 font-black text-xl tracking-tighter">+56 9 90724209</p>
-                            </div>
-                        </div>
+        <section class="hover-card bg-white rounded-[2.5rem] md:rounded-[4rem] shadow-2xl overflow-hidden border-b-[12px] border-adventist-blue">
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col items-center justify-center text-center">
+                    <div class="mb-8">
+                        <span class="text-adventist-gold font-black text-[10px] uppercase tracking-[0.3em] mb-2 block">Ubicación Oficial</span>
+                        <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 uppercase leading-none">Visítanos</h2>
+                        <div class="h-1.5 w-16 bg-adventist-gold mt-4 rounded-full mx-auto"></div>
                     </div>
 
-                    <div class="w-full md:w-1/2 h-[400px] md:h-auto min-h-[450px] glass-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.8213274640475!2d-71.2676834!3d-33.0211135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689d901639d108d%3A0x6a0a0972410714b2!2sCarrera%20131%2C%20Limache%2C%20Valpara%C3%ADso!5e0!3m2!1ses-419!2scl!4v1710000000000"
-                            class="w-full h-full border-0 block" allowfullscreen="" loading="lazy">
-                        </iframe>
-                    </div>
+                    <div class="space-y-8 w-full">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold mb-3 border border-slate-100">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Correo Electrónico</h4>
+                            <a href="mailto:iasdsanfranciscodelimache@gmail.com" class="text-slate-600 font-bold text-xs md:text-sm break-all px-4">
+                                iasdsanfranciscodelimache@gmail.com
+                            </a>
+                        </div>
 
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold mb-3 border border-slate-100">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Teléfono Directo</h4>
+                            <p class="text-slate-800 font-black text-xl">+56 9 90724209</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 h-[300px] md:h-auto glass-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.165487616641!2d-71.2618636!3d-33.0125439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689d7f0ec68364d%3A0xc682946c1f1f2a3!2sIglesia%20Adventista%20del%20S%C3%A9ptimo%20D%C3%ADa!5e0!3m2!1ses!2scl!4v1700000000000" 
+                        class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </section>
 
-        <section
-            class="hover-card bg-adventist-blue text-white rounded-[3.5rem] p-10 shadow-2xl relative overflow-hidden">
+        <section class="hover-card bg-adventist-blue text-white rounded-[2.5rem] p-8 md:p-10 shadow-2xl relative overflow-hidden">
             <i class="fas fa-clock absolute -top-10 -right-10 text-9xl opacity-10"></i>
-            <h2 class="text-3xl font-heading font-black uppercase mb-6 text-adventist-gold italic">Horarios de Reunión
-            </h2>
-            <div class="space-y-4 font-bold text-lg">
-                <div class="flex justify-between border-b border-white/10 pb-2">
+            <h2 class="text-2xl md:text-3xl font-heading font-black uppercase mb-6 text-adventist-gold italic">Horarios de Reunión</h2>
+            <div class="space-y-4 font-bold text-sm md:text-lg">
+                <div class="flex flex-col sm:flex-row justify-between border-b border-white/10 pb-2">
                     <span>Sábados (Cultos de Adoración)</span>
                     <span class="text-adventist-gold">09:30 hrs</span>
                 </div>
-                <div class="flex justify-between border-b border-white/10 pb-2">
+                <div class="flex flex-col sm:flex-row justify-between border-b border-white/10 pb-2">
                     <span>Miércoles (Cultos de Oración)</span>
                     <span class="text-adventist-gold">19:00 hrs</span>
                 </div>
-
             </div>
         </section>
 
-        <section class="hover-card bg-white rounded-[3.5rem] p-10 shadow-2xl border-t-[16px] border-adventist-blue">
-            <div class="text-center mb-8">
+        <section class="hover-card bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 shadow-2xl border-t-[12px] md:border-t-[16px] border-adventist-blue">
+            <div class="text-center mb-10">
                 <i class="fas fa-heart-pulse text-5xl text-red-500 mb-4 animate-pulse"></i>
-                <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 uppercase italic">Pedidos de
-                    Oración</h2>
-                <p class="text-slate-500 font-bold uppercase text-sm tracking-widest">Queremos orar por ti y tu familia
-                </p>
+                <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 uppercase italic">Pedidos de Oración</h2>
+                <p class="text-slate-500 font-bold uppercase text-[10px] md:text-sm tracking-widest mt-2">Queremos orar por ti y tu familia</p>
             </div>
 
             <form id="formOracion" class="space-y-6">
                 <div>
-                    <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu
-                        Nombre</label>
-                    <input type="text" id="nombre" required
-                        class="w-full bg-slate-100 border-none rounded-[2rem] px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold"
-                        placeholder="Escribe tu nombre...">
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu Nombre</label>
+                    <input type="text" id="nombre" required class="w-full bg-slate-100 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold" placeholder="Escribe tu nombre...">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu Pedido
-                        / Gratitud</label>
-                    <textarea id="mensaje" required rows="4"
-                        class="w-full bg-slate-100 border-none rounded-[2rem] px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold"
-                        placeholder="Cuéntanos por qué debemos orar..."></textarea>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu Pedido / Gratitud</label>
+                    <textarea id="mensaje" required rows="4" class="w-full bg-slate-100 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold" placeholder="Cuéntanos por qué debemos orar..."></textarea>
                 </div>
 
-                <button type="submit"
-                    class="w-full bg-adventist-blue text-white py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-adventist-gold hover:text-adventist-blue transition-all transform active:scale-95">
+                <button type="submit" class="w-full bg-adventist-blue text-white py-5 rounded-2xl font-black uppercase tracking-[0.1em] md:tracking-[0.2em] shadow-xl hover:bg-adventist-gold hover:text-adventist-blue transition-all active:scale-95">
                     Enviar a Red de Oración
                 </button>
             </form>
@@ -238,50 +184,47 @@
 
     </main>
 
-    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200">
+    <footer class="bg-white py-12 text-center rounded-t-[3rem] border-t border-slate-200">
         <div class="container mx-auto px-6">
-            <p
-                class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
-                IASD SAN FRANCISCO DE LIMACHE</p>
-
-            <p
-                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
-                    class="text-slate-900 font-black">MGE</span>
+            <p class="font-heading font-black text-adventist-blue text-lg md:text-2xl uppercase tracking-tighter mb-4 italic">IASD SAN FRANCISCO DE LIMACHE</p>
+            <p class="text-slate-500 font-bold uppercase tracking-widest text-[10px] md:text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
             </p>
-
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
-                pronto regreso de Jesús</p>
+            <p class="text-[8px] md:text-[10px] text-slate-400 mt-6 uppercase tracking-[0.2em] font-bold italic">© 2025 - San Francisco de Limache</p>
         </div>
-
-        <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA
-            - San Francisco de Limache</p>
-        </div>
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-
     </footer>
 
+    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue p-4 rounded-2xl shadow-2xl z-[100] transition-all">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
+        // Lógica del Menú Móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Formulario WhatsApp
         document.getElementById('formOracion').addEventListener('submit', function (e) {
             e.preventDefault();
-
             const nombre = document.getElementById('nombre').value;
             const mensaje = document.getElementById('mensaje').value;
-            const telefonoIglesia = "569XXXXXXXX"; // REEMPLAZA CON EL NÚMERO DE LA IGLESIA
-
+            const telefonoIglesia = "56990724209"; 
             const texto = `🙏 *Nuevo Pedido de Oración*%0A%0A*Nombre:* ${nombre}%0A*Pedido:* ${mensaje}`;
-
-            // Esto abrirá WhatsApp directamente en el teléfono del hermano
             window.location.href = `https://wa.me/${telefonoIglesia}?text=${texto}`;
         });
 
+        // Botón Top
+        const btnTop = document.getElementById("btnTop");
+        window.addEventListener("scroll", () => {
+            btnTop.classList.toggle("hidden", window.scrollY < 300);
+            btnTop.classList.toggle("flex", window.scrollY >= 300);
+        });
+        btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
-
-
 </body>
-
 </html>
