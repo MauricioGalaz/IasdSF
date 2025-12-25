@@ -96,19 +96,96 @@
         }
 
         footer {
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
-}
+            padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+        }
 
-@media (max-width: 768px) {
-    footer {
-        padding-bottom: 2.8rem;
-    }
-}
+        @media (max-width: 768px) {
+            footer {
+                padding-bottom: 2.8rem;
+            }
+        }
 
+        /* Asegura que los contenedores no fuercen anchos mayores a la pantalla */
+        * {
+            box-sizing: border-box;
+        }
+
+        img,
+        iframe,
+        video {
+            max-width: 100% !important;
+        }
+
+        /* Evita que el texto largo rompa el diseño en celulares pequeños */
+        p,
+        h1,
+        h2,
+        h3 {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        /* Animación de la campana */
+        @keyframes swing {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(15deg);
+            }
+
+            40% {
+                transform: rotate(-10deg);
+            }
+
+            60% {
+                transform: rotate(5deg);
+            }
+
+            80% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        .animate-swing {
+            animation: swing 2s infinite ease-in-out;
+        }
+
+        /* Animación del brillo pasando por el botón */
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
     </style>
+
+
 </head>
 
 <body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
+
+    <div id="welcome-banner"
+        class="fixed top-0 left-0 w-full z-[60] transform -translate-y-full transition-transform duration-700">
+        <div
+            class="bg-adventist-gold text-adventist-blue px-4 py-3 shadow-2xl flex items-center justify-between border-b-4 border-adventist-blue">
+            <div class="flex items-center gap-3">
+                <div class="bg-adventist-blue text-white p-2 rounded-full animate-bounce">
+                    <i class="fas fa-church"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase tracking-tighter leading-none">Próximo Servicio</p>
+                    <p class="text-sm font-heading font-bold">¡Te esperamos este Sábado a las 09:30 AM!</p>
+                </div>
+            </div>
+            <button onclick="closeBanner()"
+                class="bg-adventist-blue/10 hover:bg-adventist-blue/20 p-2 rounded-lg transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
 
     <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -119,43 +196,57 @@
                 </span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-6 font-semibold text-xs uppercase tracking-wide">
-                <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
-                <a href="#nosotros" class="hover:text-adventist-gold">Nosotros</a>
-                <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
-                <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-                <a href="estudio-biblico.html" class="hover:text-adventist-gold">Estudio Bíblico</a>
-                <a href="avisos.html"
-                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full font-extrabold shadow-lg">🚨
-                    Avisos</a>
-                <a href="#contacto" class="hover:text-adventist-gold">Contacto</a>
+            <div class="hidden lg:flex items-center space-x-5 font-semibold text-[11px] uppercase tracking-wide">
+                <a href="#inicio" class="hover:text-adventist-gold transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-adventist-gold transition-colors">Nosotros</a>
+                <a href="#horarios" class="hover:text-adventist-gold transition-colors">Actividades</a>
+                <a href="#ministerios" class="hover:text-adventist-gold transition-colors">Ministerios</a>
+                <a href="estudio-biblico.html" class="hover:text-adventist-gold transition-colors">Estudio Bíblico</a>
+
+                <a href="avisos.html" class="relative overflow-hidden bg-adventist-gold text-adventist-blue px-5 py-2 rounded-full font-black shadow-[0_0_20px_rgba(254,195,37,0.5)] 
+                       hover:scale-110 active:scale-95 transition-all duration-300 group">
+                    <div
+                        class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]">
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-bell animate-swing"></i>
+                        <span>Avisos</span>
+                    </div>
+
+                    <span class="absolute top-1 right-2 flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                </a>
+
+                <a href="#contacto" class="hover:text-adventist-gold transition-colors">Contacto</a>
             </div>
-            <!-- Botón descarga APK -->
 
-
-            <button onclick="abrirModalApp()">
-                📱 Instalar <br> <center>App</center>
-            </button>
-
-
-
-
-
-            <div class="md:hidden">
-                <button id="menu-button" class="p-2 outline-none">
-                    <i class="fas fa-bars text-xl"></i>
+            <div class="flex items-center gap-3">
+                <button onclick="abrirModalApp()"
+                    class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 hover:bg-white hover:text-adventist-blue transition-all">
+                    📱 INSTALAR<br>APP
                 </button>
+
+                <div class="md:hidden">
+                    <button id="menu-button" class="p-2 outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-gray-700 md:hidden">
+        <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 md:hidden">
             <div class="flex flex-col px-6 py-4 space-y-3 text-xs font-semibold uppercase">
                 <a href="#inicio" class="mobile-link">Inicio</a>
+                <a href="avisos.html"
+                    class="bg-adventist-gold text-adventist-blue p-3 rounded-xl text-center font-black">🚨 VER AVISOS
+                    RECIENTES</a>
                 <a href="#nosotros" class="mobile-link">Nosotros</a>
                 <a href="#horarios" class="mobile-link">Actividades</a>
-                <a href="#ministerios" class="mobile-link">Ministerios</a>
                 <a href="estudio-biblico.html" class="mobile-link">Estudio Bíblico</a>
-                <a href="avisos.html" class="mobile-link text-adventist-gold font-bold">Avisos</a>
                 <a href="#contacto" class="mobile-link">Contacto</a>
             </div>
         </div>
@@ -359,79 +450,101 @@
 
     <section id="contacto" class="py-16 bg-adventist-light">
         <div class="container mx-auto px-6 grid md:grid-cols-2 gap-8">
-            <div>
-                <h3 class="text-2xl font-bold text-adventist-blue mb-4">Visítanos</h3>
-                <div class="space-y-4 text-sm">
-                    <p><i class="fas fa-map-marker-alt text-adventist-gold mr-2"></i> Calle Carrera 131, Limache</p>
-                    <p><i class="fas fa-envelope text-adventist-gold mr-2"></i> iasdsanfranciscodelimache@gmail.com</p>
-                    <p><i class="fas fa-phone text-adventist-gold mr-2"></i> +56 9 90724209</p>
+            <div class="fade-up">
+                <h3 class="text-3xl font-heading font-black text-adventist-blue mb-6 uppercase italic">Visítanos</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-adventist-gold p-3 rounded-2xl shadow-lg">
+                            <i class="fas fa-map-marker-alt text-adventist-blue"></i>
+                        </div>
+                        <p class="font-bold text-slate-700">Calle Carrera 131, Limache, Chile</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="bg-adventist-gold p-3 rounded-2xl shadow-lg">
+                            <i class="fas fa-phone text-adventist-blue"></i>
+                        </div>
+                        <p class="font-bold text-slate-700">+56 9 90724209</p>
+                    </div>
                 </div>
             </div>
-            <div class="bg-gray-200 rounded-xl overflow-hidden h-64 shadow-inner">
-                <iframe width="100%" height="100%" style="border:0;" loading="lazy"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.6789!2d-71.261234!3d-32.991234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDU5JzI4LjQiUyA3McKwMTUnNDAuNCJX!5e0!3m2!1ses!2scl!4v1620000000000"></iframe>
+
+            <div class="rounded-[2.5rem] overflow-hidden h-72 shadow-2xl border-4 border-white">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.873534571615!2d-71.2655556!3d-33.0075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDAwJzI3LjAiUyA3McKwMTUnNTYuMCJX!5e0!3m2!1ses!2scl!4v1620000000000!5m2!1ses!2scl"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
             </div>
         </div>
     </section>
 
-    <div class="container mx-auto px-6 mb-12 max-w-2xl">
-        <button onclick="accesoAncianos()" class="w-full bg-slate-900 text-white py-6 rounded-[2.5rem] shadow-2xl hover:bg-adventist-blue transition-all duration-300 flex items-center justify-center gap-4 group">
-            <div class="bg-adventist-gold p-3 rounded-2xl group-hover:rotate-12 transition-transform">
-                <i class="fas fa-user-shield text-adventist-blue text-2xl"></i>
-            </div>
-            <div class="text-left">
-                
-                <p class="text-xl md:text-2xl font-heading font-black uppercase italic">Área Restringida</p>
-                <p class="text-[10px] uppercase tracking-[0.3em] text-adventist-gold font-black"><center>Acceso Ancianos de Iglesia</center></p>
-            </div>
+    <div class="container mx-auto px-6 mb-12 flex justify-center">
+        <button onclick="accesoAncianos()"
+            class="w-full max-w-md bg-slate-900 text-white py-5 rounded-[2rem] shadow-2xl hover:bg-adventist-blue transition-all flex items-center justify-center gap-4 group active:scale-95">
+            <i class="fas fa-user-shield text-adventist-gold text-2xl group-hover:rotate-12 transition-transform"></i>
+            <span class="font-heading font-black uppercase tracking-widest text-sm">Acceso Ancianos</span>
         </button>
     </div>
+    </section>
+
+
 
     <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
         <div class="container mx-auto px-6">
             <div class="flex justify-center space-x-8 mb-8">
-                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-facebook-f fa-2xl"></i></a>
-                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-instagram fa-2xl"></i></a>
-                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-youtube fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-facebook-f fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-instagram fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-youtube fa-2xl"></i></a>
             </div>
 
-            <p class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+            <p
+                class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
                 IASD SAN FRANCISCO DE LIMACHE
             </p>
-            
-            <p class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
+
+            <p
+                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
+                    class="text-slate-900 font-black">MGE</span>
             </p>
-            
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el pronto regreso de Jesús</p>
-            
-            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS - San Francisco de Limache</p>
+
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
+                pronto regreso de Jesús</p>
+
+            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS -
+                San Francisco de Limache</p>
         </div>
     </footer>
 
-    <button id="btnTop" class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] flex items-center justify-center">
+    <button id="btnTop"
+        class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] flex items-center justify-center">
         <i class="fas fa-chevron-up text-xl"></i>
     </button>
 
     <script>
-    // LÓGICA DEL BOTÓN VOLVER ARRIBA
-    const btnTop = document.getElementById("btnTop");
+        // LÓGICA DEL BOTÓN VOLVER ARRIBA
+        const btnTop = document.getElementById("btnTop");
 
-    window.addEventListener("scroll", () => {
-        // Si bajamos más de 400px, mostramos el botón
-        if (window.scrollY > 400) {
-            btnTop.classList.remove("hidden");
-        } else {
-            btnTop.classList.add("hidden");
-        }
-    });
-
-    btnTop.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth" // Desplazamiento suave
+        window.addEventListener("scroll", () => {
+            // Si bajamos más de 400px, mostramos el botón
+            if (window.scrollY > 400) {
+                btnTop.classList.remove("hidden");
+            } else {
+                btnTop.classList.add("hidden");
+            }
         });
-    });
+
+        btnTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth" // Desplazamiento suave
+            });
+        });
 
     </script>
 
@@ -620,6 +733,56 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/@capacitor/core@latest/dist/capacitor.js"></script>
+    <script src="https://unpkg.com/@capacitor/app@latest/dist/app.js"></script>
+
+    <script>
+        // Esperar a que Capacitor esté listo
+        window.addEventListener('DOMContentLoaded', () => {
+            const { App } = capacitorExports; // Para JS simple sin import
+
+            App.addListener('backButton', ({ canGoBack }) => {
+                if (canGoBack) {
+                    window.history.back(); // Vuelve a la tarjeta o página anterior
+                } else {
+                    App.exitApp(); // Si está en el inicio, cierra la app
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const banner = document.getElementById('welcome-banner');
+
+            // Verificamos si el usuario ya cerró el banner en esta sesión
+            if (!sessionStorage.getItem('bannerClosed')) {
+                setTimeout(() => {
+                    // Desliza el banner hacia abajo
+                    banner.classList.remove('-translate-y-full');
+                    banner.classList.add('translate-y-0');
+                }, 2000); // Aparece tras 2 segundos
+            }
+        });
+
+        function closeBanner() {
+            const banner = document.getElementById('welcome-banner');
+            banner.classList.remove('translate-y-0');
+            banner.classList.add('-translate-y-full');
+
+            // Guardamos que ya se cerró para que no vuelva a salir hasta que cierre la app
+            sessionStorage.setItem('bannerClosed', 'true');
+        }
+    </script>
+
+    <a href="https://wa.me/56990724209?text=Hola,%20necesito%20información%20o%20ayuda%20espiritual." target="_blank"
+        class="fixed bottom-24 right-6 bg-[#25d366] text-white w-14 h-14 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.5)] hover:scale-110 active:scale-95 transition-all z-[90] flex items-center justify-center border-2 border-white">
+        <i class="fab fa-whatsapp text-3xl"></i>
+        <span class="absolute top-0 right-0 flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+        </span>
+    </a>
 </body>
 
 </html>

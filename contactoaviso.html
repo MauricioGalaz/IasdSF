@@ -7,7 +7,9 @@
     <title>Contacto - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -33,22 +35,44 @@
         .hover-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         .hover-card:hover {
             transform: translateY(-8px);
         }
+
         .glass-map {
             filter: grayscale(0.5) contrast(1.2);
             transition: all 0.5s ease;
         }
+
         .glass-map:hover {
             filter: grayscale(0);
+        }
+
+        @keyframes pulse-subtle {
+
+            0%,
+            100% {
+                transform: scale(1);
+                shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            50% {
+                transform: scale(1.03);
+                shadow: 0 20px 25px -5px rgba(254, 195, 37, 0.4);
+            }
+        }
+
+        .animate-pulse-subtle {
+            animation: pulse-subtle 3s infinite ease-in-out;
         }
     </style>
 </head>
 
 <body class="bg-slate-100 font-sans text-slate-900">
 
-    <nav class="bg-adventist-blue/95 backdrop-blur-md text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+    <nav
+        class="bg-adventist-blue/95 backdrop-blur-md text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 group">
                 <div class="bg-white p-1 rounded-full transition-transform group-hover:rotate-12">
@@ -57,17 +81,38 @@
                 <span class="font-heading font-black tracking-tighter text-lg uppercase">IASD LIMACHE</span>
             </a>
 
-            <div class="flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
-                <a href="avisos.html" class="hover:text-adventist-gold transition">Voler Avisos</a>
-                <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
-                <span class="text-adventist-gold border-b-2 border-adventist-gold">Contacto</span>
+            <div class="flex items-center gap-4 md:gap-8 font-bold text-[10px] md:text-xs uppercase tracking-widest">
+
+                <a href="avisos.html" class="relative bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full 
+                      flex items-center gap-2 shadow-[0_0_15px_rgba(254,195,37,0.4)] 
+                      hover:bg-white hover:scale-110 hover:shadow-white/20 
+                      transition-all duration-300 group/btn">
+                    <i class="fas fa-bell animate-bounce group-hover/btn:animate-none"></i>
+                    <span class="font-black">Avisos</span>
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500 border border-white"></span>
+                    </span>
+                </a>
+
+                <a href="cronograma.html"
+                    class="hover:text-adventist-gold transition-colors duration-300 hidden sm:block">Cronograma</a>
+
+                <a href="contacto.html"
+                    class="flex items-center gap-1 text-adventist-gold border-b-2 border-adventist-gold pb-0.5">
+                    <i class="fas fa-envelope text-[10px]"></i>
+                    <span>Contacto</span>
+                </a>
             </div>
         </div>
     </nav>
 
-    <header class="w-full bg-adventist-blue text-white pt-12 pb-24 px-6 text-center rounded-b-[3.5rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+    <header
+        class="w-full bg-adventist-blue text-white pt-12 pb-24 px-6 text-center rounded-b-[3.5rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
         <div class="relative z-10">
-            <span class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
+            <span
+                class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
                 Canales Oficiales
             </span>
             <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
@@ -81,53 +126,70 @@
 
     <main class="container mx-auto px-4 -mt-12 pb-20 max-w-4xl space-y-8">
 
-        <section class="hover-card bg-white rounded-[3.5rem] p-4 shadow-2xl overflow-hidden border-b-[12px] border-adventist-blue">
-            <div class="p-8 text-center">
-                <i class="fas fa-map-marker-alt text-5xl text-adventist-blue mb-4"></i>
-                <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 uppercase mb-2">Nuestra Iglesia</h2>
-                <p class="text-slate-500 font-bold text-lg mb-6 uppercase">San Francisco de Limache, Chile</p>
-            </div>
-            <div class="w-full h-80 rounded-[2.5rem] overflow-hidden shadow-inner glass-map">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.4637774921943!2d-71.2645!3d-32.9922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDU5JzMxLjkiUyA3McKwMTUnNTIuMiJX!5e0!3m2!1ses!2scl!4v1638200000000!5m2!1ses!2scl" 
-                    class="w-full h-full border-0" allowfullscreen="" loading="lazy">
-                </iframe>
+
+
+        <section class="container mx-auto px-4 py-12 max-w-5xl">
+            <div
+                class="hover-card bg-white rounded-[2.5rem] md:rounded-[4rem] shadow-2xl overflow-hidden border-b-[12px] border-adventist-blue">
+                <div class="flex flex-col md:flex-row">
+
+                    <div
+                        class="w-full md:w-1/2 p-10 md:p-16 flex flex-col items-center justify-center text-center bg-white">
+                        <div class="mb-10">
+                            <span
+                                class="text-adventist-gold font-black text-xs uppercase tracking-[0.3em] mb-2 block text-center">Ubicación
+                                Oficial</span>
+                            <h2
+                                class="text-4xl md:text-5xl font-heading font-black text-slate-800 uppercase leading-none text-center">
+                                Visítanos</h2>
+                            <div class="h-1.5 w-20 bg-adventist-gold mt-4 rounded-full mx-auto"></div>
+                        </div>
+
+                        <div class="space-y-10 w-full">
+                            <div class="flex flex-col items-center group">
+                                <div
+                                    class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold shadow-sm border border-slate-100 group-hover:bg-adventist-gold group-hover:text-white transition-all mb-3">
+                                    <i class="fas fa-envelope text-2xl"></i>
+                                </div>
+                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Correo
+                                    Electrónico</h4>
+                                <div class="w-full flex justify-center">
+                                    <a href="mailto:iasdsanfranciscodelimache@gmail.com"
+                                        class="flex items-center justify-center text-center text-slate-600 font-bold text-xs md:text-sm hover:text-adventist-blue transition-colors px-2 min-h-[40px] w-full max-w-full overflow-hidden">
+                                        <span
+                                            class="truncate md:whitespace-normal">iasdsanfranciscodelimache@gmail.com</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col items-center group">
+                                <div
+                                    class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-adventist-gold shadow-sm border border-slate-100 group-hover:bg-adventist-gold group-hover:text-white transition-all mb-3">
+                                    <i class="fas fa-phone-alt text-2xl"></i>
+                                </div>
+                                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
+                                    Teléfono Directo</h4>
+                                <p class="text-slate-800 font-black text-xl tracking-tighter">+56 9 90724209</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 h-[400px] md:h-auto min-h-[450px] glass-map">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.8213274640475!2d-71.2676834!3d-33.0211135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689d901639d108d%3A0x6a0a0972410714b2!2sCarrera%20131%2C%20Limache%2C%20Valpara%C3%ADso!5e0!3m2!1ses-419!2scl!4v1710000000000"
+                            class="w-full h-full border-0 block" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+
+                </div>
             </div>
         </section>
 
-        <section class="hover-card bg-white border-t-[16px] border-adventist-gold rounded-[3.5rem] p-10 shadow-xl text-center">
-            <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 mb-8 uppercase italic">SÍGUENOS ONLINE</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <a href="#" class="flex flex-col items-center group">
-                    <div class="w-16 h-16 bg-blue-600 text-white rounded-3xl flex items-center justify-center text-3xl mb-2 group-hover:scale-110 transition shadow-lg">
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <span class="font-black text-[10px] uppercase tracking-tighter">Facebook</span>
-                </a>
-                <a href="#" class="flex flex-col items-center group">
-                    <div class="w-16 h-16 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white rounded-3xl flex items-center justify-center text-3xl mb-2 group-hover:scale-110 transition shadow-lg">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <span class="font-black text-[10px] uppercase tracking-tighter">Instagram</span>
-                </a>
-                <a href="#" class="flex flex-col items-center group">
-                    <div class="w-16 h-16 bg-red-600 text-white rounded-3xl flex items-center justify-center text-3xl mb-2 group-hover:scale-110 transition shadow-lg">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <span class="font-black text-[10px] uppercase tracking-tighter">YouTube</span>
-                </a>
-                <a href="https://wa.me/TUNUMERO" class="flex flex-col items-center group">
-                    <div class="w-16 h-16 bg-green-500 text-white rounded-3xl flex items-center justify-center text-3xl mb-2 group-hover:scale-110 transition shadow-lg animate-pulse">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <span class="font-black text-[10px] uppercase tracking-tighter text-green-600 font-bold">Pide Oración</span>
-                </a>
-            </div>
-        </section>
-
-        <section class="hover-card bg-adventist-blue text-white rounded-[3.5rem] p-10 shadow-2xl relative overflow-hidden">
+        <section
+            class="hover-card bg-adventist-blue text-white rounded-[3.5rem] p-10 shadow-2xl relative overflow-hidden">
             <i class="fas fa-clock absolute -top-10 -right-10 text-9xl opacity-10"></i>
-            <h2 class="text-3xl font-heading font-black uppercase mb-6 text-adventist-gold italic">Horarios de Reunión</h2>
+            <h2 class="text-3xl font-heading font-black uppercase mb-6 text-adventist-gold italic">Horarios de Reunión
+            </h2>
             <div class="space-y-4 font-bold text-lg">
                 <div class="flex justify-between border-b border-white/10 pb-2">
                     <span>Sábados (Cultos de Adoración)</span>
@@ -137,32 +199,88 @@
                     <span>Miércoles (Cultos de Oración)</span>
                     <span class="text-adventist-gold">19:00 hrs</span>
                 </div>
-                
+
             </div>
+        </section>
+
+        <section class="hover-card bg-white rounded-[3.5rem] p-10 shadow-2xl border-t-[16px] border-adventist-blue">
+            <div class="text-center mb-8">
+                <i class="fas fa-heart-pulse text-5xl text-red-500 mb-4 animate-pulse"></i>
+                <h2 class="text-3xl md:text-5xl font-heading font-black text-slate-800 uppercase italic">Pedidos de
+                    Oración</h2>
+                <p class="text-slate-500 font-bold uppercase text-sm tracking-widest">Queremos orar por ti y tu familia
+                </p>
+            </div>
+
+            <form id="formOracion" class="space-y-6">
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu
+                        Nombre</label>
+                    <input type="text" id="nombre" required
+                        class="w-full bg-slate-100 border-none rounded-[2rem] px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold"
+                        placeholder="Escribe tu nombre...">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2 ml-4">Tu Pedido
+                        / Gratitud</label>
+                    <textarea id="mensaje" required rows="4"
+                        class="w-full bg-slate-100 border-none rounded-[2rem] px-6 py-4 focus:ring-2 focus:ring-adventist-gold outline-none font-bold"
+                        placeholder="Cuéntanos por qué debemos orar..."></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-adventist-blue text-white py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-adventist-gold hover:text-adventist-blue transition-all transform active:scale-95">
+                    Enviar a Red de Oración
+                </button>
+            </form>
         </section>
 
     </main>
 
     <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200">
         <div class="container mx-auto px-6">
-            <p class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">IASD SAN FRANCISCO DE LIMACHE</p>
-            
-            <p class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
+            <p
+                class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+                IASD SAN FRANCISCO DE LIMACHE</p>
+
+            <p
+                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
+                    class="text-slate-900 font-black">MGE</span>
             </p>
-            
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el pronto regreso de Jesús</p>
+
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
+                pronto regreso de Jesús</p>
         </div>
-                
-            <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA - San Francisco de Limache</p>
+
+        <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA
+            - San Francisco de Limache</p>
         </div>
         <!-- BOTÓN VOLVER ARRIBA -->
         <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
         p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
             <i class="fas fa-chevron-up"></i>
         </button>
-        
+
     </footer>
+
+    <script>
+        document.getElementById('formOracion').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const mensaje = document.getElementById('mensaje').value;
+            const telefonoIglesia = "569XXXXXXXX"; // REEMPLAZA CON EL NÚMERO DE LA IGLESIA
+
+            const texto = `🙏 *Nuevo Pedido de Oración*%0A%0A*Nombre:* ${nombre}%0A*Pedido:* ${mensaje}`;
+
+            // Esto abrirá WhatsApp directamente en el teléfono del hermano
+            window.location.href = `https://wa.me/${telefonoIglesia}?text=${texto}`;
+        });
+
+    </script>
+
 
 </body>
 
