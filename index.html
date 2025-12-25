@@ -90,10 +90,11 @@
             }
 
             .animate-fade {
-                animation: fadeInScale 0.25s ease-out;
+                animation: fadeInScale 0.35s ease-out;
             }
 
         }
+
         footer {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
 }
@@ -133,7 +134,7 @@
 
 
             <button onclick="abrirModalApp()">
-                📱 App
+                📱 Instalar <br> <center>App</center>
             </button>
 
 
@@ -245,7 +246,7 @@
     <section id="horarios" class="py-16 bg-adventist-light">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-adventist-blue">Algunas Actividades y Eventos</h2>
+                <h2 class="text-3xl font-heading font-bold text-adventist-blue">Nuestros Servicios</h2>
                 <div class="w-24 h-1 bg-adventist-gold mx-auto mt-2"></div>
             </div>
 
@@ -373,25 +374,66 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-white py-10 text-center text-xs">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+    <div class="container mx-auto px-6 mb-12 max-w-2xl">
+        <button onclick="accesoAncianos()" class="w-full bg-slate-900 text-white py-6 rounded-[2.5rem] shadow-2xl hover:bg-adventist-blue transition-all duration-300 flex items-center justify-center gap-4 group">
+            <div class="bg-adventist-gold p-3 rounded-2xl group-hover:rotate-12 transition-transform">
+                <i class="fas fa-user-shield text-adventist-blue text-2xl"></i>
             </div>
-            <p>© 2025 Iglesia Adventista del Séptimo Día – Limache</p>
-            <p class="mt-2">Desarrollado por <span class="text-adventist-gold font-bold">MGE</span></p>
+            <div class="text-left">
+                
+                <p class="text-xl md:text-2xl font-heading font-black uppercase italic">Área Restringida</p>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-adventist-gold font-black"><center>Acceso Ancianos de Iglesia</center></p>
+            </div>
+        </button>
+    </div>
 
-                <p class="mt-1">
-                <button onclick="accesoAncianos()"
-                    class="text-xs text-adventist-gold font-semibold hover:text-white transition underline underline-offset-4">
-                    Acceso Ancianos
-                </button>
+    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-facebook-f fa-2xl"></i></a>
+                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-instagram fa-2xl"></i></a>
+                <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-youtube fa-2xl"></i></a>
+            </div>
+
+            <p class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+                IASD SAN FRANCISCO DE LIMACHE
             </p>
-
+            
+            <p class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
+            </p>
+            
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el pronto regreso de Jesús</p>
+            
+            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS - San Francisco de Limache</p>
         </div>
     </footer>
+
+    <button id="btnTop" class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] flex items-center justify-center">
+        <i class="fas fa-chevron-up text-xl"></i>
+    </button>
+
+    <script>
+    // LÓGICA DEL BOTÓN VOLVER ARRIBA
+    const btnTop = document.getElementById("btnTop");
+
+    window.addEventListener("scroll", () => {
+        // Si bajamos más de 400px, mostramos el botón
+        if (window.scrollY > 400) {
+            btnTop.classList.remove("hidden");
+        } else {
+            btnTop.classList.add("hidden");
+        }
+    });
+
+    btnTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Desplazamiento suave
+        });
+    });
+
+    </script>
 
     <script>
         // LÓGICA DEL MENÚ MÓVIL
@@ -543,7 +585,7 @@
                 <h2 class="font-heading text-xl font-bold text-adventist-blue">
                     Acceso Ancianos
                 </h2>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-gray-800">
                     Área restringida – IASD San Francisco de Limache
                 </p>
             </div>

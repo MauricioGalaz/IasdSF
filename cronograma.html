@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cronograma - IASD SAN FRANCISCO DE Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f8fafc',
+                            green: '#1b5e20',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hover-card:hover {
+            transform: scale(1.02);
+        }
+        .day-badge {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 font-sans text-slate-900">
+
+    <nav class="bg-adventist-blue/95 backdrop-blur-md text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="bg-white p-1 rounded-full transition-transform group-hover:rotate-12">
+                    <img src="imagenes/logo.jpg" alt="Logo" class="h-8 w-8 rounded-full">
+                </div>
+                <span class="font-heading font-black tracking-tighter text-lg uppercase">IASD SAN FRANCISCO <br> DE LIMACHE</span>
+            </a>
+            <div class="flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
+                <a href="avisos.html" class="hover:text-adventist-gold transition">Volver Avisos</a>
+                <span class="text-adventist-gold border-b-2 border-adventist-gold">Cronograma</span>
+                <a href="contactoaviso.html" class="hover:text-adventist-gold transition">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="w-full bg-adventist-blue text-white pt-12 pb-24 px-6 text-center rounded-b-[3.5rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+        <div class="relative z-10">
+            <span class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
+                Planificación Semanal
+            </span>
+            <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
+                NUESTROS <br> <span class="text-adventist-gold">HORARIOS</span>
+            </h1>
+            <p class="text-lg md:text-2xl font-bold opacity-80 uppercase tracking-widest italic">
+                Participa en cada actividad de nuestra iglesia
+            </p>
+        </div>
+        
+    </header>
+<br><br><br>
+    <main class="container mx-auto px-4 -mt-12 pb-20 max-w-4xl space-y-6">
+
+        <section class="hover-card flex bg-white rounded-[3rem] shadow-xl overflow-hidden border-l-[15px] border-adventist-gold">
+            <div class="bg-adventist-gold text-adventist-blue p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                Sábado
+            </div>
+            <div class="p-8 flex-grow">
+                <div class="mb-6">
+                    <h3 class="text-adventist-blue font-black text-2xl uppercase tracking-tighter">Escuela Sabática</h3>
+                    <p class="text-slate-500 font-bold">09:30 AM — 10:45 AM</p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-adventist-blue font-black text-2xl uppercase tracking-tighter">Culto Divino</h3>
+                    <p class="text-slate-500 font-bold">11:00 AM — 12:30 PM</p>
+                </div>
+                <div>
+                    <h3 class="text-adventist-blue font-black text-2xl uppercase tracking-tighter">Sociedad de Jóvenes (JA)</h3>
+                    <p class="text-slate-500 font-bold">19:00 PM - Horario de Verano</p>
+                    <p class="text-slate-500 font-bold text-orange-600">Revisar avisos para vada sábado</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hover-card flex bg-white rounded-[3rem] shadow-xl overflow-hidden border-l-[15px] border-slate-300">
+            <div class="bg-slate-300 text-slate-600 p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                SÁBADO
+            </div>
+            <div class="p-8 flex-grow">
+                <h3 class="text-slate-800 font-black text-2xl uppercase tracking-tighter">Club de Aventureros</h3>
+                <p class="text-slate-500 font-bold">16:00 PM — 17:30 PM</p>
+                <div class="mt-4 p-4 bg-slate-50 rounded-2xl italic text-sm text-slate-500">
+                    * Ver disponibilidad según calendario del club. <br>
+                    ***!! RECESO POR VACACIONES DE VERANO HASTA MARZO!!***
+                </div>
+            </div>
+        </section>
+
+        <section class="hover-card flex bg-white rounded-[3rem] shadow-xl overflow-hidden border-l-[15px] border-adventist-blue">
+            <div class="bg-adventist-blue text-white p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                Miércoles
+            </div>
+            <div class="p-8 flex-grow">
+                <h3 class="text-adventist-blue font-black text-3xl uppercase tracking-tighter">Culto de Oración</h3>
+                <p class="text-slate-500 font-bold text-xl mb-4 italic">Encuentro de poder y testimonio</p>
+                <div class="inline-block bg-adventist-blue text-adventist-gold px-6 py-2 rounded-xl font-black text-2xl">
+                    19:00 HRS - Horario de Verano
+                </div>
+            </div>
+        </section>
+
+        <section class="hover-card flex bg-white rounded-[3rem] shadow-xl overflow-hidden border-l-[15px] border-adventist-green">
+            <div class="bg-adventist-green text-white p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                Viernes
+            </div>
+            <div class="p-8 flex-grow text-center md:text-left">
+                <h3 class="text-adventist-green font-black text-3xl uppercase tracking-tighter">Recepción de Sábado</h3>
+                <p class="text-slate-500 font-bold text-lg italic">Culto en Grupos Pequeños u Hogares</p>
+                <p class="mt-2 font-black text-adventist-green uppercase tracking-widest text-sm">Consultar según </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200">
+        <div class="container mx-auto px-6">
+            <p class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">IASD SAN FRANCISCO DE LIMACHE</p>
+            
+            <p class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
+            </p>
+            
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el pronto regreso de Jesús</p>
+        </div>
+                
+            <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA - San Francisco de Limache</p>
+        </div>
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+    </footer>
+
+</body>
+
+</html>

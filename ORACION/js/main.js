@@ -379,3 +379,12 @@ function showVerse(){
     const verse = versiculos[Math.floor(Math.random() * versiculos.length)];
     showToast(verse, "info");
 }
+
+// ===================================
+// FORZAR ACTUALIZACIÓN PWA / CACHE
+// ===================================
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(reg => reg.unregister());
+    });
+}
