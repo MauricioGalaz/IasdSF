@@ -18,63 +18,548 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // 1. Configuración y Base de Datos
+        const CLAVE_ADMIN = "iasdsf";
+
+        const iasdDB = {
+            save: (key, data) => {
+                let list = JSON.parse(localStorage.getItem(key)) || [];
+                list.unshift(data);
+                localStorage.setItem(key, JSON.stringify(list));
+                if (typeof actualizarListas === 'function') actualizarListas();
+                Swal.fire({ title: '¡Registrado!', icon: 'success', confirmButtonColor: '#002D56' });
+            },
+            get: (key) => JSON.parse(localStorage.getItem(key)) || []
+        };
+
+        // 2. Validación de Seguridad
+        async function validarAccion(callback) {
+            const { value: password } = await Swal.fire({
+                title: 'Seguridad',
+                input: 'password',
+                inputLabel: 'Introduce la contraseña para eliminar',
+                confirmButtonColor: '#002D56',
+                showCancelButton: true
+            });
+
+            if (password === CLAVE_ADMIN) {
+                callback();
+            } else if (password !== undefined) {
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Contraseña incorrecta.' });
+            }
+        }
+
+        // 3. Generador de PDF Corregido (Evita celdas vacías)
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFillColor(0, 45, 86);
+            doc.rect(0, 0, 210, 30, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(16);
+            doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 20);
+
+            let y = 45;
+            const secciones = [
+                { k: 'pedidos', t: 'PETICIONES' },
+                { k: 'agradecimientos', t: 'AGRADECIMIENTOS' },
+                { k: 'testimonios', t: 'TESTIMONIOS' }
+            ];
+
+            secciones.forEach(sec => {
+                const datos = iasdDB.get(sec.k);
+                if (datos.length > 0) {
+                    doc.setTextColor(0, 45, 86);
+                    doc.setFontSize(14);
+                    doc.text(sec.t, 15, y);
+
+                    doc.autoTable({
+                        startY: y + 5,
+                        head: [['Fecha', 'Nombre', 'Detalle']],
+                        body: datos.map(item => [
+                            item.date || "-",
+                            item.name || "Anónimo",
+                            item.content || "Sin detalle"
+                        ]),
+                        headStyles: { fillColor: [0, 188, 140] },
+                        theme: 'grid'
+                    });
+                    y = doc.lastAutoTable.finalY + 15;
+                }
+            });
+            doc.save("Reporte_IASD.pdf");
+        }
+
+        // 4. Capturador Universal de Formularios
+        document.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = e.target;
+
+            // Extraer datos buscando por IDs comunes o tipos de campo
+            const nombre = form.querySelector('input[type="text"]')?.value || "Anónimo";
+            const categoria = form.querySelector('select')?.value || "General";
+            const contenido = form.querySelector('textarea')?.value || "";
+
+            if (!contenido) return Swal.fire('Error', 'El detalle es obligatorio', 'error');
+
+            const data = {
+                date: new Date().toLocaleString('es-CL'),
+                name: nombre,
+                category: categoria,
+                content: contenido
+            };
+
+            let key = "";
+            if (form.id.includes('prayer')) key = 'pedidos';
+            else if (form.id.includes('thanks')) key = 'agradecimientos';
+            else if (form.id.includes('testimony')) key = 'testimonios';
+
+            if (key) {
+                iasdDB.save(key, data);
+                form.reset();
+            }
+        });
+    </script>
 </head>
-<STYle>
+<style>
+    /* --- VARIABLES DE COLOR (IASD ALTO CONTRASTE) --- */
+    :root {
+        --primary-blue: #002D56;
+        /* Azul profundo (máximo contraste) */
+        --accent-gold: #B8860B;
+        /* Dorado para botones y énfasis */
+        --text-main: #1A1A1A;
+        /* Casi negro para lectura clara */
+        --text-muted: #444444;
+        /* Gris oscuro para descripciones */
+        --bg-light: #F4F7F9;
+        --white: #FFFFFF;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        line-height: 1.6;
+        color: var(--text-main);
+        background-color: var(--bg-light);
+    }
+
+    /* --- NAVEGACIÓN (Azul oscuro para que resalte el texto blanco) --- */
+    .navbar {
+        background: var(--primary-blue);
+        padding: 12px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo-text h1 {
+        color: var(--white) !important;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .nav-link {
+        color: var(--white) !important;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    /* --- HERO SECTION (Fondo oscuro con texto blanco brillante) --- */
+    .hero-section {
+        background: linear-gradient(rgba(0, 45, 86, 0.8), rgba(0, 45, 86, 0.8)),
+            url('imagenes/oracion.jpg') no-repeat center center/cover;
+        padding: 80px 20px;
+        text-align: center;
+        color: var(--white);
+    }
+
+    .hero-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        color: var(--white);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .verse-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 5px solid var(--accent-gold);
+        padding: 20px;
+        margin: 20px 0;
+        font-weight: 600;
+    }
+
+    /* --- TARJETAS Y FORMULARIOS (Bordes fuertes para visibilidad) --- */
+    .form-card,
+    .study-card,
+    .book-card,
+    .news-list-card {
+        background: var(--white);
+        padding: 25px;
+        border-radius: 12px;
+        border: 2px solid #D1D8DD;
+        /* Borde más visible */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 25px;
+    }
+
+    h3 {
+        color: var(--primary-blue);
+        font-weight: 800;
+        margin-bottom: 15px;
+        border-bottom: 2px solid var(--bg-light);
+        padding-bottom: 5px;
+    }
+
+    label {
+        display: block;
+        font-weight: 700;
+        color: var(--primary-blue);
+        margin-bottom: 5px;
+    }
+
+    /* Inputs con texto oscuro y bordes definidos */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #999;
+        /* Borde gris fuerte */
+        border-radius: 8px;
+        font-size: 16px;
+        color: #000;
+        background: #fff;
+    }
+
+    input:focus {
+        border-color: var(--primary-blue);
+        outline: none;
+    }
+
+    /* --- BOTONES SÓLIDOS --- */
+    .btn {
+        display: inline-block;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-weight: 800;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.3s;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-blue);
+        color: white !important;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: var(--accent-gold);
+        color: white !important;
+        border: none;
+    }
+
+    /* --- SECCIONES --- */
+    .section-description {
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    /* --- TOASTS REFORZADOS --- */
     .toast {
         position: fixed;
-        bottom: 30px;
+        bottom: 20px;
         left: 50%;
-        transform: translateX(-50%) translateY(30px);
+        transform: translateX(-50%) translateY(100px);
         background: #1e1e2f;
         color: #fff;
-        padding: 16px 22px;
-        border-radius: 16px;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+        padding: 16px 25px;
+        border-radius: 12px;
+        font-weight: 700;
+        z-index: 10000;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 768px) {
+        .mobile-menu-toggle span {
+            background: var(--white);
+            /* Hamburguesa blanca sobre azul */
+        }
+
+        .nav-menu {
+            background: var(--primary-blue);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-content h2 {
+            font-size: 1.7rem;
+        }
+
+        .content-grid {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+
+    .main-footer {
+        background-color: #002D56;
+        /* Azul profundo institucional */
+        color: #FFFFFF;
+        padding: 50px 0 20px 0;
+        border-top: 4px solid #B8860B;
+        /* Línea dorada superior */
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-section h4 {
+        color: #FFD700;
+        /* Dorado brillante para títulos */
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Estilo especial para el versículo del Salmo */
+    .footer-verse {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-style: italic;
+        line-height: 1.4;
+        color: #FFFFFF;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+        color: #E0E0E0;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+        display: inline-block;
+        /* Mejora el área de toque */
+    }
+
+    .footer-section ul li a:hover {
+        color: #FFD700;
+        text-decoration: underline;
+    }
+
+    /* Parte inferior del footer */
+    .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        color: #BBBBBB;
+    }
+
+    .footer-bottom p {
+        margin-bottom: 5px;
+    }
+
+    /* Ajustes para Celulares */
+    @media (max-width: 768px) {
+        .footer-content {
+            text-align: center;
+            /* Centra todo en móviles */
+            gap: 30px;
+        }
+
+        .footer-section h3.footer-verse {
+            font-size: 1.2rem;
+            padding: 0 10px;
+        }
+    }
+
+
+
+    /* --- AJUSTES DE LA SECCIÓN HERO --- */
+    .hero-section {
+        position: relative;
+        min-height: 80vh;
         display: flex;
         align-items: center;
-        gap: 12px;
-        font-size: 15px;
-        opacity: 0;
-        pointer-events: none;
-        transition: all .45s cubic-bezier(.25, .8, .25, 1);
-        z-index: 9999;
+        justify-content: center;
+        background: url('tu-imagen.jpg') no-repeat center center/cover;
+        padding: 60px 0;
+        text-align: center;
     }
 
-    .toast.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-        pointer-events: auto;
+    /* Oscurecemos el fondo para que las letras se lean claro */
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        /* Filtro oscuro */
+        z-index: 1;
     }
 
-    /* Tipos */
-    .toast.success {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        /* Por encima del overlay */
+        color: #ffffff;
+        width: 100%;
     }
 
-    .toast.error {
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    .roboto-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
     }
 
-    .toast.info {
-        background: linear-gradient(135deg, #3498db, #1f6fa8);
+    .hero-subtitle {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #FFD700;
+        /* Dorado brillante para subtítulo */
+        margin-bottom: 30px;
     }
 
-    .toast-icon {
-        font-size: 20px;
+    /* --- CAJA DEL VERSÍCULO (MATEO 18:20) --- */
+    .verse-box {
+        max-width: 550px;
+        margin: 0 auto 40px auto;
+        /* Centra la caja horizontalmente */
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.12);
+        /* Fondo de cristal */
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
     }
 
-    .toast button {
-        background: rgba(255, 255, 255, .2);
-        border: none;
+    .verse-box i {
+        font-size: 22px;
+        color: #FFD700;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .verse-text {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        font-weight: 600;
+        /* Letra más gruesa para celulares */
+        color: #ffffff;
+
+        /* JUSTIFICADO PERFECTO */
+        text-align: justify;
+        text-justify: inter-word;
+
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .verse-ref {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #FFD700;
+        text-align: center;
+        /* La referencia siempre centrada */
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    /* --- BOTONES --- */
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 14px 25px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background: #004a99;
         color: white;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 26px;
-        height: 26px;
-        line-height: 24px;
     }
-</STYle>
+
+    .btn-secondary {
+        background: #B8860B;
+        color: white;
+    }
+
+    /* AJUSTE PARA MÓVILES */
+    @media (max-width: 768px) {
+        .container {
+            width: 92%;
+        }
+
+        .roboto-title {
+            font-size: 1.8rem;
+        }
+
+        .verse-box {
+            padding: 20px;
+        }
+
+        .verse-text {
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Botones anchos en celular */
+    }
+</style>
+</style>
 
 <body>
     <!-- Header & Navigation -->
@@ -718,13 +1203,11 @@
     <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    
-                    <h4>
-                        <center>Salmos 23:1 </center>
-                    </h4>
-                    <h3 class="footer-verse"><center>
-                        "El Señor es mi pastor, nada me faltará"</center></h3>
+                <div class="footer-section" style="text-align: center;">
+                    <h4>Salmos 23:1</h4>
+                    <h3 class="footer-verse">
+                        "El Señor es mi pastor, nada me faltará"
+                    </h3>
                 </div>
 
                 <div class="footer-section">
@@ -751,11 +1234,10 @@
 
             <div class="footer-bottom">
                 <p>&copy; 2025 Iglesia Adventista del Séptimo Día - San Francisco de Limache</p>
-                <p>Desarrollado con amor MGE</p>
+                <p style="font-weight: bold; color: #fff;">Desarrollado con amor MGE</p>
             </div>
         </div>
     </footer>
-
     <!-- Scripts -->
     <script src="js/main.js"></script>
 
@@ -778,6 +1260,567 @@
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3" type="audio/mpeg">
     </audio>
 
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+
+    <script>
+        // --- LÓGICA DE ALMACENAMIENTO Y SEGURIDAD ---
+        const storage = {
+            // Guarda los datos en el navegador del usuario
+            save: (key, obj) => {
+                let data = JSON.parse(localStorage.getItem(key)) || [];
+                data.unshift(obj); // Agrega al inicio para que lo más nuevo salga arriba
+                localStorage.setItem(key, JSON.stringify(data));
+                renderAll();
+            },
+            // Borra un elemento pidiendo la clave 'iasdsf'
+            delete: (key, index) => {
+                const pass = prompt("Contraseña de Administrador para eliminar:");
+                if (pass === "iasdsf") {
+                    let data = JSON.parse(localStorage.getItem(key));
+                    data.splice(index, 1);
+                    localStorage.setItem(key, JSON.stringify(data));
+                    renderAll();
+                } else if (pass !== null) {
+                    alert("Contraseña incorrecta. No tienes permisos.");
+                }
+            },
+            get: (key) => JSON.parse(localStorage.getItem(key)) || []
+        };
+
+        // --- FUNCIÓN PARA MOSTRAR LOS DATOS EN LAS LISTAS ---
+        function renderList(key, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const items = storage.get(key);
+            container.innerHTML = items.length ? '' : '<p style="padding:20px; color:#666;">Aún no hay publicaciones en esta sección.</p>';
+
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'post-item'; // Usa la clase que definimos en el CSS
+                div.style = "background:#fff; padding:15px; border-radius:8px; border-left:4px solid #002D56; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.1);";
+
+                div.innerHTML = `
+                <h4 style="color:#002D56; margin-bottom:5px; text-transform:capitalize;">${item.category || item.title || 'Publicación'}</h4>
+                <p style="margin-bottom:8px; font-size:0.95rem; color:#333;">${item.text}</p>
+                <div style="font-size:0.8rem; color:#777; font-style:italic;">Por: ${item.name} - ${item.date}</div>
+                <button onclick="storage.delete('${key}', ${index})" 
+                        style="background:#ff4d4d; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:0.7rem; cursor:pointer; margin-top:10px;">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderAll() {
+            renderList('pedidos', 'prayers-list');
+            renderList('agradecimientos', 'thanksgiving-list');
+            renderList('testimonios', 'testimonies-list');
+        }
+
+        // --- EVENTOS DE LOS FORMULARIOS ---
+
+        // Pedidos de Oración
+        const prayerForm = document.getElementById('prayer-form');
+        if (prayerForm) {
+            prayerForm.onsubmit = function (e) {
+                e.preventDefault();
+                storage.save('pedidos', {
+                    name: document.getElementById('prayer-name').value,
+                    category: document.getElementById('prayer-category').value,
+                    text: document.getElementById('prayer-request').value,
+                    date: new Date().toLocaleDateString()
+                });
+                this.reset();
+                alert("Pedido enviado con éxito.");
+            };
+        }
+
+        // Agradecimientos
+        const thanksForm = document.getElementById('thanksgiving-form');
+        if (thanksForm) {
+            thanksForm.onsubmit = function (e) {
+                e.preventDefault();
+                storage.save('agradecimientos', {
+                    name: document.getElementById('thanks-name').value,
+                    category: document.getElementById('thanks-category').value,
+                    text: document.getElementById('thanks-testimony').value,
+                    date: new Date().toLocaleDateString()
+                });
+                this.reset();
+                alert("Agradecimiento compartido.");
+            };
+        }
+
+        // Testimonios
+        const testimonyForm = document.getElementById('testimony-form');
+        if (testimonyForm) {
+            testimonyForm.onsubmit = function (e) {
+                e.preventDefault();
+                storage.save('testimonios', {
+                    name: document.getElementById('testimony-name').value,
+                    title: document.getElementById('testimony-title').value,
+                    text: document.getElementById('testimony-content').value,
+                    date: new Date().toLocaleDateString()
+                });
+                this.reset();
+                alert("Testimonio guardado.");
+            };
+        }
+
+        // --- MENÚ MÓVIL (HAMBURGUESA) ---
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (menuToggle && navMenu) {
+            menuToggle.onclick = function () {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            };
+        }
+
+        // Cargar todo al iniciar la página
+        window.onload = renderAll;
+    </script>
+
+
+
+    <style>
+        .post-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-blue);
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .btn-delete-admin {
+            background: #ff4d4d;
+            color: white !important;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-delete-admin:hover {
+            background: #cc0000;
+        }
+    </style>
+
+    <script>
+        const CLAVE_ADMIN = "iasdsf";
+
+        // 1. Base de Datos Local
+        const iasdDB = {
+            save: (key, data) => {
+                let list = JSON.parse(localStorage.getItem(key)) || [];
+                list.unshift(data);
+                localStorage.setItem(key, JSON.stringify(list));
+                actualizarListas();
+                Swal.fire({
+                    title: '¡Registrado!',
+                    text: 'Tu información se guardó correctamente.',
+                    icon: 'success',
+                    confirmButtonColor: '#002D56'
+                });
+            },
+            get: (key) => JSON.parse(localStorage.getItem(key)) || []
+        };
+
+        // 2. Validación de Contraseña
+        async function validarAccion(callback) {
+            const { value: password } = await Swal.fire({
+                title: 'Validación de Seguridad',
+                input: 'password',
+                inputLabel: 'Introduce la contraseña para continuar',
+                inputPlaceholder: 'Contraseña',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#002D56'
+            });
+
+            if (password === CLAVE_ADMIN) {
+                callback();
+            } else if (password !== undefined) {
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Contraseña incorrecta.' });
+            }
+        }
+
+        // 3. Captura de Formularios
+        document.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = e.target;
+            let data = {
+                date: new Date().toLocaleString('es-CL'),
+                name: "", category: "", content: ""
+            };
+            let storageKey = "";
+
+            if (form.id === 'prayer-form') {
+                data.name = document.getElementById('prayer-name').value;
+                data.category = document.getElementById('prayer-category').value;
+                data.content = document.getElementById('prayer-request').value;
+                storageKey = 'pedidos';
+            }
+            else if (form.id === 'thanksgiving-form') {
+                data.name = document.getElementById('thanks-name').value;
+                data.category = document.getElementById('thanks-category').value;
+                data.content = document.getElementById('thanks-testimony').value;
+                storageKey = 'agradecimientos';
+            }
+            else if (form.id === 'testimony-form') {
+                data.name = document.getElementById('testimony-name').value;
+                data.category = document.getElementById('testimony-title').value;
+                data.content = document.getElementById('testimony-content').value;
+                storageKey = 'testimonios';
+            }
+
+            if (storageKey) {
+                iasdDB.save(storageKey, data);
+                form.reset();
+            }
+        });
+
+        // 4. Dibujar Listas y Eliminar
+        function dibujar(idContenedor, key) {
+            const contenedor = document.getElementById(idContenedor);
+            if (!contenedor) return;
+            const datos = iasdDB.get(key);
+            contenedor.innerHTML = datos.length ? "" : "<p style='color:gray; padding:20px;'>No hay registros.</p>";
+
+            datos.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.style = "background:white; padding:15px; margin-bottom:10px; border-radius:10px; border-left:5px solid #002D56; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative;";
+                card.innerHTML = `
+                <div style="font-size:11px; font-weight:bold; color:#002D56;">${item.category.toUpperCase()}</div>
+                <p style="margin:5px 0; font-size:14px;">${item.content}</p>
+                <div style="font-size:10px; color:gray;">${item.name} - ${item.date}</div>
+                <button onclick="intentarEliminar('${key}', ${index})" style="position:absolute; top:5px; right:10px; border:none; background:none; color:red; cursor:pointer; font-weight:bold;">&times;</button>
+            `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        function intentarEliminar(key, index) {
+            validarAccion(() => {
+                let list = iasdDB.get(key);
+                list.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(list));
+                actualizarListas();
+                Swal.fire('Eliminado', 'El registro ha sido borrado.', 'success');
+            });
+        }
+
+        function actualizarListas() {
+            dibujar('prayers-list', 'pedidos');
+            dibujar('thanksgiving-list', 'agradecimientos');
+            dibujar('testimonies-list', 'testimonios');
+        }
+
+        // 5. PDF y Panel Administrativo
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFillColor(0, 45, 86);
+            doc.rect(0, 0, 210, 30, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 18);
+
+            let y = 40;
+            [{ k: 'pedidos', t: 'PETICIONES' }, { k: 'agradecimientos', t: 'AGRADECIMIENTOS' }, { k: 'testimonios', t: 'TESTIMONIOS' }].forEach(sec => {
+                const data = iasdDB.get(sec.k);
+                if (data.length > 0) {
+                    doc.setTextColor(0, 45, 86);
+                    doc.text(sec.t, 15, y);
+                    doc.autoTable({ startY: y + 5, head: [['Fecha', 'Nombre', 'Detalle']], body: data.map(d => [d.date, d.name, d.content]), theme: 'grid' });
+                    y = doc.lastAutoTable.finalY + 10;
+                }
+            });
+            doc.save("Reporte_Iglesia.pdf");
+        }
+
+        function crearPanelAdmin() {
+            const panel = document.createElement('div');
+            panel.style = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;";
+            panel.innerHTML = `
+            <button onclick="generarPDF()" style="background:#28a745; color:white; border:none; padding:12px; border-radius:50%; width:50px; height:50px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3);"><i class="fas fa-file-pdf"></i></button>
+            <button onclick="validarAccion(() => { localStorage.clear(); location.reload(); })" style="background:#dc3545; color:white; border:none; padding:12px; border-radius:50%; width:50px; height:50px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3);"><i class="fas fa-trash"></i></button>
+        `;
+            document.body.appendChild(panel);
+        }
+
+        window.onload = () => { actualizarListas(); crearPanelAdmin(); };
+    </script>
+
+
+    <script>
+        // --- 1. CONFIGURACIÓN DE INTERFAZ ---
+        const iasdUI = {
+            success: (msg) => {
+                Swal.fire({
+                    title: '¡Registrado!',
+                    text: msg,
+                    icon: 'success',
+                    confirmButtonColor: '#002D56'
+                });
+            },
+            error: (msg) => Swal.fire({ title: 'Aviso', text: msg, icon: 'warning', confirmButtonColor: '#002D56' }),
+            confirm: (title, callback) => {
+                Swal.fire({
+                    title: title,
+                    text: "Esta acción requiere validación.",
+                    input: 'password',
+                    inputPlaceholder: 'Clave: iasdsf',
+                    showCancelButton: true,
+                    confirmButtonColor: '#002D56'
+                }).then((result) => {
+                    if (result.value === "iasdsf") callback();
+                    else if (result.value !== undefined) Swal.fire('Error', 'Clave incorrecta', 'error');
+                });
+            }
+        };
+
+        
+    // 1. Configuración de Seguridad
+            const CLAVE_ADMIN = "iasdsf";
+
+            // 2. Base de Datos Local con Corrección de Errores
+            const iasdDB = {
+                save: (key, data) => {
+            try {
+                let list = JSON.parse(localStorage.getItem(key)) || [];
+            list.unshift(data);
+            localStorage.setItem(key, JSON.stringify(list));
+
+            // Refrescar visualmente
+            if (typeof actualizarListas === 'function') {
+                actualizarListas();
+                }
+
+            Swal.fire({
+                title: '¡Guardado con éxito!',
+            text: 'La información ya está disponible en el sistema.',
+            icon: 'success',
+            confirmButtonColor: '#002D56'
+                });
+            } catch (e) {
+                console.error("Error al guardar:", e);
+            Swal.fire('Error', 'No se pudo guardar en la memoria del navegador', 'error');
+            }
+        },
+        get: (key) => {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        }
+    };
+
+            // 3. Generador de PDF Robusto
+            function generarPDF() {
+        const {jsPDF} = window.jspdf;
+            const doc = new jsPDF();
+
+            // Encabezado Azul Rey
+            doc.setFillColor(0, 45, 86);
+            doc.rect(0, 0, 210, 30, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(16);
+            doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 20);
+
+            let y = 45;
+            const secciones = [
+            {id: 'pedidos', titulo: 'PETICIONES' },
+            {id: 'agradecimientos', titulo: 'AGRADECIMIENTOS' },
+            {id: 'testimonios', titulo: 'TESTIMONIOS' }
+            ];
+
+            let hayDatos = false;
+
+        secciones.forEach(sec => {
+            const datos = iasdDB.get(sec.id);
+            if (datos && datos.length > 0) {
+                hayDatos = true;
+            doc.setTextColor(0, 45, 86);
+            doc.setFontSize(14);
+            doc.text(sec.titulo, 15, y);
+
+            doc.autoTable({
+                startY: y + 5,
+            head: [['Fecha', 'Nombre', 'Detalle']],
+                    body: datos.map(item => [
+            item.date || "S/F",
+            item.name || "Anónimo",
+            item.content || "Sin detalle"
+            ]),
+            headStyles: {fillColor: [0, 188, 140] },
+            theme: 'grid',
+            styles: {fontSize: 10 }
+                });
+            y = doc.lastAutoTable.finalY + 15;
+            }
+        });
+
+            if (!hayDatos) {
+                Swal.fire('Atención', 'No hay datos guardados para generar el reporte.', 'info');
+        } else {
+                doc.save("Reporte_Iglesia_San_Francisco.pdf");
+        }
+    }
+
+            // 4. Captura Correcta de Formularios (Evita el "Falso Error")
+            document.addEventListener('submit', function (e) {
+                e.preventDefault();
+            const form = e.target;
+
+            // Seleccionamos los campos de forma más precisa
+            const inputNombre = form.querySelector('input[type="text"]');
+            const inputContenido = form.querySelector('textarea');
+            const inputCategoria = form.querySelector('select');
+
+            // Validamos que al menos el contenido exista
+            if (!inputContenido || inputContenido.value.trim() === "") {
+            return Swal.fire('Error', 'El campo de mensaje no puede estar vacío', 'error');
+        }
+
+            const nuevoDato = {
+                date: new Date().toLocaleString('es-CL'),
+            name: inputNombre ? inputNombre.value : "Anónimo",
+            category: inputCategoria ? inputCategoria.value : "General",
+            content: inputContenido.value
+        };
+
+            // Identificamos el destino por el ID del formulario
+            let storageKey = "";
+            if (form.id.includes('prayer')) storageKey = 'pedidos';
+            else if (form.id.includes('thanks')) storageKey = 'agradecimientos';
+            else if (form.id.includes('testimony')) storageKey = 'testimonios';
+
+            if (storageKey !== "") {
+                iasdDB.save(storageKey, nuevoDato);
+            form.reset();
+        } else {
+                Swal.fire('Error', 'No se reconoció el tipo de formulario', 'error');
+        }
+    });
+
+            // 5. Validación de Contraseña para Eliminar
+            async function validarAccion(callback) {
+        const {value: password } = await Swal.fire({
+                title: 'Acceso Restringido',
+            input: 'password',
+            inputLabel: 'Contraseña para limpiar o eliminar:',
+            inputPlaceholder: 'Ingresa clave admin',
+            confirmButtonColor: '#002D56',
+            showCancelButton: true
+        });
+
+            if (password === CLAVE_ADMIN) {
+                callback();
+        } else if (password !== undefined) {
+                Swal.fire('Error', 'Contraseña incorrecta', 'error');
+        }
+    }
+
+    </script>
+
+
+    <script>
+            // 1. Función para dibujar las tarjetas en pantalla
+            function dibujar(idContenedor, key) {
+                const contenedor = document.getElementById(idContenedor);
+            if (!contenedor) return;
+
+            const datos = iasdDB.get(key);
+            contenedor.innerHTML = datos.length ? "" : "<p style='color:gray; padding:20px;'>No hay registros aún.</p>";
+
+            datos.forEach((item, index) => {
+                const card = document.createElement('div');
+            card.className = "card-registro"; // Puedes darle estilos en tu CSS
+            card.style = "background:white; padding:15px; margin-bottom:12px; border-radius:10px; border-left:5px solid #002D56; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; animation: fadeIn 0.5s;";
+
+            card.innerHTML = `
+            <div style="font-size:11px; font-weight:bold; color:#002D56; margin-bottom:5px;">${item.category.toUpperCase()}</div>
+            <p style="margin:0; font-size:14px; color:#333;">${item.content}</p>
+            <div style="font-size:10px; color:gray; margin-top:8px;">
+                <i class="fas fa-user"></i> ${item.name} | <i class="fas fa-calendar"></i> ${item.date}
+            </div>
+            <button onclick="intentarEliminar('${key}', ${index})"
+                style="position:absolute; top:8px; right:10px; border:none; background:none; color:#dc3545; cursor:pointer; font-size:18px;">
+                <i class="fas fa-times-circle"></i>
+            </button>
+            `;
+            contenedor.appendChild(card);
+            });
+        }
+
+            // 2. Lógica de eliminación individual con contraseña
+            function intentarEliminar(key, index) {
+                validarAccion(() => {
+                    let list = iasdDB.get(key);
+                    list.splice(index, 1);
+                    localStorage.setItem(key, JSON.stringify(list));
+                    actualizarListas();
+                    Swal.fire('Eliminado', 'El registro ha sido borrado correctamente.', 'success');
+                });
+        }
+
+            // 3. Función para refrescar todas las vistas
+            function actualizarListas() {
+                dibujar('prayers-list', 'pedidos');
+            dibujar('thanksgiving-list', 'agradecimientos');
+            dibujar('testimonies-list', 'testimonios');
+        }
+
+            // 4. Crear el Panel Administrativo Flotante
+            function crearPanelAdmin() {
+            const panel = document.createElement('div');
+            panel.style = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;";
+            panel.innerHTML = `
+            <button onclick="generarPDF()" title="Descargar Reporte PDF"
+                style="background:#28a745; color:white; border:none; padding:12px; border-radius:50%; width:55px; height:55px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3); transition:0.3s;">
+                <i class="fas fa-file-pdf fa-lg"></i>
+            </button>
+            <button onclick="validarAccion(() => { localStorage.clear(); location.reload(); })" title="Limpiar todo el sistema"
+                style="background:#dc3545; color:white; border:none; padding:12px; border-radius:50%; width:55px; height:55px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3); transition:0.3s;">
+                <i class="fas fa-trash-alt fa-lg"></i>
+            </button>
+        `;
+            document.body.appendChild(panel);
+        }
+
+        // Iniciar al cargar la página
+        window.onload = () => {
+            actualizarListas();
+            crearPanelAdmin();
+        };
+    </script>
 </body>
+
+
 
 </html>
