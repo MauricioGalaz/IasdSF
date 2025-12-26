@@ -129,24 +129,28 @@
     </script>
 </head>
 <style>
-    /* --- VARIABLES DE COLOR (IASD ALTO CONTRASTE) --- */
+    /* --- VARIABLES DE COLOR --- */
     :root {
         --primary-blue: #002D56;
-        /* Azul profundo (máximo contraste) */
         --accent-gold: #B8860B;
-        /* Dorado para botones y énfasis */
         --text-main: #1A1A1A;
-        /* Casi negro para lectura clara */
         --text-muted: #444444;
-        /* Gris oscuro para descripciones */
         --bg-light: #F4F7F9;
         --white: #FFFFFF;
     }
 
+    /* --- RESET Y BASES --- */
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+        /* Evita el desbordamiento lateral */
+        width: 100%;
     }
 
     body {
@@ -156,433 +160,203 @@
         background-color: var(--bg-light);
     }
 
-    /* --- NAVEGACIÓN (Azul oscuro para que resalte el texto blanco) --- */
+    .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* --- NAVEGACIÓN --- */
     .navbar {
         background: var(--primary-blue);
         padding: 12px 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         position: sticky;
         top: 0;
         z-index: 1000;
+        width: 100%;
     }
 
-    .logo-text h1 {
-        color: var(--white) !important;
-        font-size: 1.2rem;
-        font-weight: 700;
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-img {
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 20px;
     }
 
     .nav-link {
-        color: var(--white) !important;
-        font-weight: 700;
-        text-decoration: none;
-        font-size: 15px;
-    }
-
-    /* --- HERO SECTION (Fondo oscuro con texto blanco brillante) --- */
-    .hero-section {
-        background: linear-gradient(rgba(0, 45, 86, 0.8), rgba(0, 45, 86, 0.8)),
-            url('imagenes/oracion.jpg') no-repeat center center/cover;
-        padding: 80px 20px;
-        text-align: center;
         color: var(--white);
-    }
-
-    .hero-content h2 {
-        font-size: 2.2rem;
-        margin-bottom: 10px;
-        color: var(--white);
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .verse-box {
-        background: rgba(255, 255, 255, 0.1);
-        border-left: 5px solid var(--accent-gold);
-        padding: 20px;
-        margin: 20px 0;
-        font-weight: 600;
-    }
-
-    /* --- TARJETAS Y FORMULARIOS (Bordes fuertes para visibilidad) --- */
-    .form-card,
-    .study-card,
-    .book-card,
-    .news-list-card {
-        background: var(--white);
-        padding: 25px;
-        border-radius: 12px;
-        border: 2px solid #D1D8DD;
-        /* Borde más visible */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        margin-bottom: 25px;
-    }
-
-    h3 {
-        color: var(--primary-blue);
-        font-weight: 800;
-        margin-bottom: 15px;
-        border-bottom: 2px solid var(--bg-light);
-        padding-bottom: 5px;
-    }
-
-    label {
-        display: block;
-        font-weight: 700;
-        color: var(--primary-blue);
-        margin-bottom: 5px;
-    }
-
-    /* Inputs con texto oscuro y bordes definidos */
-    input,
-    select,
-    textarea {
-        width: 100%;
-        padding: 14px;
-        border: 2px solid #999;
-        /* Borde gris fuerte */
-        border-radius: 8px;
-        font-size: 16px;
-        color: #000;
-        background: #fff;
-    }
-
-    input:focus {
-        border-color: var(--primary-blue);
-        outline: none;
-    }
-
-    /* --- BOTONES SÓLIDOS --- */
-    .btn {
-        display: inline-block;
-        padding: 15px 25px;
-        border-radius: 8px;
-        font-weight: 800;
-        text-align: center;
         text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .btn-primary {
-        background-color: var(--primary-blue);
-        color: white !important;
-        border: none;
-    }
-
-    .btn-secondary {
-        background-color: var(--accent-gold);
-        color: white !important;
-        border: none;
-    }
-
-    /* --- SECCIONES --- */
-    .section-description {
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-    }
-
-    /* --- TOASTS REFORZADOS --- */
-    .toast {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%) translateY(100px);
-        background: #1e1e2f;
-        color: #fff;
-        padding: 16px 25px;
-        border-radius: 12px;
         font-weight: 700;
-        z-index: 10000;
-        width: 90%;
-        max-width: 400px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        font-size: 14px;
     }
 
-    /* --- RESPONSIVIDAD --- */
-    @media (max-width: 768px) {
-    .nav-menu {
-        display: none; /* Oculto por defecto */
-        flex-direction: column;
-        width: 100%;
-        background: var(--primary-blue);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 20px;
-    }
-
-    .nav-menu.active {
-        display: flex; /* Se muestra al hacer click */
-    }
-
-    .mobile-menu-toggle {
-        display: block;
-        cursor: pointer;
-        background: transparent;
-        border: none;
-    }
-    
-    .mobile-menu-toggle span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: white;
-        margin: 5px 0;
-    }
-}
-
-        .nav-menu {
-            background: var(--primary-blue);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hero-content h2 {
-            font-size: 1.7rem;
-        }
-
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-        }
-    
-
-
-    .main-footer {
-        background-color: #002D56;
-        /* Azul profundo institucional */
-        color: #FFFFFF;
-        padding: 50px 0 20px 0;
-        border-top: 4px solid #B8860B;
-        /* Línea dorada superior */
-    }
-
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 40px;
-    }
-
-    .footer-section h4 {
-        color: #FFD700;
-        /* Dorado brillante para títulos */
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    /* Estilo especial para el versículo del Salmo */
-    .footer-verse {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
-        font-style: italic;
-        line-height: 1.4;
-        color: #FFFFFF;
-        font-weight: 700;
-        margin-top: 10px;
-    }
-
-    .footer-section ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .footer-section ul li {
-        margin-bottom: 12px;
-    }
-
-    .footer-section ul li a {
-        color: #E0E0E0;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.3s;
-        display: inline-block;
-        /* Mejora el área de toque */
-    }
-
-    .footer-section ul li a:hover {
-        color: #FFD700;
-        text-decoration: underline;
-    }
-
-    /* Parte inferior del footer */
-    .footer-bottom {
-        text-align: center;
-        padding-top: 30px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 0.9rem;
-        color: #BBBBBB;
-    }
-
-    .footer-bottom p {
-        margin-bottom: 5px;
-    }
-
-    /* Ajustes para Celulares */
-    @media (max-width: 768px) {
-        .footer-content {
-            text-align: center;
-            /* Centra todo en móviles */
-            gap: 30px;
-        }
-
-        .footer-section h3.footer-verse {
-            font-size: 1.2rem;
-            padding: 0 10px;
-        }
-    }
-
-
-
-    /* --- AJUSTES DE LA SECCIÓN HERO --- */
+    /* --- HERO SECTION --- */
     .hero-section {
         position: relative;
-        min-height: 80vh;
+        min-height: 60vh;
         display: flex;
         align-items: center;
-        justify-content: center;
-        background: url('tu-imagen.jpg') no-repeat center center/cover;
         padding: 60px 0;
+        background: linear-gradient(rgba(0, 45, 86, 0.7), rgba(0, 45, 86, 0.7)),
+            url('imagenes/oracion.jpg') no-repeat center center/cover;
         text-align: center;
-    }
-
-    /* Oscurecemos el fondo para que las letras se lean claro */
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.65);
-        /* Filtro oscuro */
-        z-index: 1;
+        color: white;
     }
 
     .hero-content {
         position: relative;
         z-index: 2;
-        /* Por encima del overlay */
-        color: #ffffff;
         width: 100%;
     }
 
     .roboto-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
         font-weight: 800;
         margin-bottom: 10px;
-        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     }
 
-    .hero-subtitle {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #FFD700;
-        /* Dorado brillante para subtítulo */
-        margin-bottom: 30px;
-    }
-
-    /* --- CAJA DEL VERSÍCULO (MATEO 18:20) --- */
     .verse-box {
-        max-width: 550px;
-        margin: 0 auto 40px auto;
-        /* Centra la caja horizontalmente */
-        padding: 25px;
-        background: rgba(255, 255, 255, 0.12);
-        /* Fondo de cristal */
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 5px solid var(--accent-gold);
         backdrop-filter: blur(5px);
-    }
-
-    .verse-box i {
-        font-size: 22px;
-        color: #FFD700;
-        margin-bottom: 15px;
-        display: block;
+        border-radius: 0 10px 10px 0;
     }
 
     .verse-text {
-        font-size: 1.25rem;
-        line-height: 1.7;
-        font-weight: 600;
-        /* Letra más gruesa para celulares */
-        color: #ffffff;
-
-        /* JUSTIFICADO PERFECTO */
-        text-align: justify;
-        text-justify: inter-word;
-
-        margin-bottom: 15px;
+        font-size: 1.1rem;
         font-style: italic;
     }
 
-    .verse-ref {
-        font-size: 1rem;
-        font-weight: 800;
-        color: #FFD700;
-        text-align: center;
-        /* La referencia siempre centrada */
-        margin: 0;
-        letter-spacing: 1px;
+    /* --- GRID DE CONTENIDO --- */
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
     }
 
-    /* --- BOTONES --- */
-    .hero-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
+    .form-card,
+    .prayers-list-card,
+    .study-card {
+        background: var(--white);
+        padding: 25px;
+        border-radius: 12px;
+        border: 2px solid #D1D8DD;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* --- ELEMENTOS DE FORMULARIO --- */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        /* Evita zoom molesto en iPhone */
     }
 
     .btn {
-        padding: 14px 25px;
-        font-weight: 700;
-        text-decoration: none;
+        width: 100%;
+        padding: 15px;
         border-radius: 8px;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         transition: 0.3s;
+        text-decoration: none;
     }
 
     .btn-primary {
-        background: #004a99;
+        background: var(--primary-blue);
         color: white;
     }
 
     .btn-secondary {
-        background: #B8860B;
+        background: var(--accent-gold);
         color: white;
     }
 
-    /* AJUSTE PARA MÓVILES */
+    /* --- FOOTER --- */
+    .main-footer {
+        background: var(--primary-blue);
+        color: white;
+        padding: 40px 0 20px;
+        margin-top: 50px;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+
+    /* --- RESPONSIVIDAD (Móviles) --- */
     @media (max-width: 768px) {
-        .container {
-            width: 92%;
+        .nav-menu {
+            display: none;
+            /* Oculto hasta que actives el JS del botón */
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--primary-blue);
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+            /* Una sola columna en móvil */
         }
 
         .roboto-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .verse-box {
-            padding: 20px;
+            width: 95%;
+            margin: 20px auto;
         }
-
-        .verse-text {
-            font-size: 1.1rem;
-        }
-
-        .btn {
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* Botones anchos en celular */
     }
 </style>
 
@@ -1499,25 +1273,25 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
 
-    if(menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            // Opcional: Animación del botón
-            this.classList.toggle('open');
-        });
-    }
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function () {
+                    navMenu.classList.toggle('active');
+                    // Opcional: Animación del botón
+                    this.classList.toggle('open');
+                });
+            }
 
-    // Cerrar menú al hacer click en un link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
+            // Cerrar menú al hacer click en un link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
         });
-    });
-});
         // 3. Captura de Formularios
         document.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -1652,43 +1426,43 @@
             }
         };
 
-        
-    // 1. Configuración de Seguridad
-            const CLAVE_ADMIN = "iasdsf";
 
-            // 2. Base de Datos Local con Corrección de Errores
-            const iasdDB = {
-                save: (key, data) => {
-            try {
-                let list = JSON.parse(localStorage.getItem(key)) || [];
-            list.unshift(data);
-            localStorage.setItem(key, JSON.stringify(list));
+        // 1. Configuración de Seguridad
+        const CLAVE_ADMIN = "iasdsf";
 
-            // Refrescar visualmente
-            if (typeof actualizarListas === 'function') {
-                actualizarListas();
+        // 2. Base de Datos Local con Corrección de Errores
+        const iasdDB = {
+            save: (key, data) => {
+                try {
+                    let list = JSON.parse(localStorage.getItem(key)) || [];
+                    list.unshift(data);
+                    localStorage.setItem(key, JSON.stringify(list));
+
+                    // Refrescar visualmente
+                    if (typeof actualizarListas === 'function') {
+                        actualizarListas();
+                    }
+
+                    Swal.fire({
+                        title: '¡Guardado con éxito!',
+                        text: 'La información ya está disponible en el sistema.',
+                        icon: 'success',
+                        confirmButtonColor: '#002D56'
+                    });
+                } catch (e) {
+                    console.error("Error al guardar:", e);
+                    Swal.fire('Error', 'No se pudo guardar en la memoria del navegador', 'error');
                 }
-
-            Swal.fire({
-                title: '¡Guardado con éxito!',
-            text: 'La información ya está disponible en el sistema.',
-            icon: 'success',
-            confirmButtonColor: '#002D56'
-                });
-            } catch (e) {
-                console.error("Error al guardar:", e);
-            Swal.fire('Error', 'No se pudo guardar en la memoria del navegador', 'error');
+            },
+            get: (key) => {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : [];
             }
-        },
-        get: (key) => {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : [];
-        }
-    };
+        };
 
-            // 3. Generador de PDF Robusto
-            function generarPDF() {
-        const {jsPDF} = window.jspdf;
+        // 3. Generador de PDF Robusto
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
             // Encabezado Azul Rey
@@ -1700,47 +1474,47 @@
 
             let y = 45;
             const secciones = [
-            {id: 'pedidos', titulo: 'PETICIONES' },
-            {id: 'agradecimientos', titulo: 'AGRADECIMIENTOS' },
-            {id: 'testimonios', titulo: 'TESTIMONIOS' }
+                { id: 'pedidos', titulo: 'PETICIONES' },
+                { id: 'agradecimientos', titulo: 'AGRADECIMIENTOS' },
+                { id: 'testimonios', titulo: 'TESTIMONIOS' }
             ];
 
             let hayDatos = false;
 
-        secciones.forEach(sec => {
-            const datos = iasdDB.get(sec.id);
-            if (datos && datos.length > 0) {
-                hayDatos = true;
-            doc.setTextColor(0, 45, 86);
-            doc.setFontSize(14);
-            doc.text(sec.titulo, 15, y);
+            secciones.forEach(sec => {
+                const datos = iasdDB.get(sec.id);
+                if (datos && datos.length > 0) {
+                    hayDatos = true;
+                    doc.setTextColor(0, 45, 86);
+                    doc.setFontSize(14);
+                    doc.text(sec.titulo, 15, y);
 
-            doc.autoTable({
-                startY: y + 5,
-            head: [['Fecha', 'Nombre', 'Detalle']],
-                    body: datos.map(item => [
-            item.date || "S/F",
-            item.name || "Anónimo",
-            item.content || "Sin detalle"
-            ]),
-            headStyles: {fillColor: [0, 188, 140] },
-            theme: 'grid',
-            styles: {fontSize: 10 }
-                });
-            y = doc.lastAutoTable.finalY + 15;
-            }
-        });
+                    doc.autoTable({
+                        startY: y + 5,
+                        head: [['Fecha', 'Nombre', 'Detalle']],
+                        body: datos.map(item => [
+                            item.date || "S/F",
+                            item.name || "Anónimo",
+                            item.content || "Sin detalle"
+                        ]),
+                        headStyles: { fillColor: [0, 188, 140] },
+                        theme: 'grid',
+                        styles: { fontSize: 10 }
+                    });
+                    y = doc.lastAutoTable.finalY + 15;
+                }
+            });
 
             if (!hayDatos) {
                 Swal.fire('Atención', 'No hay datos guardados para generar el reporte.', 'info');
-        } else {
+            } else {
                 doc.save("Reporte_Iglesia_San_Francisco.pdf");
+            }
         }
-    }
 
-            // 4. Captura Correcta de Formularios (Evita el "Falso Error")
-            document.addEventListener('submit', function (e) {
-                e.preventDefault();
+        // 4. Captura Correcta de Formularios (Evita el "Falso Error")
+        document.addEventListener('submit', function (e) {
+            e.preventDefault();
             const form = e.target;
 
             // Seleccionamos los campos de forma más precisa
@@ -1750,15 +1524,15 @@
 
             // Validamos que al menos el contenido exista
             if (!inputContenido || inputContenido.value.trim() === "") {
-            return Swal.fire('Error', 'El campo de mensaje no puede estar vacío', 'error');
-        }
+                return Swal.fire('Error', 'El campo de mensaje no puede estar vacío', 'error');
+            }
 
             const nuevoDato = {
                 date: new Date().toLocaleString('es-CL'),
-            name: inputNombre ? inputNombre.value : "Anónimo",
-            category: inputCategoria ? inputCategoria.value : "General",
-            content: inputContenido.value
-        };
+                name: inputNombre ? inputNombre.value : "Anónimo",
+                category: inputCategoria ? inputCategoria.value : "General",
+                content: inputContenido.value
+            };
 
             // Identificamos el destino por el ID del formulario
             let storageKey = "";
@@ -1768,37 +1542,37 @@
 
             if (storageKey !== "") {
                 iasdDB.save(storageKey, nuevoDato);
-            form.reset();
-        } else {
+                form.reset();
+            } else {
                 Swal.fire('Error', 'No se reconoció el tipo de formulario', 'error');
-        }
-    });
-
-            // 5. Validación de Contraseña para Eliminar
-            async function validarAccion(callback) {
-        const {value: password } = await Swal.fire({
-                title: 'Acceso Restringido',
-            input: 'password',
-            inputLabel: 'Contraseña para limpiar o eliminar:',
-            inputPlaceholder: 'Ingresa clave admin',
-            confirmButtonColor: '#002D56',
-            showCancelButton: true
+            }
         });
+
+        // 5. Validación de Contraseña para Eliminar
+        async function validarAccion(callback) {
+            const { value: password } = await Swal.fire({
+                title: 'Acceso Restringido',
+                input: 'password',
+                inputLabel: 'Contraseña para limpiar o eliminar:',
+                inputPlaceholder: 'Ingresa clave admin',
+                confirmButtonColor: '#002D56',
+                showCancelButton: true
+            });
 
             if (password === CLAVE_ADMIN) {
                 callback();
-        } else if (password !== undefined) {
+            } else if (password !== undefined) {
                 Swal.fire('Error', 'Contraseña incorrecta', 'error');
+            }
         }
-    }
 
     </script>
 
 
     <script>
-            // 1. Función para dibujar las tarjetas en pantalla
-            function dibujar(idContenedor, key) {
-                const contenedor = document.getElementById(idContenedor);
+        // 1. Función para dibujar las tarjetas en pantalla
+        function dibujar(idContenedor, key) {
+            const contenedor = document.getElementById(idContenedor);
             if (!contenedor) return;
 
             const datos = iasdDB.get(key);
@@ -1806,10 +1580,10 @@
 
             datos.forEach((item, index) => {
                 const card = document.createElement('div');
-            card.className = "card-registro"; // Puedes darle estilos en tu CSS
-            card.style = "background:white; padding:15px; margin-bottom:12px; border-radius:10px; border-left:5px solid #002D56; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; animation: fadeIn 0.5s;";
+                card.className = "card-registro"; // Puedes darle estilos en tu CSS
+                card.style = "background:white; padding:15px; margin-bottom:12px; border-radius:10px; border-left:5px solid #002D56; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative; animation: fadeIn 0.5s;";
 
-            card.innerHTML = `
+                card.innerHTML = `
             <div style="font-size:11px; font-weight:bold; color:#002D56; margin-bottom:5px;">${item.category.toUpperCase()}</div>
             <p style="margin:0; font-size:14px; color:#333;">${item.content}</p>
             <div style="font-size:10px; color:gray; margin-top:8px;">
@@ -1820,30 +1594,30 @@
                 <i class="fas fa-times-circle"></i>
             </button>
             `;
-            contenedor.appendChild(card);
+                contenedor.appendChild(card);
             });
         }
 
-            // 2. Lógica de eliminación individual con contraseña
-            function intentarEliminar(key, index) {
-                validarAccion(() => {
-                    let list = iasdDB.get(key);
-                    list.splice(index, 1);
-                    localStorage.setItem(key, JSON.stringify(list));
-                    actualizarListas();
-                    Swal.fire('Eliminado', 'El registro ha sido borrado correctamente.', 'success');
-                });
+        // 2. Lógica de eliminación individual con contraseña
+        function intentarEliminar(key, index) {
+            validarAccion(() => {
+                let list = iasdDB.get(key);
+                list.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(list));
+                actualizarListas();
+                Swal.fire('Eliminado', 'El registro ha sido borrado correctamente.', 'success');
+            });
         }
 
-            // 3. Función para refrescar todas las vistas
-            function actualizarListas() {
-                dibujar('prayers-list', 'pedidos');
+        // 3. Función para refrescar todas las vistas
+        function actualizarListas() {
+            dibujar('prayers-list', 'pedidos');
             dibujar('thanksgiving-list', 'agradecimientos');
             dibujar('testimonies-list', 'testimonios');
         }
 
-            // 4. Crear el Panel Administrativo Flotante
-            function crearPanelAdmin() {
+        // 4. Crear el Panel Administrativo Flotante
+        function crearPanelAdmin() {
             const panel = document.createElement('div');
             panel.style = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;";
             panel.innerHTML = `
