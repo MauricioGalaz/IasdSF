@@ -303,10 +303,36 @@
 
     /* --- RESPONSIVIDAD --- */
     @media (max-width: 768px) {
-        .mobile-menu-toggle span {
-            background: var(--white);
-            /* Hamburguesa blanca sobre azul */
-        }
+    .nav-menu {
+        display: none; /* Oculto por defecto */
+        flex-direction: column;
+        width: 100%;
+        background: var(--primary-blue);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 20px;
+    }
+
+    .nav-menu.active {
+        display: flex; /* Se muestra al hacer click */
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+    }
+    
+    .mobile-menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+    }
+}
 
         .nav-menu {
             background: var(--primary-blue);
@@ -321,7 +347,7 @@
             display: flex;
             flex-direction: column;
         }
-    }
+    
 
 
     .main-footer {
@@ -559,7 +585,7 @@
         /* Botones anchos en celular */
     }
 </style>
-</style>
+
 
 <body>
     <!-- Header & Navigation -->
@@ -1472,6 +1498,26 @@
             }
         }
 
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if(menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            // Opcional: Animación del botón
+            this.classList.toggle('open');
+        });
+    }
+
+    // Cerrar menú al hacer click en un link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+});
         // 3. Captura de Formularios
         document.addEventListener('submit', function (e) {
             e.preventDefault();
