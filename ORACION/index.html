@@ -22,111 +22,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="main.js" defer></script>
 
-    <script>
-        // 1. Configuración y Base de Datos
-        const CLAVE_ADMIN = "iasdsf";
 
-        const iasdDB = {
-            save: (key, data) => {
-                let list = JSON.parse(localStorage.getItem(key)) || [];
-                list.unshift(data);
-                localStorage.setItem(key, JSON.stringify(list));
-                if (typeof actualizarListas === 'function') actualizarListas();
-                Swal.fire({ title: '¡Registrado!', icon: 'success', confirmButtonColor: '#002D56' });
-            },
-            get: (key) => JSON.parse(localStorage.getItem(key)) || []
-        };
-
-        // 2. Validación de Seguridad
-        async function validarAccion(callback) {
-            const { value: password } = await Swal.fire({
-                title: 'Seguridad',
-                input: 'password',
-                inputLabel: 'Introduce la contraseña para eliminar',
-                confirmButtonColor: '#002D56',
-                showCancelButton: true
-            });
-
-            if (password === CLAVE_ADMIN) {
-                callback();
-            } else if (password !== undefined) {
-                Swal.fire({ icon: 'error', title: 'Error', text: 'Contraseña incorrecta.' });
-            }
-        }
-
-        // 3. Generador de PDF Corregido (Evita celdas vacías)
-        function generarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFillColor(0, 45, 86);
-            doc.rect(0, 0, 210, 30, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(16);
-            doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 20);
-
-            let y = 45;
-            const secciones = [
-                { k: 'pedidos', t: 'PETICIONES' },
-                { k: 'agradecimientos', t: 'AGRADECIMIENTOS' },
-                { k: 'testimonios', t: 'TESTIMONIOS' }
-            ];
-
-            secciones.forEach(sec => {
-                const datos = iasdDB.get(sec.k);
-                if (datos.length > 0) {
-                    doc.setTextColor(0, 45, 86);
-                    doc.setFontSize(14);
-                    doc.text(sec.t, 15, y);
-
-                    doc.autoTable({
-                        startY: y + 5,
-                        head: [['Fecha', 'Nombre', 'Detalle']],
-                        body: datos.map(item => [
-                            item.date || "-",
-                            item.name || "Anónimo",
-                            item.content || "Sin detalle"
-                        ]),
-                        headStyles: { fillColor: [0, 188, 140] },
-                        theme: 'grid'
-                    });
-                    y = doc.lastAutoTable.finalY + 15;
-                }
-            });
-            doc.save("Reporte_IASD.pdf");
-        }
-
-        // 4. Capturador Universal de Formularios
-        document.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const form = e.target;
-
-            // Extraer datos buscando por IDs comunes o tipos de campo
-            const nombre = form.querySelector('input[type="text"]')?.value || "Anónimo";
-            const categoria = form.querySelector('select')?.value || "General";
-            const contenido = form.querySelector('textarea')?.value || "";
-
-            if (!contenido) return Swal.fire('Error', 'El detalle es obligatorio', 'error');
-
-            const data = {
-                date: new Date().toLocaleString('es-CL'),
-                name: nombre,
-                category: categoria,
-                content: contenido
-            };
-
-            let key = "";
-            if (form.id.includes('prayer')) key = 'pedidos';
-            else if (form.id.includes('thanks')) key = 'agradecimientos';
-            else if (form.id.includes('testimony')) key = 'testimonios';
-
-            if (key) {
-                iasdDB.save(key, data);
-                form.reset();
-            }
-        });
-    </script>
 </head>
 <style>
     /* --- VARIABLES DE COLOR --- */
@@ -823,6 +721,19 @@
                 <h2 class="section-title">Muro de Oración Intercesora</h2>
                 <p class="section-description">Únete en oración por las necesidades de nuestra comunidad</p>
             </div>
+            <section id="intercession-wall" class="section">
+    <div class="container">
+
+        
+        <div id="wall-metrics"></div>
+
+        
+    
+            
+            <div id="prayers-list">
+                </div>
+        </div>
+    </div>
 
             <div class="intercessory-intro">
                 <div class="intro-card">
@@ -832,11 +743,7 @@
                 </div>
             </div>
 
-            <div id="intercessory-wall" class="intercessory-wall">
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Cargando peticiones...
-                </div>
-            </div>
+    
         </div>
     </section>
 
@@ -891,12 +798,7 @@
                 <!-- Lista de Noticias -->
                 <div class="news-list-card">
                     <h3><i class="fas fa-list"></i> Últimas Publicaciones</h3>
-                    <div class="news-filter">
-                        <button class="filter-btn active" data-type="todos">Todos</button>
-                        <button class="filter-btn" data-type="noticia">Noticias</button>
-                        <button class="filter-btn" data-type="evento">Eventos</button>
-                        <button class="filter-btn" data-type="anuncio">Anuncios</button>
-                    </div>
+                    
                     <div id="news-list" class="news-list">
                         <div class="loading">
                             <i class="fas fa-spinner fa-spin"></i> Cargando publicaciones...
@@ -1001,13 +903,13 @@
 
     <!-- Footer -->
     <footer class="main-footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4 class="footer-ref">Salmos 23:1</h4>
-                <h3 class="footer-verse">
-                    "El Señor es mi pastor, nada me faltará"
-                </h3>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-ref">Salmos 23:1</h4>
+                    <h3 class="footer-verse">
+                        "El Señor es mi pastor, nada me faltará"
+                    </h3>
                 </div>
 
                 <div class="footer-section">
@@ -1059,23 +961,6 @@
     <audio id="toast-sound">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3" type="audio/mpeg">
     </audio>
-
-    <script>
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        // Cerrar menú al hacer clic en un enlace
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-    </script>
-
 
     <script>
         // --- LÓGICA DE ALMACENAMIENTO Y SEGURIDAD ---
@@ -1236,112 +1121,100 @@
         // 1. Base de Datos Local
         const iasdDB = {
             save: (key, data) => {
-                let list = JSON.parse(localStorage.getItem(key)) || [];
-                list.unshift(data);
-                localStorage.setItem(key, JSON.stringify(list));
-                actualizarListas();
-                Swal.fire({
-                    title: '¡Registrado!',
-                    text: 'Tu información se guardó correctamente.',
-                    icon: 'success',
-                    confirmButtonColor: '#002D56'
-                });
+                try {
+                    let list = JSON.parse(localStorage.getItem(key)) || [];
+                    list.unshift(data);
+                    localStorage.setItem(key, JSON.stringify(list));
+
+                    // Primero actualizamos la vista
+                    actualizarListas();
+
+                    // Luego mostramos la alerta de éxito
+                    Swal.fire({
+                        title: '¡Registrado!',
+                        text: 'Tu información se guardó correctamente.',
+                        icon: 'success',
+                        confirmButtonColor: '#002D56'
+                    });
+                } catch (e) {
+                    Swal.fire('Error', 'No se pudo guardar la información.', 'error');
+                }
             },
             get: (key) => JSON.parse(localStorage.getItem(key)) || []
         };
 
-        // 2. Validación de Contraseña
+        // 2. Validación de Seguridad
         async function validarAccion(callback) {
             const { value: password } = await Swal.fire({
-                title: 'Validación de Seguridad',
+                title: 'Seguridad',
                 input: 'password',
-                inputLabel: 'Introduce la contraseña para continuar',
-                inputPlaceholder: 'Contraseña',
-                inputAttributes: {
-                    autocapitalize: 'off',
-                    autocorrect: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonColor: '#002D56'
+                inputLabel: 'Introduce la contraseña',
+                confirmButtonColor: '#002D56',
+                showCancelButton: true
             });
 
             if (password === CLAVE_ADMIN) {
                 callback();
             } else if (password !== undefined) {
-                Swal.fire({ icon: 'error', title: 'Error', text: 'Contraseña incorrecta.' });
+                Swal.fire('Error', 'Contraseña incorrecta.', 'error');
             }
         }
 
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.getElementById('menuToggle');
-            const navMenu = document.getElementById('navMenu');
-
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function () {
-                    navMenu.classList.toggle('active');
-                    // Opcional: Animación del botón
-                    this.classList.toggle('open');
-                });
-            }
-
-            // Cerrar menú al hacer click en un link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                });
-            });
-        });
-        // 3. Captura de Formularios
+        // 3. Captura de Formularios (Mensajes corregidos)
         document.addEventListener('submit', function (e) {
             e.preventDefault();
             const form = e.target;
-            let data = {
-                date: new Date().toLocaleString('es-CL'),
-                name: "", category: "", content: ""
-            };
             let storageKey = "";
 
+            let data = {
+                date: new Date().toLocaleString('es-CL'),
+                name: "Anónimo",
+                category: "General",
+                content: ""
+            };
+
             if (form.id === 'prayer-form') {
-                data.name = document.getElementById('prayer-name').value;
-                data.category = document.getElementById('prayer-category').value;
-                data.content = document.getElementById('prayer-request').value;
+                data.name = document.getElementById('prayer-name')?.value || "Anónimo";
+                data.category = document.getElementById('prayer-category')?.value || "Petición";
+                data.content = document.getElementById('prayer-request')?.value || "";
                 storageKey = 'pedidos';
             }
             else if (form.id === 'thanksgiving-form') {
-                data.name = document.getElementById('thanks-name').value;
-                data.category = document.getElementById('thanks-category').value;
-                data.content = document.getElementById('thanks-testimony').value;
+                data.name = document.getElementById('thanks-name')?.value || "Anónimo";
+                data.category = document.getElementById('thanks-category')?.value || "Agradecimiento";
+                data.content = document.getElementById('thanks-testimony')?.value || "";
                 storageKey = 'agradecimientos';
             }
             else if (form.id === 'testimony-form') {
-                data.name = document.getElementById('testimony-name').value;
-                data.category = document.getElementById('testimony-title').value;
-                data.content = document.getElementById('testimony-content').value;
+                data.name = document.getElementById('testimony-name')?.value || "Anónimo";
+                data.category = document.getElementById('testimony-title')?.value || "Testimonio";
+                data.content = document.getElementById('testimony-content')?.value || "";
                 storageKey = 'testimonios';
             }
 
-            if (storageKey) {
+            if (storageKey && data.content.trim() !== "") {
                 iasdDB.save(storageKey, data);
                 form.reset();
+            } else {
+                Swal.fire('Atención', 'El campo de detalle no puede estar vacío.', 'warning');
             }
         });
 
-        // 4. Dibujar Listas y Eliminar
+        // 4. Funciones de Lista
         function dibujar(idContenedor, key) {
             const contenedor = document.getElementById(idContenedor);
             if (!contenedor) return;
             const datos = iasdDB.get(key);
-            contenedor.innerHTML = datos.length ? "" : "<p style='color:gray; padding:20px;'>No hay registros.</p>";
+            contenedor.innerHTML = datos.length ? "" : "<p style='color:gray; padding:10px;'>Sin registros.</p>";
 
             datos.forEach((item, index) => {
                 const card = document.createElement('div');
-                card.style = "background:white; padding:15px; margin-bottom:10px; border-radius:10px; border-left:5px solid #002D56; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:relative;";
+                card.style = "background:white; padding:15px; margin-bottom:10px; border-radius:10px; border-left:5px solid #002D56; position:relative; box-shadow:0 2px 4px rgba(0,0,0,0.1);";
                 card.innerHTML = `
                 <div style="font-size:11px; font-weight:bold; color:#002D56;">${item.category.toUpperCase()}</div>
                 <p style="margin:5px 0; font-size:14px;">${item.content}</p>
                 <div style="font-size:10px; color:gray;">${item.name} - ${item.date}</div>
-                <button onclick="intentarEliminar('${key}', ${index})" style="position:absolute; top:5px; right:10px; border:none; background:none; color:red; cursor:pointer; font-weight:bold;">&times;</button>
+                <button onclick="intentarEliminar('${key}', ${index})" style="position:absolute; top:5px; right:10px; border:none; background:none; color:red; cursor:pointer;">&times;</button>
             `;
                 contenedor.appendChild(card);
             });
@@ -1353,7 +1226,7 @@
                 list.splice(index, 1);
                 localStorage.setItem(key, JSON.stringify(list));
                 actualizarListas();
-                Swal.fire('Eliminado', 'El registro ha sido borrado.', 'success');
+                Swal.fire('Eliminado', 'Registro borrado con éxito.', 'success');
             });
         }
 
@@ -1363,212 +1236,58 @@
             dibujar('testimonies-list', 'testimonios');
         }
 
-        // 5. PDF y Panel Administrativo
-        function generarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFillColor(0, 45, 86);
-            doc.rect(0, 0, 210, 30, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 18);
-
-            let y = 40;
-            [{ k: 'pedidos', t: 'PETICIONES' }, { k: 'agradecimientos', t: 'AGRADECIMIENTOS' }, { k: 'testimonios', t: 'TESTIMONIOS' }].forEach(sec => {
-                const data = iasdDB.get(sec.k);
-                if (data.length > 0) {
-                    doc.setTextColor(0, 45, 86);
-                    doc.text(sec.t, 15, y);
-                    doc.autoTable({ startY: y + 5, head: [['Fecha', 'Nombre', 'Detalle']], body: data.map(d => [d.date, d.name, d.content]), theme: 'grid' });
-                    y = doc.lastAutoTable.finalY + 10;
-                }
-            });
-            doc.save("Reporte_Iglesia.pdf");
-        }
-
-        function crearPanelAdmin() {
-            const panel = document.createElement('div');
-            panel.style = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;";
-            panel.innerHTML = `
-            <button onclick="generarPDF()" style="background:#28a745; color:white; border:none; padding:12px; border-radius:50%; width:50px; height:50px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3);"><i class="fas fa-file-pdf"></i></button>
-            <button onclick="validarAccion(() => { localStorage.clear(); location.reload(); })" style="background:#dc3545; color:white; border:none; padding:12px; border-radius:50%; width:50px; height:50px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3);"><i class="fas fa-trash"></i></button>
-        `;
-            document.body.appendChild(panel);
-        }
-
-        window.onload = () => { actualizarListas(); crearPanelAdmin(); };
-    </script>
-
-
-    <script>
-        // --- 1. CONFIGURACIÓN DE INTERFAZ ---
-        const iasdUI = {
-            success: (msg) => {
-                Swal.fire({
-                    title: '¡Registrado!',
-                    text: msg,
-                    icon: 'success',
-                    confirmButtonColor: '#002D56'
-                });
-            },
-            error: (msg) => Swal.fire({ title: 'Aviso', text: msg, icon: 'warning', confirmButtonColor: '#002D56' }),
-            confirm: (title, callback) => {
-                Swal.fire({
-                    title: title,
-                    text: "Esta acción requiere validación.",
-                    input: 'password',
-                    inputPlaceholder: 'Clave: iasdsf',
-                    showCancelButton: true,
-                    confirmButtonColor: '#002D56'
-                }).then((result) => {
-                    if (result.value === "iasdsf") callback();
-                    else if (result.value !== undefined) Swal.fire('Error', 'Clave incorrecta', 'error');
-                });
-            }
-        };
-
-
-        // 1. Configuración de Seguridad
-        const CLAVE_ADMIN = "iasdsf";
-
-        // 2. Base de Datos Local con Corrección de Errores
-        const iasdDB = {
-            save: (key, data) => {
-                try {
-                    let list = JSON.parse(localStorage.getItem(key)) || [];
-                    list.unshift(data);
-                    localStorage.setItem(key, JSON.stringify(list));
-
-                    // Refrescar visualmente
-                    if (typeof actualizarListas === 'function') {
-                        actualizarListas();
-                    }
-
-                    Swal.fire({
-                        title: '¡Guardado con éxito!',
-                        text: 'La información ya está disponible en el sistema.',
-                        icon: 'success',
-                        confirmButtonColor: '#002D56'
-                    });
-                } catch (e) {
-                    console.error("Error al guardar:", e);
-                    Swal.fire('Error', 'No se pudo guardar en la memoria del navegador', 'error');
-                }
-            },
-            get: (key) => {
-                const data = localStorage.getItem(key);
-                return data ? JSON.parse(data) : [];
-            }
-        };
-
-        // 3. Generador de PDF Robusto
+        // 5. FUNCIÓN PDF (Asegúrate de tener jsPDF y AutoTable cargados)
         function generarPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Encabezado Azul Rey
             doc.setFillColor(0, 45, 86);
             doc.rect(0, 0, 210, 30, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(16);
             doc.text("REPORTE IASD SAN FRANCISCO DE LIMACHE", 15, 20);
 
-            let y = 45;
+            let y = 40;
             const secciones = [
-                { id: 'pedidos', titulo: 'PETICIONES' },
-                { id: 'agradecimientos', titulo: 'AGRADECIMIENTOS' },
-                { id: 'testimonios', titulo: 'TESTIMONIOS' }
+                { k: 'pedidos', t: 'PETICIONES' },
+                { k: 'agradecimientos', t: 'AGRADECIMIENTOS' },
+                { k: 'testimonios', t: 'TESTIMONIOS' }
             ];
 
-            let hayDatos = false;
-
             secciones.forEach(sec => {
-                const datos = iasdDB.get(sec.id);
-                if (datos && datos.length > 0) {
-                    hayDatos = true;
+                const data = iasdDB.get(sec.k);
+                if (data.length > 0) {
                     doc.setTextColor(0, 45, 86);
-                    doc.setFontSize(14);
-                    doc.text(sec.titulo, 15, y);
-
+                    doc.text(sec.t, 15, y);
                     doc.autoTable({
                         startY: y + 5,
                         head: [['Fecha', 'Nombre', 'Detalle']],
-                        body: datos.map(item => [
-                            item.date || "S/F",
-                            item.name || "Anónimo",
-                            item.content || "Sin detalle"
-                        ]),
-                        headStyles: { fillColor: [0, 188, 140] },
-                        theme: 'grid',
-                        styles: { fontSize: 10 }
+                        body: data.map(d => [d.date, d.name, d.content]),
+                        theme: 'grid'
                     });
                     y = doc.lastAutoTable.finalY + 15;
                 }
             });
-
-            if (!hayDatos) {
-                Swal.fire('Atención', 'No hay datos guardados para generar el reporte.', 'info');
-            } else {
-                doc.save("Reporte_Iglesia_San_Francisco.pdf");
-            }
+            doc.save("Reporte_Iglesia.pdf");
         }
 
-        // 4. Captura Correcta de Formularios (Evita el "Falso Error")
-        document.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const form = e.target;
-
-            // Seleccionamos los campos de forma más precisa
-            const inputNombre = form.querySelector('input[type="text"]');
-            const inputContenido = form.querySelector('textarea');
-            const inputCategoria = form.querySelector('select');
-
-            // Validamos que al menos el contenido exista
-            if (!inputContenido || inputContenido.value.trim() === "") {
-                return Swal.fire('Error', 'El campo de mensaje no puede estar vacío', 'error');
-            }
-
-            const nuevoDato = {
-                date: new Date().toLocaleString('es-CL'),
-                name: inputNombre ? inputNombre.value : "Anónimo",
-                category: inputCategoria ? inputCategoria.value : "General",
-                content: inputContenido.value
-            };
-
-            // Identificamos el destino por el ID del formulario
-            let storageKey = "";
-            if (form.id.includes('prayer')) storageKey = 'pedidos';
-            else if (form.id.includes('thanks')) storageKey = 'agradecimientos';
-            else if (form.id.includes('testimony')) storageKey = 'testimonios';
-
-            if (storageKey !== "") {
-                iasdDB.save(storageKey, nuevoDato);
-                form.reset();
-            } else {
-                Swal.fire('Error', 'No se reconoció el tipo de formulario', 'error');
-            }
-        });
-
-        // 5. Validación de Contraseña para Eliminar
-        async function validarAccion(callback) {
-            const { value: password } = await Swal.fire({
-                title: 'Acceso Restringido',
-                input: 'password',
-                inputLabel: 'Contraseña para limpiar o eliminar:',
-                inputPlaceholder: 'Ingresa clave admin',
-                confirmButtonColor: '#002D56',
-                showCancelButton: true
-            });
-
-            if (password === CLAVE_ADMIN) {
-                callback();
-            } else if (password !== undefined) {
-                Swal.fire('Error', 'Contraseña incorrecta', 'error');
-            }
+        // 6. Panel Administrativo
+        function crearPanelAdmin() {
+            const panel = document.createElement('div');
+            panel.style = "position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:1000;";
+            panel.innerHTML = `
+            <button onclick="generarPDF()" style="background:#28a745; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer; font-size:20px;"><i class="fas fa-file-pdf"></i></button>
+            <button onclick="validarAccion(() => { localStorage.clear(); location.reload(); })" style="background:#dc3545; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer; font-size:20px;"><i class="fas fa-trash"></i></button>
+        `;
+            document.body.appendChild(panel);
         }
 
+        // Inicialización
+        window.onload = () => {
+            actualizarListas();
+            crearPanelAdmin();
+        };
     </script>
-
-
     <script>
         // 1. Función para dibujar las tarjetas en pantalla
         function dibujar(idContenedor, key) {
