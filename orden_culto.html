@@ -191,31 +191,141 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
+// Función limpiar con contraseña según tus instrucciones (iasdsf)
 function limpiar() {
-    document.querySelectorAll('input').forEach(i => i.value = '');
-    document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    const password = prompt("Ingrese la contraseña para limpiar los datos:");
+    if (password === "iasdsf") {
+        document.querySelectorAll('input').forEach(i => i.value = '');
+        document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+        alert("Datos eliminados correctamente.");
+    } else {
+        alert("Contraseña incorrecta.");
+    }
 }
 
-// Generar PDF y abrir WhatsApp
-function generarPDFyEnviar() {
+// Función mejorada para generar PDF y COMPARTIR directamente
+async function generarPDFyEnviar() {
     const elemento = document.getElementById("contenidoPDF");
-
+    const fecha = document.getElementById("fecha").value || "Sin_Fecha";
+    
+    // Preparar opciones más robustas y clonar contenido para evitar recortes
     const opciones = {
-        margin: 0.5,
-        filename: 'Orden_Culto_IASD_Limache.pdf',
+        margin: 8, // mm
+        filename: `Orden_Culto_${fecha}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            scrollY: 0
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
     };
 
-    html2pdf().set(opciones).from(elemento).save().then(() => {
-        alert("PDF generado ✅\nAhora se abrirá WhatsApp para enviar el archivo.");
-        window.open("https://wa.me/", "_blank");
-    });
-}
-</script>
+    try {
+            // Esperar que las fuentes carguen para evitar diferencias al renderizar
+            if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
-<script>
+            // Clonamos el elemento y normalizamos estilos para impresión PDF
+            const clone = elemento.cloneNode(true);
+            clone.style.boxShadow = 'none';
+            clone.style.borderRadius = '0';
+            clone.style.padding = '10mm';
+            clone.style.maxWidth = 'none';
+            // Convertir mm a px (aprox 96 dpi): px = mm * 96 / 25.4
+            const mmToPx = mm => Math.ceil(mm * 96 / 25.4);
+            clone.style.width = mmToPx(190) + 'px'; // ancho A4 interior aproximado en px
+        // Ajustes CSS adicionales para evitar saltos y recortes
+        clone.querySelectorAll('.actions, input, label, select, .btn-clear, .btn-wa, .btn-pdf').forEach(n => n && (n.style.display = 'none'));
+        clone.querySelectorAll('.container').forEach(c => { c.style.boxShadow = 'none'; c.style.borderRadius = '0'; });
+
+        // Insertar el clon en posición absoluta sobre la página pero casi invisible
+        // Quitamos el id para evitar duplicados
+        clone.removeAttribute('id');
+        clone.style.position = 'absolute';
+        clone.style.left = '0';
+        clone.style.top = window.scrollY + 'px';
+        clone.style.background = '#ffffff';
+        clone.style.zIndex = '999999';
+        clone.style.opacity = '0.01'; // casi invisible pero renderizable
+        clone.style.pointerEvents = 'none';
+        document.body.appendChild(clone);
+
+        // Actualizar windowWidth para html2canvas según el clon
+        // Ajustar escala según devicePixelRatio para mejor resolución
+        opciones.html2canvas.scale = Math.max(2, window.devicePixelRatio || 1);
+        // Update windowWidth for html2canvas according to the clone
+        opciones.html2canvas.windowWidth = Math.ceil(clone.scrollWidth);
+
+        // Generar el PDF como Blob (archivo en memoria) desde el clon
+        const pdfBlob = await html2pdf().set(opciones).from(clone).output('blob');
+        const nombreArchivo = `Orden_Culto_${fecha}.pdf`;
+        const archivo = new File([pdfBlob], nombreArchivo, { type: 'application/pdf' });
+
+        // Intentar compartir si es posible (móviles modernos)
+        if (navigator.canShare && navigator.canShare({ files: [archivo] })) {
+            try {
+                await navigator.share({
+                    files: [archivo],
+                    title: 'Orden de Culto',
+                    text: 'Adjunto envío el Orden de Culto de la IASD Limache.'
+                });
+                // Además de compartir, también ofrecemos descarga como respaldo
+                const url = URL.createObjectURL(pdfBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = nombreArchivo;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+            } catch (shareError) {
+                console.warn('Compartir falló, forzando descarga:', shareError);
+                const url = URL.createObjectURL(pdfBlob);
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(pdfBlob, nombreArchivo);
+                } else {
+                    const newTab = window.open(url, '_blank');
+                    if (!newTab) {
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = nombreArchivo;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    }
+                }
+                URL.revokeObjectURL(url);
+                alert('No fue posible compartir. El PDF se abrirá/descargará para que lo puedas adjuntar manualmente.');
+            }
+        } else {
+            // Si no hay soporte de share con archivos, forzamos la descarga
+            const url = URL.createObjectURL(pdfBlob);
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(pdfBlob, nombreArchivo);
+            } else {
+                const newTab = window.open(url, '_blank');
+                if (!newTab) {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = nombreArchivo;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                }
+            }
+            URL.revokeObjectURL(url);
+        // limpiar clon
+        document.body.removeChild(clone);
+            alert('Tu navegador no permite compartir directamente. El PDF se abrirá/descargará y deberás adjuntarlo manualmente en WhatsApp.');
+        }
+    } catch (error) {
+        console.error('Error al generar o compartir:', error);
+        alert('Hubo un error al procesar el PDF.');
+    }
+}
+
 function enviarWhatsApp() {
     const f = id => {
         const el = document.getElementById(id);
@@ -265,11 +375,16 @@ function enviarWhatsApp() {
         { nombre: "Victor Recabarren", numero: "56996997577" }
     ];
 
+    // Para evitar bloqueos de popups, enviamos solo al primero confirmado
+    let enviado = false;
     for (let a of ancianos) {
-        const ok = confirm(`¿Enviar Orden de Culto a ${a.nombre}?`);
-        if (ok) {
-            const url = `https://wa.me/${a.numero}?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, "_blank");
+        if (!enviado) {
+            const ok = confirm(`¿Enviar Orden de Culto a ${a.nombre}?`);
+            if (ok) {
+                const url = `https://wa.me/${a.numero}?text=${encodeURIComponent(mensaje)}`;
+                window.open(url, "_blank");
+                enviado = true; 
+            }
         }
     }
 }

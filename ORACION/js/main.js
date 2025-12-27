@@ -6,33 +6,52 @@ const CORREOS_DESTINO = ["hildateresasandoval@gmail.com", "iasdsanfranciscodelim
 let currentPrayerFilter = 'todos';
 
 async function eliminarRegistro(key, index) {
-    // Paso 1: Pedir contraseña
     const { value: password } = await Swal.fire({
-        title: 'Acceso Administrador',
-        text: 'Ingrese clave para borrar registro:',
-        input: 'password',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonText: 'Cancelar'
-    });
+    title: 'Área Restringida',
+    text: 'Confirme su identidad para continuar',
+    input: 'password',
+    inputPlaceholder: '••••',
+    icon: 'lock',
+    iconColor: '#1e5aa8',
+    confirmButtonText: 'Validar Acceso',
+    confirmButtonColor: '#1e5aa8',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    background: '#f8f9fa',
+    backdrop: `rgba(30,90,168,0.2) blur(4px)`, // Efecto desenfoque al fondo
+    customClass: {
+        popup: 'modern-swal-popup'
+    }
+});
 
-    // Paso 2: Validar clave "iasdsf"
     if (password === "iasdsf") {
         let list = JSON.parse(localStorage.getItem(key)) || [];
-        
-        // Borrar el elemento
         list.splice(index, 1);
-        
-        // Guardar cambios
         localStorage.setItem(key, JSON.stringify(list));
         
-        // Paso 3: Refrescar la pantalla
-        if (typeof actualizarTodo === 'function') actualizarTodo();
+        actualizarTodo();
         if (typeof renderPublicaciones === 'function') renderPublicaciones('todos');
 
-        Swal.fire({ icon: 'success', title: 'Eliminado', timer: 1000, showConfirmButton: false });
+        // Mensaje de éxito moderno (Toast)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Registro eliminado con éxito'
+        });
     } else if (password) {
-        Swal.fire('Error', 'Clave incorrecta', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Clave Incorrecta',
+            text: 'No tienes permisos para borrar este contenido.',
+            confirmButtonColor: '#1e5aa8'
+        });
     }
 }
 
@@ -52,24 +71,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===================================
-// BASE DE DATOS LOCAL
+// CONFIGURACIÓN Y BASE DE DATOS
 // ===================================
+
 const iasdDB = {
     save: (key, data) => {
         let list = JSON.parse(localStorage.getItem(key)) || [];
-        list.unshift(data);
+        list.push(data);
         localStorage.setItem(key, JSON.stringify(list));
-        if (typeof actualizarTodo === 'function') actualizarTodo();
-        
-        Swal.fire({
-            title: '¡Registrado!',
-            text: `Tu ${key.slice(0,-1)} ha sido guardado. Se notificará a los correos de la iglesia.`,
-            icon: 'success',
-            confirmButtonColor: '#1e5aa8'
-        });
     },
-    get: (key) => JSON.parse(localStorage.getItem(key)) || []
+    get: (key) => JSON.parse(localStorage.getItem(key)) || [],
+    delete: (key, index) => {
+        let list = JSON.parse(localStorage.getItem(key)) || [];
+        list.splice(index, 1);
+        localStorage.setItem(key, JSON.stringify(list));
+    }
 };
+        // MENSAJE MODERNO DE SOLICITUD EXITOSA
+        Swal.fire({
+            title: '¡Recibido con Amor!',
+            html: 'Tu solicitud ha sido registrada.<br><b style="color: #1e5aa8;">Estaremos orando por ti.</b>',
+            icon: 'success',
+            iconColor: '#1e5aa8',
+            confirmButtonText: 'Amén',
+            confirmButtonColor: '#1e5aa8',
+            background: '#ffffff',
+            backdrop: `rgba(30,90,168,0.2) blur(5px)`,
+            customClass: { popup: 'modern-swal-popup' }
+        });
+    
+
 
 // ===================================
 // CONFIGURACIÓN DE FILTROS
@@ -300,18 +331,17 @@ function setupFormularios() {
 }
 
 function crearPanelAdmin() {
-    // Si ya existe, no lo dupliques
     if(document.getElementById('admin-panel-float')) return;
-
     const panel = document.createElement('div');
     panel.id = 'admin-panel-float';
-    panel.style = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;";
+    panel.className = 'admin-controls'; // Usa la clase de tu CSS
     panel.innerHTML = `
-        <button onclick="generarPDF()" style="background:#28a745; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;"><i class="fas fa-file-pdf"></i></button>
-        <button onclick="limpiarListasMasivo()" style="background:#dc3545; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;"><i class="fas fa-broom"></i></button>
+        <button onclick="generarPDF()" class="admin-btn pdf" title="PDF"><i class="fas fa-file-pdf"></i></button>
+        <button onclick="limpiarListasMasivo()" class="admin-btn clear" title="Borrar Todo"><i class="fas fa-broom"></i></button>
     `;
     document.body.appendChild(panel);
 }
+
 
 function renderPublicaciones(filtro = 'todos') {
     const container = document.getElementById('news-list');
@@ -340,9 +370,9 @@ function renderPublicaciones(filtro = 'todos') {
         <h4 style="margin:0 0 5px 0; color:#333;">${item.titulo}</h4>
         <p style="font-size:13px; color:#666;">${item.contenido}</p>
     
-        <button onclick="eliminarRegistro('${llave}', ${index})" 
-            style="position:absolute; top:10px; right:10px; border:none; background:#fee; color:#f44336; border-radius:50%; width:25px; height:25px; cursor:pointer; display:flex; align-items:center; justify-content:center;">
-        <i class="fas fa-trash" style="font-size:10px;"></i>
+<button onclick="eliminarRegistro('${key}', ${index})" class="btn-delete-modern" 
+            style="position:absolute; top:12px; right:12px; cursor:pointer;">
+        <i class="fas fa-times"></i>
     </button>
 `;
                 container.appendChild(card);
@@ -361,20 +391,31 @@ function renderPublicaciones(filtro = 'todos') {
 // Función para la limpieza masiva
 async function limpiarListasMasivo() {
     const { value: password } = await Swal.fire({
-        title: '¿Vaciar listas?',
-        text: 'Se borrarán peticiones y testimonios. Ingrese clave:',
+        title: '¿Vaciado Completo?',
+        text: "Se borrarán todas las peticiones, agradecimientos y testimonios del muro.",
+        icon: 'error',
         input: 'password',
+        inputPlaceholder: 'Clave de seguridad',
         showCancelButton: true,
-        confirmButtonColor: '#dc3545'
+        confirmButtonColor: '#dc3545',
+        confirmButtonText: 'Sí, limpiar todo',
+        cancelButtonText: 'Cancelar',
+        footer: '<span style="color:#f44336"><b>Atención:</b> Esta acción no se puede deshacer</span>'
     });
 
     if (password === "iasdsf") {
-        const categorias = ['pedidos', 'agradecimientos', 'testimonios'];
-        categorias.forEach(k => localStorage.setItem(k, JSON.stringify([])));
+        const llaves = ['pedidos', 'agradecimientos', 'testimonios'];
+        llaves.forEach(k => localStorage.setItem(k, JSON.stringify([])));
         
         actualizarTodo();
-        Swal.fire('Éxito', 'Las listas han sido vaciadas.', 'success');
+        
+        Swal.fire({
+            title: 'Muro Limpio',
+            text: 'La base de datos ha sido reiniciada.',
+            icon: 'success',
+            confirmButtonColor: '#1e5aa8'
+        });
     } else if (password) {
-        Swal.fire('Error', 'Clave incorrecta', 'error');
+        Swal.fire('Error', 'La clave ingresada no es válida.', 'error');
     }
 }
