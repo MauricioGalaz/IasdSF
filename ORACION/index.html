@@ -337,72 +337,68 @@
 
         // --- 5. REPORTES PDF GLOBALES ---
 // --- 5. REPORTES PDF GLOBALES CENTRADOS Y CON LOGO ---
-// --- 5. REPORTES PDF PROTEGIDOS, CENTRADOS Y CON LOGO (SOLO ADMIN) ---
+// --- 5. REPORTE PDF ADMINISTRATIVO, CENTRADO Y CON LOGO ---
 async function descargarReportePDF() {
-    // 1. Validar acceso administrativo
+    // 1. Validación de Seguridad
     const { value: password } = await Swal.fire({
-        title: 'Acceso Administrativo',
-        text: 'Ingrese la clave para generar el reporte centrado',
+        title: 'Acceso Restringido',
+        text: 'Ingrese su credencial de acceso para generar el reporte',
         input: 'password',
-        inputPlaceholder: 'Clave iasdsf',
+        inputPlaceholder: 'Contraseña requerida',
         showCancelButton: true,
-        confirmButtonText: 'Validar y Generar',
+        confirmButtonText: 'Generar PDF',
         confirmButtonColor: '#00305e',
         customClass: { popup: 'modern-swal-popup' }
     });
 
+    // Validación interna contra la constante definida globalmente
     if (password !== CLAVE_ADMIN) {
-        if (password) Swal.fire('Acceso Denegado', 'La clave es incorrecta', 'error');
+        if (password) Swal.fire('Error', 'Credencial inválida', 'error');
         return;
     }
 
-    // 2. Obtener datos de Firebase
+    // 2. Ejecución del Reporte
     database.ref('pedidos').once('value', async (snapshot) => {
         const data = snapshot.val();
-        if (!data) return Swal.fire('Sin datos', 'No hay nada en la nube para exportar', 'info');
+        if (!data) return Swal.fire('Sin datos', 'No hay registros en la nube para exportar', 'info');
 
         const pedidosArray = Object.values(data);
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        // Configuración de dimensiones para centrado dinámico
         const pageWidth = doc.internal.pageSize.getWidth();
         const centerX = pageWidth / 2;
 
-        // 3. AGREGAR LOGO (Centrado superior)
+        // 3. Inserción de Logo Centrado
         try {
             const logoImg = new Image();
-            // Usamos la ruta base de tus imágenes
             logoImg.src = 'imagenes/logo.jpg'; 
             await new Promise((resolve) => {
                 logoImg.onload = () => {
-                    // doc.addImage(img, tipo, x, y, ancho, alto)
+                    // Posicionamiento calculado para centrado perfecto
                     doc.addImage(logoImg, 'JPEG', centerX - 15, 10, 30, 30);
                     resolve();
                 };
-                logoImg.onerror = () => {
-                    console.warn("Logo no encontrado en imagenes/logo.jpg");
-                    resolve();
-                };
+                logoImg.onerror = () => resolve();
             });
-        } catch (e) { console.error("Error al procesar el logo"); }
+        } catch (e) { console.error("Logo institucional no detectado"); }
 
-        // 4. TÍTULOS CENTRADOS PROFESIONALES
+        // 4. Encabezados Profesionales
         doc.setFontSize(18);
-        doc.setTextColor(0, 48, 94); // Azul Adventista
+        doc.setTextColor(0, 48, 94); // Azul Institucional
         doc.text("REPORTE GLOBAL DE ORACIÓN", centerX, 50, { align: 'center' });
         
         doc.setFontSize(14);
         doc.text("IASD SAN FRANCISCO DE LIMACHE", centerX, 58, { align: 'center' });
 
-        // 5. TABLA CON DISEÑO CENTRADO
+        // 5. Tabla de Datos Estructurada
         doc.autoTable({
             startY: 65,
             head: [['Fecha', 'Nombre', 'Tipo', 'Contenido']],
             body: pedidosArray.map(p => [p.date, p.name, p.category, p.content]),
             theme: 'striped',
             headStyles: { 
-                fillColor: [0, 48, 94], // Azul Adventista
+                fillColor: [0, 48, 94], 
                 halign: 'center' 
             },
             styles: { 
@@ -419,24 +415,16 @@ async function descargarReportePDF() {
             margin: { left: 15, right: 15 }
         });
 
-        // 6. GUARDAR Y OPCIÓN DE ENVÍO
-        const nombreArchivo = `Reporte_Admin_IASD_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
+        // 6. Finalización y Descarga
+        const nombreArchivo = `Reporte_IASD_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
         doc.save(nombreArchivo);
         
-        const { isConfirmed } = await Swal.fire({ 
-            title: 'Reporte Generado', 
-            text: '¿Deseas enviar este documento a los correos institucionales?', 
-            icon: 'success', 
-            showCancelButton: true, 
-            confirmButtonText: 'Abrir Gmail',
-            confirmButtonColor: '#d93025', // Rojo Gmail
-            customClass: { popup: 'modern-swal-popup' }
+        Swal.fire({
+            title: '¡Generado!',
+            text: 'El reporte se ha descargado correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#00305e'
         });
-
-        if (isConfirmed) {
-            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=hildateresasandoval@gmail.com,iasdsanfranciscodelimache@gmail.com&su=Reporte Administrativo de Oración&body=Adjunto envío el reporte generado para el Ministerio de Oración.`;
-            window.open(gmailUrl, '_blank');
-        }
     });
 }
 
