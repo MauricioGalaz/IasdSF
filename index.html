@@ -184,6 +184,30 @@
                 transform: translateX(100%);
             }
         }
+
+        /* Tarjeta con efecto de elevación y bordes suaves */
+.dynamic-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 48, 94, 0.05);
+}
+
+.dynamic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.25);
+}
+
+/* Forzado de proporciones para móviles */
+.responsive-square {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .responsive-square {
+        aspect-ratio: auto;
+        height: 100%;
+    }
+}
     </style>
 
 
