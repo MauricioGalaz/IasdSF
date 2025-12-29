@@ -337,94 +337,92 @@
 
         // --- 5. REPORTES PDF GLOBALES ---
 // --- 5. REPORTES PDF GLOBALES CENTRADOS Y CON LOGO ---
-// --- 5. REPORTE PDF ADMINISTRATIVO, CENTRADO Y CON LOGO ---
+// --- 5. REPORTE PDF CON FUNCIÓN DE AUTOENVÍO POR GMAIL ---
 async function descargarReportePDF() {
-    // 1. Validación de Seguridad
+    // 1. Validación de Seguridad (Sin mostrar la clave)
     const { value: password } = await Swal.fire({
         title: 'Acceso Restringido',
-        text: 'Ingrese su credencial de acceso para generar el reporte',
+        text: 'Ingrese su credencial para generar y enviar el reporte',
         input: 'password',
         inputPlaceholder: 'Contraseña requerida',
         showCancelButton: true,
-        confirmButtonText: 'Generar PDF',
+        confirmButtonText: 'Generar y Enviar',
         confirmButtonColor: '#00305e',
         customClass: { popup: 'modern-swal-popup' }
     });
 
-    // Validación interna contra la constante definida globalmente
     if (password !== CLAVE_ADMIN) {
         if (password) Swal.fire('Error', 'Credencial inválida', 'error');
         return;
     }
 
-    // 2. Ejecución del Reporte
+    // 2. Obtención de datos desde Firebase
     database.ref('pedidos').once('value', async (snapshot) => {
         const data = snapshot.val();
-        if (!data) return Swal.fire('Sin datos', 'No hay registros en la nube para exportar', 'info');
+        if (!data) return Swal.fire('Sin datos', 'No hay registros para exportar', 'info');
 
         const pedidosArray = Object.values(data);
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const centerX = pageWidth / 2;
+        const centerX = doc.internal.pageSize.getWidth() / 2;
 
-        // 3. Inserción de Logo Centrado
+        // 3. Generación del contenido del PDF (Logo y Tabla)
         try {
             const logoImg = new Image();
             logoImg.src = 'imagenes/logo.jpg'; 
             await new Promise((resolve) => {
                 logoImg.onload = () => {
-                    // Posicionamiento calculado para centrado perfecto
                     doc.addImage(logoImg, 'JPEG', centerX - 15, 10, 30, 30);
                     resolve();
                 };
                 logoImg.onerror = () => resolve();
             });
-        } catch (e) { console.error("Logo institucional no detectado"); }
+        } catch (e) { console.error("Logo no detectado"); }
 
-        // 4. Encabezados Profesionales
         doc.setFontSize(18);
-        doc.setTextColor(0, 48, 94); // Azul Institucional
+        doc.setTextColor(0, 48, 94);
         doc.text("REPORTE GLOBAL DE ORACIÓN", centerX, 50, { align: 'center' });
         
-        doc.setFontSize(14);
-        doc.text("IASD SAN FRANCISCO DE LIMACHE", centerX, 58, { align: 'center' });
-
-        // 5. Tabla de Datos Estructurada
         doc.autoTable({
-            startY: 65,
+            startY: 60,
             head: [['Fecha', 'Nombre', 'Tipo', 'Contenido']],
             body: pedidosArray.map(p => [p.date, p.name, p.category, p.content]),
             theme: 'striped',
-            headStyles: { 
-                fillColor: [0, 48, 94], 
-                halign: 'center' 
-            },
-            styles: { 
-                fontSize: 10,
-                cellPadding: 3,
-                valign: 'middle'
-            },
-            columnStyles: {
-                0: { halign: 'center', cellWidth: 30 },
-                1: { halign: 'center', cellWidth: 40 },
-                2: { halign: 'center', cellWidth: 30 },
-                3: { halign: 'left' }
-            },
-            margin: { left: 15, right: 15 }
+            headStyles: { fillColor: [0, 48, 94], halign: 'center' }
         });
 
-        // 6. Finalización y Descarga
+        // 4. Descarga local del archivo
         const nombreArchivo = `Reporte_IASD_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
         doc.save(nombreArchivo);
-        
-        Swal.fire({
-            title: '¡Generado!',
-            text: 'El reporte se ha descargado correctamente.',
+
+        // 5. LÓGICA DE AUTOENVÍO (Apertura de Gmail)
+        const destinatarios = "hildateresasandoval@gmail.com,iasdsanfranciscodelimache@gmail.com";
+        const asunto = encodeURIComponent("Reporte Automático - Ministerio de Oración");
+        const cuerpo = encodeURIComponent(
+            "Hola,\n\nSe ha generado un nuevo reporte del Muro de Oración.\n\n" +
+            "POR FAVOR SIGA ESTOS PASOS:\n" +
+            "1. El archivo '" + nombreArchivo + "' se ha descargado en su dispositivo.\n" +
+            "2. Adjúntelo en esta ventana de Gmail que se acaba de abrir.\n" +
+            "3. Presione Enviar.\n\n" +
+            "Bendiciones."
+        );
+
+        // URL universal para Gmail (Web y Móvil)
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${destinatarios}&su=${asunto}&body=${cuerpo}`;
+
+        const { isConfirmed } = await Swal.fire({
+            title: '¡PDF Generado!',
+            text: 'El archivo se descargó. ¿Abrir Gmail para enviarlo ahora?',
             icon: 'success',
-            confirmButtonColor: '#00305e'
+            showCancelButton: true,
+            confirmButtonText: 'Sí, abrir Gmail',
+            confirmButtonColor: '#d93025' // Color rojo Gmail
         });
+
+        if (isConfirmed) {
+            // Abre Gmail en una pestaña nueva o en la App del móvil
+            window.open(gmailUrl, '_blank');
+        }
     });
 }
 
