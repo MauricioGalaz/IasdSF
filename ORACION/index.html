@@ -337,7 +337,26 @@
 
         // --- 5. REPORTES PDF GLOBALES ---
 // --- 5. REPORTES PDF GLOBALES CENTRADOS Y CON LOGO ---
+// --- 5. REPORTES PDF PROTEGIDOS, CENTRADOS Y CON LOGO (SOLO ADMIN) ---
 async function descargarReportePDF() {
+    // 1. Validar acceso administrativo
+    const { value: password } = await Swal.fire({
+        title: 'Acceso Administrativo',
+        text: 'Ingrese la clave para generar el reporte centrado',
+        input: 'password',
+        inputPlaceholder: 'Clave iasdsf',
+        showCancelButton: true,
+        confirmButtonText: 'Validar y Generar',
+        confirmButtonColor: '#00305e',
+        customClass: { popup: 'modern-swal-popup' }
+    });
+
+    if (password !== CLAVE_ADMIN) {
+        if (password) Swal.fire('Acceso Denegado', 'La clave es incorrecta', 'error');
+        return;
+    }
+
+    // 2. Obtener datos de Firebase
     database.ref('pedidos').once('value', async (snapshot) => {
         const data = snapshot.val();
         if (!data) return Swal.fire('Sin datos', 'No hay nada en la nube para exportar', 'info');
@@ -346,34 +365,37 @@ async function descargarReportePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        // Configuración de dimensiones
+        // Configuración de dimensiones para centrado dinámico
         const pageWidth = doc.internal.pageSize.getWidth();
         const centerX = pageWidth / 2;
 
-        // 1. AGREGAR LOGO (Centrado arriba)
+        // 3. AGREGAR LOGO (Centrado superior)
         try {
             const logoImg = new Image();
-            logoImg.src = 'imagenes/logo.png'; // Asegúrate de que esta ruta sea correcta en tu servidor/proyecto
+            // Usamos la ruta base de tus imágenes
+            logoImg.src = 'imagenes/logo.jpg'; 
             await new Promise((resolve) => {
                 logoImg.onload = () => {
-                    // doc.addImage(img, type, x, y, width, height)
+                    // doc.addImage(img, tipo, x, y, ancho, alto)
                     doc.addImage(logoImg, 'JPEG', centerX - 15, 10, 30, 30);
                     resolve();
                 };
-                logoImg.onerror = () => resolve(); // Si falla el logo, continua sin él
+                logoImg.onerror = () => {
+                    console.warn("Logo no encontrado en imagenes/logo.jpg");
+                    resolve();
+                };
             });
-        } catch (e) { console.error("Error cargando logo"); }
+        } catch (e) { console.error("Error al procesar el logo"); }
 
-        // 2. TÍTULO CENTRADO
+        // 4. TÍTULOS CENTRADOS PROFESIONALES
         doc.setFontSize(18);
         doc.setTextColor(0, 48, 94); // Azul Adventista
-        doc.setFont("Montserrat", "bold");
         doc.text("REPORTE GLOBAL DE ORACIÓN", centerX, 50, { align: 'center' });
         
         doc.setFontSize(14);
         doc.text("IASD SAN FRANCISCO DE LIMACHE", centerX, 58, { align: 'center' });
 
-        // 3. TABLA CENTRADA
+        // 5. TABLA CON DISEÑO CENTRADO
         doc.autoTable({
             startY: 65,
             head: [['Fecha', 'Nombre', 'Tipo', 'Contenido']],
@@ -397,22 +419,22 @@ async function descargarReportePDF() {
             margin: { left: 15, right: 15 }
         });
 
-        // 4. GUARDAR Y PREPARAR GMAIL
-        const nombreArchivo = `Reporte_IASD_Global_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
+        // 6. GUARDAR Y OPCIÓN DE ENVÍO
+        const nombreArchivo = `Reporte_Admin_IASD_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
         doc.save(nombreArchivo);
         
         const { isConfirmed } = await Swal.fire({ 
-            title: 'PDF Generado con Éxito', 
-            text: '¿Deseas abrir Gmail para enviar el reporte centrado?', 
+            title: 'Reporte Generado', 
+            text: '¿Deseas enviar este documento a los correos institucionales?', 
             icon: 'success', 
             showCancelButton: true, 
-            confirmButtonText: 'Ir a Gmail',
-            confirmButtonColor: '#00305e',
+            confirmButtonText: 'Abrir Gmail',
+            confirmButtonColor: '#d93025', // Rojo Gmail
             customClass: { popup: 'modern-swal-popup' }
         });
 
         if (isConfirmed) {
-            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=hildateresasandoval@gmail.com,iasdsanfranciscodelimache@gmail.com&su=Reporte de Oracion Global&body=Adjunto reporte global de oraciones generado desde la App.`;
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=hildateresasandoval@gmail.com,iasdsanfranciscodelimache@gmail.com&su=Reporte Administrativo de Oración&body=Adjunto envío el reporte generado para el Ministerio de Oración.`;
             window.open(gmailUrl, '_blank');
         }
     });
