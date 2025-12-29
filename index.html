@@ -95,6 +95,25 @@
 
         }
 
+        /* Animación de entrada suave para la sección de Acción de Gracias */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efecto Glassmorphism para las tarjetas */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(254, 195, 37, 0.2);
+        }
+
         footer {
             padding-bottom: calc(5rem + env(safe-area-inset-bottom));
         }
@@ -148,6 +167,11 @@
             80% {
                 transform: rotate(-5deg);
             }
+        }
+
+        #video-progress {
+            transition: width 5s linear;
+            /* Sincronizado con el tiempo del carrusel */
         }
 
         .animate-swing {
@@ -448,7 +472,75 @@
         </div>
     </section>
 
-    
+    <section id="accion-gracias" class="py-16 bg-adventist-light reveal">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10">
+                <span class="text-adventist-blue font-black uppercase tracking-[0.3em] text-[10px]">Testimonio de
+                    Fe</span>
+                <h2 class="text-3xl font-heading font-extrabold text-adventist-blue mt-2 uppercase">Acción de Gracias
+                </h2>
+                <div class="w-16 h-1 bg-adventist-gold mx-auto mt-4"></div>
+            </div>
+
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-[3rem] shadow-2xl overflow-hidden items-center">
+
+                <div class="relative w-full aspect-square overflow-hidden bg-black flex items-center justify-center">
+                    <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
+                        class="w-full h-full object-cover object-center transition-all duration-700 opacity-70"
+                        onerror="this.src='imagenes/ig.jpg'">
+
+                    <div class="absolute top-6 left-6 flex items-center gap-2 z-10">
+                        <div class="w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_red]"></div>
+                        <span class="text-white text-[10px] font-black uppercase tracking-widest">REC - 27 DIC</span>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white/20 z-20">
+                        <div id="video-progress" class="h-full bg-adventist-gold w-0 shadow-[0_0_8px_#fec325]"></div>
+                    </div>
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none">
+                    </div>
+                </div>
+
+                <div class="p-10 lg:p-16 flex flex-col justify-center bg-white h-full">
+                    <div
+                        class="inline-block bg-green-100 text-green-900 px-9 py-1 rounded-full text-[19px] font-bold uppercase mb-9 self-start">
+                        EVENTO REALIZADO</div>
+                    <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-adventist-blue leading-tight mb-4">
+                        Gratitud por las bendiciones <span class="text-adventist-gold">recibidas en este año</span>
+                    </h3>
+                    <p class="text-gray-600 mb-8 text-justify leading-relaxed">
+                        Revive los momentos de alabanza y los testimonios que marcaron nuestro programa de Acción de
+                        Gracias. Unimos nuestros corazones para glorificar a Dios por Su fidelidad.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="playFullVideo()"
+                            class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-play-circle text-lg"></i> VER VIDEO
+                        </button>
+                        <a href="ORACION/index.html"
+                            class="bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg text-center">Muro <br>de Oración</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal-video-local" class="fixed inset-0 bg-black/95 z-[100] hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
+            <button onclick="closeFullVideo()"
+                class="absolute top-4 right-4 text-white z-50 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-600 transition">
+                <i class="fas fa-times"></i>
+            </button>
+            <video id="main-video-player" class="w-full h-full" controls preload="auto">
+                <source src="imagenes/accion/video_gracias.mp4" type="video/mp4">
+                Tu dispositivo no soporta este formato de video.
+            </video>
+        </div>
+    </div>
 
     <div class="container mx-auto px-6 mb-12 flex justify-center">
         <button onclick="accesoAncianos()"
@@ -756,6 +848,103 @@
             <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
         </span>
     </a>
+
+    <script>
+        /* LÓGICA DEL CARRUSEL DE ACCIÓN DE GRACIAS */
+        const fotosAccion = [
+            "imagenes/accion/acc1.jpg",
+            "imagenes/accion/acc2.jpg",
+            "imagenes/accion/acc3.jpg",
+            "imagenes/accion/acc4.jpg",
+            "imagenes/accion/acc5.jpg",
+            "imagenes/accion/acc6.jpg",
+            "imagenes/accion/acc7.jpg",
+            "imagenes/accion/acc8.jpg",
+        ];
+
+
+        let idxAccion = 0;
+        const imgAccion = document.getElementById("carrusel-accion");
+
+        function updateCarousel() {
+            if (!imgAccion || fotosAccion.length === 0) return;
+
+            // Inicio de la transición suave
+            imgAccion.style.opacity = "0";
+
+            setTimeout(() => {
+                idxAccion = (idxAccion + 1) % fotosAccion.length;
+
+                // Precarga de imagen para evitar cuadros blancos en la APK
+                const nextImg = new Image();
+                nextImg.src = fotosAccion[idxAccion];
+
+                nextImg.onload = () => {
+                    imgAccion.src = nextImg.src;
+                    imgAccion.style.opacity = "1";
+                };
+
+                // Respaldo en caso de error de carga
+                nextImg.onerror = () => {
+                    imgAccion.style.opacity = "1";
+                };
+            }, 700); // Sincronizado con la duración de la transición CSS
+        }
+
+        if (imgAccion) {
+            setInterval(updateCarousel, 5000);
+        }
+
+        /* =========================================
+            EFECTO REVELAR AL HACER SCROLL (OPTIMIZADO)
+        ========================================= */
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100; // Ajustado para mejor respuesta en móviles
+
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add("active");
+                }
+            });
+        }
+
+        // Listener de scroll con optimización de rendimiento
+        window.addEventListener("scroll", () => {
+            requestAnimationFrame(reveal);
+        });
+
+        // Ejecutar una vez al cargar para detectar elementos ya visibles
+        window.addEventListener("DOMContentLoaded", reveal);
+    </script>
+    <script>
+
+    /* CONTROL DE VIDEO LOCAL */
+function playFullVideo() {
+    const modal = document.getElementById('modal-video-local');
+    const video = document.getElementById('main-video-player');
+    
+    if (modal && video) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        video.play().catch(error => console.log("Auto-play bloqueado:", error));
+    }
+}
+
+function closeFullVideo() {
+    const modal = document.getElementById('modal-video-local');
+    const video = document.getElementById('main-video-player');
+    
+    if (modal && video) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        video.pause();
+        video.currentTime = 0; // Reinicia para la próxima vez
+    }
+}
+    </script>
 </body>
 
 </html>
