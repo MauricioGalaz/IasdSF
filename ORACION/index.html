@@ -369,7 +369,7 @@ async function descargarReportePDF() {
         // 3. Generación del contenido del PDF (Logo y Tabla)
         try {
             const logoImg = new Image();
-            logoImg.src = 'imagenes/logo.jpg'; 
+            logoImg.src = 'imagenes/logo.png'; 
             await new Promise((resolve) => {
                 logoImg.onload = () => {
                     doc.addImage(logoImg, 'JPEG', centerX - 15, 10, 30, 30);
