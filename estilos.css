@@ -1,0 +1,417 @@
+
+
+
+/* Estilos generales */body {
+    font-family: Arial, sans-serif;     
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3 {
+    color: #333;
+}
+p {
+    color: #666;
+}
+a {
+    color: #0066cc;
+    text-decoration: none;
+}   
+a:hover {
+    text-decoration: underline;
+}
+/* Estilos específicos para la sección de oración */
+#pedidoForm {
+    margin: 20px;
+}               
+#pedidoForm input, #pedidoForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+#pedidoForm button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#pedidoForm button:hover {
+    background-color: #218838;
+}
+#pedidosList {
+    margin: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+#pedidosList .pedido {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+#pedidosList .pedido:last-child {
+    border-bottom: none;
+}   
+#pedidosList .pedido h4 {
+    margin: 0 0 5px 0;
+    color: #007bff;
+}   
+#pedidosList .pedido p {
+    margin: 0;
+    color: #555;
+}
+#pedidosList .pedido .fecha {
+    font-size: 0.9em;
+    color: #999;
+    margin-top: 5px;
+}
+#pedidosList .no-pedidos {
+    color: #999;
+    font-style: italic;
+}
+#pedidosList .pedido .oracion-respondida {
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 5px;
+}
+#pedidosList .pedido .oracion-no-respondida {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 5px;
+}
+/* Estilos para mensajes de error y éxito */
+#errorMessage {
+    color: #dc3545;
+    margin: 10px 0;
+}   
+#successMessage {
+    color: #28a745;
+    margin: 10px 0;
+}       
+/* Estilos para la lista de pedidos */
+#pedidosList {
+    max-height: 400px;
+    overflow-y: auto;
+}   
+/* Estilos responsivos */
+@media (max-width: 600px) {
+    #pedidoForm input, #pedidoForm textarea {
+        font-size: 16px;
+    }   
+    #pedidoForm button {
+        font-size: 16px;
+    }   
+}
+/* Estilos adicionales */
+body {
+    background-color: #f9f9f9;
+}   
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+footer {
+    background-color: #f1f1f1;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+footer p {
+    margin: 0;
+}       
+/* Estilos para botones y enlaces */
+button, .btn {
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}   
+button:hover, .btn:hover {
+    background-color: #0056b3;
+}
+/* Estilos para formularios */
+input[type="text"], textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type="text"]:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}   
+label {
+    font-weight: bold;
+}
+label.required::after {
+    content: " *";
+    color: #dc3545;
+}
+/* Estilos para mensajes de validación */
+input.invalid, textarea.invalid {
+    border-color: #dc3545;
+}   
+input.valid, textarea.valid {
+    border-color: #28a745;
+}   
+.success-message {
+    color: #28a745;
+    font-weight: bold;
+}
+.error-message {
+    color: #dc3545;
+    font-weight: bold;
+}
+/* Estilos para la navegación */
+nav {
+    background-color: #343a40;
+}
+nav a {
+    color: white;
+    padding: 10px 15px;
+    display: inline-block;
+}
+nav a:hover {
+    background-color: #495057;
+}
+/* Estilos para listas */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+ul li:last-child {
+    border-bottom: none;
+}
+/* Estilos para tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}   
+table, th, td {
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #e9ecef;
+}
+/* Estilos para imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+/* Estilos para modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);  
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Estilos para animaciones */
+.fade-in {
+    animation: fadeInAnimation 1s ease-in;
+}   
+@keyframes fadeInAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.slide-in {
+    animation: slideInAnimation 0.5s ease-out;
+}
+@keyframes slideInAnimation {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+/* Estilos para tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+/* Estilos para listas ordenadas */
+ol {
+    counter-reset: item;
+    list-style-type: none;
+    padding: 0;
+}
+ol li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+ol li:last-child {
+    border-bottom: none;
+}
+ol li:before {
+    counter-increment: item;
+    content: counter(item) ". ";
+    font-weight: bold;
+    color: #007bff;
+}
+/* Estilos para citas */
+blockquote {
+    border-left: 5px solid #ccc;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    font-style: italic;
+}   
+blockquote p {
+    margin: 0;
+    color: #555;
+}
+/* Estilos para listas de definición */
+dl {
+    margin: 20px 0;
+}       
+dl dt {
+    font-weight: bold;
+    color: #007bff;
+}
+dl dd {
+    margin: 0 0 10px 20px;
+    color: #555;
+}
+/* Estilos para secciones destacadas */
+.highlight {
+    background-color: #fffbcc;
+    border: 1px solid #ffe58f;
+    padding: 10px;
+    border-radius: 5px;
+}   
+.highlight p {
+    margin: 0;
+    color: #665c00;
+}
+/* Estilos para listas de tareas */
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+.task-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+.task-list li:last-child {
+    border-bottom: none;
+}
+.task-list li input[type="checkbox"] {
+    margin-right: 10px;
+}
+.task-list li span {
+    color: #555;
+}
+.task-list li.completed span {
+    text-decoration: line-through;
+    color: #999;
+}   
+/* Estilos para el pie de página fijo */
+footer {
+    background-color: #f1f1f1;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+footer p {
+    margin: 0;
+}
+/* Estilos para el cuerpo del documento */
+body {
+    background-color: #f9f9f9;
+}
+/* Estilos para el cierre de la etiqueta body en index.html */
+body {
+    font-family: Arial, sans-serif;     
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}   
+footer {
+    background-color: #f1f1f1;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+footer p {
+    margin: 0;
+}
+header h1 {
+    margin: 0;
+}
+footer p {
+    margin: 0;
+}       
+
+
+
+
+
