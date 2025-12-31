@@ -17,9 +17,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100;300;400;500;700;900&display=swap" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100;300;400;500;700;900&display=swap" />
     <link rel="stylesheet" href="estilos.css">
-    
+
     <meta name="theme-color" content="#0b132b">
 
     <script>
@@ -194,34 +195,126 @@
         }
 
         /* Tarjeta con efecto de elevación y bordes suaves */
-.dynamic-card {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(0, 48, 94, 0.05);
-}
+        .dynamic-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 48, 94, 0.05);
+        }
 
-.dynamic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.25);
-}
+        .dynamic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.25);
+        }
 
-/* Forzado de proporciones para móviles */
-.responsive-square {
-    aspect-ratio: 1 / 1;
-    width: 100%;
-}
+        /* Forzado de proporciones para móviles */
+        .responsive-square {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+        }
 
-@media (min-width: 1024px) {
-    .responsive-square {
-        aspect-ratio: auto;
-        height: 100%;
-    }
-}
+        @media (min-width: 1024px) {
+            .responsive-square {
+                aspect-ratio: auto;
+                height: 100%;
+            }
+        }
+
+
+        /* Efecto de brillo que recorre el botón cada 3 segundos */
+        @keyframes shine {
+            from {
+                left: -100%;
+            }
+
+            to {
+                left: 100%;
+            }
+        }
+
+        .relative.overflow-hidden::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        /* Animación de la barra de 6 segundos */
+        #invitacion-progress {
+            animation: countdown 6s linear forwards;
+        }
+
+        @keyframes countdown {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Clases de activación */
+        #invitacion-central.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #invitacion-central.show #invitacion-card {
+            transform: scale(1);
+        }
     </style>
 
 
 </head>
 
 <body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
+
+    <div id="invitacion-central"
+        class="fixed inset-0 z-[200] flex items-center justify-center bg-adventist-blue/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700">
+        <div class="relative bg-white w-[90%] max-w-lg rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden transform scale-90 transition-all duration-700"
+            id="invitacion-card">
+
+            <div class="bg-adventist-blue p-8 text-center relative">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-adventist-gold/20 rounded-full"></div>
+                <div
+                    class="bg-white text-adventist-blue w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-2xl animate-bounce">
+                    <i class="fas fa-church text-4xl"></i>
+                </div>
+                <span class="text-adventist-gold font-black uppercase tracking-[0.3em] text-[10px]">Invitación
+                    Especial</span>
+                <h2 class="text-white font-heading font-black text-3xl md:text-4xl mt-2 leading-tight">¡TE ESPERAMOS
+                    ESTE SÁBADO!</h2>
+            </div>
+
+            <div class="p-10 text-center">
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center justify-center gap-4 text-adventist-blue">
+                        <i class="fas fa-clock text-xl text-adventist-gold"></i>
+                        <p class="text-xl font-bold">09:30 AM <span class="text-sm font-normal text-gray-400">— Escuela
+                                Sabática</span></p>
+                    </div>
+                    <div class="flex items-center justify-center gap-4 text-adventist-blue">
+                        <i class="fas fa-sun text-xl text-adventist-gold"></i>
+                        <p class="text-xl font-bold">11:00 AM <span class="text-sm font-normal text-gray-400">— Culto
+                                Divino</span></p>
+                    </div>
+                </div>
+
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
+                    <div id="invitacion-progress" class="h-full bg-adventist-gold w-full"></div>
+                </div>
+
+                <button onclick="cerrarInvitacion()"
+                    class="bg-adventist-blue text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95 shadow-lg">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div id="welcome-banner"
         class="fixed top-0 left-0 w-full z-[60] transform -translate-y-full transition-transform duration-700">
@@ -295,17 +388,33 @@
         </div>
 
         <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 md:hidden">
-            <div class="flex flex-col px-6 py-4 space-y-3 text-xs font-semibold uppercase">
-                <a href="#inicio" class="mobile-link">Inicio</a>
+            <div class="flex flex-col px-6 py-6 space-y-4 text-xs font-semibold uppercase">
+                <a href="#inicio" class="mobile-link text-white/70">Inicio</a>
+
                 <a href="avisos.html"
-                    class="bg-adventist-gold text-adventist-blue p-3 rounded-xl text-center font-black">🚨 VER AVISOS
-                    RECIENTES</a>
+                    class="relative overflow-hidden bg-gradient-to-r from-yellow-400 via-adventist-gold to-yellow-500 text-adventist-blue p-4 rounded-2xl text-center font-black text-sm md:text-lg shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-2 border-white ring-4 ring-yellow-500/30 transform active:scale-95 transition-all">
+
+                    <span class="absolute top-2 right-4 flex h-6 w-6">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-6 w-6 bg-red-600 border-2 border-white text-[10px] text-white flex items-center justify-center font-bold">
+                            3
+                        </span>
+                    </span>
+
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        🚨 ¡NUEVOS AVISOS IMPORTANTES! 🚨
+                    </span>
+                </a>
+
                 <a href="#nosotros" class="mobile-link">Nosotros</a>
                 <a href="#horarios" class="mobile-link">Actividades</a>
                 <a href="estudio-biblico.html" class="mobile-link">Estudio Bíblico</a>
                 <a href="contactoaviso.html" class="mobile-link">Contacto</a>
             </div>
         </div>
+
     </nav>
 
     <div class="pt-nav w-full">
@@ -554,7 +663,8 @@
                             <i class="fas fa-play-circle text-lg"></i> VER VIDEO <br> Trío Salem
                         </button>
                         <a href="ORACION/index.html"
-                            class="bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg text-center">Muro <br>de Oración</a>
+                            class="bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg text-center">Muro
+                            <br>de Oración</a>
                     </div>
                 </div>
             </div>
@@ -582,41 +692,6 @@
         </button>
     </div>
     </section>
-
-
-
-    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-8 mb-8">
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-facebook-f fa-2xl"></i></a>
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-instagram fa-2xl"></i></a>
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-youtube fa-2xl"></i></a>
-            </div>
-
-            <p
-                class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
-                IASD SAN FRANCISCO DE LIMACHE
-            </p>
-
-            <p
-                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
-                    class="text-slate-900 font-black">MGE</span>
-            </p>
-
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
-                pronto regreso de Jesús</p>
-
-            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS -
-                San Francisco de Limache</p>
-        </div>
-    </footer>
 
     <button id="btnTop"
         class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] flex items-center justify-center">
@@ -786,122 +861,165 @@
         </div>
     </div>
 
-    <section id="envio-avisos" class="py-20 bg-gradient-to-b from-white to-gray-100 reveal active">
-    <div class="container mx-auto px-6 max-w-4xl">
-        
-        <div class="relative bg-white rounded-[3.5rem] shadow-[0_30px_100px_-20px_rgba(0,48,94,0.3)] overflow-hidden dynamic-card border border-white">
-            
-            <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-blue via-adventist-gold to-adventist-blue"></div>
+    <section id="envio-avisos" class="py-12 md:py-24 bg-gradient-to-b from-white to-gray-100 reveal active">
+        <div class="container mx-auto px-4 md:px-6 max-w-5xl">
 
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                
-                <div class="lg:col-span-4 bg-adventist-blue p-10 text-white flex flex-col justify-center relative overflow-hidden">
-                    <div class="relative z-10">
-                        <div class="bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-xl rotate-3">
-                            <i class="fas fa-bullhorn text-2xl"></i>
-                        </div>
-                        <h2 class="font-heading font-black text-3xl uppercase leading-none mb-4">Muro de <br><span class="text-adventist-gold">Anuncios</span></h2>
-                        <p class="text-blue-100 text-xs font-bold uppercase tracking-widest mb-8">Gestión de Liderazgo</p>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-clock text-adventist-gold mt-1"></i>
-                                <p class="text-[11px]"><span class="text-adventist-gold font-black">PLAZO:</span> Jueves de cada semana.</p>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fas fa-lock text-adventist-gold mt-1"></i>
-                                <p class="text-[11px]">Acceso protegido para Directores y líderes autorizados.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div
+                class="relative bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_30px_100px_-20px_rgba(0,48,94,0.2)] overflow-hidden border border-gray-100">
+
+                <div
+                    class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-adventist-blue via-adventist-gold to-adventist-blue">
                 </div>
 
-                <div class="lg:col-span-8 p-10 md:p-16">
-                    <div class="mb-10 text-center lg:text-left">
-                        <p class="text-adventist-blue font-heading font-black italic text-xl md:text-2xl leading-tight">
-                            "Pero hágase todo <span class="text-adventist-gold">decentemente</span> y con <span class="underline decoration-adventist-gold decoration-4">orden</span>."
-                        </p>
-                        <p class="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2">— 1 Corintios 14:40</p>
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+
+                    <div
+                        class="lg:col-span-5 bg-adventist-blue p-8 md:p-12 text-white flex flex-col justify-center relative overflow-hidden">
+                        <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="bg-adventist-gold text-adventist-blue w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform -rotate-3">
+                                <i class="fas fa-bullhorn text-3xl"></i>
+                            </div>
+
+                            <h2
+                                class="font-heading font-black text-4xl md:text-5xl uppercase leading-none mb-2 tracking-tighter">
+                                MURO DE <br><span class="text-adventist-gold italic">ANUNCIOS</span>
+                            </h2>
+                            <p class="text-blue-200 text-sm font-bold uppercase tracking-[0.3em] mb-10">Gestión de
+                                Liderazgo</p>
+
+                            <div
+                                class="space-y-6 bg-white/10 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] border border-white/20 shadow-inner">
+                                <div class="flex items-center gap-5">
+                                    <div
+                                        class="bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <i class="fas fa-calendar-check text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="text-adventist-gold font-black uppercase tracking-widest text-[11px] mb-1">
+                                            FECHA LÍMITE</p>
+                                        <p class="text-2xl md:text-3xl font-heading font-black leading-none">JUEVES</p>
+                                        <p class="text-xs text-blue-100 mt-1 uppercase opacity-80">20:00 HRS MÁXIMO</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-5 border-t border-white/10 pt-6">
+                                    <div
+                                        class="bg-white/20 text-adventist-gold w-14 h-14 rounded-2xl flex items-center justify-center">
+                                        <i class="fas fa-user-shield text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-black text-lg leading-tight uppercase italic">Acceso
+                                            Protegido</p>
+                                        <p class="text-[10px] text-blue-100 uppercase tracking-widest opacity-80">
+                                            Líderes Autorizados</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-10 text-center lg:text-left">
+                                <p class="text-blue-200 italic text-sm">"Hágase todo decentemente y con orden."</p>
+                                <p class="text-adventist-gold font-black text-xs mt-1">— 1 Corintios 14:40</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <form id="formAvisosLideres" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Departamento</label>
-                                <select id="deptAviso" required class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
-                                    <option value="">Seleccionar...</option>
-                                    <option value="MIDEA">MIDEA</option>
-                                    <option value="PUBLICACIONES">Publicaciones</option>
-                                    <option value="MINISTERIO INFANTIL">Ministerio Infantil</option>
-                                    <option value="MINISTERIO JOVEN">Ministerio Joven</option>
-                                    <option value="CLUB DE AVENTUREROS">Club de Aventureros</option>
-                                    <option value="ESCUELA SABATICA">Escuela Sabática</option>
-                                    <option value="DEPARTAMENTO DE SALUD">Departamento de Salud</option>
-                                    <option value="ASA">ASA (Acción Solidaria)</option>
-                                    <option value="DIACONOS - DIACONISAS">Diáconos - Diaconisas</option>
-                                    <option value="SECRETARIA">Secretaría</option>
-                                    <option value="TESORERIA">Tesorería</option>
-                                    <option value="MIPES">MIPES</option>
-                                    <option value="ORACION INTERCESORA">Oración Intercesora</option>
-                                    <option value="MAYORDOMIA">Mayordomía</option>
-                                    <option value="ANCIANATO">Ancianato</option>
-                                    <option value="MINISTERIO DE LA MUJER">Ministerio de la Mujer</option>
-                                    <option value="VOLUNTARIADO">Voluntariado</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Responsable</label>
-                                <input type="text" id="nombreResponsable" required placeholder="Su nombre" 
-                                    class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
-                            </div>
-                        </div>
+                    <div class="lg:col-span-7 p-8 md:p-14 lg:p-16 bg-white">
+                        <form id="formAvisosLideres" class="space-y-7">
 
-                        <div>
-                            <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Contraseña de Líder</label>
-                            <div class="relative">
-                                <i class="fas fa-key absolute left-5 top-1/2 -translate-y-1/2 text-adventist-gold"></i>
-                                <input type="password" id="passLider" required placeholder="Contraseña de validación" 
-                                    class="w-full bg-gray-50 pl-12 pr-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Departamento</label>
+                                    <select id="departamento" required
+                                        class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue appearance-none shadow-sm">
+                                        <option value="">Seleccione...</option>
+                                        <option value="MIDEA25">MIDEA</option>
+                                        <option value="PUB25">PUBLICACIONES</option>
+                                        <option value="NIÑOS25">MINISTERIO INFANTIL</option>
+                                        <option value="JA25">MINISTERIO JOVEN</option>
+                                        <option value="AVENT25">CLUB DE AVENTUREROS</option>
+                                        <option value="SABAT25">ESCUELA SABÁTICA</option>
+                                        <option value="SALUD25">DEPARTAMENTO DE SALUD</option>
+                                        <option value="ASA25">ASA</option>
+                                        <option value="SERVIR25">DIACONOS - DIACONISAS</option>
+                                        <option value="SEC25">SECRETARIA</option>
+                                        <option value="TESO25">TESORERIA</option>
+                                        <option value="MIPES25">MIPES</option>
+                                        <option value="ORAC25">ORACION INTERCESORA</option>
+                                        <option value="MAYOR25">MAYORDOMIA</option>
+                                        <option value="ANC25">ANCIANATO</option>
+                                        <option value="MM25">MINISTERIO DE LA MUJER</option>
+                                        <option value="VOL25">VOLUNTARIADO</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Nombre
+                                        Líder</label>
+                                    <input type="text" id="nombreResponsable" required placeholder="Escriba su nombre"
+                                        class="w-full bg-gray-50 px-6 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm">
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Detalle del Aviso</label>
-                            <textarea id="contenidoAviso" required rows="3" placeholder="¿Qué mensaje desea compartir?" 
-                                class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue shadow-sm"></textarea>
-                        </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Clave
+                                    de Seguridad</label>
+                                <div class="relative group">
+                                    <i
+                                        class="fas fa-key absolute left-5 top-1/2 -translate-y-1/2 text-adventist-gold group-focus-within:scale-110 transition-transform"></i>
+                                    <input type="password" id="passLider" required
+                                        placeholder="Ingrese su contraseña entregada"
+                                        class="w-full bg-gray-50 pl-14 pr-6 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm">
+                                </div>
+                            </div>
 
-                        <button type="button" onclick="validarYEnviarAviso()"
-                            class="w-full bg-adventist-blue text-white py-5 rounded-[2rem] font-black text-[11px] uppercase tracking-[0.2em] shadow-lg hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-4">
-                            <span>Validar y Enviar</span>
-                            <i class="fas fa-check-shield text-adventist-gold"></i>
-                        </button>
-                    </form>
-                    
-                    <p class="text-center text-gray-300 text-[9px] mt-8 uppercase font-bold tracking-widest">Damos lo mejor para el Señor</p>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Contenido
+                                    del Aviso</label>
+                                <textarea id="contenidoAviso" required rows="4"
+                                    placeholder="¿Qué mensaje desea compartir con la iglesia?"
+                                    class="w-full bg-gray-50 px-6 py-5 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm resize-none"></textarea>
+                            </div>
+
+                            <button type="button" onclick="validarYEnviarAviso()"
+                                class="group w-full bg-adventist-blue text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-[0.3em] shadow-[0_15px_35px_-10px_rgba(0,48,94,0.4)] hover:bg-slate-800 active:scale-95 transition-all flex items-center justify-center gap-4">
+                                <span>ENVIAR A PUBLICACIÓN</span>
+                                <i
+                                    class="fas fa-paper-plane text-adventist-gold group-hover:translate-x-2 transition-transform"></i>
+                            </button>
+                        </form>
+
+                        <p
+                            class="text-center text-gray-400 text-[10px] mt-10 uppercase font-black tracking-[0.4em] opacity-60">
+                            Damos lo mejor para el Señor</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <script>
+        function validarYEnviarAviso() {
+            const pass = document.getElementById('passLider').value.trim();
+            const responsable = document.getElementById('nombreResponsable').value;
+            const depto = document.getElementById('deptAviso').value;
+            const aviso = document.getElementById('contenidoAviso').value;
 
-<script>
-    function validarYEnviarAviso() {
-        const pass = document.getElementById('passLider').value.trim();
-        const responsable = document.getElementById('nombreResponsable').value;
-        const depto = document.getElementById('deptAviso').value;
-        const aviso = document.getElementById('contenidoAviso').value;
-
-        // Validación simple: la clave debe ser "iasd2025" o la que tú decidas entregar
-        if (pass === "iasd2025") {
-            // Aquí integrarías el envío a tu base de datos o correo
-            alert(`¡Validado correctamente!\nLíder: ${responsable}\nDepto: ${depto}\nAviso procesado con éxito.`);
-            document.getElementById('formAvisosLideres').reset();
-        } else {
-            alert("❌ Contraseña de Líder Incorrecta. Por favor, solicítela al director de comunicación.");
+            // Validación simple: la clave debe ser "iasd2025" o la que tú decidas entregar
+            if (pass === "iasd2025") {
+                // Aquí integrarías el envío a tu base de datos o correo
+                alert(`¡Validado correctamente!\nLíder: ${responsable}\nDepto: ${depto}\nAviso procesado con éxito.`);
+                document.getElementById('formAvisosLideres').reset();
+            } else {
+                alert("❌ Contraseña de Líder Incorrecta. Por favor, solicítela al director de comunicación.");
+            }
         }
-    }
-</script>
+    </script>
     <!-- MODAL ACCESO ANCIANOS -->
     <div id="modalAncianos" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 px-4">
 
@@ -967,27 +1085,71 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const banner = document.getElementById('welcome-banner');
+            const modal = document.getElementById('invitacion-central');
 
-            // Verificamos si el usuario ya cerró el banner en esta sesión
-            if (!sessionStorage.getItem('bannerClosed')) {
-                setTimeout(() => {
-                    // Desliza el banner hacia abajo
-                    banner.classList.remove('-translate-y-full');
-                    banner.classList.add('translate-y-0');
-                }, 2000); // Aparece tras 2 segundos
-            }
+            // 1. Mostrar después de 1.0 segundos de carga
+            setTimeout(() => {
+                if (!sessionStorage.getItem('invitacionMostrada')) {
+                    modal.classList.add('show');
+
+                    // 2. Ocultar automáticamente tras 10 segundos exactos
+                    setTimeout(() => {
+                        cerrarInvitacion();
+                    }, 10000);
+                }
+            }, 1000);
         });
 
-        function closeBanner() {
-            const banner = document.getElementById('welcome-banner');
-            banner.classList.remove('translate-y-0');
-            banner.classList.add('-translate-y-full');
-
-            // Guardamos que ya se cerró para que no vuelva a salir hasta que cierre la app
-            sessionStorage.setItem('bannerClosed', 'true');
+        function cerrarInvitacion() {
+            const modal = document.getElementById('invitacion-central');
+            if (modal) {
+                modal.classList.remove('show');
+                // Marcamos que ya se mostró para no interrumpir la navegación después
+                sessionStorage.setItem('invitacionMostrada', 'true');
+            }
         }
     </script>
+    <script>
+    function validarYEnviarAviso() {
+    const deptoSelect = document.getElementById('departamento');
+    const pass = document.getElementById('passLider').value.trim();
+    const responsable = document.getElementById('nombreResponsable').value.trim();
+    const deptoNombre = deptoSelect.options[deptoSelect.selectedIndex].text;
+    const deptoKey = deptoSelect.value; // La clave es el value del option
+    const aviso = document.getElementById('contenidoAviso').value.trim();
+
+    if (!deptoKey || !responsable || !aviso || !pass) {
+        alert("⚠️ Por favor, complete todos los campos.");
+        return;
+    }
+
+    // Validación de seguridad por departamento
+    if (pass === deptoKey) {
+        const nuevoAviso = {
+            id: Date.now(),
+            departamento: deptoNombre,
+            lider: responsable,
+            mensaje: aviso,
+            fecha: new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' }),
+            prioridad: deptoNombre === "ANCIANATO" ? 'alta' : 'normal'
+        };
+
+        // Guardar en el sistema local
+        let avisosGuardados = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
+        avisosGuardados.unshift(nuevoAviso); // Agregar al inicio para que aparezca primero
+        localStorage.setItem('avisosIglesia', JSON.stringify(avisosGuardados));
+
+        alert("✅ AVISO PUBLICADO: Se ha integrado correctamente al Muro de Avisos.");
+        document.getElementById('formAvisosLideres').reset();
+        
+        // Opcional: Redirigir a la página de avisos para ver el resultado
+        // window.location.href = "avisos.html"; 
+    } else {
+        alert("❌ CONTRASEÑA INCORRECTA: La clave no coincide con el departamento seleccionado.");
+    }
+}
+    </script>
+
 
     <a href="https://wa.me/56990724209?text=Hola,%20necesito%20información%20o%20ayuda%20espiritual." target="_blank"
         class="fixed bottom-24 right-6 bg-[#25d366] text-white w-14 h-14 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.5)] hover:scale-110 active:scale-95 transition-all z-[90] flex items-center justify-center border-2 border-white">
@@ -1070,30 +1232,64 @@
     </script>
     <script>
 
-    /* CONTROL DE VIDEO LOCAL */
-function playFullVideo() {
-    const modal = document.getElementById('modal-video-local');
-    const video = document.getElementById('main-video-player');
-    
-    if (modal && video) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        video.play().catch(error => console.log("Auto-play bloqueado:", error));
-    }
-}
+        /* CONTROL DE VIDEO LOCAL */
+        function playFullVideo() {
+            const modal = document.getElementById('modal-video-local');
+            const video = document.getElementById('main-video-player');
 
-function closeFullVideo() {
-    const modal = document.getElementById('modal-video-local');
-    const video = document.getElementById('main-video-player');
-    
-    if (modal && video) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        video.pause();
-        video.currentTime = 0; // Reinicia para la próxima vez
-    }
-}
+            if (modal && video) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                video.play().catch(error => console.log("Auto-play bloqueado:", error));
+            }
+        }
+
+        function closeFullVideo() {
+            const modal = document.getElementById('modal-video-local');
+            const video = document.getElementById('main-video-player');
+
+            if (modal && video) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                video.pause();
+                video.currentTime = 0; // Reinicia para la próxima vez
+            }
+        }
     </script>
+
+    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-facebook-f fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-instagram fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-youtube fa-2xl"></i></a>
+            </div>
+
+            <p
+                class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+                IASD SAN FRANCISCO DE LIMACHE
+            </p>
+
+            <p
+                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
+                    class="text-slate-900 font-black">MGE</span>
+            </p>
+
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
+                pronto regreso de Jesús</p>
+
+            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS -
+                San Francisco de Limache</p>
+        </div>
+    </footer>
+
 </body>
 
 </html>
