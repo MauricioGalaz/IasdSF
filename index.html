@@ -785,6 +785,123 @@
             </div>
         </div>
     </div>
+
+    <section id="envio-avisos" class="py-20 bg-gradient-to-b from-white to-gray-100 reveal active">
+    <div class="container mx-auto px-6 max-w-4xl">
+        
+        <div class="relative bg-white rounded-[3.5rem] shadow-[0_30px_100px_-20px_rgba(0,48,94,0.3)] overflow-hidden dynamic-card border border-white">
+            
+            <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-blue via-adventist-gold to-adventist-blue"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                
+                <div class="lg:col-span-4 bg-adventist-blue p-10 text-white flex flex-col justify-center relative overflow-hidden">
+                    <div class="relative z-10">
+                        <div class="bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-xl rotate-3">
+                            <i class="fas fa-bullhorn text-2xl"></i>
+                        </div>
+                        <h2 class="font-heading font-black text-3xl uppercase leading-none mb-4">Muro de <br><span class="text-adventist-gold">Anuncios</span></h2>
+                        <p class="text-blue-100 text-xs font-bold uppercase tracking-widest mb-8">Gestión de Liderazgo</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-clock text-adventist-gold mt-1"></i>
+                                <p class="text-[11px]"><span class="text-adventist-gold font-black">PLAZO:</span> Jueves de cada semana.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lock text-adventist-gold mt-1"></i>
+                                <p class="text-[11px]">Acceso protegido para Directores y líderes autorizados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 p-10 md:p-16">
+                    <div class="mb-10 text-center lg:text-left">
+                        <p class="text-adventist-blue font-heading font-black italic text-xl md:text-2xl leading-tight">
+                            "Pero hágase todo <span class="text-adventist-gold">decentemente</span> y con <span class="underline decoration-adventist-gold decoration-4">orden</span>."
+                        </p>
+                        <p class="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2">— 1 Corintios 14:40</p>
+                    </div>
+
+                    <form id="formAvisosLideres" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Departamento</label>
+                                <select id="deptAviso" required class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="MIDEA">MIDEA</option>
+                                    <option value="PUBLICACIONES">Publicaciones</option>
+                                    <option value="MINISTERIO INFANTIL">Ministerio Infantil</option>
+                                    <option value="MINISTERIO JOVEN">Ministerio Joven</option>
+                                    <option value="CLUB DE AVENTUREROS">Club de Aventureros</option>
+                                    <option value="ESCUELA SABATICA">Escuela Sabática</option>
+                                    <option value="DEPARTAMENTO DE SALUD">Departamento de Salud</option>
+                                    <option value="ASA">ASA (Acción Solidaria)</option>
+                                    <option value="DIACONOS - DIACONISAS">Diáconos - Diaconisas</option>
+                                    <option value="SECRETARIA">Secretaría</option>
+                                    <option value="TESORERIA">Tesorería</option>
+                                    <option value="MIPES">MIPES</option>
+                                    <option value="ORACION INTERCESORA">Oración Intercesora</option>
+                                    <option value="MAYORDOMIA">Mayordomía</option>
+                                    <option value="ANCIANATO">Ancianato</option>
+                                    <option value="MINISTERIO DE LA MUJER">Ministerio de la Mujer</option>
+                                    <option value="VOLUNTARIADO">Voluntariado</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Responsable</label>
+                                <input type="text" id="nombreResponsable" required placeholder="Su nombre" 
+                                    class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Contraseña de Líder</label>
+                            <div class="relative">
+                                <i class="fas fa-key absolute left-5 top-1/2 -translate-y-1/2 text-adventist-gold"></i>
+                                <input type="password" id="passLider" required placeholder="Contraseña de validación" 
+                                    class="w-full bg-gray-50 pl-12 pr-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Detalle del Aviso</label>
+                            <textarea id="contenidoAviso" required rows="3" placeholder="¿Qué mensaje desea compartir?" 
+                                class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all text-sm font-bold text-adventist-blue shadow-sm"></textarea>
+                        </div>
+
+                        <button type="button" onclick="validarYEnviarAviso()"
+                            class="w-full bg-adventist-blue text-white py-5 rounded-[2rem] font-black text-[11px] uppercase tracking-[0.2em] shadow-lg hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-4">
+                            <span>Validar y Enviar</span>
+                            <i class="fas fa-check-shield text-adventist-gold"></i>
+                        </button>
+                    </form>
+                    
+                    <p class="text-center text-gray-300 text-[9px] mt-8 uppercase font-bold tracking-widest">Damos lo mejor para el Señor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function validarYEnviarAviso() {
+        const pass = document.getElementById('passLider').value.trim();
+        const responsable = document.getElementById('nombreResponsable').value;
+        const depto = document.getElementById('deptAviso').value;
+        const aviso = document.getElementById('contenidoAviso').value;
+
+        // Validación simple: la clave debe ser "iasd2025" o la que tú decidas entregar
+        if (pass === "iasd2025") {
+            // Aquí integrarías el envío a tu base de datos o correo
+            alert(`¡Validado correctamente!\nLíder: ${responsable}\nDepto: ${depto}\nAviso procesado con éxito.`);
+            document.getElementById('formAvisosLideres').reset();
+        } else {
+            alert("❌ Contraseña de Líder Incorrecta. Por favor, solicítela al director de comunicación.");
+        }
+    }
+</script>
     <!-- MODAL ACCESO ANCIANOS -->
     <div id="modalAncianos" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 px-4">
 
