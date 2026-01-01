@@ -3,393 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Plataforma IASD Limache - Gestión de Culto</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --blue-main: #1e3a8a;
-            --gold-accent: #b45309;
-            --bg-page: #f8fafc;
-            --white: #ffffff;
-            --gray-text: #475569;
-        }
+    <title>Gestión de Culto - IASD Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-        * { box-sizing: border-box; }
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--bg-page); 
-            margin: 0; 
-            padding: 10px;
-            color: var(--gray-text);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        header { text-align: center; border-bottom: 2px solid var(--blue-main); padding-bottom: 15px; margin-bottom: 25px; }
-        header h1 { color: var(--blue-main); font-family: 'Roboto Slab', serif; margin: 0; font-size: 1.6rem; }
-        header p { color: var(--gold-accent); margin: 5px 0; font-weight: bold; letter-spacing: 1px; }
-
-        .section-header {
-            background: var(--blue-main);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin: 20px 0 15px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--blue-main); }
-        input, select { 
-            width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 0.9rem; 
-        }
-
-        .static-hymn { font-size: 0.85rem; background: #f1f5f9; padding: 10px; border-radius: 8px; border-left: 4px solid var(--gold-accent); margin-bottom: 10px; }
-
-        .actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 30px; }
-        button, a { 
-            padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; text-align: center; text-decoration: none;
-        }
-        .btn-wa { background: #25d366; }
-        .btn-pdf { background: var(--blue-main); }
-        .btn-clear { background: #ef4444; }
-
-        @media print {
-            .actions, input, label, select { display: none !important; }
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; }
-            .print-only { display: block !important; border-bottom: 1px solid #eee; padding: 10px 0; }
-            .section-header { background: #eee !important; color: black !important; border: 1px solid #000; }
-        }
-
-        .print-only { display: none; font-size: 1rem; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .actions { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-
-<div class="container" id="contenidoPDF">
-    <header>
-        <p>IGLESIA ADVENTISTA DEL SÉPTIMO DÍA</p>
-        <h1>SAN FRANCISCO DE LIMACHE</h1>
-        <small>Planificación creada por MGE</small>
-    </header>
-    
-
-    <div class="grid">
-        <div class="form-group">
-            <label>Sábado Fecha:</label>
-            <input type="date" id="fecha">
-            <div class="print-only" id="p-fecha"></div>
-        </div>
-        <div class="form-group">
-            <label>Predicador(a):</label>
-            <input type="text" id="predicador" placeholder="Nombre">
-            <div class="print-only" id="p-predicador"></div>
-        </div>
-    </div>
-
-    <div class="section-header">1. Preludio e Ingreso</div>
-    <div class="form-group">
-        <label>Cantos Previos (2 a 3 himnos):</label>
-        <input type="text" id="previa" placeholder="N° Himnos">
-        <div class="print-only" id="p-previa"></div>
-    </div>
-    <div class="static-hymn"><strong>Ingreso:</strong> Himno 32 "Nos reunimos en tu santuario" (De pie).</div>
-    <div class="static-hymn"><strong>Con Plataforma:</strong> Himno 135 "Cristo nombre sublime".</div>
-
-    <div class="section-header">2. Liturgia Central - Bloque Acompañante 1</div>
-    <div class="form-group">
-        <label>Nombre Acompañante 1:</label>
-        <input type="text" id="acomp1" placeholder="Encargado Bienvenida">
-        <div class="print-only" id="p-acomp1"></div>
-    </div>
-    <div class="static-hymn">✅ Bienvenida y Saludos</div>
-    <div class="static-hymn">📽️ Video: "Probad y Ved" (Proyectado)</div>
-    <div class="form-group">
-        <label>Diezmos y Ofrendas (Himno. 525):</label>
-        <input type="text" id="ofrendas_enc" placeholder="Ingresa nombres de Diáconos">
-        <div class="print-only" id="p-ofrendas"></div>
-    </div>
-    <div class="form-group">
-        <label>Himno Inicial (N° y Título):</label>
-        <input type="text" id="himno_i" placeholder="Solicitar previamente al predicador">
-        <div class="print-only" id="p-himnoi"></div>
-    </div>
-
-    <div class="section-header">3. Bloque Acompañante 2</div>
-    <div class="form-group">
-        <label>Nombre Acompañante 2:</label>
-        <input type="text" id="acomp2" placeholder="Encargado Oración">
-        <div class="print-only" id="p-acomp2"></div>
-    </div>
-    <div class="form-group">
-        <label>Lectura Bíblica (Cita):</label>
-        <input type="text" id="lectura" placeholder="Solicitar previamente al predicador">
-        <div class="print-only" id="p-lectura"></div>
-    </div>
-    <div class="static-hymn">🛐 Oración Intercesora: <strong>Himno 36</strong> (Fondo Musical)</div>
-    
-    <div class="form-group">
-        <label>Adoración Infantil:</label>
-        <select id="infantil">
-            <option value="Video Proyectado">Video Proyectado</option>
-            <option value="Relator(a) presente">Relator(a) presente</option>
-        </select>
-        <input type="text" id="relatador_nombre" placeholder="Nombre del Relator (si aplica)" style="margin-top:5px;">
-        <div class="print-only" id="p-infantil"></div>
-    </div>
-
-    <div class="form-group">
-        <label>Alabanza Musical (Opcional):</label>
-        <input type="text" id="especial" placeholder="Nombre solista/grupo">
-        <div class="print-only" id="p-especial"></div>
-    </div>
-
-    <div class="section-header">4. Mensaje y Salida</div>
-    <div class="static-hymn">📖 Sermón: <strong>Predicador(a)</strong></div>
-    <div class="form-group">
-        <label>Himno Final (N° y Título):</label>
-        <input type="text" id="himno_f" placeholder="Solicitar previamente al predicador">
-        <div class="print-only" id="p-himnof"></div>
-    </div>
-    <div class="static-hymn">🏁 Cierre: Oración final y Himno 41 (Salida plataforma)</div>
-    <div class="static-hymn">🚪 Salida: Himno 57 (Fondo musical)</div>
-
-    <div class="actions">
-        <button class="btn-wa" onclick="enviarWhatsApp()">📲 Enviar Orden por WhatsApp</button>
-        <button class="btn-pdf" onclick="generarPDFyEnviar()">📄 Enviar Orden PDF por WhatsApp</button>
-        <button type="button" class="btn-clear" onclick="limpiar()">Limpiar</button>
-    </div>
-
-    <footer style="margin-top:40px; text-align:center; font-size:0.9rem; color:#1b1068; font-weight: bold;">
-        ** Coordinación de Plataforma | ANCIANOS | IASD San Francisco de Limache **
-    
-        <!-- Botón Volver al Inicio -->
-<div style="text-align:center; margin: 30px 0;">
-    <a href="index.html" 
-        style="display:inline-block; background:#c7a488; color:#1e3a8a; padding:12px 25px; 
-        border-radius:10px; font-weight:bold; text-decoration:none; transition:0.3s;"
-        onmouseover="this.style.background='#fbbf24'; this.style.color='#000';"
-        onmouseout="this.style.background='#b45309'; this.style.color='#1e3a8a';">
-        ⬅ Volver al Inicio
-    </a>
-</div>
-
-</div>
-</footer>
-<!-- Librería para PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<script>
-// Función limpiar con contraseña según tus instrucciones (iasdsf)
-function limpiar() {
-    const password = prompt("Ingrese la contraseña para limpiar los datos:");
-    if (password === "iasdsf") {
-        document.querySelectorAll('input').forEach(i => i.value = '');
-        document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
-        alert("Datos eliminados correctamente.");
-    } else {
-        alert("Contraseña incorrecta.");
-    }
-}
-
-// Función mejorada para generar PDF y COMPARTIR directamente
-async function generarPDFyEnviar() {
-    const elemento = document.getElementById("contenidoPDF");
-    const fecha = document.getElementById("fecha").value || "Sin_Fecha";
-    
-    // Preparar opciones más robustas y clonar contenido para evitar recortes
-    const opciones = {
-        margin: 8, // mm
-        filename: `Orden_Culto_${fecha}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-            scale: 2,
-            useCORS: true,
-            letterRendering: true,
-            scrollY: 0
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'] }
-    };
-
-    try {
-            // Esperar que las fuentes carguen para evitar diferencias al renderizar
-            if (document.fonts && document.fonts.ready) await document.fonts.ready;
-
-            // Clonamos el elemento y normalizamos estilos para impresión PDF
-            const clone = elemento.cloneNode(true);
-            clone.style.boxShadow = 'none';
-            clone.style.borderRadius = '0';
-            clone.style.padding = '10mm';
-            clone.style.maxWidth = 'none';
-            // Convertir mm a px (aprox 96 dpi): px = mm * 96 / 25.4
-            const mmToPx = mm => Math.ceil(mm * 96 / 25.4);
-            clone.style.width = mmToPx(190) + 'px'; // ancho A4 interior aproximado en px
-        // Ajustes CSS adicionales para evitar saltos y recortes
-        clone.querySelectorAll('.actions, input, label, select, .btn-clear, .btn-wa, .btn-pdf').forEach(n => n && (n.style.display = 'none'));
-        clone.querySelectorAll('.container').forEach(c => { c.style.boxShadow = 'none'; c.style.borderRadius = '0'; });
-
-        // Insertar el clon en posición absoluta sobre la página pero casi invisible
-        // Quitamos el id para evitar duplicados
-        clone.removeAttribute('id');
-        clone.style.position = 'absolute';
-        clone.style.left = '0';
-        clone.style.top = window.scrollY + 'px';
-        clone.style.background = '#ffffff';
-        clone.style.zIndex = '999999';
-        clone.style.opacity = '0.01'; // casi invisible pero renderizable
-        clone.style.pointerEvents = 'none';
-        document.body.appendChild(clone);
-
-        // Actualizar windowWidth para html2canvas según el clon
-        // Ajustar escala según devicePixelRatio para mejor resolución
-        opciones.html2canvas.scale = Math.max(2, window.devicePixelRatio || 1);
-        // Update windowWidth for html2canvas according to the clone
-        opciones.html2canvas.windowWidth = Math.ceil(clone.scrollWidth);
-
-        // Generar el PDF como Blob (archivo en memoria) desde el clon
-        const pdfBlob = await html2pdf().set(opciones).from(clone).output('blob');
-        const nombreArchivo = `Orden_Culto_${fecha}.pdf`;
-        const archivo = new File([pdfBlob], nombreArchivo, { type: 'application/pdf' });
-
-        // Intentar compartir si es posible (móviles modernos)
-        if (navigator.canShare && navigator.canShare({ files: [archivo] })) {
-            try {
-                await navigator.share({
-                    files: [archivo],
-                    title: 'Orden de Culto',
-                    text: 'Adjunto envío el Orden de Culto de la IASD Limache.'
-                });
-                // Además de compartir, también ofrecemos descarga como respaldo
-                const url = URL.createObjectURL(pdfBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = nombreArchivo;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(url);
-            } catch (shareError) {
-                console.warn('Compartir falló, forzando descarga:', shareError);
-                const url = URL.createObjectURL(pdfBlob);
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(pdfBlob, nombreArchivo);
-                } else {
-                    const newTab = window.open(url, '_blank');
-                    if (!newTab) {
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = nombreArchivo;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: { blue: '#00305e', gold: '#fec325', soft: '#f1f5f9' }
                     }
                 }
-                URL.revokeObjectURL(url);
-                alert('No fue posible compartir. El PDF se abrirá/descargará para que lo puedas adjuntar manualmente.');
-            }
-        } else {
-            // Si no hay soporte de share con archivos, forzamos la descarga
-            const url = URL.createObjectURL(pdfBlob);
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(pdfBlob, nombreArchivo);
-            } else {
-                const newTab = window.open(url, '_blank');
-                if (!newTab) {
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = nombreArchivo;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                }
-            }
-            URL.revokeObjectURL(url);
-        // limpiar clon
-        document.body.removeChild(clone);
-            alert('Tu navegador no permite compartir directamente. El PDF se abrirá/descargará y deberás adjuntarlo manualmente en WhatsApp.');
-        }
-    } catch (error) {
-        console.error('Error al generar o compartir:', error);
-        alert('Hubo un error al procesar el PDF.');
-    }
-}
-
-function enviarWhatsApp() {
-    const f = id => {
-        const el = document.getElementById(id);
-        return el && el.value ? el.value : "---";
-    };
-
-    const modoInfantil = f("infantil");
-    const relator = f("relatador_nombre");
-    const infoInfantil = relator !== "---" ? `${modoInfantil} (${relator})` : modoInfantil;
-
-    const mensaje = 
-`📋 *ORDEN DE CULTO – IASD LIMACHE*
-
-📅 Fecha: ${f("fecha")}
-🎤 Predicador: ${f("predicador")}
-
-🎶 *PRELUDIO*
-- Himnos previos: ${f("previa")}
-- Ingreso: Himno 32
-- Plataforma: Himno 135
-
-🤝 *LITURGIA CENTRAL*
-- Acompañante 1: ${f("acomp1")}
-- Ofrendas: ${f("ofrendas_enc")}
-- Himno Inicial: ${f("himno_i")}
-
-🙏 *BLOQUE ESPIRITUAL*
-- Acompañante 2: ${f("acomp2")}
-- Lectura Bíblica: ${f("lectura")}
-- Oración Intercesora: Himno 36
-- Adoración Infantil: ${infoInfantil}
-- Especial: ${f("especial")}
-
-📖 *MENSAJE*
-- Sermón: ${f("predicador")}
-
-🎵 *CIERRE*
-- Himno Final: ${f("himno_f")}
-- Oración Final (Himno 41)
-- Salida (Himno 57)
-
-👴 ANCIANOS – IASD San Francisco de Limache`;
-
-    const ancianos = [
-        { nombre: "Mauricio Galaz", numero: "56968401298" },
-        { nombre: "Guillermo Vera", numero: "56990724209" },
-        { nombre: "Victor Recabarren", numero: "56996997577" }
-    ];
-
-    // Para evitar bloqueos de popups, enviamos solo al primero confirmado
-    let enviado = false;
-    for (let a of ancianos) {
-        if (!enviado) {
-            const ok = confirm(`¿Enviar Orden de Culto a ${a.nombre}?`);
-            if (ok) {
-                const url = `https://wa.me/${a.numero}?text=${encodeURIComponent(mensaje)}`;
-                window.open(url, "_blank");
-                enviado = true; 
             }
         }
-    }
-}
-</script>
+    </script>
 
+    <style>
+        body { background: radial-gradient(circle at top, #f8fafc, #e2e8f0); min-height: 100vh; font-family: 'Open Sans', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 2.5rem; }
+        .input-premium { background: #f8fafc; border: 2px solid transparent; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; width: 100%; font-weight: 600; color: #1e3a8a; }
+        .input-premium:focus { border-color: #fec325; background: white; outline: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .section-label { color: #00305e; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; margin-bottom: 0.5rem; display: block; }
+        
+        /* Estilos para el PDF */
+        .pdf-page { width: 210mm; min-height: 297mm; background: white; padding: 20mm; font-family: sans-serif; color: #333; box-sizing: border-box; }
+        .pdf-header-border { border-top: 15px solid #00305e; padding-top: 15px; text-align: center; margin-bottom: 30px; }
+        .pdf-section { background: #00305e; color: white; padding: 8px 15px; border-radius: 10px; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; }
+        .pdf-item { border-left: 5px solid #fec325; background: #f9fafb; padding: 12px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
 
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-10">
+            <div class="bg-adventist-blue inline-block p-3 rounded-2xl shadow-xl mb-4">
+                <i class="fas fa-church text-adventist-gold text-3xl"></i>
+            </div>
+            <p class="text-adventist-blue font-black text-xs uppercase tracking-[0.3em]">Iglesia Adventista del Séptimo Día</p>
+            <h1 class="text-3xl md:text-5xl font-black text-adventist-blue tracking-tighter uppercase leading-none mt-2">
+                San Francisco de <span class="text-adventist-gold italic">Limache</span>
+            </h1>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 block">Planificación creada por MGE</span>
+        </header>
+
+        <div class="glass-card shadow-2xl p-6 md:p-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div>
+                    <label class="section-label"><i class="fas fa-calendar-alt mr-2 text-adventist-gold"></i>Sábado Fecha</label>
+                    <input type="date" id="fecha" class="input-premium">
+                </div>
+                <div>
+                    <label class="section-label"><i class="fas fa-microphone-alt mr-2 text-adventist-gold"></i>Predicador(a)</label>
+                    <input type="text" id="predicador" placeholder="Nombre completo" class="input-premium">
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="p-6 bg-white/50 rounded-[2rem] border border-slate-100">
+                    <h3 class="section-label mb-4 text-lg">Bloques 1 y 2: Liturgia Inicial</h3>
+                    <div class="grid gap-4">
+                        <input type="text" id="previa" placeholder="Himnos Previos" class="input-premium">
+                        <input type="text" id="acomp1" placeholder="Nombre Acompañante 1" class="input-premium">
+                        <input type="text" id="ofrendas_enc" placeholder="Encargado Ofrendas" class="input-premium">
+                        <input type="text" id="himno_i" placeholder="Himno Inicial" class="input-premium">
+                    </div>
+                </div>
+
+                <div class="p-6 bg-white/50 rounded-[2rem] border border-slate-100">
+                    <h3 class="section-label mb-4 text-lg">Bloques 3 y 4: Bloque Espiritual</h3>
+                    <div class="grid gap-4">
+                        <input type="text" id="acomp2" placeholder="Nombre Acompañante 2" class="input-premium">
+                        <input type="text" id="lectura" placeholder="Lectura Bíblica (Cita)" class="input-premium">
+                        <div class="flex gap-2">
+                            <select id="infantil" class="input-premium w-1/3">
+                                <option value="Video Proyectado">📽️ Video</option>
+                                <option value="Relator(a) presente">👤 Relator</option>
+                            </select>
+                            <input type="text" id="relatador_nombre" placeholder="Nombre Relator" class="input-premium w-2/3">
+                        </div>
+                        <input type="text" id="especial" placeholder="Alabanza Especial" class="input-premium">
+                        <input type="text" id="himno_f" placeholder="Himno Final" class="input-premium">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 mt-12">
+                <button onclick="enviarWhatsApp()" class="flex-1 bg-[#25d366] text-white py-4 rounded-2xl font-black text-xs uppercase shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-lg"></i> Enviar WhatsApp
+                </button>
+                <button onclick="generarPDFyEnviar()" class="flex-1 bg-adventist-blue text-white py-4 rounded-2xl font-black text-xs uppercase shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-file-pdf text-lg"></i> Descargar PDF (2 Hojas)
+                </button>
+                <button onclick="limpiarFormulario()" class="bg-red-500 text-white p-4 rounded-2xl shadow-xl hover:bg-red-600 transition-all">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function f(id) { 
+            const el = document.getElementById(id);
+            return el && el.value ? el.value.trim() : "---"; 
+        }
+
+        async function generarPDFyEnviar() {
+            const fecha = f("fecha");
+            const tempDiv = document.createElement('div');
+            // IMPORTANTE: El contenedor debe estar en el DOM para que html2canvas lo procese
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            tempDiv.style.top = '0';
+            tempDiv.style.width = '210mm';
+            tempDiv.style.background = 'white';
+
+            tempDiv.innerHTML = `
+                <div class="pdf-page">
+                    <div class="pdf-header-border">
+                        <h1 style="color:#00305e; font-size: 24px; margin:0;">IASD SAN FRANCISCO DE LIMACHE</h1>
+                        <p style="color:#b45309; font-weight:bold; margin-top:5px;">PLANIFICACIÓN CULTO - PARTE 1</p>
+                    </div>
+                    <div style="margin-bottom:30px;">
+                        <p><strong>SÁBADO:</strong> ${fecha}</p>
+                        <p><strong>ACOMPAÑANTE 1:</strong> ${f("acomp1")}</p>
+                        <p><strong>PREDICADOR:</strong> ${f("predicador")}</p>
+                    </div>
+                    <div class="pdf-section">1. Preludio e Ingreso</div>
+                    <div class="pdf-item"><strong>Cantos Previos:</strong> ${f("previa")}</div>
+                    <div class="pdf-item"><strong>Ingreso:</strong> Himno 32 (De pie)</div>
+                    <div class="pdf-item"><strong>Con Plataforma:</strong> Himno 135</div>
+                    <div class="pdf-section">2. Liturgia Central</div>
+                    <div class="pdf-item"><strong>Bienvenida y Saludos:</strong> Encargado Acomp. 1</div>
+                    <div class="pdf-item"><strong>📽️ Video Proyectado:</strong> Probad y Ved</div>
+                    <div class="pdf-item"><strong>Diezmos y Ofrendas:</strong> ${f("ofrendas_enc")}</div>
+                    <div class="pdf-item"><strong>Himno Inicial:</strong> ${f("himno_i")}</div>
+                </div>
+                <div class="pdf-page" style="page-break-before: always;">
+                    <div class="pdf-header-border">
+                        <h1 style="color:#00305e; font-size: 24px; margin:0;">IASD SAN FRANCISCO DE LIMACHE</h1>
+                        <p style="color:#b45309; font-weight:bold; margin-top:5px;">PLANIFICACIÓN CULTO - PARTE 2</p>
+                    </div>
+                    <div style="margin-bottom:30px;">
+                        <p><strong>SÁBADO:</strong> ${fecha}</p>
+                        <p><strong>ACOMPAÑANTE 2:</strong> ${f("acomp2")}</p>
+                    </div>
+                    <div class="pdf-section">3. Bloque Espiritual</div>
+                    <div class="pdf-item"><strong>Lectura Bíblica:</strong> ${f("lectura")}</div>
+                    <div class="pdf-item"><strong>🛐 Oración Intercesora:</strong> Himno 36 (Fondo)</div>
+                    <div class="pdf-item"><strong>Adoración Infantil:</strong> ${document.getElementById('infantil').value} (${f('relatador_nombre')})</div>
+                    <div class="pdf-item"><strong>Alabanza Musical:</strong> ${f("especial")}</div>
+                    <div class="pdf-section">4. Mensaje y Salida</div>
+                    <div class="pdf-item"><strong>📖 Sermón:</strong> ${f("predicador")}</div>
+                    <div class="pdf-item"><strong>Himno Final:</strong> ${f("himno_f")}</div>
+                    <div class="pdf-item"><strong>Cierre:</strong> Oración Final e Himno 41 / 57</div>
+                </div>
+            `;
+
+            document.body.appendChild(tempDiv);
+
+            const opt = { 
+                margin: 0, 
+                filename: `Planificacion_Limache_${fecha}.pdf`, 
+                image: { type: 'jpeg', quality: 1 }, 
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true }, 
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } 
+            };
+            
+            try {
+                // Pausa de 500ms para asegurar el renderizado de fuentes y estilos
+                await new Promise(r => setTimeout(r, 500));
+                await html2pdf().set(opt).from(tempDiv).save();
+            } finally {
+                document.body.removeChild(tempDiv);
+            }
+        }
+
+        function enviarWhatsApp() {
+            const msj = `📋 *ORDEN DE CULTO - IASD LIMACHE*\n\n` +
+                        `📅 *Fecha:* ${f("fecha")}\n` +
+                        `🎤 *Predicador:* ${f("predicador")}\n` +
+                        `🤝 *Acomp. 1:* ${f("acomp1")}\n` +
+                        `🛐 *Acomp. 2:* ${f("acomp2")}\n` +
+                        `🎶 *Himnos:* ${f("himno_i")} / ${f("himno_f")}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msj)}`, "_blank");
+        }
+
+        function limpiarFormulario() {
+            if(confirm("¿Desea borrar todos los datos?")) {
+                document.querySelectorAll('input').forEach(i => i.value = "");
+                document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+            }
+        }
+    </script>
 </body>
 </html>

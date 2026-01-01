@@ -266,6 +266,83 @@
         #invitacion-central.show #invitacion-card {
             transform: scale(1);
         }
+
+        <style>.text-adventist-blue {
+            color: #004a87;
+        }
+
+        /* Azul institucional */
+        .text-adventist-gold {
+            color: #a6893e;
+        }
+
+        /* Dorado/Oro institucional */
+        .border-adventist-gold {
+            border-color: #a6893e;
+        }
+
+        .bg-adventist-blue {
+            background-color: #004a87;
+        }
+
+        <style>
+
+        /* Definición de colores institucionales */
+        .text-adventist-gold {
+            color: #a6893e;
+        }
+
+        .bg-adventist-gold {
+            background-color: #a6893e;
+        }
+
+        .border-adventist-gold {
+            border-color: #a6893e;
+        }
+
+        /* Efecto de resplandor para el texto de Cristo */
+        #mensaje-esperanza h2 {
+            text-shadow: 0 0 20px rgba(166, 137, 62, 0.4);
+        }
+
+        /* Suavizado de bordes para la tarjeta principal */
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        <style>
+
+        /* Colores personalizados según tu manual de marca */
+        .text-adventist-blue {
+            color: #004a87;
+        }
+
+        .text-adventist-gold {
+            color: #a6893e;
+        }
+
+        .bg-adventist-blue {
+            background-color: #004a87;
+        }
+
+        .border-adventist-gold {
+            border-color: #a6893e;
+        }
+
+        /* Efecto de "Glow" para la imagen de Cristo */
+        .rounded-full.border-adventist-gold {
+            box-shadow: 0 0 25px rgba(166, 137, 62, 0.4);
+        }
+
+        /* Fuente Montserrat para el título (ya la tienes en tu index.html) */
+        #mensaje-esperanza h2 {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    </style>
+    </style>
+
     </style>
 
 
@@ -1110,44 +1187,44 @@
         }
     </script>
     <script>
-    function validarYEnviarAviso() {
-    const deptoSelect = document.getElementById('departamento');
-    const pass = document.getElementById('passLider').value.trim();
-    const responsable = document.getElementById('nombreResponsable').value.trim();
-    const deptoNombre = deptoSelect.options[deptoSelect.selectedIndex].text;
-    const deptoKey = deptoSelect.value; // La clave es el value del option
-    const aviso = document.getElementById('contenidoAviso').value.trim();
+        function validarYEnviarAviso() {
+            const deptoSelect = document.getElementById('departamento');
+            const pass = document.getElementById('passLider').value.trim();
+            const responsable = document.getElementById('nombreResponsable').value.trim();
+            const deptoNombre = deptoSelect.options[deptoSelect.selectedIndex].text;
+            const deptoKey = deptoSelect.value; // La clave es el value del option
+            const aviso = document.getElementById('contenidoAviso').value.trim();
 
-    if (!deptoKey || !responsable || !aviso || !pass) {
-        alert("⚠️ Por favor, complete todos los campos.");
-        return;
-    }
+            if (!deptoKey || !responsable || !aviso || !pass) {
+                alert("⚠️ Por favor, complete todos los campos.");
+                return;
+            }
 
-    // Validación de seguridad por departamento
-    if (pass === deptoKey) {
-        const nuevoAviso = {
-            id: Date.now(),
-            departamento: deptoNombre,
-            lider: responsable,
-            mensaje: aviso,
-            fecha: new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' }),
-            prioridad: deptoNombre === "ANCIANATO" ? 'alta' : 'normal'
-        };
+            // Validación de seguridad por departamento
+            if (pass === deptoKey) {
+                const nuevoAviso = {
+                    id: Date.now(),
+                    departamento: deptoNombre,
+                    lider: responsable,
+                    mensaje: aviso,
+                    fecha: new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' }),
+                    prioridad: deptoNombre === "ANCIANATO" ? 'alta' : 'normal'
+                };
 
-        // Guardar en el sistema local
-        let avisosGuardados = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
-        avisosGuardados.unshift(nuevoAviso); // Agregar al inicio para que aparezca primero
-        localStorage.setItem('avisosIglesia', JSON.stringify(avisosGuardados));
+                // Guardar en el sistema local
+                let avisosGuardados = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
+                avisosGuardados.unshift(nuevoAviso); // Agregar al inicio para que aparezca primero
+                localStorage.setItem('avisosIglesia', JSON.stringify(avisosGuardados));
 
-        alert("✅ AVISO PUBLICADO: Se ha integrado correctamente al Muro de Avisos.");
-        document.getElementById('formAvisosLideres').reset();
-        
-        // Opcional: Redirigir a la página de avisos para ver el resultado
-        // window.location.href = "avisos.html"; 
-    } else {
-        alert("❌ CONTRASEÑA INCORRECTA: La clave no coincide con el departamento seleccionado.");
-    }
-}
+                alert("✅ AVISO PUBLICADO: Se ha integrado correctamente al Muro de Avisos.");
+                document.getElementById('formAvisosLideres').reset();
+
+                // Opcional: Redirigir a la página de avisos para ver el resultado
+                // window.location.href = "avisos.html"; 
+            } else {
+                alert("❌ CONTRASEÑA INCORRECTA: La clave no coincide con el departamento seleccionado.");
+            }
+        }
     </script>
 
 
@@ -1256,6 +1333,50 @@
             }
         }
     </script>
+    <section id="mensaje-esperanza"
+        class="max-w-4xl mx-auto my-16 p-2 bg-gradient-to-br from-adventist-blue to-slate-900 rounded-[3rem] shadow-2xl animate__animated animate__fadeIn">
+        <div
+            class="bg-white/95 backdrop-blur-sm rounded-[2.8rem] p-8 md:p-12 text-center border-b-8 border-adventist-gold">
+
+            <div class="relative w-48 h-48 mx-auto mb-8 group">
+                <div
+                    class="absolute inset-0 bg-adventist-gold rounded-full blur-lg opacity-30 group-hover:opacity-60 transition-opacity">
+                </div>
+                <img src="imagenes/jesus.jpg" alt="Jesucristo"
+                    class="relative w-full h-full object-cover rounded-full border-4 border-adventist-gold shadow-xl transition-transform duration-500 group-hover:scale-105">
+            </div>
+
+            <h2
+                class="font-heading font-black text-adventist-blue text-3xl md:text-5xl uppercase tracking-tighter mb-6 italic leading-tight">
+                Nuestra Esperanza <br> <span class="text-adventist-gold text-2xl md:text-4xl">está en Jesús</span>
+            </h2>
+
+            <div class="space-y-6 text-slate-700 max-w-2xl mx-auto">
+                <p class="text-xl italic font-serif text-slate-600 border-l-4 border-adventist-gold pl-4 py-2">
+                    "Puestos los ojos en Jesús, el autor y consumador de la fe..." <br>
+                    <span class="text-xs font-bold uppercase tracking-widest text-adventist-blue">— Hebreos 12:2</span>
+                </p>
+
+                <p class="font-medium leading-relaxed">
+                    Querida familia y hermanos de la <span class="text-adventist-blue font-bold italic">IASD San
+                        Francisco de Limache</span>:
+                    Al comenzar este nuevo año, renovamos nuestro compromiso de caminar de la mano con nuestro Redentor.
+                    Que su amor sature cada hogar de nuestra hermandad.
+                </p>
+
+                <p class="text-adventist-blue font-black uppercase tracking-[0.2em] text-lg pt-4">
+                    ¡Maranatha! ¡El Señor viene!
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <a href="#contacto"
+                    class="inline-block bg-adventist-blue text-white font-black px-10 py-4 rounded-full hover:bg-adventist-gold transition-all duration-300 shadow-lg hover:-translate-y-1 uppercase italic tracking-tighter">
+                    Unidos en Oración
+                </a>
+            </div>
+        </div>
+    </section>
 
     <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
         <div class="container mx-auto px-6">
