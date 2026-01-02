@@ -30,7 +30,6 @@
             background-color: #00305e;
         }
 
-        /* EFECTO SHIMMER (BRILLO) */
         .shimmer-text {
             background: linear-gradient(to right, #00305e 20%, #fec325 40%, #fec325 60%, #00305e 80%);
             background-size: 200% auto;
@@ -47,7 +46,6 @@
             }
         }
 
-        /* ANIMACIÓN DE CAJITAS DE REGALO Y GLOBOS */
         .floating-element {
             position: absolute;
             bottom: -100px;
@@ -77,7 +75,6 @@
 
         #listaCumple {
             padding-bottom: 100px;
-            /* Esto deja espacio para que el menú no tape las tarjetas */
         }
     </style>
 </head>
@@ -107,7 +104,8 @@
             <h1 class="text-4xl font-black adventist-blue uppercase tracking-tighter leading-none">
                 Muro de <br><span class="text-[#fec325]">Cumpleaños</span>
             </h1>
-            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-3">IASD San francisco de Limache</p>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-3">IASD San francisco de
+                Limache</p>
         </header>
 
         <div class="card-modern p-8 mb-10">
@@ -146,14 +144,12 @@
                 <h2 class="text-2xl font-black text-[#00305e] uppercase leading-none">Regalar Oración</h2>
                 <p id="targetNombre" class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-2"></p>
             </div>
-
             <div class="space-y-4">
                 <input type="text" id="modalAutor" placeholder="Tu nombre"
                     class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
                 <textarea id="modalTexto" placeholder="Tu mensaje de bendición..." rows="3"
                     class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none resize-none border-2 border-transparent focus:border-[#fec325]"></textarea>
             </div>
-
             <input type="hidden" id="modalIdCumple">
             <div class="flex flex-col gap-3 mt-8">
                 <button id="btnEnviarOracion"
@@ -172,7 +168,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, onSnapshot, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
@@ -215,7 +211,25 @@
             window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, "_blank");
         };
 
-        // --- GESTIÓN ORACIONES ---
+        // --- ELIMINAR REGISTRO ---
+        window.eliminarRegistro = async (id, nombre) => {
+            const { value: pass } = await Swal.fire({
+                title: 'Seguridad',
+                text: `Para eliminar a ${nombre}, ingresa la contraseña:`,
+                input: 'password',
+                confirmButtonColor: '#00305e',
+                showCancelButton: true
+            });
+
+            if (pass === "iasdsf") {
+                await deleteDoc(doc(db, "cumpleanos", id));
+                Swal.fire('Eliminado', '', 'success').then(() => location.reload());
+            } else if (pass) {
+                Swal.fire('Error', 'Contraseña incorrecta', 'error');
+            }
+        };
+
+        // --- MODAL ORACIÓN ---
         window.abrirModal = (id, nombre) => {
             document.getElementById('modalIdCumple').value = id;
             document.getElementById('targetNombre').innerText = "PARA: " + nombre.toUpperCase();
@@ -228,104 +242,16 @@
             const id = document.getElementById('modalIdCumple').value;
             const aut = document.getElementById('modalAutor').value;
             const txt = document.getElementById('modalTexto').value;
-            const btn = document.getElementById('btnEnviarOracion');
-
             if (!aut || !txt) return;
-            btn.disabled = true;
-            btn.innerText = "ENVIANDO...";
-
             try {
                 await addDoc(collection(db, "oraciones"), { idCumple: id, autor: aut, texto: txt, fecha: serverTimestamp() });
                 confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00305e', '#fec325'] });
-                Swal.fire({ title: '¡Amén!', text: 'Tu regalo de oración ha sido enviado ✨', icon: 'success', confirmButtonColor: '#00305e' });
+                Swal.fire({ title: '¡Amén!', icon: 'success' });
                 document.getElementById('modalOracion').classList.add('hidden');
-                document.getElementById('modalAutor').value = "";
-                document.getElementById('modalTexto').value = "";
-            } catch (e) {
-                Swal.fire({ icon: 'error', title: 'Error', text: 'Revisa tu conexión' });
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "ENVIAR A LOS CIELOS 🙏";
-            }
+            } catch (e) { }
         };
 
-        // --- REGISTRO Y CARGA ---
-        // --- SUSTITUYE LA FUNCIÓN DE REGISTRO POR ESTA ---
-        document.getElementById('btnGuardar').onclick = async () => {
-            const nom = document.getElementById('nombreC').value;
-            const fec = document.getElementById('fechaC').value;
-
-            if (!nom || !fec) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '¡Faltan datos!',
-                    text: 'Hno(a), necesitamos su nombre y fecha.',
-                    confirmButtonColor: '#00305e'
-                });
-                return;
-            }
-
-            const d = new Date(fec + "T00:00:00");
-
-            try {
-                await addDoc(collection(db, "cumpleanos"), {
-                    nombre: nom,
-                    dia: d.getDate(),
-                    mes: d.getMonth() + 1,
-                    fechaRegistro: serverTimestamp()
-                });
-
-                // EFECTO DIVERTIDO AL INSCRIBIRSE
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.8 },
-                    colors: ['#fec325', '#00305e']
-                });
-
-                // MENSAJES DIVERTIDOS ALEATORIOS
-                const frasesDiv = [
-                    "¡Anotado en la lista de bendiciones! ✨",
-                    "¡Bienvenido al libro de la vida! 📖",
-                    "¡Ya eres parte del muro, hno(a)! 🎉",
-                    "¡Guardado con éxito en los archivos celestiales! ☁️"
-                ];
-                const fraseRandom = frasesDiv[Math.floor(Math.random() * frasesDiv.length)];
-
-                // MENSAJE FLOTANTE (TOAST)
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 4000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                });
-
-                Toast.fire({
-                    icon: 'success',
-                    title: fraseRandom
-                });
-
-                // Limpiar campos después de 1 segundo
-                setTimeout(() => {
-                    document.getElementById('nombreC').value = "";
-                    document.getElementById('fechaC').value = "";
-                    // Recargar solo si el cumple es hoy para que aparezca en la lista
-                    const hoy = new Date();
-                    if (d.getDate() === hoy.getDate() && (d.getMonth() + 1) === (hoy.getMonth() + 1)) {
-                        location.reload();
-                    }
-                }, 1500);
-
-            } catch (e) {
-                Swal.fire({ icon: 'error', title: 'Error', text: 'No pudimos anotarte, intenta de nuevo.' });
-            }
-        };
-
+        // --- CARGAR MURO ---
         async function cargarMuro() {
             const hoy = new Date();
             const dHoy = hoy.getDate();
@@ -357,7 +283,10 @@
                                 <h3 class="font-black text-xl leading-none shimmer-text mb-1">${h.nombre}</h3>
                                 <p class="text-[9px] font-bold text-yellow-600 uppercase tracking-widest">Tesoro de Dios</p>
                             </div>
-                            <button onclick="window.enviarWhatsApp('${h.nombre}')" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-xl"></i></button>
+                            <div class="flex gap-2">
+                                <button onclick="window.eliminarRegistro('${id}', '${h.nombre}')" class="w-10 h-10 text-slate-200 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button>
+                                <button onclick="window.enviarWhatsApp('${h.nombre}')" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-xl"></i></button>
+                            </div>
                         </div>
                         <div id="oraciones-${id}" class="space-y-4 mb-8"></div>
                         <button onclick="window.abrirModal('${id}', '${h.nombre}')" class="w-full bg-slate-50 text-adventist-blue py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-widest border-2 border-dashed border-slate-200 hover:bg-yellow-50 transition-all">
@@ -366,6 +295,19 @@
                     lista.appendChild(card);
                     vincularOraciones(id);
                 });
+            }
+            // --- LÓGICA PARA AUTO-ABRIR MODAL DESDE INICIO ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const felicitarId = urlParams.get('felicitar');
+
+            if (felicitarId) {
+                // Buscamos el documento en el snapshot que ya cargamos
+                const docEncontrado = snap.docs.find(d => d.id === felicitarId);
+                if (docEncontrado) {
+                    const datos = docEncontrado.data();
+                    // Llamamos a la función que ya tienes para abrir el modal
+                    window.abrirModal(felicitarId, datos.nombre);
+                }
             }
         }
 
@@ -377,56 +319,43 @@
                 box.innerHTML = "";
                 s.forEach(doc => {
                     const o = doc.data();
-                    box.innerHTML += `
-                        <div class="bg-slate-50/50 p-4 rounded-2xl border-l-4 border-adventist-blue animate__animated animate__fadeInLeft">
-                            <p class="text-[9px] font-black text-adventist-blue uppercase mb-1">${o.autor}</p>
-                            <p class="text-[12px] text-slate-600 italic">"${o.texto}"</p>
-                        </div>`;
+                    box.innerHTML += `<div class="bg-slate-50/50 p-4 rounded-2xl border-l-4 border-adventist-blue animate__animated animate__fadeInLeft"><p class="text-[9px] font-black text-adventist-blue uppercase mb-1">${o.autor}</p><p class="text-[12px] text-slate-600 italic">"${o.texto}"</p></div>`;
                 });
             });
         }
+
+        document.getElementById('btnGuardar').onclick = async () => {
+            const nom = document.getElementById('nombreC').value;
+            const fec = document.getElementById('fechaC').value;
+            if (!nom || !fec) return;
+            const d = new Date(fec + "T00:00:00");
+            await addDoc(collection(db, "cumpleanos"), { nombre: nom, dia: d.getDate(), mes: d.getMonth() + 1, fechaRegistro: serverTimestamp() });
+            Swal.fire({ title: '¡Anotado!', icon: 'success' }).then(() => location.reload());
+        };
+
         cargarMuro();
     </script>
-    <script>
 
-    window.mostrarInfoIglesia = () => {
-    Swal.fire({
-        title: '<span class="adventist-blue">IASD LIMACHE</span>',
-        html: `
-            <div class="text-left text-sm space-y-3 p-2">
-                <p>📍 <b>Dirección:</b> Calle Carrera # 131, Limache.</p>
-                <p>⏰ <b>Sábados:</b> 09:30 hrs - Escuela Sabática</p>
-                <p>🙏 <b>Miércoles:</b> 19:00 hrs - Culto de Oración</p>
-            </div>
-        `,
-        icon: 'info',
-        confirmButtonColor: '#00305e',
-        confirmButtonText: '¡GRACIAS!',
-        customClass: { popup: 'rounded-[2.5rem]' }
-    });
-};
+    <script>
+        window.mostrarInfoIglesia = () => {
+            Swal.fire({
+                title: '<span class="adventist-blue">IASD LIMACHE</span>',
+                html: `<div class="text-left text-sm space-y-3 p-2"><p>📍 <b>Dirección:</b> Calle Carrera # 131, Limache.</p><p>⏰ <b>Sábados:</b> 09:30 hrs</p><p>🙏 <b>Miércoles:</b> 19:00 hrs</p></div>`,
+                confirmButtonColor: '#00305e',
+                confirmButtonText: '¡GRACIAS!'
+            });
+        };
     </script>
 
     <nav
         class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-[#00305e]/90 backdrop-blur-lg h-16 rounded-3xl shadow-2xl z-[1000] border border-white/20 flex items-center justify-around px-6">
-
-        <a href="index.html" class="flex flex-col items-center text-yellow-400 hover:scale-110 transition-transform">
-            <i class="fas fa-home text-xl"></i>
-            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Inicio</span>
-        </a>
-
-        <a href="avisos.html"
-            class="flex flex-col items-center text-white/70 hover:text-yellow-400 hover:scale-110 transition-transform">
-            <i class="fas fa-scroll text-xl"></i>
-            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Avisos</span>
-        </a>
-
-        <button onclick="mostrarInfoIglesia()"
-            class="flex flex-col items-center text-white/70 hover:text-yellow-400 hover:scale-110 transition-transform">
-            <i class="fas fa-map-marker-alt text-xl"></i>
-            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Iglesia</span>
-        </button>
-
+        <a href="index.html" class="flex flex-col items-center text-yellow-400"><i class="fas fa-home text-xl"></i><span
+                class="text-[8px] font-black uppercase mt-1">Inicio</span></a>
+        <a href="avisos.html" class="flex flex-col items-center text-white/70"><i
+                class="fas fa-scroll text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Avisos</span></a>
+        <button onclick="mostrarInfoIglesia()" class="flex flex-col items-center text-white/70"><i
+                class="fas fa-map-marker-alt text-xl"></i><span
+                class="text-[8px] font-black uppercase mt-1">Iglesia</span></button>
     </nav>
 </body>
 

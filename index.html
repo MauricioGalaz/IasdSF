@@ -505,9 +505,11 @@
                         </p>
                     </div>
                 </div>
-                <a href="cumpleanos.html"
-                    class="bg-white text-[#00305e] px-6 py-2 rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-110 transition-all shadow-lg">
+                <a id="link-felicitar" href="cumpleanos.html" class="...">
                     FELICITAR ✨
+                </a>
+                <a href="#" onclick="cerrarBannerCumple()"
+                    class="text-white text-xl hover:text-gray-300 transition">&times;
                 </a>
             </div>
         </div>
@@ -1282,6 +1284,7 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
             import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+            // Configuración de tu Firebase
             const firebaseConfig = {
                 apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
                 authDomain: "iasd-limache-muro.firebaseapp.com",
@@ -1290,60 +1293,84 @@
                 appId: "1:277039117234:web:65f4e76064935cadabaaab"
             };
 
+            // Inicializar Firebase
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
 
-            async function celebrarSiHayCumple() {
-                const hoy = new Date();
-                const dHoy = hoy.getDate();
-                const mHoy = hoy.getMonth() + 1;
-
-                const q = query(collection(db, "cumpleanos"),
-                    where("dia", "==", dHoy),
-                    where("mes", "==", mHoy));
-
+            async function activarBannerCumpleanos() {
                 try {
-                    const snap = await getDocs(q);
-                    if (!snap.empty) {
-                        const nombres = [];
-                        snap.forEach(doc => nombres.push(doc.data().nombre));
+                    const hoy = new Date();
+                    const diaHoy = hoy.getDate();
+                    const mesHoy = hoy.getMonth() + 1;
 
-                        document.getElementById('nombre-cumple').innerText = nombres.join(", ");
-                        document.getElementById('banner-cumple-hoy').classList.remove('hidden');
+                    // Consultar en la colección "cumpleanos" quienes cumplen hoy
+                    const q = query(
+                        collection(db, "cumpleanos"),
+                        where("dia", "==", diaHoy),
+                        where("mes", "==", mesHoy)
+                    );
 
-                        // --- DISPARO DE CONFETI PRO ---
-                        const duracion = 3 * 1000;
-                        const final = Date.now() + duracion;
+                    const querySnapshot = await getDocs(q);
 
-                        (function frame() {
-                            confetti({
-                                particleCount: 3,
-                                angle: 60,
-                                spread: 55,
-                                origin: { x: 0 },
-                                colors: ['#fec325', '#ffffff', '#00305e']
-                            });
-                            confetti({
-                                particleCount: 3,
-                                angle: 120,
-                                spread: 55,
-                                origin: { x: 1 },
-                                colors: ['#fec325', '#ffffff', '#00305e']
-                            });
+                    if (!querySnapshot.empty) {
+                        // Tomamos al primer cumpleañero de la lista
+                        const cumpleanero = querySnapshot.docs[0];
+                        const datos = cumpleanero.data();
+                        const idDoc = cumpleanero.id;
 
-                            if (Date.now() < final) {
-                                requestAnimationFrame(frame);
-                            }
-                        }());
+                        // 1. Mostrar el nombre en el banner
+                        const txtNombre = document.getElementById('nombre-cumple');
+                        if (txtNombre) txtNombre.innerText = datos.nombre;
+
+                        // 2. Configurar el enlace del botón FELICITAR
+                        // Buscamos el enlace dentro del banner para ponerle el ID
+                        const banner = document.getElementById('banner-cumple-hoy');
+                        const btnFelicitar = banner.querySelector('a');
+
+                        if (btnFelicitar) {
+                            btnFelicitar.href = `cumpleanos.html?felicitar=${idDoc}`;
+                        }
+
+                        // 3. Hacer visible el banner
+                        banner.classList.remove('hidden');
+                        console.log("Cumpleañero detectado:", datos.nombre);
+                    } else {
+                        console.log("No hay cumpleaños hoy.");
                     }
-                } catch (e) {
-                    console.error("Error en celebración:", e);
+                } catch (error) {
+                    console.error("Error cargando cumpleañeros:", error);
                 }
             }
 
-            celebrarSiHayCumple();
+            // Ejecutar la función apenas cargue la página
+            document.addEventListener('DOMContentLoaded', activarBannerCumpleanos);
     </script>
 
+    <script>
+            // Lógica del menú móvil (ya que estaba en tu código original)
+            const menuBtn = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Cerrar mensajes de invitación
+            window.cerrarInvitacion = () => {
+                document.getElementById('invitacion-central').classList.remove('active');
+            };
+
+            window.cerrarMensaje = () => {
+                document.getElementById('modal-esperanza').classList.add('hidden');
+            };
+
+            // Mostrar modal de instalación
+            window.abrirModalApp = () => {
+                alert("Para instalar: En iPhone usa 'Compartir > Añadir a pantalla de inicio'. En Android usa los 3 puntos > Instalar aplicación.");
+            };
+    </script>
 </body>
 
 </html>
