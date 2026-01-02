@@ -87,6 +87,37 @@
             display: none !important;
         }
 
+        /* AJUSTES PARA EL LOGO REDONDEADO Y GRANDE */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            /* Esto lo hace redondo */
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 3px solid #b45309;
+            /* Un borde color oro o azul según prefieras */
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Si usas un Navbar fijo, ajusta su altura para que el logo grande quepa */
+        nav {
+            min-height: 90px;
+        }
+
+        /* Añade esto a tu <style> para que el menú se adapte al logo grande */
+        nav {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            min-height: 80px;
+            /* Ajusta según qué tan grande quieras que se vea el menú */
+        }
+
 
 
         /* EFECTO DE BRILLO PARA EL BOTÓN DE CUMPLEAÑOS */
@@ -273,6 +304,50 @@
                 opacity: 1;
             }
         }
+
+        /* --- ELIMINACIÓN DE RÁFAGAS Y DESBLOQUEO DE CLICS --- */
+        #invitacion-central,
+        #modal-esperanza {
+            pointer-events: none;
+            /* El mouse atraviesa la capa cuando está oculta */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        /* Solo cuando están activos permiten interacción */
+        #invitacion-central.active,
+        #modal-esperanza.active {
+            pointer-events: auto;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Asegurar que Acción de Gracias sea visible */
+        #accion-gracias {
+            opacity: 1 !important;
+            transform: none !important;
+            display: block !important;
+        }
+
+        /* Ajuste para las imágenes del carrusel */
+        #carrusel-accion {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Forzar que Acción de Gracias se vea aunque el scroll no llegue */
+        #accion-gracias.active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Estilo para que el cambio de fotos sea suave */
+        #carrusel-accion {
+            transition: opacity 0.8s ease-in-out;
+        }
     </style>
 </head>
 
@@ -320,7 +395,8 @@
                     <div id="progress-timer" class="progress-fill"></div>
                 </div>
 
-                <button onclick="cerrarMensaje()" class="text-[10px] font-black uppercase text-slate-400">
+                <button onclick="cerrarMensaje()"
+                    class="text-[10px] font-black uppercase text-slate-400 hover:text-adventist-oro transition-colors">
                     Continuar <i class="fas fa-chevron-right ml-1"></i>
                 </button>
             </div>
@@ -329,10 +405,19 @@
 
     <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2">
-                <img src="imagenes/logo.jpg" class="h-9 w-9 rounded-full">
-                <span class="font-heading font-bold text-[9px] sm:text-xs leading-tight uppercase">IASD San
-                    Francisco<br>de Limache</span>
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
+                </div>
+
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
             </a>
             <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
                 <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
@@ -570,27 +655,49 @@
                 min-height: 112px;
             }
 
-            /* Estilo de la barra de progreso */
-            .progress-fill {
+            /* Barra de progreso suave para el mensaje de Jesús */
+            .progress-fill-jesus {
                 height: 100%;
-                width: 0%;
+                width: 100%;
                 background: #b45309;
-                /* Color Oro Adventista */
                 border-radius: 9999px;
-                position: absolute;
-                top: 0;
-                left: 0;
-                /* Sincronizado a 9 segundos exactos */
-                animation: fillProgress 9s linear forwards;
+                animation: countdown-jesus 25s linear forwards;
             }
 
-            @keyframes fillProgress {
+            @keyframes countdown-jesus {
                 from {
-                    width: 0%;
+                    width: 100%;
                 }
 
                 to {
-                    width: 100%;
+                    width: 0%;
+                }
+            }
+
+            /* Shimmer solo para botones, muy lento y sutil */
+            .shimmer-effect::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -150%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transform: skewX(-25deg);
+                animation: shine-slow 10s infinite;
+            }
+
+            @keyframes shine-slow {
+                0% {
+                    left: -150%;
+                }
+
+                15% {
+                    left: 250%;
+                }
+
+                100% {
+                    left: 250%;
                 }
             }
 
@@ -716,69 +823,70 @@
             class="fab fa-whatsapp text-3xl"></i></a>
 
     <script>
-        let timerCierreAutomatico; // Variable global para controlar el tiempo
+        let timerCierreAutomatico;
+
+        let timerCierreJesus;
+
+        let timerCierreJesus;
 
         document.addEventListener("DOMContentLoaded", () => {
             const invitacion = document.getElementById('invitacion-central');
             const modalEsp = document.getElementById('modal-esperanza');
             const yaMostrado = sessionStorage.getItem('mensajeMostrado');
 
+            // 1. Mostrar Horarios (siempre al entrar)
             setTimeout(() => {
-                invitacion.style.opacity = "1";
-                invitacion.style.pointerEvents = "auto";
+                invitacion.classList.add('active');
+                invitacion.style.display = 'flex'; // Asegura que se vea
 
+                // 2. Después de 10 segundos, ocultar horarios y evaluar si mostrar a Jesús
                 setTimeout(() => {
-                    invitacion.style.opacity = "0";
-                    invitacion.style.pointerEvents = "none";
+                    invitacion.classList.remove('active');
 
-                    if (!yaMostrado) {
-                        modalEsp.classList.remove('hidden');
-                        modalEsp.classList.add('animate__fadeInUp');
-                        sessionStorage.setItem('mensajeMostrado', 'true');
+                    // Esperar un momento antes de mostrar el siguiente para evitar conflictos
+                    setTimeout(() => {
+                        if (!yaMostrado) {
+                            modalEsp.classList.add('active');
+                            modalEsp.classList.remove('hidden');
 
-                        // Iniciar cuenta regresiva automática
-                        timerCierreAutomatico = setTimeout(() => cerrarMensaje(), 25000);
-                    }
+                            // Iniciar la barra de progreso
+                            const pTimer = document.getElementById('progress-timer');
+                            if (pTimer) pTimer.classList.add('progress-fill-jesus');
+
+                            // Guardar que ya se mostró en esta sesión
+                            sessionStorage.setItem('mensajeMostrado', 'true');
+
+                            // Auto-cerrar en 25 segundos
+                            timerCierreJesus = setTimeout(() => cerrarMensaje(), 25000);
+                        }
+                    }, 500);
                 }, 10000);
             }, 1000);
         });
 
         function cerrarMensaje() {
-            // 1. Cancelar el temporizador si el usuario hizo clic antes
-            clearTimeout(timerCierreAutomatico);
-
-            // 2. Detener la animación de la barra de progreso visualmente
-            const barra = document.getElementById('progress-timer');
-            if (barra) barra.style.animationPlayState = 'paused';
-
-            // 3. Cerrar el modal
+            clearTimeout(timerCierreJesus); // CANCELA EL PASO DE LOS SEGUNDOS
             const m = document.getElementById('modal-esperanza');
             if (m) {
-                m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
-                setTimeout(() => m.classList.add('hidden'), 800);
+                m.classList.remove('active');
+                m.classList.add('animate__fadeOutDown');
+
+                // Lo quitamos totalmente del camino después de la animación
+                setTimeout(() => {
+                    m.classList.add('hidden');
+                    m.style.display = 'none';
+                    m.style.pointerEvents = 'none'; // Liberación final de la pantalla
+                }, 800);
             }
         }
 
         function cerrarInvitacion() {
             const invitacion = document.getElementById('invitacion-central');
-            invitacion.style.opacity = "0";
-            invitacion.style.pointerEvents = "none";
-        }
-
-        function cerrarMensaje() {
-            const m = document.getElementById('modal-esperanza');
-            if (m) { m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown'); setTimeout(() => m.classList.add('hidden'), 800); }
-        }
-
-        const fotos = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
-        let idx = 0;
-        setInterval(() => {
-            const img = document.getElementById("carousel");
-            if (img) {
-                img.style.opacity = "0.3";
-                setTimeout(() => { idx = (idx + 1) % fotos.length; img.src = fotos[idx]; img.style.opacity = "1"; }, 500);
+            if (invitacion) {
+                invitacion.classList.remove('active');
+                invitacion.style.pointerEvents = 'none';
             }
-        }, 5000);
+        }
 
         function abrirModalAncianos() { document.getElementById('modalAncianos').classList.remove('hidden'); }
         function cerrarModalAncianos() { document.getElementById('modalAncianos').classList.add('hidden'); }
@@ -908,173 +1016,175 @@
         // Lógica del Menú Móvil
         const menuBtn = document.getElementById('menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-        // CONTROL DE MENSAJES (Para que no salgan a cada rato)
-        document.addEventListener("DOMContentLoaded", () => {
-            const yaVisto = sessionStorage.getItem('mensajeVisto');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
 
-            if (!yaVisto) {
-                const invitacion = document.getElementById('invitacion-central');
-                const modalEsp = document.getElementById('modal-esperanza');
+            // CONTROL DE MENSAJES (Para que no salgan a cada rato)
+            document.addEventListener("DOMContentLoaded", () => {
+                const yaVisto = sessionStorage.getItem('mensajeVisto');
 
-                setTimeout(() => {
-                    invitacion.classList.add('show');
+                if (!yaVisto) {
+                    const invitacion = document.getElementById('invitacion-central');
+                    const modalEsp = document.getElementById('modal-esperanza');
+
                     setTimeout(() => {
-                        invitacion.classList.remove('show');
-                        modalEsp.classList.remove('hidden');
-                        modalEsp.classList.add('animate__fadeInUp');
+                        invitacion.classList.add('show');
+                        setTimeout(() => {
+                            invitacion.classList.remove('show');
+                            modalEsp.classList.remove('hidden');
+                            modalEsp.classList.add('animate__fadeInUp');
 
-                        // Marcar como visto en esta sesión
-                        sessionStorage.setItem('mensajeVisto', 'true');
+                            // Marcar como visto en esta sesión
+                            sessionStorage.setItem('mensajeVisto', 'true');
 
-                        setTimeout(() => cerrarMensaje(), 25000);
-                    }, 10000);
-                }, 2000);
+                            setTimeout(() => cerrarMensaje(), 25000);
+                        }, 10000);
+                    }, 2000);
+                }
+            });
+
+            function cerrarMensaje() {
+                const m = document.getElementById('modal-esperanza');
+                if (m) {
+                    m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
+                    setTimeout(() => m.classList.add('hidden'), 800);
+                }
             }
-        });
 
-        function cerrarMensaje() {
-            const m = document.getElementById('modal-esperanza');
-            if (m) {
-                m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
-                setTimeout(() => m.classList.add('hidden'), 800);
+            // Carrusel de fotos
+            const fotos = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
+            let idx = 0;
+            setInterval(() => {
+                const img = document.getElementById("carousel");
+                if (img) {
+                    img.style.opacity = "0.3";
+                    setTimeout(() => {
+                        idx = (idx + 1) % fotos.length;
+                        img.src = fotos[idx];
+                        img.style.opacity = "1";
+                    }, 500);
+                }
+            }, 5000);
+
+            // Modales de Acceso
+            function abrirModalAncianos() { document.getElementById('modalAncianos').classList.remove('hidden'); }
+            function cerrarModalAncianos() { document.getElementById('modalAncianos').classList.add('hidden'); }
+            function validarAncianos() {
+                if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
+                else document.getElementById('errorAncianos').classList.remove('hidden');
             }
-        }
-
-        // Carrusel de fotos
-        const fotos = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
-        let idx = 0;
-        setInterval(() => {
-            const img = document.getElementById("carousel");
-            if (img) {
-                img.style.opacity = "0.3";
-                setTimeout(() => {
-                    idx = (idx + 1) % fotos.length;
-                    img.src = fotos[idx];
-                    img.style.opacity = "1";
-                }, 500);
-            }
-        }, 5000);
-
-        // Modales de Acceso
-        function abrirModalAncianos() { document.getElementById('modalAncianos').classList.remove('hidden'); }
-        function cerrarModalAncianos() { document.getElementById('modalAncianos').classList.add('hidden'); }
-        function validarAncianos() {
-            if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
-            else document.getElementById('errorAncianos').classList.remove('hidden');
-        }
     </script>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+            import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-        // PEGA AQUÍ TU CONFIGURACIÓN REAL
-        const firebaseConfig = {
-            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-            authDomain: "iasd-limache-muro.firebaseapp.com",
-            databaseURL: "https://iasd-limache-muro-default-rtdb.firebaseio.com",
-            projectId: "iasd-limache-muro",
-            storageBucket: "iasd-limache-muro.firebasestorage.app",
-            messagingSenderId: "277039117234",
-            appId: "1:277039117234:web:65f4e76064935cadabaaab",
-            measurementId: "G-8VBFEYZRTT"
-        };
+            // PEGA AQUÍ TU CONFIGURACIÓN REAL
+            const firebaseConfig = {
+                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+                authDomain: "iasd-limache-muro.firebaseapp.com",
+                databaseURL: "https://iasd-limache-muro-default-rtdb.firebaseio.com",
+                projectId: "iasd-limache-muro",
+                storageBucket: "iasd-limache-muro.firebasestorage.app",
+                messagingSenderId: "277039117234",
+                appId: "1:277039117234:web:65f4e76064935cadabaaab",
+                measurementId: "G-8VBFEYZRTT"
+            };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-        async function actualizarContadorCumple() {
-            const hoy = new Date();
-            const diaHoy = hoy.getDate();
-            const mesHoy = hoy.getMonth() + 1;
+            async function actualizarContadorCumple() {
+                const hoy = new Date();
+                const diaHoy = hoy.getDate();
+                const mesHoy = hoy.getMonth() + 1;
 
-            try {
-                const q = query(collection(db, "cumpleanos"),
-                    where("dia", "==", diaHoy),
-                    where("mes", "==", mesHoy)
-                );
+                try {
+                    const q = query(collection(db, "cumpleanos"),
+                        where("dia", "==", diaHoy),
+                        where("mes", "==", mesHoy)
+                    );
 
-                const querySnapshot = await getDocs(q);
-                const total = querySnapshot.size;
-                const badge = document.getElementById('badge-cumple');
+                    const querySnapshot = await getDocs(q);
+                    const total = querySnapshot.size;
+                    const badge = document.getElementById('badge-cumple');
 
-                if (total > 0) {
-                    badge.innerText = total;
-                    badge.classList.remove('hidden');
+                    if (total > 0) {
+                        badge.innerText = total;
+                        badge.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error("Error al contar cumpleaños:", error);
                 }
-            } catch (error) {
-                console.error("Error al contar cumpleaños:", error);
             }
-        }
-        actualizarContadorCumple();
+            actualizarContadorCumple();
     </script>
 
     <script>
 
-        function mostrarMensaje() {
-            const modal = document.getElementById('modal-esperanza');
-            const barra = document.getElementById('progress-timer');
+            function mostrarMensaje() {
+                const modal = document.getElementById('modal-esperanza');
+                const barra = document.getElementById('progress-timer');
 
-            if (!modal || !barra) return;
+                if (!modal || !barra) return;
 
-            modal.classList.remove('hidden');
-            modal.classList.add('animate__fadeIn');
+                modal.classList.remove('hidden');
+                modal.classList.add('animate__fadeIn');
 
-            // Escucha cuando la barra llega al final de los 9 segundos
-            barra.addEventListener('animationend', () => {
-                // Espera un instante (300ms) para que se vea llena y cierra
-                setTimeout(cerrarMensaje, 300);
-            });
-        }
+                // Escucha cuando la barra llega al final de los 9 segundos
+                barra.addEventListener('animationend', () => {
+                    // Espera un instante (300ms) para que se vea llena y cierra
+                    setTimeout(cerrarMensaje, 300);
+                });
+            }
 
-        function cerrarMensaje() {
-            const modal = document.getElementById('modal-esperanza');
-            if (modal && !modal.classList.contains('hidden')) {
-                modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
+            function cerrarMensaje() {
+                const modal = document.getElementById('modal-esperanza');
+                if (modal && !modal.classList.contains('hidden')) {
+                    modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 500);
+                }
+            }
+
+            // Iniciar al cargar la página o al evento que prefieras
+            window.addEventListener('load', mostrarMensaje);
+    </script>
+    <script>
+
+
+            const imagenesAccion = [
+                "imagenes/accion/acc2.jpg",
+                "imagenes/accion/acc3.jpg",
+                "imagenes/accion/acc4.jpg",
+                "imagenes/accion/acc5.jpg",
+                "imagenes/accion/acc6.jpg",
+                "imagenes/accion/acc7.jpg",
+                "imagenes/accion/acc8.jpg"
+            ];
+
+            let iAccion = 0;
+            const imgAccion = document.getElementById('carrusel-accion');
+
+            function carruselAccion() {
+                if (!imgAccion) return;
+
+                // Desvanecer
+                imgAccion.style.opacity = "0";
+
                 setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 500);
+                    iAccion = (iAccion + 1) % imagenesAccion.length;
+                    imgAccion.src = imagenesAccion[iAccion];
+
+                    // Volver a mostrar con la nueva imagen
+                    imgAccion.style.opacity = "1";
+                }, 1000); // Tiempo de la transición
             }
-        }
 
-        // Iniciar al cargar la página o al evento que prefieras
-        window.addEventListener('load', mostrarMensaje);
-    </script>
-    <script>
-
-
-        const imagenesAccion = [
-            "imagenes/accion/acc2.jpg",
-            "imagenes/accion/acc3.jpg",
-            "imagenes/accion/acc4.jpg",
-            "imagenes/accion/acc5.jpg",
-            "imagenes/accion/acc6.jpg",
-            "imagenes/accion/acc7.jpg",
-            "imagenes/accion/acc8.jpg"
-        ];
-
-        let iAccion = 0;
-        const imgAccion = document.getElementById('carrusel-accion');
-
-        function carruselAccion() {
-            if (!imgAccion) return;
-
-            // Desvanecer
-            imgAccion.style.opacity = "0";
-
-            setTimeout(() => {
-                iAccion = (iAccion + 1) % imagenesAccion.length;
-                imgAccion.src = imagenesAccion[iAccion];
-
-                // Volver a mostrar con la nueva imagen
-                imgAccion.style.opacity = "1";
-            }, 1000); // Tiempo de la transición
-        }
-
-        // Cambiar cada 4 segundos
-        setInterval(carruselAccion, 4000);
+            // Cambiar cada 4 segundos
+            setInterval(carruselAccion, 4000);
     </script>
 </body>
 

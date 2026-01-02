@@ -7,7 +7,9 @@
     <title>Cronograma - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -30,27 +32,35 @@
         }
     </script>
     <style>
-        html, body {
+        html,
+        body {
             max-width: 100%;
             overflow-x: hidden;
             width: 100%;
         }
+
         .hover-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         /* Solo aplica el efecto de escala en pantallas grandes para evitar saltos en móvil */
         @media (min-width: 768px) {
-            .hover-card:hover { transform: scale(1.02); }
+            .hover-card:hover {
+                transform: scale(1.02);
+            }
+
             .day-badge {
                 writing-mode: vertical-rl;
                 text-orientation: mixed;
             }
         }
+
         #mobile-menu {
             transition: all 0.3s ease-in-out;
             max-height: 0;
             overflow: hidden;
         }
+
         #mobile-menu.open {
             max-height: 300px;
             padding: 1rem 0;
@@ -62,11 +72,19 @@
 
     <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2 group">
-                <div class="bg-white p-1 rounded-full shrink-0">
-                    <img src="imagenes/logo.jpg" alt="Logo" class="h-8 w-8 rounded-full">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
                 </div>
-                <span class="font-heading font-black tracking-tighter text-sm md:text-lg leading-tight">IASD SAN FRANCISCO DE LIMACHE</span>
+
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
             </a>
 
             <button id="menu-btn" class="md:hidden text-2xl p-2">
@@ -86,9 +104,11 @@
         </div>
     </nav>
 
-    <header class="w-full bg-adventist-blue text-white pt-10 pb-20 px-4 text-center rounded-b-[3rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+    <header
+        class="w-full bg-adventist-blue text-white pt-10 pb-20 px-4 text-center rounded-b-[3rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
         <div class="relative z-10">
-            <span class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
+            <span
+                class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
                 Planificación Semanal
             </span>
             <h1 class="text-4xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
@@ -102,33 +122,41 @@
 
     <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-6">
 
-        <section class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-gold">
-            <div class="bg-adventist-gold text-adventist-blue p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-gold">
+            <div
+                class="bg-adventist-gold text-adventist-blue p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
                 Sábado
             </div>
             <div class="p-6 md:p-8 flex-grow">
                 <div class="mb-6">
-                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Escuela Sabática</h3>
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Escuela
+                        Sabática</h3>
                     <p class="text-slate-500 font-bold text-sm md:text-base">09:30 AM — 10:45 AM</p>
                 </div>
                 <div class="mb-6">
-                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Culto Divino</h3>
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Culto
+                        Divino</h3>
                     <p class="text-slate-500 font-bold text-sm md:text-base">11:00 AM — 12:30 PM</p>
                 </div>
                 <div>
-                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Sociedad de Jóvenes</h3>
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Sociedad
+                        de Jóvenes</h3>
                     <p class="text-slate-500 font-bold text-sm md:text-base">19:00 PM - Horario de Verano</p>
                     <p class="text-orange-600 font-bold text-xs uppercase mt-1">Revisar avisos para cada sábado</p>
                 </div>
             </div>
         </section>
 
-        <section class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-slate-300">
-            <div class="bg-slate-300 text-slate-600 p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-slate-300">
+            <div
+                class="bg-slate-300 text-slate-600 p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
                 SÁBADO
             </div>
             <div class="p-6 md:p-8 flex-grow">
-                <h3 class="text-slate-800 font-black text-xl md:text-2xl uppercase tracking-tighter">Club de Aventureros</h3>
+                <h3 class="text-slate-800 font-black text-xl md:text-2xl uppercase tracking-tighter">Club de Aventureros
+                </h3>
                 <p class="text-slate-500 font-bold text-sm md:text-base">16:00 PM — 17:30 PM</p>
                 <div class="mt-4 p-4 bg-slate-50 rounded-2xl italic text-xs md:text-sm text-slate-500">
                     * Ver disponibilidad según calendario del club. <br>
@@ -137,27 +165,35 @@
             </div>
         </section>
 
-        <section class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-blue">
-            <div class="bg-adventist-blue text-white p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-blue">
+            <div
+                class="bg-adventist-blue text-white p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
                 Miércoles
             </div>
             <div class="p-6 md:p-8 flex-grow">
-                <h3 class="text-adventist-blue font-black text-2xl md:text-3xl uppercase tracking-tighter">Culto de Oración</h3>
+                <h3 class="text-adventist-blue font-black text-2xl md:text-3xl uppercase tracking-tighter">Culto de
+                    Oración</h3>
                 <p class="text-slate-500 font-bold text-base md:text-xl mb-4 italic">Encuentro de poder y testimonio</p>
-                <div class="inline-block bg-adventist-blue text-adventist-gold px-5 py-2 rounded-xl font-black text-lg md:text-2xl">
+                <div
+                    class="inline-block bg-adventist-blue text-adventist-gold px-5 py-2 rounded-xl font-black text-lg md:text-2xl">
                     19:00 HRS - Verano
                 </div>
             </div>
         </section>
 
-        <section class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-green text-center md:text-left">
-            <div class="bg-adventist-green text-white p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-green text-center md:text-left">
+            <div
+                class="bg-adventist-green text-white p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
                 Viernes
             </div>
             <div class="p-6 md:p-8 flex-grow">
-                <h3 class="text-adventist-green font-black text-2xl md:text-3xl uppercase tracking-tighter">Recepción de Sábado</h3>
+                <h3 class="text-adventist-green font-black text-2xl md:text-3xl uppercase tracking-tighter">Recepción de
+                    Sábado</h3>
                 <p class="text-slate-500 font-bold text-base md:text-lg italic">Culto en Grupos Pequeños u Hogares</p>
-                <p class="mt-2 font-black text-adventist-green uppercase tracking-widest text-xs">Consultar según programación</p>
+                <p class="mt-2 font-black text-adventist-green uppercase tracking-widest text-xs">Consultar según
+                    programación</p>
             </div>
         </section>
 
@@ -196,7 +232,8 @@
         </div>
     </footer>
 
-    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue p-4 rounded-2xl shadow-2xl z-[100] transition-transform active:scale-90">
+    <button id="btnTop"
+        class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue p-4 rounded-2xl shadow-2xl z-[100] transition-transform active:scale-90">
         <i class="fas fa-chevron-up"></i>
     </button>
 
@@ -219,4 +256,5 @@
         btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
 </body>
+
 </html>

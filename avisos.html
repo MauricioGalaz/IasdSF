@@ -88,13 +88,19 @@
 
     <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2 group">
-                <div class="bg-white p-1 rounded-full shrink-0">
-                    <img src="imagenes/logo.jpg" alt="Logo" class="h-8 w-8 rounded-full">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
                 </div>
-                <span class="font-heading font-black tracking-tighter text-sm sm:text-base leading-tight">IASD SAN
-                    FRANCISCO DE
-                    LIMACHE</span>
+
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
             </a>
 
             <button id="menu-btn" class="md:hidden text-2xl p-2">
@@ -373,28 +379,28 @@
                 }
             }
 
-          function cargarAvisos() {
-    // Buscamos el contenedor por su ID
-    const contenedor = document.getElementById('contenedor-avisos-dinamicos');
-    
-    // Si el contenedor no existe en el HTML, no hacemos nada para evitar error
-    if (!contenedor) return;
+            function cargarAvisos() {
+                // Buscamos el contenedor por su ID
+                const contenedor = document.getElementById('contenedor-avisos-dinamicos');
 
-    // Leemos los datos guardados
-    const avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
+                // Si el contenedor no existe en el HTML, no hacemos nada para evitar error
+                if (!contenedor) return;
 
-    if (avisos.length === 0) {
-        contenedor.innerHTML = `
+                // Leemos los datos guardados
+                const avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
+
+                if (avisos.length === 0) {
+                    contenedor.innerHTML = `
             <div class="text-center p-10 bg-white/50 rounded-3xl border-2 border-dashed border-slate-300">
                 <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">
                     No hay avisos nuevos de los líderes todavía
                 </p>
             </div>`;
-        return;
-    }
+                    return;
+                }
 
-    // Dibujamos los avisos con el diseño elegante
-    contenedor.innerHTML = avisos.map(aviso => `
+                // Dibujamos los avisos con el diseño elegante
+                contenedor.innerHTML = avisos.map(aviso => `
         <section class="relative bg-white border-t-[12px] md:border-t-[16px] ${aviso.departamento.includes('ANCIANATO') ? 'border-adventist-gold' : 'border-adventist-blue'} rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl transition-all hover:scale-[1.01]">
             
             ${typeof modoEdicionActivo !== 'undefined' && modoEdicionActivo ? `
@@ -426,10 +432,10 @@
             </div>
         </section>
     `).join('');
-}
+            }
 
-// ESTO ES VITAL: Ejecutar la función cuando la página termine de cargar
-document.addEventListener('DOMContentLoaded', cargarAvisos);
+            // ESTO ES VITAL: Ejecutar la función cuando la página termine de cargar
+            document.addEventListener('DOMContentLoaded', cargarAvisos);
 
             function compartirWhatsApp(mensaje, departamento) {
                 const textoCompartir = `📢 Aviso de ${departamento}:\n\n"${mensaje}"\n\nEnviado desde IASD San Francisco de Limache.`;
@@ -440,10 +446,10 @@ document.addEventListener('DOMContentLoaded', cargarAvisos);
 
     </main>
 
-<script>
-function crearTarjetaAviso(departamento, detalle, lider) {
-    const contenedor = document.getElementById('seccionAvisos');
-    const card = `
+    <script>
+        function crearTarjetaAviso(departamento, detalle, lider) {
+            const contenedor = document.getElementById('seccionAvisos');
+            const card = `
         <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-adventist-blue">
             <div class="p-5">
                 <span class="text-xs font-bold uppercase text-blue-600">${departamento}</span>
@@ -455,9 +461,9 @@ function crearTarjetaAviso(departamento, detalle, lider) {
             </div>
         </div>
     `;
-    contenedor.innerHTML += card;
-</script>
+            contenedor.innerHTML += card;
+    </script>
 
 </body>
 
-</html> 
+</html>

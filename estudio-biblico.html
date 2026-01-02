@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -7,7 +8,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -31,8 +34,8 @@
 
     <style>
         .hero-estudio {
-            background-image: linear-gradient(rgba(0,48,94,0.75), rgba(0,48,94,0.75)),
-            url('imagenes/biblia.jpg');
+            background-image: linear-gradient(rgba(0, 48, 94, 0.75), rgba(0, 48, 94, 0.75)),
+                url('imagenes/biblia.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -42,6 +45,7 @@
             transform: translateY(30px);
             transition: all 0.8s ease;
         }
+
         .fade-up.show {
             opacity: 1;
             transform: translateY(0);
@@ -51,129 +55,232 @@
 
 <body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
 
-<nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <a href="index.html" class="flex items-center space-x-3">
-            <img src="imagenes/logo.jpg" class="h-9 rounded-full">
-            <span class="font-heading font-bold text-xs leading-tight">
-                IASD<br>San Francisco de Limache
-            </span>
-        </a>
+    <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
+                </div>
 
-        <div class="hidden md:flex items-center space-x-6 font-semibold text-xs uppercase tracking-wide">
-            <a href="index.html#inicio" class="hover:text-adventist-gold">Inicio</a>
-            <a href="index.html#nosotros" class="hover:text-adventist-gold">Nosotros</a>
-            <a href="index.html#Actividades" class="hover:text-adventist-gold">Horarios</a>
-            <a href="index.html#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-            <a href="estudio-biblico.html" class="text-adventist-gold">Estudio Bíblico</a>
-            <a href="avisos.html" class="hover:text-adventist-gold">Avisos</a>
-            <a href="contactoaviso.html" class="hover:text-adventist-gold">Contacto</a>
-        </div>
-
-        <div class="md:hidden">
-            <button id="menu-button">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-    </div>
-
-    <div id="mobile-menu" class="hidden md:hidden bg-adventist-blue/95 border-t border-gray-700">
-        <div class="flex flex-col px-4 py-3 space-y-2 text-xs font-semibold uppercase">
-            <a href="index.html#inicio">Inicio</a>
-            <a href="index.html#nosotros">Nosotros</a>
-            <a href="index.html#horarios">Horarios</a>
-            <a href="index.html#ministerios">Ministerios</a>
-            <a href="estudio-biblico.html" class="text-adventist-gold">Estudio Bíblico</a>
-            <a href="avisos.html">Avisos</a>
-            <a href="index.html#contacto">Contacto</a>
-        </div>
-    </div>
-</nav>
-
-<header class="hero-estudio h-screen flex items-center justify-center text-center px-6">
-    <div class="max-w-3xl text-white fade-up">
-        <h1 class="font-heading text-4xl md:text-6xl font-bold mb-6">Estudia la Biblia con Nosotros</h1>
-        <p class="text-lg md:text-xl mb-8 text-gray-200">Descubre esperanza, propósito y verdad a través de la Palabra de Dios.</p>
-        <a href="#formulario" class="bg-adventist-gold text-adventist-blue px-10 py-4 rounded-full font-bold shadow-lg hover:bg-white transition">Quiero Estudiar la Biblia</a>
-    </div>
-</header>
-
-<section class="py-20 bg-adventist-blue text-white">
-    <div class="container mx-auto px-6 text-center max-w-4xl fade-up">
-        <h2 class="text-4xl font-heading font-bold mb-6">🎥 Un mensaje para ti</h2>
-        <p class="text-gray-200 mb-10">Escucha cómo la Biblia transforma vidas en nuestra comunidad.</p>
-        <div class="aspect-video rounded-xl overflow-hidden shadow-xl">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/a3C0cHLOLyA" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-</section>
-
-<section id="curso-fe-de-jesus" class="py-20 bg-adventist-light">
-    <div class="container mx-auto px-6 max-w-5xl text-center">
-        <h2 class="text-4xl font-bold text-adventist-blue mb-6">📘 Curso Bíblico «La Fe de Jesús»</h2>
-        <p class="text-gray-700 mb-10">Mira el video de la lección y descarga tu guía de estudio correspondiente.</p>
-
-        <div class="flex justify-center mb-6">
-            <iframe id="videoFrame" class="w-full h-96 md:h-[500px] rounded shadow-lg" src="https://www.youtube.com/embed/dsdjHEMnFJs" frameborder="0" allowfullscreen></iframe>
-        </div>
-
-        <div class="mb-12">
-            <a id="btnDescarga" href="https://drive.google.com/uc?export=download&id=ID_DE_DRIVE_AQUI" target="_blank" 
-            class="inline-flex items-center bg-red-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-700 transition transform hover:scale-105">
-                <i class="fas fa-file-pdf mr-2"></i> Descargar Guía: <span id="nombreDescarga" class="ml-1">01_leccion.pdf</span>
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
             </a>
+
+            <div class="hidden md:flex items-center space-x-6 font-semibold text-xs uppercase tracking-wide">
+                <a href="index.html#inicio" class="hover:text-adventist-gold">Inicio</a>
+                <a href="index.html#nosotros" class="hover:text-adventist-gold">Nosotros</a>
+                <a href="index.html#Actividades" class="hover:text-adventist-gold">Horarios</a>
+                <a href="index.html#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+                <a href="estudio-biblico.html" class="text-adventist-gold">Estudio Bíblico</a>
+                <a href="avisos.html" class="hover:text-adventist-gold">Avisos</a>
+                <a href="contactoaviso.html" class="hover:text-adventist-gold">Contacto</a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
 
-        <hr class="border-gray-300 mb-10">
-
-        <div id="listaLecciones" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center mb-10">
-            <button class="leccion w-full bg-adventist-gold text-white p-3 rounded shadow transition" data-video="https://www.youtube.com/embed/dsdjHEMnFJs" data-pdf="https://drive.google.com/uc?export=download&id=1759M1T4-SNj5EARMfG9pcydddq7Gvzz1" data-titulo="01_leccion.pdf">Lección 1 – La Biblia</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/yCIyxcDc5Z4" data-pdf="https://drive.google.com/uc?export=download&id=1fdhUKI8S3pPCfXquNlePgh1oWmS1BwtU" data-titulo="02_leccion.pdf">Lección 2 – Dios</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/_yl_pItOdTw" data-pdf="https://drive.google.com/uc?export=download&id=1y6h1gf4lY2VRjG0AN21jHxtiv-NrajP5" data-titulo="03_leccion.pdf">Lección 3 – Oración</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/e8fingVNnuU" data-pdf="https://drive.google.com/uc?export=download&id=1ySDzDz9BJVXXxZd0YEBPW-JJHRg6d5_m" data-titulo="04_leccion.pdf">Lección 4 - Sufrimiento</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/BKzNFyVYnpo" data-pdf="https://drive.google.com/uc?export=download&id=1zuyDnDjmyYW5iCUfAjVCG5Fui-4imJVj" data-titulo="05_leccion.pdf">Lección 5 - Salvación</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/iaF_vSdc-ZQ" data-pdf="https://drive.google.com/uc?export=download&id=1vVtRL4EZ7cAtwyPMiIzbY-Lkfqew2syb" data-titulo="06_leccion.pdf">Lección 6 - Perdón</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/fuLlTdP1P14" data-pdf="https://drive.google.com/uc?export=download&id=19bxQurUBHuAWqDD-bJOK5VgDU0qC9WwI" data-titulo="07_leccion.pdf">Lección 7 - Venida</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/4ln-8_VU8F0" data-pdf="https://drive.google.com/uc?export=download&id=1JkSiIKtXRTZaoehE699vVefeiys-fLS3" data-titulo="08_leccion.pdf">Lección 8 - Señales</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/833vgB1ANtw" data-pdf="https://drive.google.com/uc?export=download&id=180YvCqtfmGgiQbQLo1gMqfTqAnscRIf_" data-titulo="09_leccion.pdf">Lección 9 - Fe</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/NkI67z22dgk" data-pdf="https://drive.google.com/uc?export=download&id=1gvtBFXhTTCVj3K9KZ9A2yrbEtevJ2sR2" data-titulo="10_leccion.pdf">Lección 10 - Juicio</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/t-u3fhpCSiM" data-pdf="https://drive.google.com/uc?export=download&id=1Btk6vAiHdK0RA25QcOjpv9xHzShVYKOv" data-titulo="11_leccion.pdf">Lección 11 - Ley</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/TGj8mUZ3hY8" data-pdf="https://drive.google.com/uc?export=download&id=10AKczC99QvkRK_Bc0KhDErWJE6Vzxiij" data-titulo="12_leccion.pdf">Lección 12 - Sábado</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/DgfG73uVqY4" data-pdf="https://drive.google.com/uc?export=download&id=1SOoDg23E9WTod7M880TixVriSMJMvOxt" data-titulo="13_leccion.pdf">Lección 13 - Santidad</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/EEdFcIuU0UY" data-pdf="https://drive.google.com/uc?export=download&id=13QHQh15tmmgkGSHpd75HQX80PrE1BuQ9" data-titulo="14_leccion.pdf">Lección 14 - Iglesia</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/46Bi3O6PXgg" data-pdf="https://drive.google.com/uc?export=download&id=1BSTPXP-hTU-MxWLlQAZC9_dEKSv1cONu" data-titulo="15_leccion.pdf">Lección 15 - Bautismo</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/AWUqBauQ0d8" data-pdf="https://drive.google.com/uc?export=download&id=108sqpn5ww6dBn9iRiJ4WEnsArkWuC4U1" data-titulo="16_leccion.pdf">Lección 16 - Vida</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/tFASI5zUCTQ" data-pdf="https://drive.google.com/uc?export=download&id=1DXUpeRtDwAOJBxz0yU_FhTSpwF5O8XhO" data-titulo="17_leccion.pdf">Lección 17 - Salud</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/Cq3Vj1as4eg" data-pdf="https://drive.google.com/uc?export=download&id=1kWeX3jBUDFCDzFhgGno_TSAwOjz3BD00" data-titulo="18_leccion.pdf">Lección 18 - Mayordomía</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/4na8QssOUeI" data-pdf="https://drive.google.com/uc?export=download&id=1V4DjruaPZzqVGZ_a9mDweaJ6ZjILVDQM" data-titulo="19_leccion.pdf">Lección 19 - Profecía</button>
-            <button class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition" data-video="https://www.youtube.com/embed/1jaOPCGNTxk" data-pdf="https://drive.google.com/uc?export=download&id=1jSw5LZgNcQ4DbruUC_VY1UzH-HjRDEfE" data-titulo="20_leccion.pdf">Lección 20 - Victoria</button>
+        <div id="mobile-menu" class="hidden md:hidden bg-adventist-blue/95 border-t border-gray-700">
+            <div class="flex flex-col px-4 py-3 space-y-2 text-xs font-semibold uppercase">
+                <a href="index.html#inicio">Inicio</a>
+                <a href="index.html#nosotros">Nosotros</a>
+                <a href="index.html#horarios">Horarios</a>
+                <a href="index.html#ministerios">Ministerios</a>
+                <a href="estudio-biblico.html" class="text-adventist-gold">Estudio Bíblico</a>
+                <a href="avisos.html">Avisos</a>
+                <a href="index.html#contacto">Contacto</a>
+            </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<section id="formulario" class="py-20 bg-white">
-    <div class="container mx-auto px-6 max-w-2xl fade-up">
-        <h2 class="text-3xl font-heading font-bold text-center text-adventist-blue mb-8">Solicitar Estudio Bíblico</h2>
-        <form id="estudioBiblicoForm" class="bg-gray-100 p-8 rounded-xl shadow-lg space-y-4">
-            <input type="text" name="Nombre" placeholder="Nombre completo" required class="w-full p-3 border rounded">
-            <input type="hidden" name="Curso" value="La Fe de Jesús">
-            <input type="email" name="email" placeholder="Correo electrónico" required class="w-full p-3 border rounded">
-            <input type="tel" name="Telefono" placeholder="Telefono / WhatsApp" required class="w-full p-3 border rounded">
-            <textarea name="Mensaje" rows="4" placeholder="Mensaje o consulta" class="w-full p-3 border rounded"></textarea>
-            <button type="submit" class="w-full bg-adventist-blue text-white py-3 rounded-full font-bold hover:bg-adventist-gold transition">Enviar Solicitud</button>
-        </form>
-    </div>
-</section>
+    <header class="hero-estudio h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-3xl text-white fade-up">
+            <h1 class="font-heading text-4xl md:text-6xl font-bold mb-6">Estudia la Biblia con Nosotros</h1>
+            <p class="text-lg md:text-xl mb-8 text-gray-200">Descubre esperanza, propósito y verdad a través de la
+                Palabra de Dios.</p>
+            <a href="#formulario"
+                class="bg-adventist-gold text-adventist-blue px-10 py-4 rounded-full font-bold shadow-lg hover:bg-white transition">Quiero
+                Estudiar la Biblia</a>
+        </div>
+    </header>
 
-<section class="py-16 bg-adventist-light">
-    <div class="container mx-auto px-6 text-center fade-up">
-        <h2 class="text-3xl font-heading font-bold text-adventist-blue mb-6">📖 Versículo del Momento</h2>
-        <p id="versiculo" class="text-xl italic text-gray-700 max-w-3xl mx-auto transition-opacity duration-500">
-            “Conocerán la verdad, y la verdad los hará libres.” – Juan 8:32
-        </p>
-    </div>
-</section>
-<!-- FOOTER -->
+    <section class="py-20 bg-adventist-blue text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl fade-up">
+            <h2 class="text-4xl font-heading font-bold mb-6">🎥 Un mensaje para ti</h2>
+            <p class="text-gray-200 mb-10">Escucha cómo la Biblia transforma vidas en nuestra comunidad.</p>
+            <div class="aspect-video rounded-xl overflow-hidden shadow-xl">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/a3C0cHLOLyA" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="curso-fe-de-jesus" class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <h2 class="text-4xl font-bold text-adventist-blue mb-6">📘 Curso Bíblico «La Fe de Jesús»</h2>
+            <p class="text-gray-700 mb-10">Mira el video de la lección y descarga tu guía de estudio correspondiente.
+            </p>
+
+            <div class="flex justify-center mb-6">
+                <iframe id="videoFrame" class="w-full h-96 md:h-[500px] rounded shadow-lg"
+                    src="https://www.youtube.com/embed/dsdjHEMnFJs" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="mb-12">
+                <a id="btnDescarga" href="https://drive.google.com/uc?export=download&id=ID_DE_DRIVE_AQUI"
+                    target="_blank"
+                    class="inline-flex items-center bg-red-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-700 transition transform hover:scale-105">
+                    <i class="fas fa-file-pdf mr-2"></i> Descargar Guía: <span id="nombreDescarga"
+                        class="ml-1">01_leccion.pdf</span>
+                </a>
+            </div>
+
+            <hr class="border-gray-300 mb-10">
+
+            <div id="listaLecciones"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center mb-10">
+                <button class="leccion w-full bg-adventist-gold text-white p-3 rounded shadow transition"
+                    data-video="https://www.youtube.com/embed/dsdjHEMnFJs"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1759M1T4-SNj5EARMfG9pcydddq7Gvzz1"
+                    data-titulo="01_leccion.pdf">Lección 1 – La Biblia</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/yCIyxcDc5Z4"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1fdhUKI8S3pPCfXquNlePgh1oWmS1BwtU"
+                    data-titulo="02_leccion.pdf">Lección 2 – Dios</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/_yl_pItOdTw"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1y6h1gf4lY2VRjG0AN21jHxtiv-NrajP5"
+                    data-titulo="03_leccion.pdf">Lección 3 – Oración</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/e8fingVNnuU"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1ySDzDz9BJVXXxZd0YEBPW-JJHRg6d5_m"
+                    data-titulo="04_leccion.pdf">Lección 4 - Sufrimiento</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/BKzNFyVYnpo"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1zuyDnDjmyYW5iCUfAjVCG5Fui-4imJVj"
+                    data-titulo="05_leccion.pdf">Lección 5 - Salvación</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/iaF_vSdc-ZQ"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1vVtRL4EZ7cAtwyPMiIzbY-Lkfqew2syb"
+                    data-titulo="06_leccion.pdf">Lección 6 - Perdón</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/fuLlTdP1P14"
+                    data-pdf="https://drive.google.com/uc?export=download&id=19bxQurUBHuAWqDD-bJOK5VgDU0qC9WwI"
+                    data-titulo="07_leccion.pdf">Lección 7 - Venida</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/4ln-8_VU8F0"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1JkSiIKtXRTZaoehE699vVefeiys-fLS3"
+                    data-titulo="08_leccion.pdf">Lección 8 - Señales</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/833vgB1ANtw"
+                    data-pdf="https://drive.google.com/uc?export=download&id=180YvCqtfmGgiQbQLo1gMqfTqAnscRIf_"
+                    data-titulo="09_leccion.pdf">Lección 9 - Fe</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/NkI67z22dgk"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1gvtBFXhTTCVj3K9KZ9A2yrbEtevJ2sR2"
+                    data-titulo="10_leccion.pdf">Lección 10 - Juicio</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/t-u3fhpCSiM"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1Btk6vAiHdK0RA25QcOjpv9xHzShVYKOv"
+                    data-titulo="11_leccion.pdf">Lección 11 - Ley</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/TGj8mUZ3hY8"
+                    data-pdf="https://drive.google.com/uc?export=download&id=10AKczC99QvkRK_Bc0KhDErWJE6Vzxiij"
+                    data-titulo="12_leccion.pdf">Lección 12 - Sábado</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/DgfG73uVqY4"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1SOoDg23E9WTod7M880TixVriSMJMvOxt"
+                    data-titulo="13_leccion.pdf">Lección 13 - Santidad</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/EEdFcIuU0UY"
+                    data-pdf="https://drive.google.com/uc?export=download&id=13QHQh15tmmgkGSHpd75HQX80PrE1BuQ9"
+                    data-titulo="14_leccion.pdf">Lección 14 - Iglesia</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/46Bi3O6PXgg"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1BSTPXP-hTU-MxWLlQAZC9_dEKSv1cONu"
+                    data-titulo="15_leccion.pdf">Lección 15 - Bautismo</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/AWUqBauQ0d8"
+                    data-pdf="https://drive.google.com/uc?export=download&id=108sqpn5ww6dBn9iRiJ4WEnsArkWuC4U1"
+                    data-titulo="16_leccion.pdf">Lección 16 - Vida</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/tFASI5zUCTQ"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1DXUpeRtDwAOJBxz0yU_FhTSpwF5O8XhO"
+                    data-titulo="17_leccion.pdf">Lección 17 - Salud</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/Cq3Vj1as4eg"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1kWeX3jBUDFCDzFhgGno_TSAwOjz3BD00"
+                    data-titulo="18_leccion.pdf">Lección 18 - Mayordomía</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/4na8QssOUeI"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1V4DjruaPZzqVGZ_a9mDweaJ6ZjILVDQM"
+                    data-titulo="19_leccion.pdf">Lección 19 - Profecía</button>
+                <button
+                    class="leccion w-full bg-white p-3 rounded shadow hover:bg-adventist-gold hover:text-white transition"
+                    data-video="https://www.youtube.com/embed/1jaOPCGNTxk"
+                    data-pdf="https://drive.google.com/uc?export=download&id=1jSw5LZgNcQ4DbruUC_VY1UzH-HjRDEfE"
+                    data-titulo="20_leccion.pdf">Lección 20 - Victoria</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="formulario" class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-2xl fade-up">
+            <h2 class="text-3xl font-heading font-bold text-center text-adventist-blue mb-8">Solicitar Estudio Bíblico
+            </h2>
+            <form id="estudioBiblicoForm" class="bg-gray-100 p-8 rounded-xl shadow-lg space-y-4">
+                <input type="text" name="Nombre" placeholder="Nombre completo" required
+                    class="w-full p-3 border rounded">
+                <input type="hidden" name="Curso" value="La Fe de Jesús">
+                <input type="email" name="email" placeholder="Correo electrónico" required
+                    class="w-full p-3 border rounded">
+                <input type="tel" name="Telefono" placeholder="Telefono / WhatsApp" required
+                    class="w-full p-3 border rounded">
+                <textarea name="Mensaje" rows="4" placeholder="Mensaje o consulta"
+                    class="w-full p-3 border rounded"></textarea>
+                <button type="submit"
+                    class="w-full bg-adventist-blue text-white py-3 rounded-full font-bold hover:bg-adventist-gold transition">Enviar
+                    Solicitud</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="py-16 bg-adventist-light">
+        <div class="container mx-auto px-6 text-center fade-up">
+            <h2 class="text-3xl font-heading font-bold text-adventist-blue mb-6">📖 Versículo del Momento</h2>
+            <p id="versiculo" class="text-xl italic text-gray-700 max-w-3xl mx-auto transition-opacity duration-500">
+                “Conocerán la verdad, y la verdad los hará libres.” – Juan 8:32
+            </p>
+        </div>
+    </section>
+    <!-- FOOTER -->
     <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200">
         <div class="container mx-auto px-6">
             <div class="flex justify-center space-x-6 mb-6">
@@ -181,19 +288,25 @@
                 <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
                 <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
             </div>
-            <p class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">IASD SAN FRANCISCO DE LIMACHE</p>
-            
-            <p class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span class="text-slate-900 font-black">MGE</span>
+            <p
+                class="font-heading font-black text-adventist-blue text-2xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+                IASD SAN FRANCISCO DE LIMACHE</p>
+
+            <p
+                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
+                    class="text-slate-900 font-black">MGE</span>
             </p>
-            
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el pronto regreso de Jesús</p>
+
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
+                pronto regreso de Jesús</p>
         </div>
-                
-            <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA - San Francisco de Limache</p>
+
+        <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS PARA
+            - San Francisco de Limache</p>
         </div>
         </div>
-    
+
         <!-- BOTÓN VOLVER ARRIBA -->
         <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
         p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
@@ -201,7 +314,7 @@
         </button>
 
     </footer>
-    
+
     <script>
         /* Cambiar video */
         function cargarVideo(url) {
@@ -220,99 +333,100 @@
         });
     </script>
 
-<script>
-    // Menú móvil
-    document.getElementById('menu-button').onclick = () => document.getElementById('mobile-menu').classList.toggle('hidden');
+    <script>
+        // Menú móvil
+        document.getElementById('menu-button').onclick = () => document.getElementById('mobile-menu').classList.toggle('hidden');
 
-    // Lógica dinámica para Video y Drive PDF
-    const lecciones = document.querySelectorAll('#listaLecciones .leccion');
-    const iframe = document.getElementById('videoFrame');
-    const btnDescarga = document.getElementById('btnDescarga');
-    const nombreDescarga = document.getElementById('nombreDescarga');
+        // Lógica dinámica para Video y Drive PDF
+        const lecciones = document.querySelectorAll('#listaLecciones .leccion');
+        const iframe = document.getElementById('videoFrame');
+        const btnDescarga = document.getElementById('btnDescarga');
+        const nombreDescarga = document.getElementById('nombreDescarga');
 
-    lecciones.forEach(btn => {
-        btn.addEventListener('click', () => {
-            iframe.src = btn.dataset.video;
-            btnDescarga.href = btn.dataset.pdf;
-            nombreDescarga.textContent = btn.dataset.titulo;
+        lecciones.forEach(btn => {
+            btn.addEventListener('click', () => {
+                iframe.src = btn.dataset.video;
+                btnDescarga.href = btn.dataset.pdf;
+                nombreDescarga.textContent = btn.dataset.titulo;
 
-            lecciones.forEach(l => l.classList.remove('bg-adventist-gold', 'text-white'));
-            btn.classList.add('bg-adventist-gold', 'text-white');
+                lecciones.forEach(l => l.classList.remove('bg-adventist-gold', 'text-white'));
+                btn.classList.add('bg-adventist-gold', 'text-white');
 
-            window.scrollTo({
-                top: document.getElementById('curso-fe-de-jesus').offsetTop - 80,
-                behavior: 'smooth'
+                window.scrollTo({
+                    top: document.getElementById('curso-fe-de-jesus').offsetTop - 80,
+                    behavior: 'smooth'
+                });
             });
         });
-    });
 
 
-/* =========================
-    Versículos rotativos
-========================= */
-const versiculos = [
-    "“Conocerán la verdad, y la verdad los hará libres.” – Juan 8:32",
-    "“El Señor es mi pastor; nada me faltará.” – Salmos 23:1",
-    "“Todo lo puedo en Cristo que me fortalece.” – Filipenses 4:13",
-    "“Venid a mí todos los que estáis trabajados.” – Mateo 11:28",
-    "“Porque yo sé los planes que tengo para vosotros.” – Jeremías 29:11"
-];
+        /* =========================
+            Versículos rotativos
+        ========================= */
+        const versiculos = [
+            "“Conocerán la verdad, y la verdad los hará libres.” – Juan 8:32",
+            "“El Señor es mi pastor; nada me faltará.” – Salmos 23:1",
+            "“Todo lo puedo en Cristo que me fortalece.” – Filipenses 4:13",
+            "“Venid a mí todos los que estáis trabajados.” – Mateo 11:28",
+            "“Porque yo sé los planes que tengo para vosotros.” – Jeremías 29:11"
+        ];
 
-let i = 0;
-setInterval(() => {
-    i = (i + 1) % versiculos.length;
-    const v = document.getElementById("versiculo");
-    if (!v) return;
-    v.style.opacity = 0;
-    setTimeout(() => {
-        v.textContent = versiculos[i];
-        v.style.opacity = 1;
-    }, 500);
-}, 5000);
+        let i = 0;
+        setInterval(() => {
+            i = (i + 1) % versiculos.length;
+            const v = document.getElementById("versiculo");
+            if (!v) return;
+            v.style.opacity = 0;
+            setTimeout(() => {
+                v.textContent = versiculos[i];
+                v.style.opacity = 1;
+            }, 500);
+        }, 5000);
 
-/* =========================
-    Animaciones
-========================= */
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) {
-            e.target.classList.add('show');
-        }
-    });
-}, { threshold: 0.2 });
+        /* =========================
+            Animaciones
+        ========================= */
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.2 });
 
-document.querySelectorAll('.fade-up').forEach(f =>
-    observer.observe(f)
-);
+        document.querySelectorAll('.fade-up').forEach(f =>
+            observer.observe(f)
+        );
 
-/* =========================
-    Formulario Estudio Bíblico
-========================= */
-document.getElementById("estudioBiblicoForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+        /* =========================
+            Formulario Estudio Bíblico
+        ========================= */
+        document.getElementById("estudioBiblicoForm").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-    const formData = new FormData(this);
-    const telefono = (formData.get("Telefono") || "").replace(/\D/g, "");
+            const formData = new FormData(this);
+            const telefono = (formData.get("Telefono") || "").replace(/\D/g, "");
 
-    formData.append("_captcha", "false");
-    formData.append("_template", "table");
-    formData.append("_subject", "📖 Solicitud Estudio Bíblico – IASD San Francisco de Limache");
+            formData.append("_captcha", "false");
+            formData.append("_template", "table");
+            formData.append("_subject", "📖 Solicitud Estudio Bíblico – IASD San Francisco de Limache");
 
-    fetch("https://formsubmit.co/ajax/iasdsanfranciscodelimache@gmail.com", {
-        method: "POST",
-        headers: { "Accept": "application/json" },
-        body: formData
-    })
-    .then(() => {
-        window.location.href = `confirmacion.html?tel=${telefono}`;
-    })
-    .catch(() => {
-        alert("❌ Error al enviar la solicitud");
-    });
-});
-</script>
+            fetch("https://formsubmit.co/ajax/iasdsanfranciscodelimache@gmail.com", {
+                method: "POST",
+                headers: { "Accept": "application/json" },
+                body: formData
+            })
+                .then(() => {
+                    window.location.href = `confirmacion.html?tel=${telefono}`;
+                })
+                .catch(() => {
+                    alert("❌ Error al enviar la solicitud");
+                });
+        });
+    </script>
 
 
 
 </body>
+
 </html>
