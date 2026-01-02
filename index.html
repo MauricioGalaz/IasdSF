@@ -348,6 +348,51 @@
         #carrusel-accion {
             transition: opacity 0.8s ease-in-out;
         }
+
+        /* Estilo para que los avisos resalten sobre el index */
+        .-mt-10 {
+            margin-top: -2.5rem;
+            /* Esto hace que los cuadros suban y monten sobre la sección de arriba */
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efecto de elevación y suavizado */
+        .hover\:-translate-y-2:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        /* Asegurar que la imagen de Jesús se vea bien */
+        .object-cover {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Animación sutil para el texto 2026 */
+        @keyframes pulse-soft {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .text-pink-600 {
+            animation: pulse-soft 3s infinite;
+        }
     </style>
 </head>
 
@@ -489,6 +534,19 @@
                 </div>
             </div>
         </header>
+
+
+
+                
+                </div>
+
+            </div>
+        </section>
+
+
+        
+        </div>
+        </div>
 
         <section class="py-12 bg-white reveal">
             <div class="container mx-auto px-6 max-w-4xl">
@@ -827,7 +885,7 @@
 
         let timerCierreJesus;
 
-        let timerCierreJesus;
+        
 
         document.addEventListener("DOMContentLoaded", () => {
             const invitacion = document.getElementById('invitacion-central');
@@ -1185,6 +1243,16 @@
 
             // Cambiar cada 4 segundos
             setInterval(carruselAccion, 4000);
+    </script>
+    <script>
+            window.addEventListener('load', () => {
+                const banners = document.querySelectorAll('.reveal');
+                banners.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('active');
+                    }, index * 200); // Aparecen uno tras otro
+                });
+            });
     </script>
 </body>
 
