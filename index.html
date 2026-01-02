@@ -3,40 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Iglesia Adventista del Séptimo Día - Limache</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="imagenes/logo.jpg">
-    <link rel="shortcut icon" href="imagenes/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100;300;400;500;700;900&display=swap" />
-    <link rel="stylesheet" href="estilos.css">
-
-    <meta name="theme-color" content="#0b132b">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        adventist: {
-                            blue: '#00305e',
-                            gold: '#fec325',
-                            light: '#f4f4f4'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Open Sans', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
+                        adventist: { blue: '#00305e', gold: '#fec325', accent: '#004a87', oro: '#a6893e' }
                     }
                 }
             }
@@ -44,207 +27,67 @@
     </script>
 
     <style>
-        /* EVITA EL SCROLL HORIZONTAL QUE DISTORSIONA LA APP */
+        /* RESET Y RESPONSIVIDAD */
         html,
         body {
             max-width: 100%;
             overflow-x: hidden;
             width: 100%;
+            scroll-behavior: smooth;
+            background-color: #f9fafb;
         }
 
-        .fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.9s ease-out;
+        /* EFECTO DE LUZ RÁPIDO (SHIMMER) */
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
         }
 
-        .fade-up.show {
-            opacity: 1;
-            transform: translateY(0);
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shine 2.5s infinite;
         }
 
-        /* HERO BACKGROUND OPTIMIZADO */
+        @keyframes shine {
+            from {
+                left: -150%;
+            }
+
+            to {
+                left: 250%;
+            }
+        }
+
+        /* SCROLL HORIZONTAL PARA MINISTERIOS */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         .hero-bg {
             background-image: linear-gradient(rgba(0, 48, 94, 0.7), rgba(0, 48, 94, 0.7)), url('imagenes/ig.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: scroll;
-            /* Cambiado de fixed a scroll para mejor rendimiento en APK */
         }
 
-        @media (min-width: 768px) {
-            .hero-bg {
-                background-attachment: fixed;
-            }
+        #progress-timer {
+            animation: countdown 25s linear forwards;
         }
 
-        .pt-nav {
-            padding-top: 70px;
-        }
-
-        /* Estilo para que el menú móvil no se superponga mal */
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-
-            @keyframes fadeInScale {
-                from {
-                    opacity: 0;
-                    transform: scale(0.9);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-            }
-
-            .animate-fade {
-                animation: fadeInScale 0.35s ease-out;
-            }
-
-        }
-
-        /* Animación de entrada suave para la sección de Acción de Gracias */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Efecto Glassmorphism para las tarjetas */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(254, 195, 37, 0.2);
-        }
-
-        footer {
-            padding-bottom: calc(5rem + env(safe-area-inset-bottom));
-        }
-
-        @media (max-width: 768px) {
-            footer {
-                padding-bottom: 2.8rem;
-            }
-        }
-
-        /* Asegura que los contenedores no fuercen anchos mayores a la pantalla */
-        * {
-            box-sizing: border-box;
-        }
-
-        img,
-        iframe,
-        video {
-            max-width: 100% !important;
-        }
-
-        /* Evita que el texto largo rompa el diseño en celulares pequeños */
-        p,
-        h1,
-        h2,
-        h3 {
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        /* Animación de la campana */
-        @keyframes swing {
-
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-
-            20% {
-                transform: rotate(15deg);
-            }
-
-            40% {
-                transform: rotate(-10deg);
-            }
-
-            60% {
-                transform: rotate(5deg);
-            }
-
-            80% {
-                transform: rotate(-5deg);
-            }
-        }
-
-        #video-progress {
-            transition: width 5s linear;
-            /* Sincronizado con el tiempo del carrusel */
-        }
-
-        .animate-swing {
-            animation: swing 2s infinite ease-in-out;
-        }
-
-        /* Animación del brillo pasando por el botón */
-        @keyframes shimmer {
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        /* Tarjeta con efecto de elevación y bordes suaves */
-        .dynamic-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0, 48, 94, 0.05);
-        }
-
-        .dynamic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.25);
-        }
-
-        /* Forzado de proporciones para móviles */
-        .responsive-square {
-            aspect-ratio: 1 / 1;
-            width: 100%;
-        }
-
-        @media (min-width: 1024px) {
-            .responsive-square {
-                aspect-ratio: auto;
-                height: 100%;
-            }
-        }
-
-
-        /* Efecto de brillo que recorre el botón cada 3 segundos */
-        @keyframes shine {
-            from {
-                left: -100%;
-            }
-
-            to {
-                left: 100%;
-            }
-        }
-
-        .relative.overflow-hidden::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
-
-        /* Animación de la barra de 6 segundos */
         #invitacion-progress {
-            animation: countdown 6s linear forwards;
+            animation: countdown 10s linear forwards;
         }
 
         @keyframes countdown {
@@ -257,1241 +100,456 @@
             }
         }
 
-        /* Clases de activación */
-        #invitacion-central.show {
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
             opacity: 1;
-            pointer-events: auto;
+            transform: translateY(0);
         }
 
-        #invitacion-central.show #invitacion-card {
-            transform: scale(1);
-        }
-
-        <style>.text-adventist-blue {
-            color: #004a87;
-        }
-
-        /* Azul institucional */
-        .text-adventist-gold {
-            color: #a6893e;
-        }
-
-        /* Dorado/Oro institucional */
-        .border-adventist-gold {
-            border-color: #a6893e;
-        }
-
-        .bg-adventist-blue {
-            background-color: #004a87;
-        }
-
-        <style>
-
-        /* Definición de colores institucionales */
-        .text-adventist-gold {
-            color: #a6893e;
-        }
-
-        .bg-adventist-gold {
-            background-color: #a6893e;
-        }
-
-        .border-adventist-gold {
-            border-color: #a6893e;
-        }
-
-        /* Efecto de resplandor para el texto de Cristo */
-        #mensaje-esperanza h2 {
-            text-shadow: 0 0 20px rgba(166, 137, 62, 0.4);
-        }
-
-        /* Suavizado de bordes para la tarjeta principal */
-        .backdrop-blur-md {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        <style>
-
-        /* Colores personalizados según tu manual de marca */
-        .text-adventist-blue {
-            color: #004a87;
-        }
-
-        .text-adventist-gold {
-            color: #a6893e;
-        }
-
-        .bg-adventist-blue {
-            background-color: #004a87;
-        }
-
-        .border-adventist-gold {
-            border-color: #a6893e;
-        }
-
-        /* Efecto de "Glow" para la imagen de Cristo */
-        .rounded-full.border-adventist-gold {
-            box-shadow: 0 0 25px rgba(166, 137, 62, 0.4);
-        }
-
-        /* Fuente Montserrat para el título (ya la tienes en tu index.html) */
-        #mensaje-esperanza h2 {
-            font-family: 'Montserrat', sans-serif;
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
-    </style>
-    </style>
-
-    </style>
-
-
 </head>
 
-<body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
+<body class="font-sans text-gray-700">
 
     <div id="invitacion-central"
-        class="fixed inset-0 z-[200] flex items-center justify-center bg-adventist-blue/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700">
-        <div class="relative bg-white w-[90%] max-w-lg rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden transform scale-90 transition-all duration-700"
+        class="fixed inset-0 z-[10000] flex items-center justify-center bg-adventist-blue/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700 p-4">
+        <div class="glass-modal w-full max-w-sm rounded-[3rem] shadow-2xl overflow-hidden transform scale-90 transition-all duration-700"
             id="invitacion-card">
-
-            <div class="bg-adventist-blue p-8 text-center relative">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-adventist-gold/20 rounded-full"></div>
+            <div class="bg-adventist-blue p-6 text-center text-white">
                 <div
-                    class="bg-white text-adventist-blue w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-2xl animate-bounce">
-                    <i class="fas fa-church text-4xl"></i>
-                </div>
-                <span class="text-adventist-gold font-black uppercase tracking-[0.3em] text-[10px]">Invitación
-                    Especial</span>
-                <h2 class="text-white font-heading font-black text-3xl md:text-4xl mt-2 leading-tight">¡TE ESPERAMOS
-                    ESTE SÁBADO!</h2>
+                    class="bg-white text-adventist-blue w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 animate-bounce shadow-xl">
+                    <i class="fas fa-church text-2xl"></i></div>
+                <h2 class="font-heading font-black text-xl uppercase italic">¡Te Esperamos!</h2>
             </div>
-
-            <div class="p-10 text-center">
-                <div class="space-y-4 mb-8">
-                    <div class="flex items-center justify-center gap-4 text-adventist-blue">
-                        <i class="fas fa-clock text-xl text-adventist-gold"></i>
-                        <p class="text-xl font-bold">09:30 AM <span class="text-sm font-normal text-gray-400">— Escuela
-                                Sabática</span></p>
-                    </div>
-                    <div class="flex items-center justify-center gap-4 text-adventist-blue">
-                        <i class="fas fa-sun text-xl text-adventist-gold"></i>
-                        <p class="text-xl font-bold">11:00 AM <span class="text-sm font-normal text-gray-400">— Culto
-                                Divino</span></p>
-                    </div>
+            <div class="p-8 text-center text-adventist-blue font-bold italic">
+                <p>Sábado 09:30 AM — Escuela Sabática</p>
+                <p class="mt-2">Sábado 11:00 AM — Culto Divino</p>
+                <div class="w-full h-1 bg-gray-100 rounded-full overflow-hidden my-4">
+                    <div id="invitacion-progress" class="h-full bg-adventist-gold"></div>
                 </div>
-
-                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
-                    <div id="invitacion-progress" class="h-full bg-adventist-gold w-full"></div>
-                </div>
-
                 <button onclick="cerrarInvitacion()"
-                    class="bg-adventist-blue text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95 shadow-lg">
-                    Entendido
-                </button>
+                    class="bg-adventist-blue text-white w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition shimmer-effect">Entendido</button>
             </div>
         </div>
     </div>
 
-    <div id="welcome-banner"
-        class="fixed top-0 left-0 w-full z-[60] transform -translate-y-full transition-transform duration-700">
+    <div id="modal-esperanza"
+        class="fixed inset-0 z-[10001] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl hidden animate__animated">
         <div
-            class="bg-adventist-gold text-adventist-blue px-4 py-3 shadow-2xl flex items-center justify-between border-b-4 border-adventist-blue">
-            <div class="flex items-center gap-3">
-                <div class="bg-adventist-blue text-white p-2 rounded-full animate-bounce">
-                    <i class="fas fa-church"></i>
-                </div>
-                <div>
-                    <p class="text-[10px] font-black uppercase tracking-tighter leading-none">Próximo Servicio</p>
-                    <p class="text-sm font-heading font-bold">¡Te esperamos este Sábado a las 09:30 AM!</p>
-                </div>
+            class="glass-modal w-full max-w-sm md:max-w-lg rounded-[3.5rem] shadow-2xl overflow-hidden border-b-[12px] border-adventist-oro text-center">
+            <div class="relative h-64 overflow-hidden">
+                <img src="imagenes/jesus.jpg" class="w-full h-full object-cover object-top">
+                <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent"></div>
             </div>
-            <button onclick="closeBanner()"
-                class="bg-adventist-blue/10 hover:bg-adventist-blue/20 p-2 rounded-lg transition-colors">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="p-8 -mt-8 relative z-10 bg-white/80">
+                <h2 class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase italic mb-4">Jesús
+                    es nuestra <br> <span class="text-adventist-oro">Fortaleza</span></h2>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6">
+                    <div id="progress-timer" class="absolute left-0 top-0 bg-adventist-oro h-full"></div>
+                </div>
+                <button onclick="cerrarMensaje()" class="text-[10px] font-black uppercase text-slate-400">Continuar <i
+                        class="fas fa-chevron-right ml-1"></i></button>
+            </div>
         </div>
     </div>
 
     <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.html" class="flex items-center space-x-2">
-                <img src="imagenes/logo.jpg" class="h-9 w-9 rounded-full object-cover">
-                <span class="font-heading font-bold text-[10px] sm:text-xs leading-tight uppercase">
-                    IASD<br>San Francisco<br>de Limache
-                </span>
+                <img src="imagenes/logo.jpg" class="h-9 w-9 rounded-full">
+                <span class="font-heading font-bold text-[9px] sm:text-xs leading-tight uppercase">IASD San
+                    Francisco<br>de Limache</span>
             </a>
-
-            <div class="hidden lg:flex items-center space-x-5 font-semibold text-[11px] uppercase tracking-wide">
-                <a href="#inicio" class="hover:text-adventist-gold transition-colors">Inicio</a>
-                <a href="#nosotros" class="hover:text-adventist-gold transition-colors">Nosotros</a>
-                <a href="#horarios" class="hover:text-adventist-gold transition-colors">Actividades</a>
-                <a href="#ministerios" class="hover:text-adventist-gold transition-colors">Ministerios</a>
-                <a href="estudio-biblico.html" class="hover:text-adventist-gold transition-colors">Estudio Bíblico</a>
-
-                <a href="avisos.html" class="relative overflow-hidden bg-adventist-gold text-adventist-blue px-5 py-2 rounded-full font-black shadow-[0_0_20px_rgba(254,195,37,0.5)] 
-                        hover:scale-110 active:scale-95 transition-all duration-300 group">
-                    <div
-                        class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]">
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-bell animate-swing"></i>
-                        <span>Avisos</span>
-                    </div>
-
-                    <span class="absolute top-1 right-2 flex h-2 w-2">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                    </span>
-                </a>
-
-                <a href="contactoaviso.html" class="hover:text-adventist-gold transition-colors">Contacto</a>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <button onclick="abrirModalApp()"
-                    class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 hover:bg-white hover:text-adventist-blue transition-all">
-                    📱 INSTALAR<br>APP
-                </button>
-
-                <div class="md:hidden">
-                    <button id="menu-button" class="p-2 outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 md:hidden">
-            <div class="flex flex-col px-6 py-6 space-y-4 text-xs font-semibold uppercase">
-                <a href="#inicio" class="mobile-link text-white/70">Inicio</a>
-
+            <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
+                <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+                <a href="#nosotros" class="hover:text-adventist-gold">Nosotros</a>
+                <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
+                <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
                 <a href="avisos.html"
-                    class="relative overflow-hidden bg-gradient-to-r from-yellow-400 via-adventist-gold to-yellow-500 text-adventist-blue p-4 rounded-2xl text-center font-black text-sm md:text-lg shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-2 border-white ring-4 ring-yellow-500/30 transform active:scale-95 transition-all">
-
-                    <span class="absolute top-2 right-4 flex h-6 w-6">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span
-                            class="relative inline-flex rounded-full h-6 w-6 bg-red-600 border-2 border-white text-[10px] text-white flex items-center justify-center font-bold">
-                            3
-                        </span>
-                    </span>
-
-                    <span class="relative z-10 flex items-center justify-center gap-2">
-                        🚨 ¡NUEVOS AVISOS IMPORTANTES! 🚨
-                    </span>
-                </a>
-
-                <a href="#nosotros" class="mobile-link">Nosotros</a>
-                <a href="#horarios" class="mobile-link">Actividades</a>
-                <a href="estudio-biblico.html" class="mobile-link">Estudio Bíblico</a>
-                <a href="contactoaviso.html" class="mobile-link">Contacto</a>
+                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shimmer-effect"><i
+                        class="fas fa-bell"></i> Avisos</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="abrirModalApp()"
+                    class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 shimmer-effect">📱
+                    INSTALAR APP</button>
+                <button id="menu-button" class="lg:hidden p-2 text-xl"><i class="fas fa-bars"></i></button>
             </div>
         </div>
-
+        <div id="mobile-menu"
+            class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
+            <a href="#inicio">Inicio</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#horarios">Actividades</a>
+            <a href="#ministerios">Ministerios</a>
+            <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
+        </div>
     </nav>
 
-    <div class="pt-nav w-full">
-        <div class="bg-blue-900 py-4 flex justify-center px-4">
-            <a href="ORACION/index.html"
-                class="bg-white text-blue-900 px-6 py-3 rounded-full font-bold text-center text-sm sm:text-lg hover:bg-yellow-400 transition transform hover:scale-105 shadow-lg">
-                📖 Oración Intercesora
-            </a>
-        </div>
+    <main class="pt-14">
+
+        <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
+            <div class="max-w-4xl text-white">
+                <h1
+                    class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
+                    UNA FAMILIA DE ESPERANZA</h1>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto px-6">
+                    <a href="ORACION/index.html"
+                        class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
+                    </a>
+                    <a href="estudio-biblico.html"
+                        class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section class="py-12 bg-white reveal">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
+                    <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
+                        Sábado</h2>
+                    <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
+                        agobiados..."</p>
+                    <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
+                        <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="horarios" class="py-12 bg-adventist-light reveal">
+            <div class="container mx-auto px-4">
+                <div
+                    class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
+                    <img id="carousel" src="imagenes/foto1.jpg"
+                        class="w-full aspect-video object-cover transition-opacity duration-1000">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                        <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
+                        <p class="font-bold">09:30 AM — Escuela Sabática</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
+                        <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
+                        <p class="font-bold">17:30 PM — Oración Intercesora</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                        <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
+                        <p class="font-bold">19:00 PM — Culto de Oración</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ministerios" class="py-16 bg-white overflow-hidden">
+    <div class="container mx-auto px-4 mb-8 text-center">
+        <h2 class="text-3xl font-heading font-black text-adventist-blue uppercase italic">Nuestros Ministerios</h2>
     </div>
 
-    <section class="bg-gradient-to-br from-adventist-blue via-blue-900 to-adventist-blue text-white overflow-hidden">
-        <div class="container mx-auto px-6 py-16 text-center max-w-4xl">
-            <h1 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 leading-tight">
-                Un lugar para <span class="text-adventist-gold">crecer</span>, compartir y acercarte a <span
-                    class="text-adventist-gold">Dios</span>
-            </h1>
-            <p class="text-base md:text-xl text-gray-200 mb-10">
-                En la Iglesia Adventista de San Francisco de Limache encontrarás una comunidad cercana y un espacio
-                donde siempre serás bienvenido.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#horarios"
-                    class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-full font-bold shadow-xl">Ver
-                    horarios</a>
-                <a href="contactoaviso.html"
-                    class="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-adventist-blue transition">Primera
-                    vez aquí</a>
-            </div>
-        </div>
-    </section>
+    <div class="relative group max-w-7xl mx-auto">
+        
+        <button onclick="scrollMinisterios(-300)" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+        </button>
 
-    <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-6">
-        <div class="max-w-4xl text-white">
-            <h2 class="text-lg mb-4 text-adventist-gold uppercase tracking-widest font-bold">Bienvenido a casa</h2>
-            <h1 class="font-heading text-3xl md:text-6xl font-bold mb-6">Una familia de esperanza en el corazón de
-                Limache</h1>
-            <h2 class="text-base md:text-xl mb-10 md:mb-80 text-adventist-gold italic">
-                "Lámpara es a mis pies tu palabra, y lumbrera a mi camino."<br>Salmos 119:105
-            </h2>
-            <div class="flex flex-wrap justify-center gap-3">
-                <a href="#horarios"
-                    class="bg-adventist-gold text-adventist-blue px-6 py-3 rounded-full font-bold text-sm">Ver
-                    Horarios</a>
-                <a href="contactoaviso.html"
-                    class="border-2 border-white px-6 py-3 rounded-full font-bold text-sm">Contáctanos</a>
-                <a href="estudio-biblico.html"
-                    class="border-2 border-adventist-gold text-adventist-gold px-6 py-3 rounded-full font-bold text-sm hover:bg-adventist-gold hover:text-adventist-blue">📖
-                    Estudiar Biblia</a>
+        <div id="scrollContainer" class="flex overflow-x-auto gap-6 px-12 pb-8 no-scrollbar scroll-smooth">
+            
+            <a href="Departamentos/jovenes.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/ja.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Jóvenes</p>
+            </a>
+
+            <a href="Departamentos/mujer.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/mujer.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Ministerio de la Mujer</p>
+            </a>
+
+            <a href="Departamentos/salud.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/salud.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Salud</p>
+            </a>
+
+            <a href="Departamentos/infantil.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/infantil.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Infantil</p>
+            </a>
+
+            <a href="Departamentos/aventureros.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/avent.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Aventureros</p>
+            </a>
+
+            <a href="Departamentos/Mayordomia.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/mayor.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Mayordomía</p>
+            </a>
+
+            <a href="Departamentos/Diaconos.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/diacono.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Diáconos / Diaconisas</p>
+            </a>
+
+            <a href="Departamentos/escuela-sabatica.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/sabatica.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Escuela Sabática</p>
+            </a>
+
+            <a href="Departamentos/personal.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/personal.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Ministerio Personal</p>
+            </a>
+
+            <a href="Departamentos/asa.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/asa.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">ASA</p>
+            </a>
+
+            <a href="Departamentos/publicaciones.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/publicaciones.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Publicaciones</p>
+            </a>
+
+            <a href="Departamentos/Dorcas.html" class="flex-none w-32 text-center shimmer-effect">
+                <img src="imagenes/dorcas.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                <p class="text-[10px] font-black uppercase">Dorcas</p>
+            </a>
+
+        </div>
+
+        <button onclick="scrollMinisterios(300)" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
+    </div>
+</section>
+
+<script>
+    function scrollMinisterios(distance) {
+        document.getElementById('scrollContainer').scrollBy({
+            left: distance,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+<style>
+    /* Ocultar barra de scroll estética */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    /* Asegurar que las imágenes no se deformen */
+    #scrollContainer img {
+        min-width: 112px; /* h-28 */
+        min-height: 112px;
+    }
+</style>
+
+        <section id="accion-gracias" class="py-16 bg-white reveal">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div
+                    class="bg-slate-900 rounded-[3.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch">
+                    <div class="lg:w-1/2 relative bg-black shimmer-effect">
+                        <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
+                            class="w-full h-full object-cover opacity-50 aspect-video lg:aspect-auto">
+                        <button onclick="playFullVideo()"
+                            class="absolute inset-0 m-auto bg-adventist-gold text-adventist-blue w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-2xl active:scale-90 transition"><i
+                                class="fas fa-play"></i></button>
+                    </div>
+                    <div
+                        class="lg:w-1/2 p-12 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
+                        <span class="text-green-500 font-black text-xs uppercase mb-4 tracking-widest">Testimonio</span>
+                        <h3 class="text-3xl font-heading font-black mb-6 uppercase italic">Acción de <span
+                                class="text-adventist-gold">Gracias</span></h3>
+                        <p class="text-gray-400 mb-8 italic">Revive los momentos más especiales de este año.</p>
+                        <button onclick="playFullVideo()"
+                            class="shimmer-effect bg-adventist-oro text-white px-10 py-4 rounded-full font-black text-[10px] uppercase shadow-lg">Ver
+                            Video Completo</button>
+                    </div>
+                </div>
             </div>
+        </section>
+
+            <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
+        <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
+        <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
+        
+        <div class="mt-10">
+            <a href="Anuncios 2026.html" class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
+                <i class="fas fa-bullhorn animate-bounce"></i>
+                MURO DE ANUNCIOS LÍDERES
+            </a>
+            <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
         </div>
     </header>
 
-    <section id="nosotros" class="py-16 bg-white overflow-hidden">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="relative order-2 md:order-1">
-                <img src="imagenes/comunidad.jpg" alt="Comunidad"
-                    class="rounded-lg shadow-2xl relative z-10 w-full h-64 md:h-80 object-cover">
-            </div>
-            <div class="order-1 md:order-2">
-                <h3
-                    class="text-adventist-blue font-heading text-3xl font-bold mb-6 border-l-4 border-adventist-gold pl-4">
-                    Nuestra Misión</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed text-justify">Somos una comunidad cristiana Adventista de
-                    Limache comprometida para compartir el evangelio eterno invitando a todos a aceptar a Jesucristo.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i>
-                        <span>Estudio Bíblico</span>
-                    </div>
-                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i>
-                        <span>Vida Saludable</span>
-                    </div>
-                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i>
-                        <span>Educación Cristiana</span>
-                    </div>
-                    <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-adventist-blue"></i>
-                        <span>Servicio Comunitario</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="horarios" class="py-16 bg-adventist-light">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-adventist-blue">Algunas Actividades y Eventos</h2>
-                <div class="w-24 h-1 bg-adventist-gold mx-auto mt-2"></div>
-            </div>
-
-            <div class="relative max-w-4xl mx-auto overflow-hidden rounded-xl shadow-xl mb-12">
-                <img id="carousel" src="imagenes/foto1.jpg"
-                    class="w-full h-48 sm:h-64 md:h-[400px] object-cover transition-all duration-700">
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-blue text-center">
-                    <i class="fas fa-sun text-adventist-gold text-3xl mb-3"></i>
-                    <h3 class="font-bold mb-2">Sábado (Mañana)</h3>
-                    <p class="text-adventist-blue font-bold">09:30 AM - Escuela Sabática</p>
-                    <p class="text-adventist-blue font-bold">11:00 AM - Culto Adoración</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-gold text-center">
-                    <i class="fas fa-users text-adventist-blue text-3xl mb-3"></i>
-                    <h3 class="font-bold mb-2">Sábado (Tarde)</h3>
-                    <p class="text-adventist-blue font-bold">17:30 PM - Oración</p>
-                    <p class="text-adventist-blue font-bold">19:00 PM - Culto Jóvenes</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-adventist-blue text-center">
-                    <i class="fas fa-praying-hands text-adventist-gold text-3xl mb-3"></i>
-                    <h3 class="font-bold mb-2">Miércoles</h3>
-                    <p class="text-adventist-blue font-bold">19:00 PM - Culto Oración</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ministerios" class="py-16 bg-white">
-        <div class="container mx-auto px-6 text-center mb-10">
-            <h2 class="text-3xl font-heading font-bold text-adventist-blue">Nuestros Ministerios</h2>
-        </div>
-        <div class="container mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-            <a href="Departamentos/jovenes.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/ja.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Jóvenes</p>
-                </div>
-            </a>
-            <a href="Departamentos/mujer.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/mujer.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Mujer</p>
-                </div>
-            </a>
-            <a href="Departamentos/salud.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/salud.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Salud</p>
-                </div>
-            </a>
-            <a href="Departamentos/personal.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/personal.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Personal</p>
-                </div>
-            </a>
-            <a href="Departamentos/asa.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/asa.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">ASA</p>
-                </div>
-            </a>
-            <a href="Departamentos/escuela-sabatica.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/sabatica.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Escuela Sabática</p>
-                </div>
-            </a>
-            <a href="Departamentos/infantil.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/infantil.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Infantil</p>
-                </div>
-            </a>
-            <a href="Departamentos/aventureros.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/avent.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Aventureros</p>
-                </div>
-            </a>
-            <a href="Departamentos/publicaciones.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/publicaciones.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Publicaciones</p>
-                </div>
-            </a>
-            <a href="Departamentos/Dorcas.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/dorcas.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Dorcas</p>
-                </div>
-            </a>
-            <a href="Departamentos/Mayordomia.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/mayor.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Mayordomía</p>
-                </div>
-            </a>
-            <a href="Departamentos/Diaconos.html" class="group bg-gray-50 rounded-xl overflow-hidden shadow">
-                <img src="imagenes/diacono.jpg" class="w-full h-32 object-cover">
-                <div class="p-3">
-                    <p class="font-bold text-xs uppercase">Diáconos</p>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section id="accion-gracias" class="py-16 bg-adventist-light reveal">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-10">
-                <span class="text-adventist-blue font-black uppercase tracking-[0.3em] text-[10px]">Testimonio de
-                    Fe</span>
-                <h2 class="text-3xl font-heading font-extrabold text-adventist-blue mt-2 uppercase">Acción de Gracias
-                </h2>
-                <div class="w-16 h-1 bg-adventist-gold mx-auto mt-4"></div>
-            </div>
-
-            <div
-                class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-[3rem] shadow-2xl overflow-hidden items-center">
-
-                <div class="relative w-full aspect-square overflow-hidden bg-black flex items-center justify-center">
-                    <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
-                        class="w-full h-full object-cover object-center transition-all duration-700 opacity-70"
-                        onerror="this.src='imagenes/ig.jpg'">
-
-                    <div class="absolute top-6 left-6 flex items-center gap-2 z-10">
-                        <div class="w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_red]"></div>
-                        <span class="text-white text-[10px] font-black uppercase tracking-widest">REC - 27 DIC</span>
-                    </div>
-
-                    <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white/20 z-20">
-                        <div id="video-progress" class="h-full bg-adventist-gold w-0 shadow-[0_0_8px_#fec325]"></div>
-                    </div>
-
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none">
-                    </div>
-                </div>
-
-                <div class="p-10 lg:p-16 flex flex-col justify-center bg-white h-full">
-                    <div
-                        class="inline-block bg-green-100 text-green-900 px-9 py-1 rounded-full text-[19px] font-bold uppercase mb-9 self-start">
-                        EVENTO REALIZADO</div>
-                    <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-adventist-blue leading-tight mb-4">
-                        Gratitud por las bendiciones <span class="text-adventist-gold">recibidas en este año</span>
-                    </h3>
-                    <p class="text-gray-600 mb-8 text-justify leading-relaxed">
-                        Revive los momentos de alabanza y los testimonios que marcaron nuestro programa de Acción de
-                        Gracias. Unimos nuestros corazones para glorificar a Dios por Su fidelidad.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="playFullVideo()"
-                            class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
-                            <i class="fas fa-play-circle text-lg"></i> VER VIDEO <br> Trío Salem
-                        </button>
-                        <a href="ORACION/index.html"
-                            class="bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg text-center">Muro
-                            <br>de Oración</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="modal-video-local" class="fixed inset-0 bg-black/95 z-[100] hidden items-center justify-center p-4">
-        <div class="relative w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-            <button onclick="closeFullVideo()"
-                class="absolute top-4 right-4 text-white z-50 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-600 transition">
-                <i class="fas fa-times"></i>
+        <div class="py-12 flex justify-center px-4">
+            <button onclick="abrirModalAncianos()"
+                class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+                <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
+                    class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
             </button>
-            <video id="main-video-player" class="w-full h-full" controls preload="auto">
-                <source src="imagenes/accion/video_gracias.mp4" type="video/mp4">
-                Tu dispositivo no soporta este formato de video.
-            </video>
         </div>
-    </div>
+    </main>
 
-    <div class="container mx-auto px-6 mb-12 flex justify-center">
-        <button onclick="accesoAncianos()"
-            class="w-full max-w-md bg-slate-900 text-white py-5 rounded-[2rem] shadow-2xl hover:bg-adventist-blue transition-all flex items-center justify-center gap-4 group active:scale-95">
-            <i class="fas fa-user-shield text-adventist-gold text-2xl group-hover:rotate-12 transition-transform"></i>
-            <span class="font-heading font-black uppercase tracking-widest text-sm">Acceso Ancianos</span>
-        </button>
-    </div>
-    </section>
-
-    <button id="btnTop"
-        class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] flex items-center justify-center">
-        <i class="fas fa-chevron-up text-xl"></i>
-    </button>
-
-    <script>
-        // LÓGICA DEL BOTÓN VOLVER ARRIBA
-        const btnTop = document.getElementById("btnTop");
-
-        window.addEventListener("scroll", () => {
-            // Si bajamos más de 400px, mostramos el botón
-            if (window.scrollY > 400) {
-                btnTop.classList.remove("hidden");
-            } else {
-                btnTop.classList.add("hidden");
-            }
-        });
-
-        btnTop.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // Desplazamiento suave
-            });
-        });
-
-    </script>
-
-    <script>
-        // LÓGICA DEL MENÚ MÓVIL
-        const menuButton = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const links = document.querySelectorAll('.mobile-link');
-
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // acceso ancianos
-        function accesoAncianos() {
-            document.getElementById("modalAncianos").classList.remove("hidden");
-        }
-
-        function cerrarAncianos() {
-            document.getElementById("modalAncianos").classList.add("hidden");
-            document.getElementById("claveAncianos").value = "";
-            document.getElementById("errorAncianos").classList.add("hidden");
-        }
-
-        function validarAncianos() {
-            const clave = document.getElementById("claveAncianos").value.trim();
-
-            if (clave === "iasd") {
-                window.location.href = "./orden_culto.html";
-            } else {
-                document.getElementById("errorAncianos").classList.remove("hidden");
-            }
-        }
-    </script>
-
-
-    <script>
-        /* ==========================
-            CARRUSEL AUTOMÁTICO
-        ========================== */
-
-        const fotos = [
-            "imagenes/foto1.jpg",
-            "imagenes/foto2.jpg",
-            "imagenes/foto3.jpg",
-            "imagenes/foto4.jpg",
-            "imagenes/foto5.jpg",
-            "imagenes/foto6.jpg",
-            "imagenes/foto8.jpg",
-            "imagenes/foto9.jpg",
-            "imagenes/foto10.jpg",
-            "imagenes/foto11.jpg",
-            "imagenes/foto12.jpg",
-            "imagenes/foto13.jpg"
-        ];
-
-        let index = 0;
-        const img = document.getElementById("carousel");
-
-        if (img) {
-            setInterval(() => {
-                img.classList.add("opacity-0");
-
-                setTimeout(() => {
-                    index = (index + 1) % fotos.length;
-                    img.src = fotos[index];
-                    img.classList.remove("opacity-0");
-                }, 400);
-
-            }, 4000);
-        }
-    </script>
-
-    <script>
-        function abrirModalApp() {
-            document.getElementById("modalApp").classList.remove("hidden");
-            document.getElementById("modalApp").classList.add("flex");
-        }
-
-        function cerrarModalApp() {
-            document.getElementById("modalApp").classList.add("hidden");
-        }
-
-        function instalarApp() {
-            const ua = navigator.userAgent.toLowerCase();
-
-            // ANDROID → APK
-            if (ua.includes("android")) {
-                window.location.href =
-                    "https://drive.google.com/uc?export=download&id=19XrG3oWQXDVXN0jHdafbsMTMUvfrpFVl";
-                return;
-            }
-
-            // IPHONE → PWA
-            if (ua.includes("iphone") || ua.includes("ipad")) {
-                cerrarModalApp();
-                setTimeout(() => {
-                    alert(
-                        "📱 INSTALAR EN IPHONE\n\n" +
-                        "1️⃣ Presiona Compartir 📤\n" +
-                        "2️⃣ 'Agregar a pantalla de inicio'\n" +
-                        "3️⃣ Confirmar\n\n" +
-                        "✅ Listo"
-                    );
-                }, 300);
-                return;
-            }
-
-            // PC
-            alert("Abre esta página desde tu celular para instalar la app.");
-        }
-    </script>
-
-
-    <div id="modalApp" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
-
-        <div class="bg-white rounded-xl max-w-sm w-full mx-4 p-6 text-center shadow-2xl">
-            <h2 class="text-xl font-bold text-adventist-blue mb-3">
-                📱 Instalar App
-            </h2>
-
-            <p class="text-sm text-gray-600 mb-5">
-                Instala la app oficial de la Iglesia Adventista San Francisco de Limache
-            </p>
-
-            <div class="flex flex-col gap-3">
-                <button onclick="instalarApp()"
-                    class="bg-adventist-gold text-adventist-blue py-3 rounded-full font-bold">
-                    Instalar ahora
-                </button>
-
-                <button onclick="cerrarModalApp()" class="text-gray-500 text-sm underline">
-                    Cancelar
-                </button>
-            </div>
+    <footer class="bg-white py-8 text-center border-t">
+        <div class="container mx-auto px-6">
+            <p
+                class="font-heading font-black text-adventist-blue text-xl uppercase italic underline decoration-adventist-gold">
+                IASD Limache</p>
+            <p class="text-[8px] text-slate-400 uppercase tracking-[0.5em] mt-4 font-black">Esperanza en el pronto
+                regreso de Jesús © 2025</p>
         </div>
-    </div>
+    </footer>
 
-    <section id="envio-avisos" class="py-12 md:py-24 bg-gradient-to-b from-white to-gray-100 reveal active">
-        <div class="container mx-auto px-4 md:px-6 max-w-5xl">
-
+    <div id="modalAncianos" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6">
+        <div
+            class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
             <div
-                class="relative bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_30px_100px_-20px_rgba(0,48,94,0.2)] overflow-hidden border border-gray-100">
-
-                <div
-                    class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-adventist-blue via-adventist-gold to-adventist-blue">
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12">
-
-                    <div
-                        class="lg:col-span-5 bg-adventist-blue p-8 md:p-12 text-white flex flex-col justify-center relative overflow-hidden">
-                        <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
-
-                        <div class="relative z-10">
-                            <div
-                                class="bg-adventist-gold text-adventist-blue w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform -rotate-3">
-                                <i class="fas fa-bullhorn text-3xl"></i>
-                            </div>
-
-                            <h2
-                                class="font-heading font-black text-4xl md:text-5xl uppercase leading-none mb-2 tracking-tighter">
-                                MURO DE <br><span class="text-adventist-gold italic">ANUNCIOS</span>
-                            </h2>
-                            <p class="text-blue-200 text-sm font-bold uppercase tracking-[0.3em] mb-10">Gestión de
-                                Liderazgo</p>
-
-                            <div
-                                class="space-y-6 bg-white/10 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] border border-white/20 shadow-inner">
-                                <div class="flex items-center gap-5">
-                                    <div
-                                        class="bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg">
-                                        <i class="fas fa-calendar-check text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="text-adventist-gold font-black uppercase tracking-widest text-[11px] mb-1">
-                                            FECHA LÍMITE</p>
-                                        <p class="text-2xl md:text-3xl font-heading font-black leading-none">JUEVES</p>
-                                        <p class="text-xs text-blue-100 mt-1 uppercase opacity-80">20:00 HRS MÁXIMO</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center gap-5 border-t border-white/10 pt-6">
-                                    <div
-                                        class="bg-white/20 text-adventist-gold w-14 h-14 rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-user-shield text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-white font-black text-lg leading-tight uppercase italic">Acceso
-                                            Protegido</p>
-                                        <p class="text-[10px] text-blue-100 uppercase tracking-widest opacity-80">
-                                            Líderes Autorizados</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-10 text-center lg:text-left">
-                                <p class="text-blue-200 italic text-sm">"Hágase todo decentemente y con orden."</p>
-                                <p class="text-adventist-gold font-black text-xs mt-1">— 1 Corintios 14:40</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-7 p-8 md:p-14 lg:p-16 bg-white">
-                        <form id="formAvisosLideres" class="space-y-7">
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label
-                                        class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Departamento</label>
-                                    <select id="departamento" required
-                                        class="w-full bg-gray-50 px-5 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue appearance-none shadow-sm">
-                                        <option value="">Seleccione...</option>
-                                        <option value="MIDEA25">MIDEA</option>
-                                        <option value="PUB25">PUBLICACIONES</option>
-                                        <option value="NIÑOS25">MINISTERIO INFANTIL</option>
-                                        <option value="JA25">MINISTERIO JOVEN</option>
-                                        <option value="AVENT25">CLUB DE AVENTUREROS</option>
-                                        <option value="SABAT25">ESCUELA SABÁTICA</option>
-                                        <option value="SALUD25">DEPARTAMENTO DE SALUD</option>
-                                        <option value="ASA25">ASA</option>
-                                        <option value="SERVIR25">DIACONOS - DIACONISAS</option>
-                                        <option value="SEC25">SECRETARIA</option>
-                                        <option value="TESO25">TESORERIA</option>
-                                        <option value="MIPES25">MIPES</option>
-                                        <option value="ORAC25">ORACION INTERCESORA</option>
-                                        <option value="MAYOR25">MAYORDOMIA</option>
-                                        <option value="ANC25">ANCIANATO</option>
-                                        <option value="MM25">MINISTERIO DE LA MUJER</option>
-                                        <option value="VOL25">VOLUNTARIADO</option>
-                                    </select>
-                                </div>
-                                <div class="space-y-2">
-                                    <label
-                                        class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Nombre
-                                        Líder</label>
-                                    <input type="text" id="nombreResponsable" required placeholder="Escriba su nombre"
-                                        class="w-full bg-gray-50 px-6 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label
-                                    class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Clave
-                                    de Seguridad</label>
-                                <div class="relative group">
-                                    <i
-                                        class="fas fa-key absolute left-5 top-1/2 -translate-y-1/2 text-adventist-gold group-focus-within:scale-110 transition-transform"></i>
-                                    <input type="password" id="passLider" required
-                                        placeholder="Ingrese su contraseña entregada"
-                                        class="w-full bg-gray-50 pl-14 pr-6 py-4 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label
-                                    class="text-[11px] font-black text-adventist-blue uppercase tracking-widest ml-1">Contenido
-                                    del Aviso</label>
-                                <textarea id="contenidoAviso" required rows="4"
-                                    placeholder="¿Qué mensaje desea compartir con la iglesia?"
-                                    class="w-full bg-gray-50 px-6 py-5 rounded-2xl border-2 border-transparent focus:border-adventist-gold focus:bg-white outline-none transition-all font-bold text-adventist-blue shadow-sm resize-none"></textarea>
-                            </div>
-
-                            <button type="button" onclick="validarYEnviarAviso()"
-                                class="group w-full bg-adventist-blue text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-[0.3em] shadow-[0_15px_35px_-10px_rgba(0,48,94,0.4)] hover:bg-slate-800 active:scale-95 transition-all flex items-center justify-center gap-4">
-                                <span>ENVIAR A PUBLICACIÓN</span>
-                                <i
-                                    class="fas fa-paper-plane text-adventist-gold group-hover:translate-x-2 transition-transform"></i>
-                            </button>
-                        </form>
-
-                        <p
-                            class="text-center text-gray-400 text-[10px] mt-10 uppercase font-black tracking-[0.4em] opacity-60">
-                            Damos lo mejor para el Señor</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script>
-        function validarYEnviarAviso() {
-            const pass = document.getElementById('passLider').value.trim();
-            const responsable = document.getElementById('nombreResponsable').value;
-            const depto = document.getElementById('deptAviso').value;
-            const aviso = document.getElementById('contenidoAviso').value;
-
-            // Validación simple: la clave debe ser "iasd2025" o la que tú decidas entregar
-            if (pass === "iasd2025") {
-                // Aquí integrarías el envío a tu base de datos o correo
-                alert(`¡Validado correctamente!\nLíder: ${responsable}\nDepto: ${depto}\nAviso procesado con éxito.`);
-                document.getElementById('formAvisosLideres').reset();
-            } else {
-                alert("❌ Contraseña de Líder Incorrecta. Por favor, solicítela al director de comunicación.");
-            }
-        }
-    </script>
-    <!-- MODAL ACCESO ANCIANOS -->
-    <div id="modalAncianos" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 px-4">
-
-        <div class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-sm p-6 animate-fade">
-
-            <div class="text-center mb-4">
-                <img src="imagenes/logo.jpg" class="mx-auto h-14 w-14 rounded-full mb-2">
-                <h2 class="font-heading text-xl font-bold text-adventist-blue">
-                    Acceso Ancianos
-                </h2>
-                <p class="text-sm text-gray-800">
-                    Área restringida – IASD San Francisco de Limache
-                </p>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-sm font-semibold text-gray-600 mb-1">
-                    Contraseña
-                </label>
-                <div class="relative">
-                    <i class="fas fa-lock absolute left-3 top-3 text-gray-400"></i>
-                    <input id="claveAncianos" type="password"
-                        class="w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-adventist-gold"
-                        placeholder="Ingrese la clave">
-                </div>
-            </div>
-
-            <div class="flex gap-3">
+                class="bg-adventist-blue w-16 h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                <i class="fas fa-shield-alt text-adventist-gold text-2xl"></i></div>
+            <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter">Liderazgo</h2>
+            <input id="claveAncianos" type="password"
+                class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold" placeholder="Clave">
+            <div class="flex flex-col gap-2">
                 <button onclick="validarAncianos()"
-                    class="flex-1 bg-adventist-blue text-white py-2 rounded-lg font-bold hover:bg-blue-900 transition">
-                    Ingresar
-                </button>
-
-                <button onclick="cerrarAncianos()"
-                    class="flex-1 bg-gray-200 py-2 rounded-lg font-semibold hover:bg-gray-300 transition">
-                    Cancelar
-                </button>
+                    class="w-full bg-adventist-blue text-white py-4 rounded-2xl font-black uppercase text-xs shimmer-effect">Entrar</button>
+                <button onclick="cerrarModalAncianos()"
+                    class="text-gray-400 font-bold text-[9px] uppercase mt-4 underline">Cancelar</button>
             </div>
-
-            <p id="errorAncianos" class="text-red-600 text-sm text-center mt-3 hidden">
-                ❌ Contraseña incorrecta
-            </p>
+            <p id="errorAncianos" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
         </div>
     </div>
 
-    <script src="https://unpkg.com/@capacitor/core@latest/dist/capacitor.js"></script>
-    <script src="https://unpkg.com/@capacitor/app@latest/dist/app.js"></script>
+    <div id="modalApp" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6">
+        <div
+            class="glass-modal rounded-[3rem] max-w-sm w-full p-12 text-center animate__animated animate__zoomIn shadow-2xl">
+            <h2 class="text-2xl font-black text-adventist-blue mb-4 uppercase italic">Instalar App</h2>
+            <button onclick="instalarApp()"
+                class="bg-adventist-gold text-adventist-blue w-full py-4 rounded-2xl font-black uppercase text-[10px] shadow-lg mb-4 shimmer-effect">Instalar
+                Ahora</button>
+            <button onclick="document.getElementById('modalApp').classList.add('hidden')"
+                class="text-gray-400 font-bold text-[9px] uppercase underline leading-none">Cerrar</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/56990724209" target="_blank"
+        class="fixed bottom-10 right-6 bg-[#25d366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center z-[90] border-2 border-white shimmer-effect"><i
+            class="fab fa-whatsapp text-3xl"></i></a>
 
     <script>
-        // Esperar a que Capacitor esté listo
-        window.addEventListener('DOMContentLoaded', () => {
-            const { App } = capacitorExports; // Para JS simple sin import
+        const menuBtn = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-            App.addListener('backButton', ({ canGoBack }) => {
-                if (canGoBack) {
-                    window.history.back(); // Vuelve a la tarjeta o página anterior
-                } else {
-                    App.exitApp(); // Si está en el inicio, cierra la app
-                }
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const modal = document.getElementById('invitacion-central');
-
-            // 1. Mostrar después de 1.0 segundos de carga
+        document.addEventListener("DOMContentLoaded", () => {
+            const invitacion = document.getElementById('invitacion-central');
+            const modalEsp = document.getElementById('modal-esperanza');
             setTimeout(() => {
-                if (!sessionStorage.getItem('invitacionMostrada')) {
-                    modal.classList.add('show');
-
-                    // 2. Ocultar automáticamente tras 10 segundos exactos
-                    setTimeout(() => {
-                        cerrarInvitacion();
-                    }, 10000);
-                }
+                invitacion.classList.add('show');
+                setTimeout(() => {
+                    invitacion.classList.remove('show');
+                    modalEsp.classList.remove('hidden');
+                    modalEsp.classList.add('animate__fadeInUp');
+                    setTimeout(() => cerrarMensaje(), 25000);
+                }, 10000);
             }, 1000);
         });
 
-        function cerrarInvitacion() {
-            const modal = document.getElementById('invitacion-central');
-            if (modal) {
-                modal.classList.remove('show');
-                // Marcamos que ya se mostró para no interrumpir la navegación después
-                sessionStorage.setItem('invitacionMostrada', 'true');
-            }
+        function cerrarMensaje() {
+            const m = document.getElementById('modal-esperanza');
+            if (m) { m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown'); setTimeout(() => m.classList.add('hidden'), 800); }
         }
-    </script>
-    <script>
+
+        const fotos = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
+        let idx = 0;
+        setInterval(() => {
+            const img = document.getElementById("carousel");
+            if (img) {
+                img.style.opacity = "0.3";
+                setTimeout(() => { idx = (idx + 1) % fotos.length; img.src = fotos[idx]; img.style.opacity = "1"; }, 500);
+            }
+        }, 5000);
+
+        function abrirModalAncianos() { document.getElementById('modalAncianos').classList.remove('hidden'); }
+        function cerrarModalAncianos() { document.getElementById('modalAncianos').classList.add('hidden'); }
+        function validarAncianos() {
+            if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
+            else document.getElementById('errorAncianos').classList.remove('hidden');
+        }
+
+        function abrirModalApp() { document.getElementById("modalApp").classList.remove("hidden"); }
+        function instalarApp() {
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.includes("android")) window.location.href = "https://drive.google.com/uc?export=download&id=19XrG3oWQXDVXN0jHdafbsMTMUvfrpFVl";
+            else if (ua.includes("iphone")) alert("📱 Pulsa Compartir 📤 y 'Añadir a pantalla de inicio' ➕");
+            else alert("Abre en tu celular para descargar.");
+        }
+
         function validarYEnviarAviso() {
-            const deptoSelect = document.getElementById('departamento');
-            const pass = document.getElementById('passLider').value.trim();
-            const responsable = document.getElementById('nombreResponsable').value.trim();
-            const deptoNombre = deptoSelect.options[deptoSelect.selectedIndex].text;
-            const deptoKey = deptoSelect.value; // La clave es el value del option
-            const aviso = document.getElementById('contenidoAviso').value.trim();
-
-            if (!deptoKey || !responsable || !aviso || !pass) {
-                alert("⚠️ Por favor, complete todos los campos.");
-                return;
-            }
-
-            // Validación de seguridad por departamento
-            if (pass === deptoKey) {
-                const nuevoAviso = {
-                    id: Date.now(),
-                    departamento: deptoNombre,
-                    lider: responsable,
-                    mensaje: aviso,
-                    fecha: new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' }),
-                    prioridad: deptoNombre === "ANCIANATO" ? 'alta' : 'normal'
-                };
-
-                // Guardar en el sistema local
-                let avisosGuardados = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
-                avisosGuardados.unshift(nuevoAviso); // Agregar al inicio para que aparezca primero
-                localStorage.setItem('avisosIglesia', JSON.stringify(avisosGuardados));
-
-                alert("✅ AVISO PUBLICADO: Se ha integrado correctamente al Muro de Avisos.");
-                document.getElementById('formAvisosLideres').reset();
-
-                // Opcional: Redirigir a la página de avisos para ver el resultado
-                // window.location.href = "avisos.html"; 
-            } else {
-                alert("❌ CONTRASEÑA INCORRECTA: La clave no coincide con el departamento seleccionado.");
-            }
-        }
-    </script>
-
-
-    <a href="https://wa.me/56990724209?text=Hola,%20necesito%20información%20o%20ayuda%20espiritual." target="_blank"
-        class="fixed bottom-24 right-6 bg-[#25d366] text-white w-14 h-14 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.5)] hover:scale-110 active:scale-95 transition-all z-[90] flex items-center justify-center border-2 border-white">
-        <i class="fab fa-whatsapp text-3xl"></i>
-        <span class="absolute top-0 right-0 flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-        </span>
-    </a>
-
-    <script>
-        /* LÓGICA DEL CARRUSEL DE ACCIÓN DE GRACIAS */
-        const fotosAccion = [
-            "imagenes/accion/acc1.jpg",
-            "imagenes/accion/acc2.jpg",
-            "imagenes/accion/acc3.jpg",
-            "imagenes/accion/acc4.jpg",
-            "imagenes/accion/acc5.jpg",
-            "imagenes/accion/acc6.jpg",
-            "imagenes/accion/acc7.jpg",
-            "imagenes/accion/acc8.jpg",
-        ];
-
-
-        let idxAccion = 0;
-        const imgAccion = document.getElementById("carrusel-accion");
-
-        function updateCarousel() {
-            if (!imgAccion || fotosAccion.length === 0) return;
-
-            // Inicio de la transición suave
-            imgAccion.style.opacity = "0";
-
-            setTimeout(() => {
-                idxAccion = (idxAccion + 1) % fotosAccion.length;
-
-                // Precarga de imagen para evitar cuadros blancos en la APK
-                const nextImg = new Image();
-                nextImg.src = fotosAccion[idxAccion];
-
-                nextImg.onload = () => {
-                    imgAccion.src = nextImg.src;
-                    imgAccion.style.opacity = "1";
-                };
-
-                // Respaldo en caso de error de carga
-                nextImg.onerror = () => {
-                    imgAccion.style.opacity = "1";
-                };
-            }, 700); // Sincronizado con la duración de la transición CSS
+            if (document.getElementById('passLider').value === document.getElementById('departamento').value) {
+                alert("✅ Publicado."); document.getElementById('formAvisosLideres').reset();
+            } else alert("❌ Error Clave.");
         }
 
-        if (imgAccion) {
-            setInterval(updateCarousel, 5000);
-        }
-
-        /* =========================================
-            EFECTO REVELAR AL HACER SCROLL (OPTIMIZADO)
-        ========================================= */
-        function reveal() {
-            const reveals = document.querySelectorAll(".reveal");
-            const windowHeight = window.innerHeight;
-            const elementVisible = 100; // Ajustado para mejor respuesta en móviles
-
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add("active");
-                }
-            });
-        }
-
-        // Listener de scroll con optimización de rendimiento
         window.addEventListener("scroll", () => {
-            requestAnimationFrame(reveal);
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add("active");
+            });
         });
 
-        // Ejecutar una vez al cargar para detectar elementos ya visibles
-        window.addEventListener("DOMContentLoaded", reveal);
-    </script>
-    <script>
-
-        /* CONTROL DE VIDEO LOCAL */
         function playFullVideo() {
-            const modal = document.getElementById('modal-video-local');
-            const video = document.getElementById('main-video-player');
-
-            if (modal && video) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                video.play().catch(error => console.log("Auto-play bloqueado:", error));
-            }
-        }
-
-        function closeFullVideo() {
-            const modal = document.getElementById('modal-video-local');
-            const video = document.getElementById('main-video-player');
-
-            if (modal && video) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                video.pause();
-                video.currentTime = 0; // Reinicia para la próxima vez
-            }
+            const m = document.createElement('div');
+            m.className = "fixed inset-0 bg-black z-[20000] flex items-center justify-center p-4";
+            m.innerHTML = `<button onclick="this.parentElement.remove()" class="absolute top-10 right-10 text-white text-4xl"><i class="fas fa-times"></i></button>
+                        <video class="w-full max-w-4xl" controls autoplay src="imagenes/accion/video_gracias.mp4"></video>`;
+            document.body.appendChild(m);
         }
     </script>
-    <section id="mensaje-esperanza"
-        class="max-w-4xl mx-auto my-16 p-2 bg-gradient-to-br from-adventist-blue to-slate-900 rounded-[3rem] shadow-2xl animate__animated animate__fadeIn">
-        <div
-            class="bg-white/95 backdrop-blur-sm rounded-[2.8rem] p-8 md:p-12 text-center border-b-8 border-adventist-gold">
 
-            <div class="relative w-48 h-48 mx-auto mb-8 group">
-                <div
-                    class="absolute inset-0 bg-adventist-gold rounded-full blur-lg opacity-30 group-hover:opacity-60 transition-opacity">
-                </div>
-                <img src="imagenes/jesus.jpg" alt="Jesucristo"
-                    class="relative w-full h-full object-cover rounded-full border-4 border-adventist-gold shadow-xl transition-transform duration-500 group-hover:scale-105">
-            </div>
-
-            <h2
-                class="font-heading font-black text-adventist-blue text-3xl md:text-5xl uppercase tracking-tighter mb-6 italic leading-tight">
-                Nuestra Esperanza <br> <span class="text-adventist-gold text-2xl md:text-4xl">está en Jesús</span>
-            </h2>
-
-            <div class="space-y-6 text-slate-700 max-w-2xl mx-auto">
-                <p class="text-xl italic font-serif text-slate-600 border-l-4 border-adventist-gold pl-4 py-2">
-                    "Puestos los ojos en Jesús, el autor y consumador de la fe..." <br>
-                    <span class="text-xs font-bold uppercase tracking-widest text-adventist-blue">— Hebreos 12:2</span>
-                </p>
-
-                <p class="font-medium leading-relaxed">
-                    Querida familia y hermanos de la <span class="text-adventist-blue font-bold italic">IASD San
-                        Francisco de Limache</span>:
-                    Al comenzar este nuevo año, renovamos nuestro compromiso de caminar de la mano con nuestro Redentor.
-                    Que su amor sature cada hogar de nuestra hermandad.
-                </p>
-
-                <p class="text-adventist-blue font-black uppercase tracking-[0.2em] text-lg pt-4">
-                    ¡Maranatha! ¡El Señor viene!
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <a href="#contacto"
-                    class="inline-block bg-adventist-blue text-white font-black px-10 py-4 rounded-full hover:bg-adventist-gold transition-all duration-300 shadow-lg hover:-translate-y-1 uppercase italic tracking-tighter">
-                    Unidos en Oración
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-8 mb-8">
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-facebook-f fa-2xl"></i></a>
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-instagram fa-2xl"></i></a>
-                <a href="#"
-                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                        class="fab fa-youtube fa-2xl"></i></a>
-            </div>
-
-            <p
-                class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
-                IASD SAN FRANCISCO DE LIMACHE
-            </p>
-
-            <p
-                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
-                    class="text-slate-900 font-black">MGE</span>
-            </p>
-
-            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
-                pronto regreso de Jesús</p>
-
-            <p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS RESERVADOS -
-                San Francisco de Limache</p>
-        </div>
-    </footer>
-    <div id="modal-esperanza" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl hidden animate__animated">
-    <div class="relative max-w-lg w-full bg-white rounded-[3.5rem] shadow-[0_0_50px_rgba(166,137,62,0.3)] overflow-hidden border-b-[12px] border-adventist-gold">
-        
-        <div class="relative h-72 w-full overflow-hidden">
-            <img src="imagenes/jesus.jpg" alt="Jesucristo" class="w-full h-full object-cover object-top scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
-            <div class="absolute inset-0 bg-adventist-gold/10 mix-blend-overlay"></div>
-        </div>
-
-        <div class="p-10 text-center -mt-8 relative z-10 bg-white">
-            <div class="inline-block px-4 py-1 rounded-full bg-adventist-gold/10 text-adventist-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-                Mensaje de Fe 2025
-            </div>
-            
-            <h2 class="font-heading font-black text-adventist-blue text-3xl md:text-4xl uppercase tracking-tighter italic leading-none mb-6">
-                Jesús es nuestra <br> <span class="text-adventist-gold">Fortaleza</span>
-            </h2>
-            
-            <div class="space-y-4 mb-8">
-                <p class="text-slate-600 font-medium italic text-lg leading-tight">
-                    "Puestos los ojos en Jesús, el autor y consumador de la fe."
-                </p>
-                <p class="text-adventist-blue font-bold text-xs uppercase tracking-widest">— Hebreos 12:2</p>
-                <hr class="w-12 mx-auto border-adventist-gold opacity-30">
-                <p class="text-slate-500 text-sm leading-relaxed px-4">
-                    Querida hermandad de <b>Limache</b>, que la presencia del Salvador inunde sus hogares en este nuevo año. ¡Cristo viene pronto!
-                </p>
-            </div>
-
-            <div class="relative w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mb-6">
-                <div id="progress-timer" class="absolute left-0 top-0 bg-adventist-gold h-full w-full"></div>
-            </div>
-            
-            <button onclick="cerrarMensaje()" class="group flex items-center justify-center mx-auto gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-adventist-blue transition-all">
-                Continuar al sitio <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<style>
-    /* Animación sincronizada para los 25 segundos */
-    #progress-timer {
-        animation: countdown 25s linear forwards;
-    }
-
-    @keyframes countdown {
-        from { width: 100%; }
-        to { width: 0%; }
-    }
-
-    /* Ajuste para que la imagen de Cristo resalte */
-    #modal-esperanza img {
-        filter: contrast(1.1) brightness(1.05);
-    }
-</style>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Esperamos 4 segundos después de que cargue la página (y la invitación del sábado)
-    setTimeout(() => {
-        const modal = document.getElementById('modal-esperanza');
-        modal.classList.remove('hidden');
-        modal.classList.add('animate__fadeInUp');
+        const scriptURL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT'
+        const form = document.getElementById('formAvisosLideres')
 
-        // 2. Se cierra automáticamente después de 25 segundos (25000 milisegundos)
-        setTimeout(() => {
-            cerrarMensaje();
-        }, 25000); 
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            // Validación de clave (ya la tenemos)
+            const dept = document.getElementById('departamento').value;
+            const clave = document.getElementById('clave').value;
 
-    }, 4000); 
-});
-
-function cerrarMensaje() {
-    const modal = document.getElementById('modal-esperanza');
-    if (!modal.classList.contains('hidden')) {
-        modal.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 800); 
-    }
-}
-</script>
+            if (clave === dept) {
+                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                    .then(response => {
+                        alert('Anuncio enviado al sistema de pantallas.');
+                        actualizarVistaPrevia();
+                    })
+                    .catch(error => console.error('Error!', error.message))
+            }
+        })
+    </script>
 
 
 </body>

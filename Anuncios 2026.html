@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuncios 2026 - IASD San Francisco de Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: white;
+        }
+
+        .adventist-blue {
+            background-color: #004C97;
+        }
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-2xl w-full card-glass p-8 rounded-3xl shadow-2xl">
+        <div class="text-center mb-8">
+            <div class="adventist-blue w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-broadcast-tower text-3xl text-white"></i>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight">COMUNICACIÓN 2026</h1>
+            <p class="text-blue-300">IASD San Francisco de Limache</p>
+            <p class="text-xs mt-2 text-gray-400 italic">"Proclamando el evangelio con orden y excelencia"</p>
+        </div>
+
+        <form id="formAvisosLideres" class="space-y-6">
+
+            <div>
+                <label class="block text-sm font-medium mb-2">Departamento</label>
+                <select id="departamento" required
+                    class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl font-bold text-white outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
+                    <option value="">Seleccione Departamento...</option>
+                    <option value="ANC25">ANCIANATO</option>
+                    <option value="JA25">MINISTERIO JOVEN</option>
+                    <option value="PUB25">PUBLICACIONES</option>
+                    <option value="MM25">MINISTERIO MUJER</option>
+                    <option value="SALUD25">SALUD</option>
+                    <option value="MIDEA25">MIDEA</option>
+                    <option value="SABAT25">ESCUELA SABÁTICA</option>
+                    <option value="SEC25">SECRETARÍA</option>
+                    <option value="TESO25">TESORERÍA</option>
+                    <option value="ORAC25">ORACIÓN INTERCESORA</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nombre del Líder</label>
+                    <input type="text" id="lider" required placeholder="Ej: Juan Pérez"
+                        class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-white outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Clave de Acceso</label>
+                    <input type="password" id="clave" required placeholder="Ingrese Clave"
+                        class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-white outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2">Detalle del Anuncio (Sea breve y claro)</label>
+                <textarea id="anuncio" rows="4" required
+                    placeholder="Escriba aquí la fecha, hora y lugar de la actividad..."
+                    class="w-full bg-gray-800 border border-gray-700 p-4 rounded-xl text-white outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+
+            <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 text-sm text-blue-200">
+                <i class="fas fa-clock mr-2"></i> Plazo máximo de recepción: <strong>Jueves 20:00 hrs.</strong>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 p-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg">
+                ENVIAR SOLICITUD DE ANUNCIO
+            </button>
+        </form>
+
+        <div id="mensajeExito" class="hidden text-center p-8">
+            <div class="text-green-400 text-6xl mb-4"><i class="fas fa-check-circle"></i></div>
+            <h2 class="text-2xl font-bold text-white">¡Enviado con éxito!</h2>
+            <p class="text-gray-400 mt-2">El equipo de Media procesará tu anuncio. Bendiciones.</p>
+            <button onclick="location.reload()" class="mt-6 text-blue-400 underline">Enviar otro anuncio</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('formAvisosLideres').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const deptSelect = document.getElementById('departamento');
+            const deptCodigo = deptSelect.value; // Ej: JA25
+            const deptNombre = deptSelect.options[deptSelect.selectedIndex].text; // Ej: MINISTERIO JOVEN
+            const lider = document.getElementById('lider').value;
+            const clave = document.getElementById('clave').value;
+            const mensaje = document.getElementById('anuncio').value;
+
+            // 1. Validar Clave
+            if (clave !== deptCodigo) {
+                alert('❌ La clave no coincide con el departamento.');
+                return;
+            }
+
+            // 2. Crear el objeto del aviso
+            const nuevoAviso = {
+                id: Date.now(),
+                departamento: deptNombre,
+                lider: lider,
+                mensaje: mensaje,
+                fecha: new Date().toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit' })
+            };
+
+            // 3. Guardar en LocalStorage (Base de datos del navegador)
+            let avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
+            avisos.unshift(nuevoAviso); // Poner el más nuevo primero
+            localStorage.setItem('avisosIglesia', JSON.stringify(avisos));
+
+            // 4. Mostrar éxito
+            this.classList.add('hidden');
+            document.getElementById('mensajeExito').classList.remove('hidden');
+
+            // OPCIONAL: Redirigir automáticamente después de 3 segundos
+            // setTimeout(() => { window.location.href = 'aviso.html'; }, 3000);
+        });
+    </script>
+</body>
+
+</html>
