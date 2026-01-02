@@ -393,10 +393,46 @@
         .text-pink-600 {
             animation: pulse-soft 3s infinite;
         }
+
+        /* Marquesina Deslizante Moderna */
+        .marquee-wrapper {
+            background: #00305e;
+            color: #fec325;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 2px solid #fec325;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: scroll-text 25s linear infinite;
+            font-family: 'Montserrat';
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes scroll-text {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
     </style>
 </head>
 
 <body class="font-sans text-gray-700">
+
+    <div class="marquee-wrapper sticky top-0 z-[100]">
+        <div class="marquee-text">
+            ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Culto de Adoración • "Lámpara es a mis
+            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero •
+        </div>
+    </div>
 
     <div id="invitacion-central"
         class="fixed inset-0 z-[7000] flex items-center justify-center bg-adventist-blue/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700 p-4">
