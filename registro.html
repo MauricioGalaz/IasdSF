@@ -1,64 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Cumpleaños - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-</head>
-<body class="bg-slate-50 flex items-center justify-center min-h-screen p-6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
-    <div class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100">
-        <div class="text-center mb-8">
-            <div class="bg-[#00305e] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <i class="fas fa-heart text-[#fec325] text-2xl"></i>
+    <style>
+        body {
+            background: radial-gradient(circle at top, #f8fafc, #e2e8f0);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .adventist-blue {
+            color: #00305e;
+        }
+
+        .bg-adventist-blue {
+            background-color: #00305e;
+        }
+
+        .border-adventist-gold {
+            border-color: #fec325;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4 pb-24">
+
+    <div class="fixed top-6 left-6 hidden md:block">
+        <a href="index.html" class="adventist-blue font-bold flex items-center gap-2 hover:underline">
+            <i class="fas fa-arrow-left"></i> Volver al Inicio
+        </a>
+    </div>
+
+    <div
+        class="max-w-md w-full bg-white rounded-[3rem] shadow-2xl p-8 border-b-[12px] border-adventist-gold relative overflow-hidden">
+
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-slate-50 rounded-full opacity-50"></div>
+
+        <div class="text-center mb-8 relative z-10">
+            <div
+                class="bg-adventist-blue w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl rotate-3">
+                <i class="fas fa-gift text-[#fec325] text-3xl"></i>
             </div>
-            <h1 class="text-2xl font-black text-[#00305e] uppercase tracking-tighter">¡Queremos Saludarte!</h1>
-            <p class="text-slate-500 text-sm mt-2 font-medium">Registra tu cumpleaños para que la hermandad de Limache ore por ti en tu día.</p>
+            <h1 class="text-3xl font-black adventist-blue font-heading uppercase tracking-tighter leading-tight">
+                ¡Queremos <br><span class="text-[#fec325] italic">Saludarte!</span>
+            </h1>
+            <p class="text-slate-400 text-xs mt-3 font-bold uppercase tracking-widest">Inscripción de Hermanos</p>
         </div>
 
-        <form id="formRegistro" class="space-y-5">
+        <form id="formRegistro" class="space-y-4 relative z-10">
             <div>
-                <label class="text-[10px] font-black uppercase text-slate-400 ml-2 tracking-widest">Nombre Completo</label>
-                <input type="text" id="nombre" required class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-2xl font-bold text-[#00305e] transition-all outline-none" placeholder="Ej: Guillermo Ponce">
+                <label class="text-[10px] font-black uppercase text-slate-400 ml-4 tracking-[0.2em]">Nombre
+                    Completo</label>
+                <input type="text" id="nombre" required
+                    class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-[1.5rem] font-bold adventist-blue transition-all outline-none shadow-inner"
+                    placeholder="Ej: Guillermo Ponce">
             </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="text-[10px] font-black uppercase text-slate-400 ml-2 tracking-widest">Día</label>
-                    <input type="number" id="dia" min="1" max="31" required class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-2xl font-bold text-[#00305e] outline-none" placeholder="15">
+                    <label class="text-[10px] font-black uppercase text-slate-400 ml-4 tracking-[0.2em]">Día</label>
+                    <input type="number" id="dia" min="1" max="31" required
+                        class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-[1.5rem] font-bold adventist-blue outline-none shadow-inner text-center"
+                        placeholder="15">
                 </div>
                 <div>
-                    <label class="text-[10px] font-black uppercase text-slate-400 ml-2 tracking-widest">Mes</label>
-                    <select id="mes" required class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-2xl font-bold text-[#00305e] outline-none">
-                        <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
-                        <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
-                        <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
-                        <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+                    <label class="text-[10px] font-black uppercase text-slate-400 ml-4 tracking-[0.2em]">Mes</label>
+                    <select id="mes" required
+                        class="w-full bg-slate-50 border-2 border-transparent focus:border-[#fec325] p-4 rounded-[1.5rem] font-bold adventist-blue outline-none shadow-inner appearance-none">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
                     </select>
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-[#00305e] text-white py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-xl hover:bg-slate-800 transition-all active:scale-95">
-                Registrar mi Cumpleaños
-            </button>
+            <div class="pt-2">
+                <button type="submit" id="btnSubmit"
+                    class="w-full bg-adventist-blue text-[#fec325] py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.25em] shadow-xl hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fas fa-check-circle text-lg"></i> Confirmar Registro
+                </button>
+            </div>
         </form>
 
-        <div id="mensajeExito" class="hidden text-center p-4 bg-green-50 text-green-600 rounded-2xl font-bold mt-4">
-            ¡Gracias! Datos guardados con éxito. 🙏
+        <div id="mensajeExito" class="hidden text-center py-10 animate__animated animate__zoomIn">
+            <div
+                class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-pray text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-black adventist-blue mb-2">¡BENDICIONES!</h3>
+            <p class="text-slate-500 font-medium px-4">Tus datos han sido guardados. Vamos a celebrar juntos.</p>
+            <p class="text-[10px] text-slate-300 mt-6 uppercase font-black tracking-widest animate-pulse">Redirigiendo
+                al muro...</p>
         </div>
+    </div>
+
+    <div
+        class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 p-3 flex justify-around items-center z-50 rounded-t-[2.5rem] shadow-2xl md:max-w-md md:mx-auto">
+        <a href="index.html"
+            class="flex flex-col items-center text-slate-300 hover:text-adventist-blue transition-colors">
+            <i class="fas fa-church text-xl"></i>
+            <span class="text-[9px] font-black uppercase mt-1">Inicio</span>
+        </a>
+        <div
+            class="w-14 h-14 bg-adventist-blue rounded-full flex items-center justify-center -mt-12 border-8 border-slate-50 shadow-lg scale-110">
+            <i class="fas fa-user-plus text-[#fec325] text-lg"></i>
+        </div>
+        <a href="cumpleanos.html"
+            class="flex flex-col items-center text-slate-300 hover:text-adventist-blue transition-colors">
+            <i class="fas fa-birthday-cake text-xl"></i>
+            <span class="text-[9px] font-black uppercase mt-1">Muro</span>
+        </a>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIGURACIÓN (Usa la misma de tu app principal)
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            projectId: "TU_PROYECTO_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            databaseURL: "https://iasd-limache-muro-default-rtdb.firebaseio.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            messagingSenderId: "277039117234",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab",
+            measurementId: "G-8VBFEYZRTT"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -66,9 +153,11 @@
 
         document.getElementById('formRegistro').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
+            const btn = document.getElementById('btnSubmit');
+
+            // Estado de carga
             btn.disabled = true;
-            btn.innerText = "GUARDANDO...";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin text-lg"></i> GUARDANDO...';
 
             try {
                 await addDoc(collection(db, "cumpleanos"), {
@@ -77,15 +166,24 @@
                     mes: parseInt(document.getElementById('mes').value),
                     fechaRegistro: new Date()
                 });
+
+                // INTERFAZ DE ÉXITO
                 document.getElementById('formRegistro').classList.add('hidden');
                 document.getElementById('mensajeExito').classList.remove('hidden');
+
+                // REDIRECCIÓN AUTOMÁTICA DESPUÉS DE 3 SEGUNDOS
+                setTimeout(() => {
+                    window.location.href = "cumpleanos.html";
+                }, 3000);
+
             } catch (error) {
-                alert("Error: " + error.message);
+                console.error("Error Firebase:", error);
+                alert("Hubo un problema al conectar con el cielo. Reintenta.");
                 btn.disabled = false;
-                btn.innerText = "REINTENTAR";
+                btn.innerHTML = '<i class="fas fa-redo-alt"></i> REINTENTAR';
             }
         });
     </script>
-    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

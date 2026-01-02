@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro de Bendiciones - IASD Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            background: #f8fafc;
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .adventist-blue {
+            color: #00305e;
+        }
+
+        .bg-adventist-blue {
+            background-color: #00305e;
+        }
+
+        /* EFECTO SHIMMER (BRILLO) */
+        .shimmer-text {
+            background: linear-gradient(to right, #00305e 20%, #fec325 40%, #fec325 60%, #00305e 80%);
+            background-size: 200% auto;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* ANIMACIÓN DE CAJITAS DE REGALO Y GLOBOS */
+        .floating-element {
+            position: absolute;
+            bottom: -100px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.6;
+            font-size: 24px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .card-modern {
+            background: white;
+            border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        #listaCumple {
+            padding-bottom: 100px;
+            /* Esto deja espacio para que el menú no tape las tarjetas */
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8 pb-32" onclick="iniciarMusicaAuto()">
+
+    <audio id="audioCumple" loop preload="auto">
+        <source src="audios/un_ano_mas.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="celebration-container" class="fixed inset-0 pointer-events-none overflow-hidden hidden z-0">
+        <div class="floating-element" style="left:5%; color:#fec325; animation-delay:0s"><i
+                class="fas fa-balloon"></i>🎈</div>
+        <div class="floating-element" style="left:15%; color:#00305e; animation-delay:2s"><i
+                class="fas fa-balloon"></i>🎈</div>
+        <div class="floating-element" style="left:35%; animation-delay:1s">🎁</div>
+        <div class="floating-element" style="left:55%; animation-delay:4s">🎁</div>
+        <div class="floating-element" style="left:75%; animation-delay:6s">🎁</div>
+        <div class="floating-element" style="left:90%; animation-delay:3s">🎁</div>
+    </div>
+
+    <div class="max-w-xl mx-auto relative z-10">
+        <header class="text-center mb-12">
+            <div class="inline-block bg-white p-5 rounded-[2rem] shadow-xl mb-6 animate__animated animate__fadeInDown">
+                <i class="fas fa-church text-[#00305e] text-3xl"></i>
+            </div>
+            <h1 class="text-4xl font-black adventist-blue uppercase tracking-tighter leading-none">
+                Muro de <br><span class="text-[#fec325]">Cumpleaños</span>
+            </h1>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-3">IASD San francisco de Limache</p>
+        </header>
+
+        <div class="card-modern p-8 mb-10">
+            <h2 class="adventist-blue font-black text-[11px] uppercase mb-6 tracking-widest flex items-center">
+                <span class="w-8 h-1 bg-[#fec325] mr-3 rounded-full"></span> Registrar Cumpleaños
+            </h2>
+            <div class="space-y-4">
+                <input type="text" id="nombreC" placeholder="Nombre completo"
+                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold adventist-blue outline-none border-2 border-transparent focus:border-[#fec325] transition-all">
+                <input type="date" id="fechaC"
+                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold adventist-blue outline-none border-2 border-transparent focus:border-[#fec325] transition-all">
+                <button id="btnGuardar"
+                    class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl active:scale-95 transition-all">
+                    Guardar en el Libro 📖
+                </button>
+            </div>
+        </div>
+
+        <div id="seccionHoy" class="space-y-6">
+            <div class="flex items-center justify-between px-4">
+                <h2 class="adventist-blue font-black text-xs uppercase tracking-widest">✨ Celebrados de hoy</h2>
+                <span class="bg-[#fec325] text-[#00305e] text-[9px] px-3 py-1 rounded-full font-bold shadow-sm">MES:
+                    <span id="countMes">0</span></span>
+            </div>
+            <div id="listaCumple" class="space-y-8"></div>
+        </div>
+    </div>
+
+    <div id="modalOracion"
+        class="hidden fixed inset-0 bg-[#00305e]/90 backdrop-blur-md z-[200] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-[3.5rem] p-10 shadow-2xl animate__animated animate__backInUp">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-gift text-3xl text-[#fec325]"></i>
+                </div>
+                <h2 class="text-2xl font-black text-[#00305e] uppercase leading-none">Regalar Oración</h2>
+                <p id="targetNombre" class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-2"></p>
+            </div>
+
+            <div class="space-y-4">
+                <input type="text" id="modalAutor" placeholder="Tu nombre"
+                    class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
+                <textarea id="modalTexto" placeholder="Tu mensaje de bendición..." rows="3"
+                    class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none resize-none border-2 border-transparent focus:border-[#fec325]"></textarea>
+            </div>
+
+            <input type="hidden" id="modalIdCumple">
+            <div class="flex flex-col gap-3 mt-8">
+                <button id="btnEnviarOracion"
+                    class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-all">Enviar
+                    a los Cielos 🙏</button>
+                <button id="btnCerrarModal"
+                    class="w-full py-2 text-slate-400 font-bold uppercase text-[9px] tracking-widest">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="btnMusica"
+        class="fixed bottom-24 right-6 w-16 h-16 bg-[#fec325] text-[#00305e] rounded-full shadow-2xl z-[150] flex items-center justify-center border-4 border-white hidden animate-pulse">
+        <i id="iconMusica" class="fas fa-play text-xl"></i>
+    </button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- AUDIO ---
+        const audio = document.getElementById('audioCumple');
+        const btnM = document.getElementById('btnMusica');
+        const iconM = document.getElementById('iconMusica');
+        let playOk = false;
+
+        window.iniciarMusicaAuto = () => {
+            if (!playOk) {
+                audio.play().then(() => { playOk = true; iconM.className = 'fas fa-pause'; }).catch(() => { });
+            }
+        };
+
+        btnM.onclick = (e) => {
+            e.stopPropagation();
+            if (audio.paused) { audio.play(); iconM.className = 'fas fa-pause'; }
+            else { audio.pause(); iconM.className = 'fas fa-play'; }
+        };
+
+        // --- WHATSAPP ---
+        window.enviarWhatsApp = (nombre) => {
+            const promesas = [
+                "📖 *Salmo 20:4*: 'Que el Señor te conceda los deseos de tu corazón.'",
+                "📖 *Números 6:24*: 'Jehová te bendiga, y te guarde siempre.'",
+                "📖 *3 Juan 1:2*: 'Amado, deseo que seas prosperado en todas las cosas y tengas salud.'"
+            ];
+            const cita = promesas[Math.floor(Math.random() * promesas.length)];
+            const mensaje = `✨ *CELEBRACIÓN DE VIDA* ✨\n━━━━━━━━━━━━━━━━━━━━\n🎁 ¡Feliz Cumpleaños!\nHno(a). *${nombre.toUpperCase()}*\n\n${cita}\n\n🙏 *¡Tu iglesia te regala una oración hoy!*\n━━━━━━━━━━━━━━━━━━━━\n🎵 _"Un año más Cristo te dio..."_`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, "_blank");
+        };
+
+        // --- GESTIÓN ORACIONES ---
+        window.abrirModal = (id, nombre) => {
+            document.getElementById('modalIdCumple').value = id;
+            document.getElementById('targetNombre').innerText = "PARA: " + nombre.toUpperCase();
+            document.getElementById('modalOracion').classList.remove('hidden');
+        };
+
+        document.getElementById('btnCerrarModal').onclick = () => document.getElementById('modalOracion').classList.add('hidden');
+
+        document.getElementById('btnEnviarOracion').onclick = async () => {
+            const id = document.getElementById('modalIdCumple').value;
+            const aut = document.getElementById('modalAutor').value;
+            const txt = document.getElementById('modalTexto').value;
+            const btn = document.getElementById('btnEnviarOracion');
+
+            if (!aut || !txt) return;
+            btn.disabled = true;
+            btn.innerText = "ENVIANDO...";
+
+            try {
+                await addDoc(collection(db, "oraciones"), { idCumple: id, autor: aut, texto: txt, fecha: serverTimestamp() });
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00305e', '#fec325'] });
+                Swal.fire({ title: '¡Amén!', text: 'Tu regalo de oración ha sido enviado ✨', icon: 'success', confirmButtonColor: '#00305e' });
+                document.getElementById('modalOracion').classList.add('hidden');
+                document.getElementById('modalAutor').value = "";
+                document.getElementById('modalTexto').value = "";
+            } catch (e) {
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Revisa tu conexión' });
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "ENVIAR A LOS CIELOS 🙏";
+            }
+        };
+
+        // --- REGISTRO Y CARGA ---
+        // --- SUSTITUYE LA FUNCIÓN DE REGISTRO POR ESTA ---
+        document.getElementById('btnGuardar').onclick = async () => {
+            const nom = document.getElementById('nombreC').value;
+            const fec = document.getElementById('fechaC').value;
+
+            if (!nom || !fec) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '¡Faltan datos!',
+                    text: 'Hno(a), necesitamos su nombre y fecha.',
+                    confirmButtonColor: '#00305e'
+                });
+                return;
+            }
+
+            const d = new Date(fec + "T00:00:00");
+
+            try {
+                await addDoc(collection(db, "cumpleanos"), {
+                    nombre: nom,
+                    dia: d.getDate(),
+                    mes: d.getMonth() + 1,
+                    fechaRegistro: serverTimestamp()
+                });
+
+                // EFECTO DIVERTIDO AL INSCRIBIRSE
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.8 },
+                    colors: ['#fec325', '#00305e']
+                });
+
+                // MENSAJES DIVERTIDOS ALEATORIOS
+                const frasesDiv = [
+                    "¡Anotado en la lista de bendiciones! ✨",
+                    "¡Bienvenido al libro de la vida! 📖",
+                    "¡Ya eres parte del muro, hno(a)! 🎉",
+                    "¡Guardado con éxito en los archivos celestiales! ☁️"
+                ];
+                const fraseRandom = frasesDiv[Math.floor(Math.random() * frasesDiv.length)];
+
+                // MENSAJE FLOTANTE (TOAST)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: fraseRandom
+                });
+
+                // Limpiar campos después de 1 segundo
+                setTimeout(() => {
+                    document.getElementById('nombreC').value = "";
+                    document.getElementById('fechaC').value = "";
+                    // Recargar solo si el cumple es hoy para que aparezca en la lista
+                    const hoy = new Date();
+                    if (d.getDate() === hoy.getDate() && (d.getMonth() + 1) === (hoy.getMonth() + 1)) {
+                        location.reload();
+                    }
+                }, 1500);
+
+            } catch (e) {
+                Swal.fire({ icon: 'error', title: 'Error', text: 'No pudimos anotarte, intenta de nuevo.' });
+            }
+        };
+
+        async function cargarMuro() {
+            const hoy = new Date();
+            const dHoy = hoy.getDate();
+            const mHoy = hoy.getMonth() + 1;
+
+            const qMes = query(collection(db, "cumpleanos"), where("mes", "==", mHoy));
+            const snapMes = await getDocs(qMes);
+            document.getElementById('countMes').innerText = snapMes.size;
+
+            const q = query(collection(db, "cumpleanos"), where("dia", "==", dHoy), where("mes", "==", mHoy));
+            const snap = await getDocs(q);
+            const lista = document.getElementById('listaCumple');
+            lista.innerHTML = "";
+
+            if (snap.empty) {
+                lista.innerHTML = "<div class='text-center p-16 bg-white rounded-[3rem] shadow-sm'><p class='text-slate-300 font-bold uppercase text-[10px] tracking-widest'>No hay cumpleaños hoy</p></div>";
+            } else {
+                btnM.classList.remove('hidden');
+                document.getElementById('celebration-container').classList.remove('hidden');
+                snap.forEach(docSnap => {
+                    const h = docSnap.data();
+                    const id = docSnap.id;
+                    const card = document.createElement('div');
+                    card.className = "card-modern p-8 animate__animated animate__fadeInUp border-b-8 border-yellow-400";
+                    card.innerHTML = `
+                        <div class="flex items-center gap-5 mb-8">
+                            <div class="w-16 h-16 bg-adventist-blue text-yellow-400 rounded-[1.5rem] flex items-center justify-center text-2xl font-black shadow-inner">${h.nombre.charAt(0)}</div>
+                            <div class="flex-1">
+                                <h3 class="font-black text-xl leading-none shimmer-text mb-1">${h.nombre}</h3>
+                                <p class="text-[9px] font-bold text-yellow-600 uppercase tracking-widest">Tesoro de Dios</p>
+                            </div>
+                            <button onclick="window.enviarWhatsApp('${h.nombre}')" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-xl"></i></button>
+                        </div>
+                        <div id="oraciones-${id}" class="space-y-4 mb-8"></div>
+                        <button onclick="window.abrirModal('${id}', '${h.nombre}')" class="w-full bg-slate-50 text-adventist-blue py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-widest border-2 border-dashed border-slate-200 hover:bg-yellow-50 transition-all">
+                            🎁 Regalar una Oración
+                        </button>`;
+                    lista.appendChild(card);
+                    vincularOraciones(id);
+                });
+            }
+        }
+
+        function vincularOraciones(id) {
+            const q = query(collection(db, "oraciones"), where("idCumple", "==", id), orderBy("fecha", "asc"));
+            onSnapshot(q, (s) => {
+                const box = document.getElementById(`oraciones-${id}`);
+                if (!box) return;
+                box.innerHTML = "";
+                s.forEach(doc => {
+                    const o = doc.data();
+                    box.innerHTML += `
+                        <div class="bg-slate-50/50 p-4 rounded-2xl border-l-4 border-adventist-blue animate__animated animate__fadeInLeft">
+                            <p class="text-[9px] font-black text-adventist-blue uppercase mb-1">${o.autor}</p>
+                            <p class="text-[12px] text-slate-600 italic">"${o.texto}"</p>
+                        </div>`;
+                });
+            });
+        }
+        cargarMuro();
+    </script>
+    <script>
+
+    window.mostrarInfoIglesia = () => {
+    Swal.fire({
+        title: '<span class="adventist-blue">IASD LIMACHE</span>',
+        html: `
+            <div class="text-left text-sm space-y-3 p-2">
+                <p>📍 <b>Dirección:</b> Calle Carrera # 131, Limache.</p>
+                <p>⏰ <b>Sábados:</b> 09:30 hrs - Escuela Sabática</p>
+                <p>🙏 <b>Miércoles:</b> 19:00 hrs - Culto de Oración</p>
+            </div>
+        `,
+        icon: 'info',
+        confirmButtonColor: '#00305e',
+        confirmButtonText: '¡GRACIAS!',
+        customClass: { popup: 'rounded-[2.5rem]' }
+    });
+};
+    </script>
+
+    <nav
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-[#00305e]/90 backdrop-blur-lg h-16 rounded-3xl shadow-2xl z-[1000] border border-white/20 flex items-center justify-around px-6">
+
+        <a href="index.html" class="flex flex-col items-center text-yellow-400 hover:scale-110 transition-transform">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Inicio</span>
+        </a>
+
+        <a href="avisos.html"
+            class="flex flex-col items-center text-white/70 hover:text-yellow-400 hover:scale-110 transition-transform">
+            <i class="fas fa-scroll text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Avisos</span>
+        </a>
+
+        <button onclick="mostrarInfoIglesia()"
+            class="flex flex-col items-center text-white/70 hover:text-yellow-400 hover:scale-110 transition-transform">
+            <i class="fas fa-map-marker-alt text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1 tracking-tighter">Iglesia</span>
+        </button>
+
+    </nav>
+</body>
+
+</html>
