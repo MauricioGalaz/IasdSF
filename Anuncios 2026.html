@@ -22,10 +22,59 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .bg-adventist-blue {
+            background-color: #004C97;
+        }   
+        nav a:hover {
+            color: #fec325;
+        }
+        .bg-adventist-gold {
+            background-color: #fec325;
+            margin-top: 0%;
+            margin-bottom: 0%;
+            margin-left: 0%;
+            margin-right: 0%;
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center p-4">
+    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
+                </div>
+
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
+            </a>
+
+            <button id="menu-btn" class="md:hidden text-2xl p-2">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="hidden md:flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
+                <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
+                <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
+                <a href="contactoaviso.html"
+                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full hover:bg-white transition">Contacto</a>
+            </div>
+        </div>
+
+        <div id="mobile-menu"
+            class="md:hidden bg-adventist-blue px-4 flex flex-col gap-4 font-bold text-center border-t border-white/10">
+            <a href="index.html" class="py-2 border-b border-white/5">Inicio</a>
+            <a href="cronograma.html" class="py-2 border-b border-white/5">Cronograma</a>
+            <a href="contactoaviso.html" class="py-2 text-adventist-gold">Contacto</a>
+        </div>
+    </nav>
 
     <div class="max-w-2xl w-full card-glass p-8 rounded-3xl shadow-2xl">
         <div class="text-center mb-8">
