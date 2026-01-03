@@ -5,17 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anuncios 2026 - IASD San Francisco de Limache</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
             background-color: #0f172a;
             color: white;
             font-family: 'Inter', sans-serif;
-        }
-
-        .adventist-blue {
-            background-color: #004C97;
         }
 
         .card-glass {
@@ -28,15 +26,14 @@
             background-color: #004C97;
         }
 
-        nav a:hover {
-            color: #fec325;
-        }
-
         .bg-adventist-gold {
             background-color: #fec325;
         }
 
-        /* Ajuste para que el menú móvil no salte */
+        nav a:hover {
+            color: #fec325;
+        }
+
         #mobile-menu.hidden {
             display: none;
         }
@@ -44,123 +41,128 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10 w-full">
+
+    <!-- NAV -->
+    <nav class="bg-adventist-blue sticky top-0 z-[100] shadow-2xl border-b border-white/10 w-full">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+
             <a href="index.html" class="flex items-center space-x-4 group">
-                <div class="relative">
-                    <div
-                        class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-2 sm:border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
-                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo">
-                    </div>
+                <div
+                    class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] transition-transform group-hover:scale-110">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo IASD">
                 </div>
 
-                <span
-                    class="font-black text-[10px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                <span class="font-black text-[10px] sm:text-sm uppercase tracking-[0.2em]">
                     IASD San Francisco<br>
-                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                    <span class="text-[#fec325]">de Limache</span>
                 </span>
             </a>
 
-            <button id="menu-btn" class="md:hidden text-2xl p-2 focus:outline-none">
+            <button id="menu-btn" class="md:hidden text-2xl">
                 <i class="fas fa-bars"></i>
             </button>
 
-            <div class="hidden md:flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
-                <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
-                <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
+            <div class="hidden md:flex gap-6 font-bold text-xs uppercase tracking-widest">
+                <a href="index.html">Inicio</a>
+                <a href="cronograma.html">Cronograma</a>
                 <a href="contactoaviso.html"
-                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full hover:bg-white transition">Contacto</a>
+                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full">Contacto</a>
             </div>
         </div>
 
         <div id="mobile-menu"
-            class="hidden md:hidden bg-adventist-blue px-4 flex flex-col gap-4 font-bold text-center border-t border-white/10 pb-4">
+            class="hidden md:hidden bg-adventist-blue px-4 flex flex-col gap-4 text-center border-t border-white/10 pb-4">
             <a href="index.html" class="py-3 border-b border-white/5">Inicio</a>
             <a href="cronograma.html" class="py-3 border-b border-white/5">Cronograma</a>
-            <a href="contactoaviso.html" class="py-3 text-adventist-gold">Contacto</a>
+            <a href="contactoaviso.html" class="py-3 text-[#fec325]">Contacto</a>
         </div>
     </nav>
 
+    <!-- MAIN -->
     <main class="flex-grow flex items-center justify-center p-4 py-12">
         <div class="max-w-2xl w-full card-glass p-8 rounded-[2.5rem] shadow-2xl">
+
+            <!-- HEADER -->
             <div class="text-center mb-8">
-                <div
-                    class="bg-adventist-blue w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <i class="fas fa-broadcast-tower text-3xl text-white"></i>
+                <div class="bg-adventist-blue w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-broadcast-tower text-3xl"></i>
                 </div>
-                <h1 class="text-3xl font-black tracking-tight uppercase">COMUNICACIÓN 2026</h1>
+                <h1 class="text-3xl font-black uppercase">Comunicación 2026</h1>
                 <p class="text-blue-300 font-bold text-sm">IASD San Francisco de Limache</p>
-                <p class="text-xs mt-2 text-gray-400 italic">"Proclamando el evangelio con orden y excelencia"</p>
             </div>
 
+            <!-- FORM -->
             <form id="formAvisosLideres" class="space-y-6">
+
+                <!-- MANUAL CENTRADO -->
+                <div class="flex justify-center mb-6">
+                    <div class="relative group">
+                        <div class="h-20 w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325]
+                                shadow-[0_0_20px_rgba(254,195,37,0.5)]
+                                transition-transform group-hover:scale-110">
+                            <a href="https://f000.backblazeb2.com/file/deptos/secretaria/manual-iasd/2025/manual_de_la_iglesia_2025.pdf"
+                                target="_blank">
+                                <img src="imagenes/manual.jpg" class="h-full w-full object-cover"
+                                    alt="Manual Iglesia IASD">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-400 text-center mb-6">
+                    Manual de la Iglesia – IASD 2025
+                </p>
+
+                <!-- DEPARTAMENTO -->
                 <div>
-                    <label
-                        class="block text-xs font-black uppercase tracking-widest mb-2 ml-1 text-gray-400">Departamento</label>
+                    <label class="block text-xs uppercase mb-2 text-gray-400">Departamento</label>
                     <select id="departamento" required
-                        class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl font-bold text-white outline-none focus:ring-2 focus:ring-[#fec325] appearance-none">
+                        class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white">
                         <option value="">Seleccione Departamento...</option>
-                        <option value="ANC25">ANCIANATO</option>
+                        <option value="SEC25">SECRETARÍA</option>
                         <option value="JA25">MINISTERIO JOVEN</option>
                         <option value="PUB25">PUBLICACIONES</option>
-                        <option value="MM25">MINISTERIO MUJER</option>
                         <option value="SALUD25">SALUD</option>
-                        <option value="MIDEA25">MIDEA</option>
-                        <option value="SABAT25">ESCUELA SABÁTICA</option>
-                        <option value="SEC25">SECRETARÍA</option>
-                        <option value="TESO25">TESORERÍA</option>
-                        <option value="ORAC25">ORACIÓN INTERCESORA</option>
+                        <option value="MUJER25">MINISTERIO DE LA MUJER</option>
+                        <option value="MUSICA25">MINISTERIO DE MUSICA</option>
                     </select>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-black uppercase tracking-widest mb-2 ml-1 text-gray-400">Nombre
-                            del Líder</label>
-                        <input type="text" id="lider" required placeholder="Ej: Juan Pérez"
-                            class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-[#fec325]">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black uppercase tracking-widest mb-2 ml-1 text-gray-400">Clave
-                            de Acceso</label>
-                        <input type="password" id="clave" required placeholder="Ingrese Clave"
-                            class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-[#fec325]">
-                    </div>
+                <!-- NOMBRE Y CLAVE -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" id="lider" required placeholder="Nombre del Líder"
+                        class="bg-slate-900/50 p-4 rounded-2xl border border-white/10">
+                    <input type="password" id="clave" required placeholder="Clave de acceso"
+                        class="bg-slate-900/50 p-4 rounded-2xl border border-white/10">
                 </div>
 
-                <div>
-                    <label class="block text-xs font-black uppercase tracking-widest mb-2 ml-1 text-gray-400">Detalle
-                        del Anuncio</label>
-                    <textarea id="anuncio" rows="4" required
-                        placeholder="Escriba aquí la fecha, hora y lugar de la actividad..."
-                        class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-[#fec325] resize-none"></textarea>
+                <!-- MENSAJE -->
+                <textarea id="anuncio" rows="4" required placeholder="Detalle del anuncio..."
+                    class="w-full bg-slate-900/50 p-4 rounded-2xl border border-white/10 resize-none"></textarea>
+
+                <!-- INFO -->
+                <div class="bg-blue-900/20 p-4 rounded-2xl text-xs flex items-center gap-3">
+                    <i class="fas fa-clock text-lg"></i>
+                    <span>Recepción hasta <strong>jueves 20:00 hrs</strong></span>
                 </div>
 
-                <div
-                    class="bg-blue-900/20 p-4 rounded-2xl border border-blue-500/30 text-xs text-blue-200 flex items-center">
-                    <i class="fas fa-clock mr-3 text-lg"></i>
-                    <span>Plazo máximo de recepción: <strong>Jueves 20:00 hrs.</strong></span>
-                </div>
-
-                <button type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 p-5 rounded-2xl font-black uppercase tracking-widest transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl">
-                    ENVIAR SOLICITUD DE ANUNCIO
+                <!-- BOTÓN -->
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-5 rounded-2xl font-black uppercase">
+                    Enviar anuncio
                 </button>
+
             </form>
 
-            <div id="mensajeExito" class="hidden text-center p-8 animate-bounce">
-                <div class="text-green-400 text-6xl mb-4"><i class="fas fa-check-circle"></i></div>
-                <h2 class="text-2xl font-bold text-white uppercase">¡Enviado con éxito!</h2>
-                <p class="text-gray-400 mt-2">El equipo de Media procesará tu anuncio. Bendiciones.</p>
-                <button onclick="location.reload()"
-                    class="mt-6 text-[#fec325] font-black uppercase text-xs tracking-widest underline">Enviar otro
-                    anuncio</button>
+            <!-- ÉXITO -->
+            <div id="mensajeExito" class="hidden text-center p-8">
+                <i class="fas fa-check-circle text-green-400 text-6xl mb-4"></i>
+                <h2 class="text-2xl font-bold">¡Enviado con éxito!</h2>
             </div>
+
         </div>
     </main>
 
     <script>
-        // Lógica del Menú Móvil
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -168,38 +170,14 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Lógica del Formulario
         document.getElementById('formAvisosLideres').addEventListener('submit', function (e) {
             e.preventDefault();
-
-            const deptSelect = document.getElementById('departamento');
-            const deptCodigo = deptSelect.value;
-            const deptNombre = deptSelect.options[deptSelect.selectedIndex].text;
-            const lider = document.getElementById('lider').value;
-            const clave = document.getElementById('clave').value;
-            const mensaje = document.getElementById('anuncio').value;
-
-            if (clave !== deptCodigo) {
-                alert('❌ La clave no coincide con el departamento.');
-                return;
-            }
-
-            const nuevoAviso = {
-                id: Date.now(),
-                departamento: deptNombre,
-                lider: lider,
-                mensaje: mensaje,
-                fecha: new Date().toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit' })
-            };
-
-            let avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
-            avisos.unshift(nuevoAviso);
-            localStorage.setItem('avisosIglesia', JSON.stringify(avisos));
 
             this.classList.add('hidden');
             document.getElementById('mensajeExito').classList.remove('hidden');
         });
     </script>
+
 </body>
 
 </html>

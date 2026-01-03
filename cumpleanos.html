@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,73 +8,47 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;700&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 
     <style>
-        body {
-            background: #f8fafc;
-            font-family: 'Open Sans', sans-serif;
-            overflow-x: hidden;
+        body { background: #f8fafc; font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
+        .card-modern { background: white; border-radius: 3rem; box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.15); border: 1px solid rgba(255, 255, 255, 0.7); position: relative; z-index: 10; }
+
+        /* ARREGLO FINAL MESES: Scroll horizontal garantizado */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar {
+            display: flex !important;
+            overflow-x: auto !important;
+            gap: 10px;
+            padding: 15px 10px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
         }
 
-        .adventist-blue {
+        .filter-btn {
+            flex-shrink: 0 !important; /* BLOQUEA EL TAMAÑO PARA QUE NO SE CORTE EN MAYO */
+            border: 2px solid #00305e;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
             color: #00305e;
-        }
-
-        .bg-adventist-blue {
-            background-color: #00305e;
-        }
-
-        .shimmer-text {
-            background: linear-gradient(to right, #00305e 20%, #fec325 40%, #fec325 60%, #00305e 80%);
-            background-size: 200% auto;
-            background-clip: text;
-            text-fill-color: transparent;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        .floating-element {
-            position: absolute;
-            bottom: -100px;
-            animation: floatUp 10s linear infinite;
-            opacity: 0.6;
-            font-size: 24px;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-110vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        .card-modern {
             background: white;
-            border-radius: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: 0.2s;
         }
+        .filter-btn.active { background: #00305e; color: #fec325; border-color: #fec325; }
 
-        #listaCumple {
-            padding-bottom: 100px;
-        }
+        /* GLOBOS Y REGALOS */
+        .floating-element { position: absolute; bottom: -100px; animation: floatUp 10s linear infinite; opacity: 0.6; font-size: 24px; z-index: 1; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; } }
+        
+        #listaCumple { padding-bottom: 150px; position: relative; z-index: 10; }
     </style>
 </head>
 
@@ -85,11 +58,9 @@
         <source src="audios/un_ano_mas.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="celebration-container" class="fixed inset-0 pointer-events-none overflow-hidden hidden z-0">
-        <div class="floating-element" style="left:5%; color:#fec325; animation-delay:0s"><i
-                class="fas fa-balloon"></i>🎈</div>
-        <div class="floating-element" style="left:15%; color:#00305e; animation-delay:2s"><i
-                class="fas fa-balloon"></i>🎈</div>
+    <div id="celebration-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="floating-element" style="left:5%; color:#fec325; animation-delay:0s">🎈</div>
+        <div class="floating-element" style="left:15%; color:#00305e; animation-delay:2s">🎈</div>
         <div class="floating-element" style="left:35%; animation-delay:1s">🎁</div>
         <div class="floating-element" style="left:55%; animation-delay:4s">🎁</div>
         <div class="floating-element" style="left:75%; animation-delay:6s">🎁</div>
@@ -98,218 +69,133 @@
 
     <div class="max-w-xl mx-auto relative z-10">
         <header class="text-center mb-12">
-            <div class="inline-block bg-white p-5 rounded-[2rem] shadow-xl mb-6 animate__animated animate__fadeInDown">
+            <div class="inline-block bg-white p-5 rounded-[2rem] shadow-xl mb-6">
                 <i class="fas fa-church text-[#00305e] text-3xl"></i>
             </div>
-            <h1 class="text-4xl font-black adventist-blue uppercase tracking-tighter leading-none">
+            <h1 class="text-4xl font-black text-[#00305e] uppercase tracking-tighter leading-none">
                 Muro de <br><span class="text-[#fec325]">Cumpleaños</span>
             </h1>
-            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-3">IASD San francisco de
-                Limache</p>
+            
+            <div class="mt-8 no-scrollbar">
+                <button onclick="filtrarMuro(0)" id="btn-filtro-0" class="filter-btn active">Todos</button>
+                <button onclick="filtrarMuro(1)" id="btn-filtro-1" class="filter-btn">Ene</button>
+                <button onclick="filtrarMuro(2)" id="btn-filtro-2" class="filter-btn">Feb</button>
+                <button onclick="filtrarMuro(3)" id="btn-filtro-3" class="filter-btn">Mar</button>
+                <button onclick="filtrarMuro(4)" id="btn-filtro-4" class="filter-btn">Abr</button>
+                <button onclick="filtrarMuro(5)" id="btn-filtro-5" class="filter-btn">May</button>
+                <button onclick="filtrarMuro(6)" id="btn-filtro-6" class="filter-btn">Jun</button>
+                <button onclick="filtrarMuro(7)" id="btn-filtro-7" class="filter-btn">Jul</button>
+                <button onclick="filtrarMuro(8)" id="btn-filtro-8" class="filter-btn">Ago</button>
+                <button onclick="filtrarMuro(9)" id="btn-filtro-9" class="filter-btn">Sep</button>
+                <button onclick="filtrarMuro(10)" id="btn-filtro-10" class="filter-btn">Oct</button>
+                <button onclick="filtrarMuro(11)" id="btn-filtro-11" class="filter-btn">Nov</button>
+                <button onclick="filtrarMuro(12)" id="btn-filtro-12" class="filter-btn">Dic</button>
+            </div>
         </header>
 
         <div class="card-modern p-8 mb-10">
-            <h2 class="adventist-blue font-black text-[11px] uppercase mb-6 tracking-widest flex items-center">
+            <h2 class="text-[#00305e] font-black text-[11px] uppercase mb-6 tracking-widest flex items-center">
                 <span class="w-8 h-1 bg-[#fec325] mr-3 rounded-full"></span> Registrar Cumpleaños
             </h2>
             <div class="space-y-4">
-                <input type="text" id="nombreC" placeholder="Nombre completo"
-                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold adventist-blue outline-none border-2 border-transparent focus:border-[#fec325] transition-all">
-                <input type="date" id="fechaC"
-                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold adventist-blue outline-none border-2 border-transparent focus:border-[#fec325] transition-all">
-                <button id="btnGuardar"
-                    class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl active:scale-95 transition-all">
-                    Guardar en el Libro 📖
-                </button>
+                <input type="text" id="nombreC" placeholder="Nombre completo" class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
+                <input type="date" id="fechaC" class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
+                <button id="btnGuardar" class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs shadow-lg">Guardar Registro 📖</button>
             </div>
         </div>
 
-        <div id="seccionHoy" class="space-y-6">
-            <div class="flex items-center justify-between px-4">
-                <h2 class="adventist-blue font-black text-xs uppercase tracking-widest">✨ Celebrados de hoy</h2>
-                <span class="bg-[#fec325] text-[#00305e] text-[9px] px-3 py-1 rounded-full font-bold shadow-sm">MES:
-                    <span id="countMes">0</span></span>
-            </div>
-            <div id="listaCumple" class="space-y-8"></div>
+        <div id="listaCumple" class="space-y-8">
+            <p class="text-center text-slate-400 font-bold uppercase text-[10px]">Cargando hermanos...</p>
         </div>
     </div>
 
-    <div id="modalOracion"
-        class="hidden fixed inset-0 bg-[#00305e]/90 backdrop-blur-md z-[200] flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-[3.5rem] p-10 shadow-2xl animate__animated animate__backInUp">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-gift text-3xl text-[#fec325]"></i>
-                </div>
-                <h2 class="text-2xl font-black text-[#00305e] uppercase leading-none">Regalar Oración</h2>
-                <p id="targetNombre" class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-2"></p>
-            </div>
-            <div class="space-y-4">
-                <input type="text" id="modalAutor" placeholder="Tu nombre"
-                    class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
-                <textarea id="modalTexto" placeholder="Tu mensaje de bendición..." rows="3"
-                    class="w-full bg-slate-100 p-5 rounded-2xl font-bold text-[#00305e] outline-none resize-none border-2 border-transparent focus:border-[#fec325]"></textarea>
-            </div>
-            <input type="hidden" id="modalIdCumple">
-            <div class="flex flex-col gap-3 mt-8">
-                <button id="btnEnviarOracion"
-                    class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-all">Enviar
-                    a los Cielos 🙏</button>
-                <button id="btnCerrarModal"
-                    class="w-full py-2 text-slate-400 font-bold uppercase text-[9px] tracking-widest">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <button id="btnMusica"
-        class="fixed bottom-24 right-6 w-16 h-16 bg-[#fec325] text-[#00305e] rounded-full shadow-2xl z-[150] flex items-center justify-center border-4 border-white hidden animate-pulse">
-        <i id="iconMusica" class="fas fa-play text-xl"></i>
+    <button id="btnMusicaControl" class="fixed bottom-28 right-6 w-14 h-14 bg-white text-[#00305e] rounded-full shadow-2xl z-[150] flex items-center justify-center border-2 border-[#00305e]">
+        <i id="iconMusica" class="fas fa-play"></i>
     </button>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, onSnapshot, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-            authDomain: "iasd-limache-muro.firebaseapp.com",
             projectId: "iasd-limache-muro",
-            storageBucket: "iasd-limache-muro.firebasestorage.app",
             appId: "1:277039117234:web:65f4e76064935cadabaaab"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        let unsubscribeMuro = null;
 
-        // --- AUDIO ---
+        // MÚSICA
         const audio = document.getElementById('audioCumple');
-        const btnM = document.getElementById('btnMusica');
         const iconM = document.getElementById('iconMusica');
-        let playOk = false;
-
-        window.iniciarMusicaAuto = () => {
-            if (!playOk) {
-                audio.play().then(() => { playOk = true; iconM.className = 'fas fa-pause'; }).catch(() => { });
-            }
-        };
-
-        btnM.onclick = (e) => {
+        window.iniciarMusicaAuto = () => { if(audio.paused) { audio.play().then(() => iconM.className = 'fas fa-pause'); } };
+        document.getElementById('btnMusicaControl').onclick = (e) => {
             e.stopPropagation();
             if (audio.paused) { audio.play(); iconM.className = 'fas fa-pause'; }
             else { audio.pause(); iconM.className = 'fas fa-play'; }
         };
 
-        // --- WHATSAPP ---
-        window.enviarWhatsApp = (nombre) => {
-            const promesas = [
-                "📖 *Salmo 20:4*: 'Que el Señor te conceda los deseos de tu corazón.'",
-                "📖 *Números 6:24*: 'Jehová te bendiga, y te guarde siempre.'",
-                "📖 *3 Juan 1:2*: 'Amado, deseo que seas prosperado en todas las cosas y tengas salud.'"
-            ];
-            const cita = promesas[Math.floor(Math.random() * promesas.length)];
-            const mensaje = `✨ *CELEBRACIÓN DE VIDA* ✨\n━━━━━━━━━━━━━━━━━━━━\n🎁 ¡Feliz Cumpleaños!\nHno(a). *${nombre.toUpperCase()}*\n\n${cita}\n\n🙏 *¡Tu iglesia te regala una oración hoy!*\n━━━━━━━━━━━━━━━━━━━━\n🎵 _"Un año más Cristo te dio..."_`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, "_blank");
+        // FILTRO Y CARGA
+        window.filtrarMuro = (mes) => {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-filtro-${mes}`).classList.add('active');
+            cargarMuro(mes);
         };
 
-        // --- ELIMINAR REGISTRO ---
-        window.eliminarRegistro = async (id, nombre) => {
-            const { value: pass } = await Swal.fire({
-                title: 'Seguridad',
-                text: `Para eliminar a ${nombre}, ingresa la contraseña:`,
-                input: 'password',
-                confirmButtonColor: '#00305e',
-                showCancelButton: true
-            });
-
-            if (pass === "iasdsf") {
-                await deleteDoc(doc(db, "cumpleanos", id));
-                Swal.fire('Eliminado', '', 'success').then(() => location.reload());
-            } else if (pass) {
-                Swal.fire('Error', 'Contraseña incorrecta', 'error');
-            }
-        };
-
-        // --- MODAL ORACIÓN ---
-        window.abrirModal = (id, nombre) => {
-            document.getElementById('modalIdCumple').value = id;
-            document.getElementById('targetNombre').innerText = "PARA: " + nombre.toUpperCase();
-            document.getElementById('modalOracion').classList.remove('hidden');
-        };
-
-        document.getElementById('btnCerrarModal').onclick = () => document.getElementById('modalOracion').classList.add('hidden');
-
-        document.getElementById('btnEnviarOracion').onclick = async () => {
-            const id = document.getElementById('modalIdCumple').value;
-            const aut = document.getElementById('modalAutor').value;
-            const txt = document.getElementById('modalTexto').value;
-            if (!aut || !txt) return;
-            try {
-                await addDoc(collection(db, "oraciones"), { idCumple: id, autor: aut, texto: txt, fecha: serverTimestamp() });
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00305e', '#fec325'] });
-                Swal.fire({ title: '¡Amén!', icon: 'success' });
-                document.getElementById('modalOracion').classList.add('hidden');
-            } catch (e) { }
-        };
-
-        // --- CARGAR MURO ---
-        async function cargarMuro() {
-            const hoy = new Date();
-            const dHoy = hoy.getDate();
-            const mHoy = hoy.getMonth() + 1;
-
-            const qMes = query(collection(db, "cumpleanos"), where("mes", "==", mHoy));
-            const snapMes = await getDocs(qMes);
-            document.getElementById('countMes').innerText = snapMes.size;
-
-            const q = query(collection(db, "cumpleanos"), where("dia", "==", dHoy), where("mes", "==", mHoy));
-            const snap = await getDocs(q);
+        async function cargarMuro(mesFiltro = 0) {
+            if (unsubscribeMuro) unsubscribeMuro();
             const lista = document.getElementById('listaCumple');
-            lista.innerHTML = "";
+            const dHoy = new Date().getDate();
+            const mHoy = new Date().getMonth() + 1;
 
-            if (snap.empty) {
-                lista.innerHTML = "<div class='text-center p-16 bg-white rounded-[3rem] shadow-sm'><p class='text-slate-300 font-bold uppercase text-[10px] tracking-widest'>No hay cumpleaños hoy</p></div>";
-            } else {
-                btnM.classList.remove('hidden');
-                document.getElementById('celebration-container').classList.remove('hidden');
+            // Filtro dinámico compatible con Texto o Números en Firebase
+            let q = query(collection(db, "cumpleanos"), orderBy("nombre", "asc"));
+
+            unsubscribeMuro = onSnapshot(q, (snap) => {
+                lista.innerHTML = "";
+                let hayDatos = false;
+
                 snap.forEach(docSnap => {
                     const h = docSnap.data();
                     const id = docSnap.id;
+                    const mesDb = Number(h.mes);
+                    const filtroNum = Number(mesFiltro);
+
+                    if (filtroNum !== 0 && mesDb !== filtroNum) return;
+                    hayDatos = true;
+                    
+                    const esHoy = (Number(h.dia) === dHoy && mesDb === mHoy);
+
                     const card = document.createElement('div');
-                    card.className = "card-modern p-8 animate__animated animate__fadeInUp border-b-8 border-yellow-400";
+                    card.className = `card-modern p-8 animate__animated animate__fadeInUp border-b-8 ${esHoy ? 'border-red-500 scale-105 shadow-2xl' : 'border-yellow-400'} mb-6`;
                     card.innerHTML = `
-                        <div class="flex items-center gap-5 mb-8">
-                            <div class="w-16 h-16 bg-adventist-blue text-yellow-400 rounded-[1.5rem] flex items-center justify-center text-2xl font-black shadow-inner">${h.nombre.charAt(0)}</div>
-                            <div class="flex-1">
-                                <h3 class="font-black text-xl leading-none shimmer-text mb-1">${h.nombre}</h3>
-                                <p class="text-[9px] font-bold text-yellow-600 uppercase tracking-widest">Tesoro de Dios</p>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-5">
+                                <div class="w-14 h-14 bg-[#00305e] text-yellow-400 rounded-2xl flex items-center justify-center text-xl font-black">${h.nombre.charAt(0).toUpperCase()}</div>
+                                <div><h3 class="font-black text-slate-800">${h.nombre}</h3><p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">${h.dia}/${h.mes}</p></div>
                             </div>
-                            <div class="flex gap-2">
-                                <button onclick="window.eliminarRegistro('${id}', '${h.nombre}')" class="w-10 h-10 text-slate-200 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button>
-                                <button onclick="window.enviarWhatsApp('${h.nombre}')" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-xl"></i></button>
-                            </div>
+                            <button onclick="confirmarEliminar('${id}', '${h.nombre}')" class="text-slate-200 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt text-xl"></i></button>
                         </div>
-                        <div id="oraciones-${id}" class="space-y-4 mb-8"></div>
-                        <button onclick="window.abrirModal('${id}', '${h.nombre}')" class="w-full bg-slate-50 text-adventist-blue py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-widest border-2 border-dashed border-slate-200 hover:bg-yellow-50 transition-all">
-                            🎁 Regalar una Oración
-                        </button>`;
+                        <div id="oraciones-${id}" class="space-y-3 mb-6"></div>
+                        <button onclick="abrirModal('${id}', '${h.nombre}')" class="w-full bg-slate-50 text-[#00305e] py-4 rounded-2xl font-black text-[9px] uppercase tracking-widest border-2 border-dashed border-slate-200">🎁 Regalar Oración</button>
+                    `;
                     lista.appendChild(card);
                     vincularOraciones(id);
                 });
-            }
-            // --- LÓGICA PARA AUTO-ABRIR MODAL DESDE INICIO ---
-            const urlParams = new URLSearchParams(window.location.search);
-            const felicitarId = urlParams.get('felicitar');
-
-            if (felicitarId) {
-                // Buscamos el documento en el snapshot que ya cargamos
-                const docEncontrado = snap.docs.find(d => d.id === felicitarId);
-                if (docEncontrado) {
-                    const datos = docEncontrado.data();
-                    // Llamamos a la función que ya tienes para abrir el modal
-                    window.abrirModal(felicitarId, datos.nombre);
-                }
-            }
+                if(!hayDatos) lista.innerHTML = "<p class='text-center text-slate-400 p-10'>No hay registros para este mes.</p>";
+            });
         }
+
+        // ELIMINAR iasdsf
+        window.confirmarEliminar = async (id, nombre) => {
+            const { value: pass } = await Swal.fire({ title: 'Seguridad', text: `Borrar a ${nombre}:`, input: 'password', confirmButtonColor: '#00305e', showCancelButton: true });
+            if (pass === "iasdsf") {
+                await deleteDoc(doc(db, "cumpleanos", id));
+                Swal.fire('Eliminado', '', 'success');
+            }
+        };
 
         function vincularOraciones(id) {
             const q = query(collection(db, "oraciones"), where("idCumple", "==", id), orderBy("fecha", "asc"));
@@ -317,46 +203,93 @@
                 const box = document.getElementById(`oraciones-${id}`);
                 if (!box) return;
                 box.innerHTML = "";
-                s.forEach(doc => {
-                    const o = doc.data();
-                    box.innerHTML += `<div class="bg-slate-50/50 p-4 rounded-2xl border-l-4 border-adventist-blue animate__animated animate__fadeInLeft"><p class="text-[9px] font-black text-adventist-blue uppercase mb-1">${o.autor}</p><p class="text-[12px] text-slate-600 italic">"${o.texto}"</p></div>`;
+                s.forEach(d => {
+                    const o = d.data();
+                    box.innerHTML += `<div class="bg-slate-50 p-3 rounded-xl border-l-4 border-[#00305e]"><p class="text-[8px] font-black uppercase mb-1">${o.autor}</p><p class="text-[11px] text-slate-600 italic">"${o.texto}"</p></div>`;
                 });
             });
         }
 
-        document.getElementById('btnGuardar').onclick = async () => {
-            const nom = document.getElementById('nombreC').value;
-            const fec = document.getElementById('fechaC').value;
-            if (!nom || !fec) return;
-            const d = new Date(fec + "T00:00:00");
-            await addDoc(collection(db, "cumpleanos"), { nombre: nom, dia: d.getDate(), mes: d.getMonth() + 1, fechaRegistro: serverTimestamp() });
-            Swal.fire({ title: '¡Anotado!', icon: 'success' }).then(() => location.reload());
+        window.abrirModal = (id, nombre) => {
+            document.getElementById('modalIdCumple').value = id;
+            document.getElementById('modalOracion').classList.remove('hidden');
         };
 
-        cargarMuro();
+        document.getElementById('btnEnviarOracion').onclick = async () => {
+            const id = document.getElementById('modalIdCumple').value;
+            const aut = document.getElementById('modalAutor').value;
+            const txt = document.getElementById('modalTexto').value;
+            if (!aut || !txt) return;
+            await addDoc(collection(db, "oraciones"), { idCumple: id, autor: aut, texto: txt, fecha: serverTimestamp() });
+            Swal.fire({ title: '¡Amén!', icon: 'success' });
+            document.getElementById('modalOracion').classList.add('hidden');
+        };
+
+        document.getElementById('btnGuardar').onclick = async () => {
+            const n = document.getElementById('nombreC').value;
+            const f = document.getElementById('fechaC').value;
+            if(!n || !f) return;
+            const d = new Date(f + "T00:00:00");
+            await addDoc(collection(db, "cumpleanos"), { nombre: n, dia: d.getDate(), mes: d.getMonth() + 1 });
+            Swal.fire('¡Registrado!', '', 'success');
+        };
+
+
+        cargarMuro(0);
     </script>
+    <!-- NAVBAR INFERIOR -->
+        <div class="card-modern p-6 mt-10 text-center">
+    <h3 class="font-black text-[#00305e] uppercase text-xs tracking-widest mb-4">
+        Escanea y Registra tu Cumpleaños
+    </h3>
+
+    <div id="qrCumple" class="flex justify-center mb-6"></div>
+    <button onclick="descargarQRPDF()"
+    class="w-full mt-1 bg-[#fec325] text-[#00305e] py-4 rounded-2xl font-black uppercase text-xs shadow-lg btn-cumpleaños">
+    Descargar PDF con QR 📄     
+    
+
+</button>
+
+
+    <p class="text-[10px] text-slate-500 font-bold uppercase">
+        Muro de Cumpleaños – IASD Limache
+    </p>
+</div>
 
     <script>
-        window.mostrarInfoIglesia = () => {
+        window.mostrarUbi = () => {
             Swal.fire({
-                title: '<span class="adventist-blue">IASD LIMACHE</span>',
-                html: `<div class="text-left text-sm space-y-3 p-2"><p>📍 <b>Dirección:</b> Calle Carrera # 131, Limache.</p><p>⏰ <b>Sábados:</b> 09:30 hrs</p><p>🙏 <b>Miércoles:</b> 19:00 hrs</p></div>`,
-                confirmButtonColor: '#00305e',
-                confirmButtonText: '¡GRACIAS!'
+                title: '<span style="color:#00305e; font-weight:900">IASD LIMACHE</span>',
+                html: `
+                <div class="rounded-3xl overflow-hidden mb-4 border">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.8718872225433!2d-71.26442652432822!3d-33.00713797356612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689d0a6316279f7%3A0xc3457581298818f2!2sCarrera%20131%2C%20Limache%2C%20Valpara%C3%ADso!5e0!3m2!1ses!2scl!4v1700000000000" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-bold text-slate-700">Calle Carrera #131, San Francisco de Limache.</p>`,
+                confirmButtonColor: '#00305e'
             });
         };
     </script>
 
-    <nav
-        class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-[#00305e]/90 backdrop-blur-lg h-16 rounded-3xl shadow-2xl z-[1000] border border-white/20 flex items-center justify-around px-6">
-        <a href="index.html" class="flex flex-col items-center text-yellow-400"><i class="fas fa-home text-xl"></i><span
-                class="text-[8px] font-black uppercase mt-1">Inicio</span></a>
-        <a href="avisos.html" class="flex flex-col items-center text-white/70"><i
-                class="fas fa-scroll text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Avisos</span></a>
-        <button onclick="mostrarInfoIglesia()" class="flex flex-col items-center text-white/70"><i
-                class="fas fa-map-marker-alt text-xl"></i><span
-                class="text-[8px] font-black uppercase mt-1">Iglesia</span></button>
+    <div id="modalOracion" class="hidden"></div> <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#00305e]/95 backdrop-blur-xl h-18 rounded-[2.5rem] shadow-2xl z-[1000] flex items-center justify-around px-4 py-2">
+        <a href="index.html" class="flex flex-col items-center text-yellow-400"><i class="fas fa-home text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Inicio</span></a>
+        <button onclick="mostrarUbi()" class="flex flex-col items-center text-white/70"><i class="fas fa-map-marker-alt text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Iglesia</span></button>
+        <a href="avisos.html" class="flex flex-col items-center text-white/70"><i class="fas fa-bullhorn text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Avisos</span></a>
     </nav>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script>
+    const urlWeb = window.location.href;
+
+    new QRCode(document.getElementById("qrCumple"), {
+        text: urlWeb,
+        width: 180,
+        height: 180,
+        colorDark: "#00305e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+</script>
+
+</body>
 </html>

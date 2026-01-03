@@ -220,7 +220,7 @@
         }
 
         .btn-cumpleaños:hover {
-            animation: pulse-gold 2s infinite;
+            animation: pulse-gold 4s infinite;
         }
 
         @keyframes pulse-gold {
@@ -249,7 +249,7 @@
                     rgba(255, 255, 255, 0.4) 50%,
                     rgba(255, 255, 255, 0) 100%);
             transform: skewX(-25deg);
-            animation: shine 20s infinite;
+            animation: shine 12s infinite;
         }
 
         @keyframes shine {
@@ -391,7 +391,7 @@
         }
 
         .text-pink-600 {
-            animation: pulse-soft 3s infinite;
+            animation: pulse-soft 6s infinite;
         }
 
         /* Marquesina Deslizante Moderna */
@@ -402,6 +402,8 @@
             overflow: hidden;
             white-space: nowrap;
             border-bottom: 2px solid #fec325;
+            border-top: 2px solid #fec325;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .marquee-text {
@@ -430,8 +432,7 @@
     <div class="marquee-wrapper sticky top-0 z-[100]">
         <div class="marquee-text">
             ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Culto de Adoración • "Lámpara es a mis
-            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero •
-        </div>
+            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero • Recuerda inscribirte/ son cupos limitados •!! solo 80 cupos !! / / !! hoy Reunión de oracion a las 16:00 hrs !! / / recuerda este domingo 1era Reunión Administrativa de Junta de Iglesia desde 10:00 hrs !!      </div>
     </div>
 
     <div id="invitacion-central"
@@ -1088,6 +1089,64 @@
             setTimeout(() => modal.remove(), 500);
         }
     </script>
+    <script>
+    // Configuración de ubicación: Limache, Chile
+    const LAT = -33.0153;
+    const LNG = -71.2715;
+
+    async function actualizarEstadoBiblico() {
+    const banner = document.getElementById('banner-cumple-hoy');
+    const txtNombre = document.getElementById('nombre-cumple');
+    const txtTitulo = banner.querySelector('h2');
+
+    try {
+    // Consultamos la hora exacta de puesta de sol para Limache hoy
+    const resp = await fetch(`https://api.sunrise-sunset.org/json?lat=${LAT}&lng=${LNG}&formatted=0`);
+    const data = await resp.json();
+    const sunset = new Date(data.results.sunset);
+    const ahora = new Date();
+
+    // Si ya pasó la puesta de sol...
+    if (ahora > sunset) {
+    banner.classList.remove('hidden', 'bg-adventist-blue');
+    banner.classList.add('bg-slate-900', 'border-t-4', 'border-adventist-gold',
+    'shadow-[0_0_30px_rgba(254,195,37,0.2)]');
+
+    if (ahora.getDay() === 5) { // Es Viernes noche
+    txtTitulo.innerHTML = "✨ <span class='animate-pulse'>¡FELIZ SÁBADO!</span>";
+    txtNombre.innerHTML = "<i class='fas fa-star mr-2'></i> El séptimo día ha comenzado en Limache";
+    } else {
+    txtTitulo.innerHTML = "🌙 NUEVO DÍA BÍBLICO";
+    txtNombre.innerText = "La tarde ha caído. Iniciando una nueva jornada en Su presencia.";
+    }
+
+    // Ocultamos botones de felicitación porque el día civil ya terminó bíblicamente
+    const btn = banner.querySelector('a');
+    if (btn) btn.classList.add('hidden');
+
+    } else {
+    // Lógica de cuenta regresiva para la puesta de sol (solo los Viernes)
+    if (ahora.getDay() === 5) {
+    const dif = sunset - ahora;
+    const horas = Math.floor(dif / (1000 * 60 * 60));
+    const minutos = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Creamos un pequeño aviso de preparación
+    const avisoPrep = document.createElement('div');
+    avisoPrep.className = "text-[10px] font-black text-adventist-gold mt-2 uppercase tracking-widest";
+    avisoPrep.innerHTML = `<i class='fas fa-clock'></i> Puesta de sol en: ${horas}h ${minutos}m`;
+    banner.appendChild(avisoPrep);
+    }
+    }
+    } catch (error) {
+    console.log("Error calculando puesta de sol, usando hora estándar 20:00");
+    }
+    }
+
+    // Ejecutamos al cargar
+    actualizarEstadoBiblico();
+    setInterval(actualizarEstadoBiblico, 60000);
+    </script>
 
     <script>
         const scriptURL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT'
@@ -1333,48 +1392,50 @@
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
 
-            async function activarBannerCumpleanos() {
-                try {
-                    const hoy = new Date();
-                    const diaHoy = hoy.getDate();
-                    const mesHoy = hoy.getMonth() + 1;
+            async function activarBannerBiblico() {
+                const ahora = new Date();
+                const horaActual = ahora.getHours();
+                const diaSemana = ahora.getDay(); // 5 = Viernes, 6 = Sábado
+                const banner = document.getElementById('banner-cumple-hoy');
+                const txtNombre = document.getElementById('nombre-cumple');
+                const txtTitulo = banner.querySelector('h2');
+                const btnFelicitar = banner.querySelector('a');
 
-                    // Consultar en la colección "cumpleanos" quienes cumplen hoy
-                    const q = query(
-                        collection(db, "cumpleanos"),
-                        where("dia", "==", diaHoy),
-                        where("mes", "==", mesHoy)
-                    );
+                // --- LÓGICA DE PUESTA DE SOL (Inicio del Nuevo Día Bíblico) ---
+                // Usamos las 20:00 hrs como estándar, pero puedes ajustarlo
+                if (horaActual >= 20) {
+                    banner.classList.remove('hidden', 'bg-adventist-blue');
+                    banner.classList.add('bg-slate-900', 'border-t-4', 'border-adventist-gold');
 
-                    const querySnapshot = await getDocs(q);
-
-                    if (!querySnapshot.empty) {
-                        // Tomamos al primer cumpleañero de la lista
-                        const cumpleanero = querySnapshot.docs[0];
-                        const datos = cumpleanero.data();
-                        const idDoc = cumpleanero.id;
-
-                        // 1. Mostrar el nombre en el banner
-                        const txtNombre = document.getElementById('nombre-cumple');
-                        if (txtNombre) txtNombre.innerText = datos.nombre;
-
-                        // 2. Configurar el enlace del botón FELICITAR
-                        // Buscamos el enlace dentro del banner para ponerle el ID
-                        const banner = document.getElementById('banner-cumple-hoy');
-                        const btnFelicitar = banner.querySelector('a');
-
-                        if (btnFelicitar) {
-                            btnFelicitar.href = `cumpleanos.html?felicitar=${idDoc}`;
-                        }
-
-                        // 3. Hacer visible el banner
-                        banner.classList.remove('hidden');
-                        console.log("Cumpleañero detectado:", datos.nombre);
+                    if (diaSemana === 5) {
+                        // Es Viernes después de las 20:00 -> YA ES SÁBADO
+                        txtTitulo.innerHTML = "✨ ¡FELIZ SÁBADO!";
+                        txtNombre.innerText = "El séptimo día ha comenzado. ¡Bendiciones!";
+                        if (btnFelicitar) btnFelicitar.classList.add('hidden');
                     } else {
-                        console.log("No hay cumpleaños hoy.");
+                        // Cambio de día normal (Ej: Lunes noche ya es Martes bíblico)
+                        txtTitulo.innerHTML = "🌙 INICIO DEL NUEVO DÍA";
+                        txtNombre.innerText = "Buscando la presencia de Dios para una nueva jornada";
+                        if (btnFelicitar) btnFelicitar.classList.add('hidden');
                     }
-                } catch (error) {
-                    console.error("Error cargando cumpleañeros:", error);
+                    return;
+                }
+
+                // --- LÓGICA DE CUMPLEAÑOS (Durante el día hasta la puesta de sol) ---
+                const q = query(collection(db, "cumpleanos"),
+                    where("dia", "==", ahora.getDate()),
+                    where("mes", "==", ahora.getMonth() + 1));
+
+                const snap = await getDocs(q);
+
+                if (!snap.empty) {
+                    const cumple = snap.docs[0].data();
+                    txtTitulo.innerHTML = "🎂 CUMPLEAÑOS DE HOY";
+                    txtNombre.innerText = cumple.nombre;
+                    banner.classList.remove('hidden');
+                    if (btnFelicitar) btnFelicitar.classList.remove('hidden');
+                } else {
+                    banner.classList.add('hidden');
                 }
             }
 
