@@ -427,18 +427,34 @@
                 transform: translateX(-100%);
             }
         }
+
+        #app-header {
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            background: #00305e;
+        }
+
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        #fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            transform: translateZ(0);
+            /* evita saltos */
+        }
     </style>
 </head>
 
 <body class="font-sans text-gray-700">
-
-    <div class="marquee-wrapper sticky top-0 z-[100]">
-        <div class="marquee-text">
-            ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Culto de Adoración • "Lámpara es a mis
-            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero • Recuerda inscribirte/ son cupos
-            limitados •!! solo 80 cupos !! / / !! hoy Reunión de oracion a las 16:00 hrs !! / / recuerda este domingo
-            1era Reunión Administrativa de Junta de Iglesia desde 10:00 hrs !! </div>
-    </div>
 
     <div id="invitacion-central"
         class="fixed inset-0 z-[7000] flex items-center justify-center bg-adventist-blue/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700 p-4">
@@ -489,416 +505,442 @@
             </div>
         </div>
     </div>
+    <div class="min-h-screen flex flex-col">
+        <!-- HEADER COMPLETO -->
+        <header id="app-header" class="sticky top-0 z-[3000]">
 
-    <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-4 group">
-                <div class="relative">
-                    <div
-                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
-                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+
+            <!-- MARQUEE -->
+            <div class="marquee-wrapper h-[44px] w-full bg-adventist-blue text-white overflow-hidden flex items-center">
+                <div class="marquee-text whitespace-nowrap px-4">
+                    ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Culto de Adoración •
+                    "Lámpara es a mis pies tu palabra" • Paseo de Iglesia el 22 de febrero •
+                    ¡Hoy Reunión de oración 16:00 hrs! • Junta Administrativa domingo 10:00 hrs
+                </div>
+            </div>
+
+            <!-- NAVBAR -->
+            <nav class="bg-adventist-blue text-white shadow-lg w-full">
+
+                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+
+                    <!-- LOGO -->
+                    <a href="index.html" class="flex items-center space-x-4 group">
+                        <div
+                            class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                            <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                        </div>
+
+                        <span
+                            class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white">
+                            IASD San Francisco<br>
+                            <span class="text-[#fec325]">de Limache</span>
+                        </span>
+                    </a>
+
+                    <!-- MENU DESKTOP -->
+                    <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
+                        <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+                        <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
+                        <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
+                        <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+                        <a href="avisos.html"
+                            class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shimmer-effect">
+                            <i class="fas fa-bell"></i> Avisos
+                        </a>
                     </div>
+
+                    <!-- BOTONES -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="abrirModalApp()"
+                            class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 shimmer-effect">
+                            📱 INSTALAR APP
+                        </button>
+                        <button id="menu-button" class="lg:hidden p-2 text-xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+
                 </div>
 
-                <span
-                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
-                    IASD San Francisco<br>
-                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
-                </span>
-            </a>
-            <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
-                <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
-                <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
-                <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
-                <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-                <a href="avisos.html"
-                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shimmer-effect"><i
-                        class="fas fa-bell"></i> Avisos</a>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="abrirModalApp()"
-                    class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 shimmer-effect">📱
-                    INSTALAR APP</button>
-                <button id="menu-button" class="lg:hidden p-2 text-xl"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-        <div id="mobile-menu"
-            class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
-            <a href="#inicio">Inicio</a>
-            <a href="contactoaviso.html">Nosotros</a>
-            <a href="#horarios">Actividades</a>
-            <a href="#ministerios">Ministerios</a>
-            <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
-        </div>
-    </nav>
+                <!-- MENU MOVIL -->
+                <div id="mobile-menu"
+                    class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
+                    <a href="#inicio">Inicio</a>
+                    <a href="contactoaviso.html">Nosotros</a>
+                    <a href="#horarios">Actividades</a>
+                    <a href="#ministerios">Ministerios</a>
+                    <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
+                </div>
 
-    <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
-        <div class="bg-[#fec325] p-[2px] shadow-[0_0_20px_rgba(254,195,37,0.4)]">
-            <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="text-2xl animate-bounce">🎂</div>
-                    <div>
-                        <p class="text-white font-black uppercase tracking-tighter text-[10px] leading-none mb-1">
-                            ¡Bendiciones en tu día!
-                        </p>
-                        <p id="nombre-cumple"
-                            class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">
-                            ...
-                        </p>
+            </nav>
+        </header>
+
+        <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
+            <div class="bg-[#fec325] p-[2px] shadow-[0_0_20px_rgba(254,195,37,0.4)]">
+                <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-2xl animate-bounce">🎂</div>
+                        <div>
+                            <p class="text-white font-black uppercase tracking-tighter text-[10px] leading-none mb-1">
+                                ¡Bendiciones en tu día!
+                            </p>
+                            <p id="nombre-cumple"
+                                class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">
+                                ...
+                            </p>
+                        </div>
+                    </div>
+                    <a id="link-felicitar" href="cumpleanos.html" class="...">
+                        FELICITAR ✨
+                    </a>
+                    <a href="#" onclick="cerrarBannerCumple()"
+                        class="text-white text-xl hover:text-gray-300 transition">&times;
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="fixed-header"></div>
+
+        <main class="pt-[132px]">
+
+
+            <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
+                <div class="max-w-4xl text-white">
+                    <h1
+                        class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
+                        UNA FAMILIA DE ESPERANZA
+                    </h1>
+
+                    <div class="max-w-2xl mx-auto px-6">
+
+                        <div class="flex justify-center w-full mb-8">
+                            <a href="registro.html" target="_blank"
+                                class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+
+                                <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
+
+                                <div class="text-left">
+                                    <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro de
+                                    </p>
+                                    <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
+                                </div>
+
+                                <i
+                                    class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
+
+                                <div class="absolute inset-0 rounded-full overflow-hidden">
+                                    <div class="shine-effect"></div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <a href="ORACION/index.html"
+                                class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                                <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
+                            </a>
+                            <a href="estudio-biblico.html"
+                                class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                                <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <a id="link-felicitar" href="cumpleanos.html" class="...">
-                    FELICITAR ✨
-                </a>
-                <a href="#" onclick="cerrarBannerCumple()"
-                    class="text-white text-xl hover:text-gray-300 transition">&times;
-                </a>
-            </div>
-        </div>
+            </header>
+
+
+
+
     </div>
 
-    <main class="pt-14">
+    </div>
+    </section>
 
-        <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
-            <div class="max-w-4xl text-white">
-                <h1
-                    class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
-                    UNA FAMILIA DE ESPERANZA
-                </h1>
 
-                <div class="max-w-2xl mx-auto px-6">
 
-                    <div class="flex justify-center w-full mb-8">
-                        <a href="registro.html" target="_blank"
-                            class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+    </div>
+    </div>
 
-                            <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
-
-                            <div class="text-left">
-                                <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro de</p>
-                                <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
-                            </div>
-
-                            <i
-                                class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
-
-                            <div class="absolute inset-0 rounded-full overflow-hidden">
-                                <div class="shine-effect"></div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="ORACION/index.html"
-                            class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
-                        </a>
-                        <a href="estudio-biblico.html"
-                            class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
-                        </a>
-                    </div>
+    <section class="py-12 bg-white reveal">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
+                <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
+                    Sábado</h2>
+                <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
+                    agobiados..."</p>
+                <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
+                    <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
+                    </p>
                 </div>
             </div>
-        </header>
+        </div>
+    </section>
 
+    <section id="horarios" class="py-12 bg-adventist-light reveal">
+        <div class="container mx-auto px-4">
+            <div
+                class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
+                <img id="carousel" src="imagenes/foto1.jpg"
+                    class="w-full aspect-video object-cover transition-opacity duration-1000">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                    <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
+                    <p class="font-bold">09:30 AM — Escuela Sabática</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
+                    <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
+                    <p class="font-bold">17:30 PM — Oración Intercesora</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                    <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
+                    <p class="font-bold">19:00 PM — Culto de Oración</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-
+    <section id="ministerios" class="py-16 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 mb-8 text-center">
+            <h2 class="text-3xl font-heading font-black text-adventist-blue uppercase italic">Nuestros Ministerios
+            </h2>
         </div>
 
-        </div>
-        </section>
+        <div class="relative group max-w-7xl mx-auto">
 
+            <button onclick="scrollMinisterios(-300)"
+                class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </button>
 
+            <div id="scrollContainer" class="flex overflow-x-auto gap-6 px-12 pb-8 no-scrollbar scroll-smooth">
 
-        </div>
-        </div>
-
-        <section class="py-12 bg-white reveal">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
-                    <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
-                        Sábado</h2>
-                    <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
-                        agobiados..."</p>
-                    <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
-                        <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="horarios" class="py-12 bg-adventist-light reveal">
-            <div class="container mx-auto px-4">
-                <div
-                    class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
-                    <img id="carousel" src="imagenes/foto1.jpg"
-                        class="w-full aspect-video object-cover transition-opacity duration-1000">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                        <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
-                        <p class="font-bold">09:30 AM — Escuela Sabática</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
-                        <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
-                        <p class="font-bold">17:30 PM — Oración Intercesora</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                        <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
-                        <p class="font-bold">19:00 PM — Culto de Oración</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="ministerios" class="py-16 bg-white overflow-hidden">
-            <div class="container mx-auto px-4 mb-8 text-center">
-                <h2 class="text-3xl font-heading font-black text-adventist-blue uppercase italic">Nuestros Ministerios
-                </h2>
-            </div>
-
-            <div class="relative group max-w-7xl mx-auto">
-
-                <button onclick="scrollMinisterios(-300)"
-                    class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                </button>
-
-                <div id="scrollContainer" class="flex overflow-x-auto gap-6 px-12 pb-8 no-scrollbar scroll-smooth">
-
-                    <a href="Departamentos/jovenes.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/ja.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Jóvenes</p>
-                    </a>
-
-                    <a href="Departamentos/mujer.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/mujer.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Ministerio de la Mujer</p>
-                    </a>
-
-                    <a href="Departamentos/salud.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/salud.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Salud</p>
-                    </a>
-
-                    <a href="Departamentos/infantil.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/infantil.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Infantil</p>
-                    </a>
-
-                    <a href="Departamentos/aventureros.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/avent.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Aventureros</p>
-                    </a>
-
-                    <a href="Departamentos/Mayordomia.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/mayor.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Mayordomía</p>
-                    </a>
-
-                    <a href="Departamentos/Diaconos.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/diacono.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Diáconos / Diaconisas</p>
-                    </a>
-
-                    <a href="Departamentos/escuela-sabatica.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/sabatica.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Escuela Sabática</p>
-                    </a>
-
-                    <a href="Departamentos/personal.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/personal.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Ministerio Personal</p>
-                    </a>
-
-                    <a href="Departamentos/asa.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/asa.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">ASA</p>
-                    </a>
-
-                    <a href="Departamentos/publicaciones.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/publicaciones.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Publicaciones</p>
-                    </a>
-
-                    <a href="Departamentos/Dorcas.html" class="flex-none w-32 text-center shimmer-effect">
-                        <img src="imagenes/dorcas.jpg"
-                            class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
-                        <p class="text-[10px] font-black uppercase">Dorcas</p>
-                    </a>
-
-                </div>
-
-                <button onclick="scrollMinisterios(300)"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
-            </div>
-        </section>
-
-        <script>
-            function scrollMinisterios(distance) {
-                document.getElementById('scrollContainer').scrollBy({
-                    left: distance,
-                    behavior: 'smooth'
-                });
-            }
-        </script>
-
-        <style>
-            /* Ocultar barra de scroll estética */
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
-
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-
-            /* Asegurar que las imágenes no se deformen */
-            #scrollContainer img {
-                min-width: 112px;
-                /* h-28 */
-                min-height: 112px;
-            }
-
-            /* Barra de progreso suave para el mensaje de Jesús */
-            .progress-fill-jesus {
-                height: 100%;
-                width: 100%;
-                background: #b45309;
-                border-radius: 9999px;
-                animation: countdown-jesus 25s linear forwards;
-            }
-
-            @keyframes countdown-jesus {
-                from {
-                    width: 100%;
-                }
-
-                to {
-                    width: 0%;
-                }
-            }
-
-            /* Shimmer solo para botones, muy lento y sutil */
-            .shimmer-effect::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -150%;
-                width: 50%;
-                height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transform: skewX(-25deg);
-                animation: shine-slow 10s infinite;
-            }
-
-            @keyframes shine-slow {
-                0% {
-                    left: -150%;
-                }
-
-                15% {
-                    left: 250%;
-                }
-
-                100% {
-                    left: 250%;
-                }
-            }
-
-
-
-
-            /* Estilo adicional para que el modal se vea tipo cristal */
-
-            .glass-modal {
-                background: rgba(255, 255, 255, 0.9);
-                backdrop-filter: blur(10px);
-            }
-        </style>
-
-        <section id="accion-gracias" class="py-16 bg-white reveal">
-            <div class="container mx-auto px-4 max-w-5xl">
-                <div
-                    class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
-
-                    <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
-                        <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
-                            class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
-                        </div>
-                    </div>
-
-                    <div
-                        class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
-                        <span
-                            class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
-                            <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
-                        </span>
-
-                        <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
-                            Acción de <br><span class="text-[#fec325]">Gracias</span>
-                        </h3>
-
-                        <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
-                            Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
-                            este año.
-                        </p>
-
-                        <div>
-                            <button onclick="playFullVideo()"
-                                class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
-                                <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
-
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
-            <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
-            <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
-
-            <div class="mt-10">
-                <a href="Anuncios 2026.html"
-                    class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
-                    <i class="fas fa-bullhorn animate-bounce"></i>
-                    MURO DE ANUNCIOS LÍDERES
+                <a href="Departamentos/jovenes.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/ja.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Jóvenes</p>
                 </a>
-                <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
-            </div>
-        </header>
 
-        <div class="py-12 flex justify-center px-4">
-            <button onclick="abrirModalAncianos()"
-                class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
-                <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
-                    class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
+                <a href="Departamentos/mujer.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/mujer.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Ministerio de la Mujer</p>
+                </a>
+
+                <a href="Departamentos/salud.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/salud.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Salud</p>
+                </a>
+
+                <a href="Departamentos/infantil.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/infantil.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Infantil</p>
+                </a>
+
+                <a href="Departamentos/aventureros.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/avent.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Aventureros</p>
+                </a>
+
+                <a href="Departamentos/Mayordomia.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/mayor.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Mayordomía</p>
+                </a>
+
+                <a href="Departamentos/Diaconos.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/diacono.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Diáconos / Diaconisas</p>
+                </a>
+
+                <a href="Departamentos/escuela-sabatica.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/sabatica.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Escuela Sabática</p>
+                </a>
+
+                <a href="Departamentos/personal.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/personal.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Ministerio Personal</p>
+                </a>
+
+                <a href="Departamentos/asa.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/asa.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">ASA</p>
+                </a>
+
+                <a href="Departamentos/publicaciones.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/publicaciones.jpg"
+                        class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Publicaciones</p>
+                </a>
+
+                <a href="Departamentos/Dorcas.html" class="flex-none w-32 text-center shimmer-effect">
+                    <img src="imagenes/dorcas.jpg" class="h-28 w-28 object-cover rounded-3xl mx-auto shadow-md mb-2">
+                    <p class="text-[10px] font-black uppercase">Dorcas</p>
+                </a>
+
+            </div>
+
+            <button onclick="scrollMinisterios(300)"
+                class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-adventist-blue/90 text-white p-3 rounded-full shadow-xl hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
             </button>
         </div>
+    </section>
+
+    <script>
+        function scrollMinisterios(distance) {
+            document.getElementById('scrollContainer').scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <style>
+        /* Ocultar barra de scroll estética */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Asegurar que las imágenes no se deformen */
+        #scrollContainer img {
+            min-width: 112px;
+            /* h-28 */
+            min-height: 112px;
+        }
+
+        /* Barra de progreso suave para el mensaje de Jesús */
+        .progress-fill-jesus {
+            height: 100%;
+            width: 100%;
+            background: #b45309;
+            border-radius: 9999px;
+            animation: countdown-jesus 25s linear forwards;
+        }
+
+        @keyframes countdown-jesus {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Shimmer solo para botones, muy lento y sutil */
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            animation: shine-slow 10s infinite;
+        }
+
+        @keyframes shine-slow {
+            0% {
+                left: -150%;
+            }
+
+            15% {
+                left: 250%;
+            }
+
+            100% {
+                left: 250%;
+            }
+        }
+
+
+
+
+        /* Estilo adicional para que el modal se vea tipo cristal */
+
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+
+    <section id="accion-gracias" class="py-16 bg-white reveal">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div
+                class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
+
+                <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
+                    <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
+                        class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
+                    </div>
+                </div>
+
+                <div
+                    class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
+                    <span
+                        class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
+                        <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
+                    </span>
+
+                    <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
+                        Acción de <br><span class="text-[#fec325]">Gracias</span>
+                    </h3>
+
+                    <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
+                        Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
+                        este año.
+                    </p>
+
+                    <div>
+                        <button onclick="playFullVideo()"
+                            class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
+                            <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
+        <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
+        <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
+
+        <div class="mt-10">
+            <a href="Anuncios 2026.html"
+                class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
+                <i class="fas fa-bullhorn animate-bounce"></i>
+                MURO DE ANUNCIOS LÍDERES
+            </a>
+            <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
+        </div>
+    </header>
+
+    <div class="py-12 flex justify-center px-4">
+        <button onclick="abrirModalAncianos()"
+            class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+            <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
+                class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
+        </button>
+    </div>
     </main>
 
     <footer class="bg-white py-8 text-center border-t">
@@ -1424,7 +1466,7 @@
                 document.getElementById('modal-esperanza').classList.add('hidden');
             };
 
-    
+
     </script>
 
     <script>
