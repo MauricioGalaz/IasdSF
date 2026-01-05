@@ -140,7 +140,7 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
+    <div class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
         <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
             <div id="contenedor-avisos-dinamicos" class="space-y-8 md:space-y-12">
             </div>
@@ -423,142 +423,181 @@
             </section>
         </main>
 
-        <script>
-            // VARIABLE GLOBAL: Controla si se dibujan los botones de basura
-            let modoEdicionActivo = false;
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+            import {
+                getFirestore,
+                collection,
+                query,
+                orderBy,
+                onSnapshot,
+                deleteDoc,
+                updateDoc,
+                doc
+            } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-            function toggleAdminPanel() {
-                document.getElementById('admin-panel').classList.toggle('hidden');
-            }
+            /* ================= FIREBASE ================= */
+            const firebaseConfig = {
+                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+                authDomain: "iasd-limache-muro.firebaseapp.com",
+                projectId: "iasd-limache-muro",
+                messagingSenderId: "277039117234",
+                appId: "1:277039117234:web:65f4e76064935cadabaaab"
+            };
 
-            function activarEdicion() {
-                const pass = document.getElementById('admin-pass').value.trim();
-                if (pass === "iasd2025") {
-                    modoEdicionActivo = true;
-                    alert("✅ MODO EDICIÓN: Ahora puede eliminar avisos individualmente.");
-                    cargarAvisos(); // REDIBUJA TODO PARA MOSTRAR LOS BOTONES
-                    document.getElementById('admin-panel').classList.add('hidden');
-                } else {
-                    alert("❌ Clave incorrecta.");
-                }
-            }
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-            function eliminarAviso(id) {
-                if (confirm("¿Eliminar este aviso de forma permanente?")) {
-                    let avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
-                    // Filtra por ID para eliminar solo el seleccionado
-                    avisos = avisos.filter(a => a.id !== id);
-                    localStorage.setItem('avisosIglesia', JSON.stringify(avisos));
-                    cargarAvisos(); // ACTUALIZA LA VISTA AL INSTANTE
+            navigator.serviceWorker.register("/firebase-messaging-sw.js");
 
-                    // Dentro de tu función eliminarAvisoIndividual(id):
-                    showModal({
-                        title: "¿Eliminar Aviso?",
-                        message: "Esta acción eliminará el mensaje de forma permanente.",
-                        type: "danger",
-                        onConfirm: () => {
-                            // Aquí va tu lógica actual para borrar el aviso
-                            avisos = avisos.filter(a => a.id !== id);
-                            localStorage.setItem('avisosIglesia', JSON.stringify(avisos));
-                            cargarAvisos();
-                        }
+            Notification.requestPermission().then(async permission => {
+                if (permission === "granted") {
+                    const token = await getToken(messaging, {
+                        vapidKey: "TU_VAPID_KEY_AQUI"
                     });
+                    console.log("🔔 Token push:", token);
                 }
-            }
+            });
 
-            function borrarTodoMuro() {
-                if (confirm("¿Desea borrar TODOS los avisos del muro?")) {
-                    localStorage.removeItem('avisosIglesia');
-                    location.reload();
+            /* ================= CONFIG ================= */
+            const ADMIN_PASS = "iasd26";
+            let modoEdicionActivo = true; // Modo edición activado por defecto para pruebas
+
+
+            /* ================= HELPERS ================= */
+            const $ = (id) => document.getElementById(id);
+
+            const escapeHTML = (str = "") =>
+                str.replace(/[&<>"']/g, m =>
+                    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])
+                );
+
+            const estaExpirado = (aviso) =>
+                aviso.expira && aviso.expira.toDate().getTime() < Date.now();
+
+            /* ================= ADMIN ================= */
+            window.toggleAdminPanel = () => $("admin-panel")?.classList.toggle("hidden");
+
+            window.activarEdicion = () => {
+                const pass = $("admin-pass").value.trim();
+                if (pass === ADMIN_PASS) {
+                    modoEdicionActivo = true;
+                    $("admin-panel").classList.add("hidden");
+                    alert("✅ Modo administrador activado");
+                } else {
+                    alert("❌ Clave incorrecta");
                 }
-            }
+            };
 
-            function cargarAvisos() {
-                // Buscamos el contenedor por su ID
-                const contenedor = document.getElementById('contenedor-avisos-dinamicos');
-
-                // Si el contenedor no existe en el HTML, no hacemos nada para evitar error
-                if (!contenedor) return;
-
-                // Leemos los datos guardados
-                const avisos = JSON.parse(localStorage.getItem('avisosIglesia')) || [];
-
-                if (avisos.length === 0) {
-                    contenedor.innerHTML = `
-            <div class="text-center p-10 bg-white/50 rounded-3xl border-2 border-dashed border-slate-300">
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">
-                    No hay avisos nuevos de los líderes todavía
-                </p>
-            </div>`;
+            /* ================= CRUD ================= */
+            window.eliminarAviso = async (id) => {
+                if (!modoEdicionActivo) {
+                    alert("❌ Modo administrador no activo");
                     return;
                 }
 
-                // Dibujamos los avisos con el diseño elegante
-                contenedor.innerHTML = avisos.map(aviso => `
-        <section class="relative bg-white border-t-[12px] md:border-t-[16px] ${aviso.departamento.includes('ANCIANATO') ? 'border-adventist-gold' : 'border-adventist-blue'} rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl transition-all hover:scale-[1.01]">
-            
-            ${typeof modoEdicionActivo !== 'undefined' && modoEdicionActivo ? `
-            <button onclick="eliminarAviso(${aviso.id})" 
-                    class="absolute -top-4 -right-2 bg-red-600 text-white w-10 h-10 rounded-full shadow-xl z-50 flex items-center justify-center border-4 border-white">
-                <i class="fas fa-trash-alt"></i>
-            </button>` : ''}
+                if (!confirm("¿Eliminar este aviso permanentemente?")) return;
 
-            <div class="flex justify-between items-start mb-6">
-                <span class="bg-adventist-blue text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">
-                    ${aviso.departamento}
-                </span>
-                <span class="text-[10px] font-black text-slate-300 uppercase">${aviso.fecha}</span>
-            </div>
+                try {
+                    await deleteDoc(doc(db, "avisos", id));
+                    console.log("Aviso eliminado:", id);
+                } catch (error) {
+                    console.error("ERROR DELETE:", error);
+                    alert("❌ Firestore bloqueó la eliminación (reglas)");
+                }
+            };
 
-            <div class="text-center">
-                <h2 class="text-2xl md:text-5xl font-heading font-black text-slate-800 leading-tight mb-8 uppercase italic">
-                    "${aviso.mensaje}"
-                </h2>
-                <div class="flex flex-col md:flex-row items-center justify-center gap-6 border-t border-slate-100 pt-8">
-                    <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">
-                        <i class="fas fa-user-circle mr-1 text-adventist-blue"></i> LÍDER: ${aviso.lider}
-                    </p>
-                    <button onclick="compartirWhatsApp(\`${aviso.mensaje.replace(/"/g, "'")}\`, '${aviso.departamento}')" 
-                            class="bg-[#25d366] text-white px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-lg flex items-center gap-2">
-                        <i class="fab fa-whatsapp"></i> COMPARTIR
-                    </button>
-                </div>
-            </div>
-        </section>
-    `).join('');
-            }
 
-            // ESTO ES VITAL: Ejecutar la función cuando la página termine de cargar
-            document.addEventListener('DOMContentLoaded', cargarAvisos);
+            window.editarAviso = async (id, textoActual) => {
+                if (!modoEdicionActivo) return;
 
-            function compartirWhatsApp(mensaje, departamento) {
-                const textoCompartir = `📢 Aviso de ${departamento}:\n\n"${mensaje}"\n\nEnviado desde IASD San Francisco de Limache.`;
-                const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(textoCompartir)}`;
-                window.open(url, '_blank');
-            }
-        </script>
+                const nuevo = prompt("✏️ Editar aviso:", textoActual);
+                if (nuevo && nuevo.trim().length > 3) {
+                    await updateDoc(doc(db, "avisos", id), {
+                        mensaje: nuevo.trim()
+                    });
+                }
+            };
 
-    </main>
+            /* ================= RENDER ================= */
+            const contenedor = $("contenedor-avisos-dinamicos");
 
-    <script>
-        function crearTarjetaAviso(departamento, detalle, lider) {
-            const contenedor = document.getElementById('seccionAvisos');
-            const card = `
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-adventist-blue">
-            <div class="p-5">
-                <span class="text-xs font-bold uppercase text-blue-600">${departamento}</span>
-                <p class="text-gray-800 font-medium mt-2">${detalle}</p>
-                <div class="mt-4 flex items-center justify-between border-t pt-3">
-                    <span class="text-gray-500 text-xs">👤 ${lider}</span>
-                    <img src="logo-iasd.png" class="h-6 opacity-30">
-                </div>
-            </div>
+            const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
+
+
+            onSnapshot(q, (snapshot) => {
+                contenedor.innerHTML = "";
+
+                if (snapshot.empty) {
+                    contenedor.innerHTML = `
+        <div class="text-center p-10 bg-white/50 rounded-3xl border-2 border-dashed border-slate-300">
+        <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">
+            No hay avisos nuevos de los líderes todavía
+        </p>
+        </div>`;
+                    return;
+                }
+
+                const fragment = document.createDocumentFragment();
+
+                snapshot.forEach((docSnap) => {
+                    const a = docSnap.data();
+                    if (estaExpirado(a)) return;
+
+                    const section = document.createElement("section");
+                    section.className =
+                        "relative bg-white border-t-[12px] md:border-t-[16px] border-adventist-blue rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl transition-all hover:scale-[1.01]";
+
+                    section.innerHTML = `
+        ${modoEdicionActivo ? `
+        <button onclick="eliminarAviso('${docSnap.id}')" class="btn-eliminar-aviso">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <button onclick="editarAviso('${docSnap.id}', '${escapeHTML(a.mensaje)}')"
+            class="absolute top-4 left-4 bg-adventist-gold text-adventist-blue w-10 h-10 rounded-full flex items-center justify-center shadow-xl border-4 border-white z-50">
+            <i class="fas fa-pen"></i>
+        </button>
+        ` : ""}
+
+        <div class="flex justify-between mb-6">
+        <span class="bg-adventist-blue text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">
+            ${escapeHTML(a.departamento)}
+        </span>
+        <span class="text-[10px] font-black text-slate-300 uppercase">
+            ${a.fecha || ""}
+        </span>
+        </div>
+
+        <div class="text-center">
+        <h2 class="text-2xl md:text-5xl font-heading font-black text-slate-800 leading-tight mb-8 uppercase italic">
+            "${escapeHTML(a.mensaje)}"
+        </h2>
+
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6 border-t border-slate-100 pt-8">
+            <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">
+            <i class="fas fa-user-circle mr-1 text-adventist-blue"></i>
+            LÍDER: ${escapeHTML(a.lider)}
+            </p>
+
+            <button onclick="compartirWhatsApp('${escapeHTML(a.mensaje)}','${escapeHTML(a.departamento)}')"
+            class="bg-[#25d366] text-white px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-lg flex items-center gap-2">
+            <i class="fab fa-whatsapp"></i> COMPARTIR
+            </button>
+        </div>
         </div>
     `;
 
-            contenedor.innerHTML += card;
-    </script>
+                    fragment.appendChild(section);
+                });
 
-</body>
+                contenedor.appendChild(fragment);
+            });
+
+            /* ================= WHATSAPP ================= */
+            window.compartirWhatsApp = (mensaje, depto) => {
+                const texto = `📢 Aviso de ${depto}:\n\n"${mensaje}"\n\nIASD San Francisco de Limache`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`, "_blank");
+            };
+        </script>
 
 </html>

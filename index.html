@@ -1514,8 +1514,30 @@
                 navigator.serviceWorker.register("service-worker.js");
             }
     </script>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    import { getDocs, updateDoc, doc } from "firebase/firestore";
+
+    const snap = await getDocs(collection(db, "avisos"));
+
+    snap.forEach(async d => {
+    const data = d.data();
+    if (!data.expira) {
+    await updateDoc(doc(db, "avisos", d.id), {
+    expira: null
+    });
+    }
+    });
+
 
     
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.js");
+            }
+    </script>
+
 
 </body>
 

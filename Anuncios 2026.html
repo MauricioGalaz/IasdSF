@@ -2,12 +2,12 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuncios 2026 - IASD San Francisco de Limache</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anuncios - IASD San Francisco de Limache</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
@@ -16,10 +16,10 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .card-glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .glass {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .bg-adventist-blue {
@@ -29,30 +29,20 @@
         .bg-adventist-gold {
             background-color: #fec325;
         }
-
-        nav a:hover {
-            color: #fec325;
-        }
-
-        #mobile-menu.hidden {
-            display: none;
-        }
     </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
 
     <!-- NAV -->
-    <nav class="bg-adventist-blue sticky top-0 z-[100] shadow-2xl border-b border-white/10 w-full">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav class="bg-adventist-blue sticky top-0 z-50 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
 
-            <a href="index.html" class="flex items-center space-x-4 group">
-                <div
-                    class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] transition-transform group-hover:scale-110">
-                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo IASD">
+            <a href="index.html" class="flex items-center gap-4">
+                <div class="h-14 w-14 rounded-full overflow-hidden border-4 border-[#fec325] bg-white">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
                 </div>
-
-                <span class="font-black text-[10px] sm:text-sm uppercase tracking-[0.2em]">
+                <span class="uppercase text-xs font-black tracking-widest">
                     IASD San Francisco<br>
                     <span class="text-[#fec325]">de Limache</span>
                 </span>
@@ -62,119 +52,145 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            <div class="hidden md:flex gap-6 font-bold text-xs uppercase tracking-widest">
+            <div class="hidden md:flex gap-6 text-xs font-black uppercase tracking-widest">
                 <a href="index.html">Inicio</a>
                 <a href="cronograma.html">Cronograma</a>
                 <a href="contactoaviso.html"
-                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full">Contacto</a>
+                    class="bg-adventist-gold text-slate-900 px-4 py-2 rounded-full">Contacto</a>
             </div>
         </div>
 
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-adventist-blue px-4 flex flex-col gap-4 text-center border-t border-white/10 pb-4">
-            <a href="index.html" class="py-3 border-b border-white/5">Inicio</a>
-            <a href="cronograma.html" class="py-3 border-b border-white/5">Cronograma</a>
-            <a href="contactoaviso.html" class="py-3 text-[#fec325]">Contacto</a>
+        <div id="mobile-menu" class="hidden bg-adventist-blue px-4 pb-4 text-center">
+            <a href="index.html" class="block py-3 border-b border-white/10">Inicio</a>
+            <a href="cronograma.html" class="block py-3 border-b border-white/10">Cronograma</a>
+            <a href="contactoaviso.html" class="block py-3 text-[#fec325]">Contacto</a>
         </div>
     </nav>
 
     <!-- MAIN -->
-    <main class="flex-grow flex items-center justify-center p-4 py-12">
-        <div class="max-w-2xl w-full card-glass p-8 rounded-[2.5rem] shadow-2xl">
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="max-w-xl w-full glass p-10 rounded-[2.5rem] shadow-2xl">
 
             <!-- HEADER -->
-            <div class="text-center mb-8">
+            <div class="text-center mb-10">
                 <div class="bg-adventist-blue w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-broadcast-tower text-3xl"></i>
+                    <i class="fas fa-bullhorn text-3xl"></i>
                 </div>
-                <h1 class="text-3xl font-black uppercase">Comunicación 2026</h1>
-                <p class="text-blue-300 font-bold text-sm">IASD San Francisco de Limache</p>
+                <h1 class="text-3xl font-black uppercase">Enviar Aviso</h1>
+                <p class="text-blue-300 text-sm font-bold">Solo líderes autorizados</p>
             </div>
 
             <!-- FORM -->
             <form id="formAvisosLideres" class="space-y-6">
 
-                <!-- MANUAL CENTRADO -->
-                <div class="flex justify-center mb-6">
-                    <div class="relative group">
-                        <div class="h-20 w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325]
-                                shadow-[0_0_20px_rgba(254,195,37,0.5)]
-                                transition-transform group-hover:scale-110">
-                            <a href="https://f000.backblazeb2.com/file/deptos/secretaria/manual-iasd/2025/manual_de_la_iglesia_2025.pdf"
-                                target="_blank">
-                                <img src="imagenes/manual.jpg" class="h-full w-full object-cover"
-                                    alt="Manual Iglesia IASD">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <select id="departamento" required
+                    class="w-full bg-slate-900/60 border border-white/10 p-4 rounded-2xl">
+                    <option value="">Seleccione Departamento...</option>
+                        <option value="SEC26">SECRETARÍA</option>
+                        <option value="JA26">MINISTERIO JOVEN</option>
+                        <option value="PUB26">PUBLICACIONES</option>
+                        <option value="SALUD26">SALUD</option>
+                        <option value="MUJER26">MINISTERIO DE LA MUJER</option>
+                        <option value="MUSICA26">MINISTERIO DE MUSICA</option>
+                        <option value="TESOR26">TESORERIA</option>
+                        <option value="ESCUELA26">ESCUELA SABATICA</option>
+                        <option value="INFANTIL26">MINISTERIO INFANTIL</option>
+                        <option value="MIPES26">MIPES</option>
+                        <option value="DIACONOS26">DIACONOS</option>
+                        <option value="MID26">MIDEA</option>
+                        <option value="AVENT26">AVENTUREROS</option>
+                        <option value="VOLUN26">VOLUNTARIADO</option>
+                        <option value="ASA26">ASA</option>
+                        <option value="MAYOR26">MAYORDOMIA</option>
+                </select>
 
-                <p class="text-xs text-gray-400 text-center mb-6">
-                    Manual de la Iglesia – IASD 2025
-                </p>
-
-                <!-- DEPARTAMENTO -->
-                <div>
-                    <label class="block text-xs uppercase mb-2 text-gray-400">Departamento</label>
-                    <select id="departamento" required
-                        class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white">
-                        <option value="">Seleccione Departamento...</option>
-                        <option value="SEC25">SECRETARÍA</option>
-                        <option value="JA25">MINISTERIO JOVEN</option>
-                        <option value="PUB25">PUBLICACIONES</option>
-                        <option value="SALUD25">SALUD</option>
-                        <option value="MUJER25">MINISTERIO DE LA MUJER</option>
-                        <option value="MUSICA25">MINISTERIO DE MUSICA</option>
-                    </select>
-                </div>
-
-                <!-- NOMBRE Y CLAVE -->
                 <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" id="lider" required placeholder="Nombre del Líder"
-                        class="bg-slate-900/50 p-4 rounded-2xl border border-white/10">
-                    <input type="password" id="clave" required placeholder="Clave de acceso"
-                        class="bg-slate-900/50 p-4 rounded-2xl border border-white/10">
+                    <input id="lider" required placeholder="Nombre del líder"
+                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                    <input id="clave" type="password" required placeholder="Clave del departamento"
+                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
 
-                <!-- MENSAJE -->
-                <textarea id="anuncio" rows="4" required placeholder="Detalle del anuncio..."
-                    class="w-full bg-slate-900/50 p-4 rounded-2xl border border-white/10 resize-none"></textarea>
+                <textarea id="mensaje" rows="4" required placeholder="Detalle del aviso…"
+                    class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none"></textarea>
 
-                <!-- INFO -->
-                <div class="bg-blue-900/20 p-4 rounded-2xl text-xs flex items-center gap-3">
-                    <i class="fas fa-clock text-lg"></i>
-                    <span>Recepción hasta <strong>jueves 20:00 hrs</strong></span>
+                <!-- FECHA DE EXPIRACIÓN -->
+                <div>
+                    <label class="block text-xs uppercase mb-2 text-gray-400">
+                        Caduca el día (opcional)
+                    </label>
+                    <input type="date" id="expira"
+                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
 
-                <!-- BOTÓN -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 p-5 rounded-2xl font-black uppercase">
-                    Enviar anuncio
+
+                <button id="btnEnviar" type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black uppercase">
+                    Enviar aviso
                 </button>
-
             </form>
 
-            <!-- ÉXITO -->
-            <div id="mensajeExito" class="hidden text-center p-8">
-                <i class="fas fa-check-circle text-green-400 text-6xl mb-4"></i>
-                <h2 class="text-2xl font-bold">¡Enviado con éxito!</h2>
+            <div id="estado" class="hidden text-center mt-8">
+                <i class="fas fa-circle-notch fa-spin text-3xl text-blue-400"></i>
+                <p class="mt-2 font-bold">Enviando aviso…</p>
             </div>
 
         </div>
     </main>
 
-    <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+    <!-- FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from
+            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro"
+        };
 
-        document.getElementById('formAvisosLideres').addEventListener('submit', function (e) {
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("menu-btn").onclick = () =>
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+
+        const form = document.getElementById("formAvisosLideres");
+        const estado = document.getElementById("estado");
+        const btn = document.getElementById("btnEnviar");
+
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            this.classList.add('hidden');
-            document.getElementById('mensajeExito').classList.remove('hidden');
+            const deptSelect = document.getElementById("departamento");
+            const departamento = deptSelect.options[deptSelect.selectedIndex].text;
+            const claveCorrecta = deptSelect.value;
+            const clave = document.getElementById("clave").value.trim();
+            const lider = document.getElementById("lider").value.trim();
+            const mensaje = document.getElementById("mensaje").value.trim();
+            const expiraInput = document.getElementById("expira").value;
+            const expira = expiraInput ? new Date(expiraInput) : null;
+
+
+            if (clave !== claveCorrecta) {
+                alert("❌ Clave incorrecta");
+                return;
+            }
+
+            btn.disabled = true;
+            estado.classList.remove("hidden");
+
+            await addDoc(collection(db, "avisos"), {
+                departamento,
+                lider,
+                mensaje,
+                fecha: new Date().toLocaleDateString("es-CL"),
+                timestamp: serverTimestamp(),
+                expira: expiraInput ? new Date(expiraInput) : null
+            });
+
+            window.location.href = "avisos.html";
         });
     </script>
 
