@@ -13,6 +13,9 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00305e">
+
 
     <script>
         tailwind.config = {
@@ -432,7 +435,9 @@
     <div class="marquee-wrapper sticky top-0 z-[100]">
         <div class="marquee-text">
             ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Culto de Adoración • "Lámpara es a mis
-            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero • Recuerda inscribirte/ son cupos limitados •!! solo 80 cupos !! / / !! hoy Reunión de oracion a las 16:00 hrs !! / / recuerda este domingo 1era Reunión Administrativa de Junta de Iglesia desde 10:00 hrs !!      </div>
+            pies tu palabra" • No te pierdas nuestro Paseo de Iglesia el 22 de febrero • Recuerda inscribirte/ son cupos
+            limitados •!! solo 80 cupos !! / / !! hoy Reunión de oracion a las 16:00 hrs !! / / recuerda este domingo
+            1era Reunión Administrativa de Junta de Iglesia desde 10:00 hrs !! </div>
     </div>
 
     <div id="invitacion-central"
@@ -1090,62 +1095,62 @@
         }
     </script>
     <script>
-    // Configuración de ubicación: Limache, Chile
-    const LAT = -33.0153;
-    const LNG = -71.2715;
+        // Configuración de ubicación: Limache, Chile
+        const LAT = -33.0153;
+        const LNG = -71.2715;
 
-    async function actualizarEstadoBiblico() {
-    const banner = document.getElementById('banner-cumple-hoy');
-    const txtNombre = document.getElementById('nombre-cumple');
-    const txtTitulo = banner.querySelector('h2');
+        async function actualizarEstadoBiblico() {
+            const banner = document.getElementById('banner-cumple-hoy');
+            const txtNombre = document.getElementById('nombre-cumple');
+            const txtTitulo = banner.querySelector('h2');
 
-    try {
-    // Consultamos la hora exacta de puesta de sol para Limache hoy
-    const resp = await fetch(`https://api.sunrise-sunset.org/json?lat=${LAT}&lng=${LNG}&formatted=0`);
-    const data = await resp.json();
-    const sunset = new Date(data.results.sunset);
-    const ahora = new Date();
+            try {
+                // Consultamos la hora exacta de puesta de sol para Limache hoy
+                const resp = await fetch(`https://api.sunrise-sunset.org/json?lat=${LAT}&lng=${LNG}&formatted=0`);
+                const data = await resp.json();
+                const sunset = new Date(data.results.sunset);
+                const ahora = new Date();
 
-    // Si ya pasó la puesta de sol...
-    if (ahora > sunset) {
-    banner.classList.remove('hidden', 'bg-adventist-blue');
-    banner.classList.add('bg-slate-900', 'border-t-4', 'border-adventist-gold',
-    'shadow-[0_0_30px_rgba(254,195,37,0.2)]');
+                // Si ya pasó la puesta de sol...
+                if (ahora > sunset) {
+                    banner.classList.remove('hidden', 'bg-adventist-blue');
+                    banner.classList.add('bg-slate-900', 'border-t-4', 'border-adventist-gold',
+                        'shadow-[0_0_30px_rgba(254,195,37,0.2)]');
 
-    if (ahora.getDay() === 5) { // Es Viernes noche
-    txtTitulo.innerHTML = "✨ <span class='animate-pulse'>¡FELIZ SÁBADO!</span>";
-    txtNombre.innerHTML = "<i class='fas fa-star mr-2'></i> El séptimo día ha comenzado en Limache";
-    } else {
-    txtTitulo.innerHTML = "🌙 NUEVO DÍA BÍBLICO";
-    txtNombre.innerText = "La tarde ha caído. Iniciando una nueva jornada en Su presencia.";
-    }
+                    if (ahora.getDay() === 5) { // Es Viernes noche
+                        txtTitulo.innerHTML = "✨ <span class='animate-pulse'>¡FELIZ SÁBADO!</span>";
+                        txtNombre.innerHTML = "<i class='fas fa-star mr-2'></i> El séptimo día ha comenzado en Limache";
+                    } else {
+                        txtTitulo.innerHTML = "🌙 NUEVO DÍA BÍBLICO";
+                        txtNombre.innerText = "La tarde ha caído. Iniciando una nueva jornada en Su presencia.";
+                    }
 
-    // Ocultamos botones de felicitación porque el día civil ya terminó bíblicamente
-    const btn = banner.querySelector('a');
-    if (btn) btn.classList.add('hidden');
+                    // Ocultamos botones de felicitación porque el día civil ya terminó bíblicamente
+                    const btn = banner.querySelector('a');
+                    if (btn) btn.classList.add('hidden');
 
-    } else {
-    // Lógica de cuenta regresiva para la puesta de sol (solo los Viernes)
-    if (ahora.getDay() === 5) {
-    const dif = sunset - ahora;
-    const horas = Math.floor(dif / (1000 * 60 * 60));
-    const minutos = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
+                } else {
+                    // Lógica de cuenta regresiva para la puesta de sol (solo los Viernes)
+                    if (ahora.getDay() === 5) {
+                        const dif = sunset - ahora;
+                        const horas = Math.floor(dif / (1000 * 60 * 60));
+                        const minutos = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
 
-    // Creamos un pequeño aviso de preparación
-    const avisoPrep = document.createElement('div');
-    avisoPrep.className = "text-[10px] font-black text-adventist-gold mt-2 uppercase tracking-widest";
-    avisoPrep.innerHTML = `<i class='fas fa-clock'></i> Puesta de sol en: ${horas}h ${minutos}m`;
-    banner.appendChild(avisoPrep);
-    }
-    }
-    } catch (error) {
-    console.log("Error calculando puesta de sol, usando hora estándar 20:00");
-    }
-    }
+                        // Creamos un pequeño aviso de preparación
+                        const avisoPrep = document.createElement('div');
+                        avisoPrep.className = "text-[10px] font-black text-adventist-gold mt-2 uppercase tracking-widest";
+                        avisoPrep.innerHTML = `<i class='fas fa-clock'></i> Puesta de sol en: ${horas}h ${minutos}m`;
+                        banner.appendChild(avisoPrep);
+                    }
+                }
+            } catch (error) {
+                console.log("Error calculando puesta de sol, usando hora estándar 20:00");
+            }
+        }
 
-    // Ejecutamos al cargar
-    actualizarEstadoBiblico();
-    setInterval(actualizarEstadoBiblico, 60000);
+        // Ejecutamos al cargar
+        actualizarEstadoBiblico();
+        setInterval(actualizarEstadoBiblico, 60000);
     </script>
 
     <script>
@@ -1254,50 +1259,6 @@
             }
     </script>
 
-    <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-            import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-
-            // PEGA AQUÍ TU CONFIGURACIÓN REAL
-            const firebaseConfig = {
-                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-                authDomain: "iasd-limache-muro.firebaseapp.com",
-                databaseURL: "https://iasd-limache-muro-default-rtdb.firebaseio.com",
-                projectId: "iasd-limache-muro",
-                storageBucket: "iasd-limache-muro.firebasestorage.app",
-                messagingSenderId: "277039117234",
-                appId: "1:277039117234:web:65f4e76064935cadabaaab",
-                measurementId: "G-8VBFEYZRTT"
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-
-            async function actualizarContadorCumple() {
-                const hoy = new Date();
-                const diaHoy = hoy.getDate();
-                const mesHoy = hoy.getMonth() + 1;
-
-                try {
-                    const q = query(collection(db, "cumpleanos"),
-                        where("dia", "==", diaHoy),
-                        where("mes", "==", mesHoy)
-                    );
-
-                    const querySnapshot = await getDocs(q);
-                    const total = querySnapshot.size;
-                    const badge = document.getElementById('badge-cumple');
-
-                    if (total > 0) {
-                        badge.innerText = total;
-                        badge.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    console.error("Error al contar cumpleaños:", error);
-                }
-            }
-            actualizarContadorCumple();
-    </script>
 
     <script>
 
@@ -1463,11 +1424,39 @@
                 document.getElementById('modal-esperanza').classList.add('hidden');
             };
 
-            // Mostrar modal de instalación
-            window.abrirModalApp = () => {
-                alert("Para instalar: En iPhone usa 'Compartir > Añadir a pantalla de inicio'. En Android usa los 3 puntos > Instalar aplicación.");
-            };
+    
     </script>
+
+    <script>
+            let deferredPrompt = null;
+
+            window.addEventListener("beforeinstallprompt", (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+            });
+
+            function instalarApp() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.finally(() => {
+                        deferredPrompt = null;
+                        document.getElementById('modalApp').classList.add('hidden');
+                    });
+                } else {
+                    const ua = navigator.userAgent.toLowerCase();
+                    if (ua.includes("iphone")) {
+                        alert("📱 iPhone:\nCompartir → Añadir a pantalla de inicio");
+                    } else {
+                        alert("⚠️ La instalación se habilita solo en HTTPS.");
+                    }
+                }
+            }
+
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("service-worker.js");
+            }
+    </script>
+
 </body>
 
 </html>
