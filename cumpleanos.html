@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 
     <style>
-        body { background: #f8fafc; font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
-        .card-modern { background: white; border-radius: 3rem; box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.15); border: 1px solid rgba(255, 255, 255, 0.7); position: relative; z-index: 10; }
+        body {
+            background: #f8fafc;
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .card-modern {
+            background: white;
+            border-radius: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 48, 94, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 10;
+        }
 
         /* ARREGLO FINAL MESES: Scroll horizontal garantizado */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
         .no-scrollbar {
             display: flex !important;
             overflow-x: auto !important;
@@ -31,7 +48,8 @@
         }
 
         .filter-btn {
-            flex-shrink: 0 !important; /* BLOQUEA EL TAMAÑO PARA QUE NO SE CORTE EN MAYO */
+            flex-shrink: 0 !important;
+            /* BLOQUEA EL TAMAÑO PARA QUE NO SE CORTE EN MAYO */
             border: 2px solid #00305e;
             padding: 8px 20px;
             border-radius: 50px;
@@ -42,13 +60,40 @@
             background: white;
             transition: 0.2s;
         }
-        .filter-btn.active { background: #00305e; color: #fec325; border-color: #fec325; }
+
+        .filter-btn.active {
+            background: #00305e;
+            color: #fec325;
+            border-color: #fec325;
+        }
 
         /* GLOBOS Y REGALOS */
-        .floating-element { position: absolute; bottom: -100px; animation: floatUp 10s linear infinite; opacity: 0.6; font-size: 24px; z-index: 1; }
-        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; } }
-        
-        #listaCumple { padding-bottom: 150px; position: relative; z-index: 10; }
+        .floating-element {
+            position: absolute;
+            bottom: -100px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.6;
+            font-size: 24px;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        #listaCumple {
+            padding-bottom: 150px;
+            position: relative;
+            z-index: 10;
+        }
     </style>
 </head>
 
@@ -75,7 +120,7 @@
             <h1 class="text-4xl font-black text-[#00305e] uppercase tracking-tighter leading-none">
                 Muro de <br><span class="text-[#fec325]">Cumpleaños</span>
             </h1>
-            
+
             <div class="mt-8 no-scrollbar">
                 <button onclick="filtrarMuro(0)" id="btn-filtro-0" class="filter-btn active">Todos</button>
                 <button onclick="filtrarMuro(1)" id="btn-filtro-1" class="filter-btn">Ene</button>
@@ -98,9 +143,13 @@
                 <span class="w-8 h-1 bg-[#fec325] mr-3 rounded-full"></span> Registrar Cumpleaños
             </h2>
             <div class="space-y-4">
-                <input type="text" id="nombreC" placeholder="Nombre completo" class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
-                <input type="date" id="fechaC" class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
-                <button id="btnGuardar" class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs shadow-lg">Guardar Registro 📖</button>
+                <input type="text" id="nombreC" placeholder="Nombre completo"
+                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
+                <input type="date" id="fechaC"
+                    class="w-full bg-slate-50 p-5 rounded-2xl font-bold text-[#00305e] outline-none border-2 border-transparent focus:border-[#fec325]">
+                <button id="btnGuardar"
+                    class="w-full bg-[#00305e] text-[#fec325] py-5 rounded-2xl font-black uppercase text-xs shadow-lg">Guardar
+                    Registro 📖</button>
             </div>
         </div>
 
@@ -109,7 +158,8 @@
         </div>
     </div>
 
-    <button id="btnMusicaControl" class="fixed bottom-28 right-6 w-14 h-14 bg-white text-[#00305e] rounded-full shadow-2xl z-[150] flex items-center justify-center border-2 border-[#00305e]">
+    <button id="btnMusicaControl"
+        class="fixed bottom-28 right-6 w-14 h-14 bg-white text-[#00305e] rounded-full shadow-2xl z-[150] flex items-center justify-center border-2 border-[#00305e]">
         <i id="iconMusica" class="fas fa-play"></i>
     </button>
 
@@ -130,7 +180,7 @@
         // MÚSICA
         const audio = document.getElementById('audioCumple');
         const iconM = document.getElementById('iconMusica');
-        window.iniciarMusicaAuto = () => { if(audio.paused) { audio.play().then(() => iconM.className = 'fas fa-pause'); } };
+        window.iniciarMusicaAuto = () => { if (audio.paused) { audio.play().then(() => iconM.className = 'fas fa-pause'); } };
         document.getElementById('btnMusicaControl').onclick = (e) => {
             e.stopPropagation();
             if (audio.paused) { audio.play(); iconM.className = 'fas fa-pause'; }
@@ -165,7 +215,7 @@
 
                     if (filtroNum !== 0 && mesDb !== filtroNum) return;
                     hayDatos = true;
-                    
+
                     const esHoy = (Number(h.dia) === dHoy && mesDb === mHoy);
 
                     const card = document.createElement('div');
@@ -184,7 +234,7 @@
                     lista.appendChild(card);
                     vincularOraciones(id);
                 });
-                if(!hayDatos) lista.innerHTML = "<p class='text-center text-slate-400 p-10'>No hay registros para este mes.</p>";
+                if (!hayDatos) lista.innerHTML = "<p class='text-center text-slate-400 p-10'>No hay registros para este mes.</p>";
             });
         }
 
@@ -228,7 +278,7 @@
         document.getElementById('btnGuardar').onclick = async () => {
             const n = document.getElementById('nombreC').value;
             const f = document.getElementById('fechaC').value;
-            if(!n || !f) return;
+            if (!n || !f) return;
             const d = new Date(f + "T00:00:00");
             await addDoc(collection(db, "cumpleanos"), { nombre: n, dia: d.getDate(), mes: d.getMonth() + 1 });
             Swal.fire('¡Registrado!', '', 'success');
@@ -238,24 +288,24 @@
         cargarMuro(0);
     </script>
     <!-- NAVBAR INFERIOR -->
-        <div class="card-modern p-6 mt-10 text-center">
-    <h3 class="font-black text-[#00305e] uppercase text-xs tracking-widest mb-4">
-        Escanea y Registra tu Cumpleaños
-    </h3>
+    <div class="card-modern p-6 mt-10 text-center">
+        <h3 class="font-black text-[#00305e] uppercase text-xs tracking-widest mb-4">
+            Escanea y Registra tu Cumpleaños
+        </h3>
 
-    <div id="qrCumple" class="flex justify-center mb-6"></div>
-    <button onclick="descargarQRPDF()"
-    class="w-full mt-1 bg-[#fec325] text-[#00305e] py-4 rounded-2xl font-black uppercase text-xs shadow-lg btn-cumpleaños">
-    Descargar PDF con QR 📄     
-    
-
-</button>
+        <div id="qrCumple" class="flex justify-center mb-6"></div>
+        <button onclick="descargarQRPDF()"
+            class="w-full mt-1 bg-[#fec325] text-[#00305e] py-4 rounded-2xl font-black uppercase text-xs shadow-lg btn-cumpleaños">
+            Descargar PDF con QR 📄
 
 
-    <p class="text-[10px] text-slate-500 font-bold uppercase">
-        Muro de Cumpleaños – IASD Limache
-    </p>
-</div>
+        </button>
+
+
+        <p class="text-[10px] text-slate-500 font-bold uppercase">
+            Muro de Cumpleaños – IASD Limache
+        </p>
+    </div>
 
     <script>
         window.mostrarUbi = () => {
@@ -271,25 +321,65 @@
         };
     </script>
 
-    <div id="modalOracion" class="hidden"></div> <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#00305e]/95 backdrop-blur-xl h-18 rounded-[2.5rem] shadow-2xl z-[1000] flex items-center justify-around px-4 py-2">
-        <a href="index.html" class="flex flex-col items-center text-yellow-400"><i class="fas fa-home text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Inicio</span></a>
-        <button onclick="mostrarUbi()" class="flex flex-col items-center text-white/70"><i class="fas fa-map-marker-alt text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Iglesia</span></button>
-        <a href="avisos.html" class="flex flex-col items-center text-white/70"><i class="fas fa-bullhorn text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Avisos</span></a>
+    <div id="modalOracion" class="hidden"></div>
+    <nav
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-[#00305e]/95 backdrop-blur-xl h-18 rounded-[2.5rem] shadow-2xl z-[1000] flex items-center justify-around px-4 py-2">
+        <a href="index.html" class="flex flex-col items-center text-yellow-400"><i class="fas fa-home text-xl"></i><span
+                class="text-[8px] font-black uppercase mt-1">Inicio</span></a>
+        <button onclick="mostrarUbi()" class="flex flex-col items-center text-white/70"><i
+                class="fas fa-map-marker-alt text-xl"></i><span
+                class="text-[8px] font-black uppercase mt-1">Iglesia</span></button>
+        <a href="avisos.html" class="flex flex-col items-center text-white/70"><i
+                class="fas fa-bullhorn text-xl"></i><span class="text-[8px] font-black uppercase mt-1">Avisos</span></a>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
     <script>
-    const urlWeb = window.location.href;
+        const urlWeb = "https://iasdsflim.netlify.app/registro";
 
-    new QRCode(document.getElementById("qrCumple"), {
-        text: urlWeb,
-        width: 180,
-        height: 180,
-        colorDark: "#00305e",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
-</script>
+        new QRCode(document.getElementById("qrCumple"), {
+            text: urlWeb,
+            width: 180,
+            height: 180,
+            colorDark: "#00305e",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+
+
+    <script>
+        function descargarQRPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            doc.setFontSize(22);
+            doc.setTextColor('#00305e');
+            doc.setFont('helvetica', 'bold');
+            doc.text('Muro de Cumpleaños', 105, 30, null, null, 'center');
+
+            doc.setFontSize(16);
+            doc.setTextColor('#fec325');
+            doc.text('IASD Limache', 105, 40, null, null, 'center');
+
+            const qrElement = document.getElementById('qrCumple').querySelector('img');
+            const imgData = qrElement.src;
+
+            doc.addImage(imgData, 'PNG', 65, 60, 80, 80);
+
+            doc.setFontSize(12);
+            doc.setTextColor('#00305e');
+            doc.text('Escanea el código QR para registrar tu cumpleaños', 105, 150, null, null, 'center');
+
+            doc.save('Muro_Cumpleanos_IASD_Limache.pdf');
+        }
+    </script>
+
 
 </body>
+
 </html>
