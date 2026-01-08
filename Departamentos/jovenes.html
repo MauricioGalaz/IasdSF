@@ -27,18 +27,22 @@
             }
         }
     </script>
-    <style>
-        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+<style>
+        .glass { background: rgba(0, 48, 94, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .hero-gradient { background: linear-gradient(135deg, #00305e 0%, #004e92 100%); }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-8px); }
+        
+        /* Espaciado para que el hero no quede oculto bajo el nav fijo */
+        .content-wrapper { padding-top: 100px; }
     </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900 font-sans">
 
-    <nav class="fixed w-full z-50 px-4 py-3">
+<nav class="fixed top-0 left-0 w-full z-[100] px-4 py-3">
         <div class="max-w-6xl mx-auto bg-adventist-blue/90 backdrop-blur-md rounded-2xl shadow-lg px-6 py-3 flex justify-between items-center border border-white/10">
+            
             <a href="../index.html" class="text-white hover:text-adventist-gold transition-all flex items-center gap-2 group">
                 <i class="fas fa-arrow-left group-hover:-translate-x-1"></i>
                 <span class="text-sm font-medium">Inicio</span>
@@ -47,9 +51,9 @@
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
                     <p class="text-[30px] text-adventist-gold leading-none font-bold uppercase tracking-widest">Ministerio</p>
-                    <p class="text-[20px] text-xs text-white font-bold">Jóvenes San Francisco deLimache</p>
+                    <p class="text-[20px] text-white font-bold leading-tight">Jóvenes San Francisco de Limache</p>
                 </div>
-                <img src="../imagenes/logo.jpg" class="h-10 w-10 rounded-full border-2 border-adventist-gold shadow-md">
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
