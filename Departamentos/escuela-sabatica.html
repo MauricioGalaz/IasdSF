@@ -4,145 +4,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Ministerio – IASD Limache</title>
+    <title>Escuela Sabática – San Francisco de Limache</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                        'heading': ['Playfair Display', 'serif'],
+                    },
                     colors: {
                         adventist: {
                             blue: '#00305e',
                             gold: '#fec325',
-                            light: '#f4f4f4'
+                            light: '#f8fafc',
+                            accent: '#1e40af'
                         }
                     }
                 }
             }
         }
     </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 48, 94, 0.85), rgba(0, 48, 94, 0.85)),
+                url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-gray-700">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-        <!-- NAV MINISTERIOS -->
-    <nav class="bg-adventist-blue text-white shadow fixed w-full z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-
-            <!-- VOLVER -->
+    <nav class="bg-adventist-blue text-white shadow-2xl fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="flex items-center space-x-2 text-sm font-semibold hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left text-lg"></i>
-                <span>Inicio</span>
+                class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
+                <i class="fas fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
+                <span>Volver al Inicio</span>
             </a>
 
-            <!-- LOGO -->
-            <div class="flex items-center space-x-3">
-                <img src="../imagenes/logo.jpg" class="h-8 rounded-full">
-                <span class="font-heading font-bold text-xs leading-tight">
-                    IASD<br>San Francisco de Limache
-                </span>
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[15px] uppercase tracking-widest text-adventist-gold font-bold">Iglesia Adventista
+                    </p>
+                    <p class="text-[15px] uppercase tracking-widest text-adventist-gold font-bold">San Francisco de
+                        Limache</p>
+                </div>
+                <img src="../imagenes/logo.jpg" alt="Logo"
+                    class="h-10 w-10 rounded-full border-2 border-adventist-gold object-cover shadow-lg">
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="py-20 bg-adventist-light text-center">
-        <h1 class="text-4xl font-bold text-adventist-blue mb-4">
-            ESCUELA SABÁTICA
-        </h1>
-        <p class="max-w-3xl mx-auto text-gray-600">
-            Estudio sistemático de la Biblia.
-        </p>
-    </section>
-
-    <!-- VIDEOS -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-adventist-blue mb-6">📹 Videos</h2>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <button onclick="cargarVideo('https://www.youtube.com/embed/dsdjHEMnFJs')"
-                    class="bg-adventist-blue text-white py-2 rounded">Video 1</button>
-                <button onclick="cargarVideo('https://www.youtube.com/embed/yCIyxcDc5Z4')"
-                    class="bg-adventist-blue text-white py-2 rounded">Video 2</button>
-            </div>
-
-            <iframe id="videoFrame" class="w-full h-96 rounded shadow" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <!-- SECCIÓN NOTICIAS -->
-    <section class="py-20 bg-adventist-light">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📰 Noticias</h2>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Actividad Próxima</h4>
-                    <p class="text-sm text-gray-600">Información destacada del ministerio.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Evento Especial</h4>
-                    <p class="text-sm text-gray-600">Invitación o anuncio.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Mensaje Espiritual</h4>
-                    <p class="text-sm text-gray-600">Reflexión breve.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- FOOTER -->
-    <footer class="bg-gray-900 text-white py-6 text-center text-sm">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-facebook-f fa-lg"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-instagram fa-lg"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-youtube fa-lg"></i>
-                    </a>
-                </div>
-            </div>
-
-            <hr class="border-gray-800 my-6">
-
-            <p>© 2025 Iglesia Adventista del Séptimo Día – Limache</p>
-            <p class="mt-2">
-                Desarrollado con <i class="fas fa-heart text-red-500"></i> por
-                <a href="#" class="text-adventist-gold hover:underline font-bold">MGE</a>
+    <section class="hero-gradient min-h-[60vh] flex items-center justify-center text-center px-6 pt-20">
+        <div class="max-w-4xl">
+            <span
+                class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold uppercase tracking-widest mb-4 shadow-lg">El
+                corazón de la iglesia</span>
+            <h1 class="text-4xl md:text-6xl font-heading text-white mb-6 leading-tight italic">
+                Escuela Sabática
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
+                "Lámpara es a mis pies tu palabra, y lumbrera a mi camino." <br>
+                <span class="text-adventist-gold italic text-sm">— Salmos 119:105</span>
             </p>
         </div>
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
+    </section>
 
+    <div class="container mx-auto px-6 -mt-16 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+                class="glass-card p-8 rounded-2xl shadow-xl text-center transition hover:transform hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book-open text-adventist-blue text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2 uppercase tracking-tight">Estudio Diario</h3>
+                <p class="text-gray-500 text-sm italic leading-snug">Profundiza en las verdades bíblicas cada mañana con
+                    la lección.</p>
+            </div>
+            <div
+                class="glass-card p-8 rounded-2xl shadow-xl text-center transition hover:transform hover:-translate-y-2 border-t-4 border-adventist-gold">
+                <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-adventist-gold text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2 uppercase tracking-tight">Comunión Relevante</h3>
+                <p class="text-gray-500 text-sm italic leading-snug">Crecemos juntos compartiendo experiencias en grupos
+                    de fe.</p>
+            </div>
+            <div
+                class="glass-card p-8 rounded-2xl shadow-xl text-center transition hover:transform hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-hands-helping text-adventist-blue text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2 uppercase tracking-tight">Misión Activa</h3>
+                <p class="text-gray-500 text-sm italic leading-snug">Transformamos el conocimiento en servicio para
+                    Limache.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-heading italic text-adventist-blue">Recursos Multimedia</h2>
+                <div class="h-1 w-20 bg-adventist-gold mt-2"></div>
+            </div>
+            <p class="text-gray-500 mt-4 md:mt-0 italic text-sm">Repasa el comentario de la semana en video.</p>
+        </div>
+
+        <div class="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl ring-8 ring-gray-100">
+            <div class="grid md:grid-cols-4">
+                <div class="bg-adventist-blue p-6 flex flex-col justify-center space-y-4">
+                    <p class="text-adventist-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-center">
+                        Selecciona un video:
+                    </p>
+
+                    <button onclick="cargarVideo('https://www.youtube.com/embed/_yGbuO_7tyY?si=zJPqChuIaOa83Gcr', this)"
+                        class="video-btn active bg-white/20 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-adventist-gold">
+                        <i class="fas fa-play-circle text-adventist-gold"></i>
+                        <span class="text-sm font-semibold">Lección de Adultos</span>
+                    </button>
+
+                    <button onclick="cargarVideo('https://www.youtube.com/embed/DT2q6tgDoTA', this)"
+                        class="video-btn bg-white/5 hover:bg-white/10 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-transparent">
+                        <i class="fas fa-play-circle text-gray-400"></i>
+                        <span class="text-xs font-semibold leading-tight tracking-tight">
+                            PELÍCULA ESCUELA SABÁTICA<br>
+                            <span class="text-[10px] font-light text-gray-300 italic">Lección 02 - 1er Trim. 2026</span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="md:col-span-3 aspect-video">
+                    <iframe id="videoFrame" 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/_yGbuO_7tyY?si=zJPqChuIaOa83Gcr"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-heading italic text-adventist-blue">Material de Estudio</h2>
+            <p class="text-gray-500 italic">Descarga los folletos del trimestre en formato PDF</p>
+            <div class="h-1 w-24 bg-adventist-gold mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-50 p-3 rounded-lg text-adventist-blue group-hover:bg-adventist-blue group-hover:text-white transition">
+                        <i class="fas fa-file-pdf text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Resumen de la Lección</h4>
+                        <p class="text-[10px] text-gray-400 uppercase">1er Trimestre 2026</p>
+                    </div>
+                </div>
+                <a href="https://www.fustero.es/2026t102.pdf" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+
+            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-yellow-50 p-3 rounded-lg text-adventist-gold group-hover:bg-adventist-gold group-hover:text-adventist-blue transition">
+                        <i class="fas fa-chalkboard-teacher text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Guía de Maestros</h4>
+                        <p class="text-[10px] text-gray-400 uppercase">Material Auxiliar</p>
+                    </div>
+                </div>
+                <a href="https://escuelasabaticamaestros.com/wp-content/uploads/2025/12/Leccion-2-PDF-RAZONES-PARA-AGRADECER-Y-ORAR-Para-el-10-de-enero-de-2026.pdf" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+
+            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-green-50 p-3 rounded-lg text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
+                        <i class="fas fa-child text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Folleto Infantil y otros Materiales</h4>
+                        <p class="text-[10px] text-gray-400 uppercase">Primarios / Infantes</p>
+                    </div>
+                </div>
+                <a href="https://vivosenjesus.com/infantes-2026-1t" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6">
+            <h2
+                class="text-3xl font-heading italic text-adventist-blue text-center mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8">
+                Noticias y Anuncios</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <article class="bg-white rounded-2xl overflow-hidden shadow-lg group">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span
+                            class="absolute top-4 left-4 bg-adventist-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Comunidad</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg mb-2 group-hover:text-adventist-gold transition">Reunión de
+                            Maestros</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 leading-snug">Este viernes nos reunimos
+                            para preparar el nuevo ciclo de estudios bíblicos.</p>
+                        <a href="#" class="text-adventist-blue font-bold text-xs uppercase hover:underline">Leer más
+                            →</a>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-2xl overflow-hidden shadow-lg group">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span
+                            class="absolute top-4 left-4 bg-adventist-gold text-adventist-blue text-[10px] font-bold px-3 py-1 rounded-full uppercase">Especial</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg mb-2 group-hover:text-adventist-gold transition">Sábado de Visitas
+                        </h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 leading-snug">Invitamos a todos a traer un
+                            amigo este próximo sábado para una clase especial.</p>
+                        <a href="#" class="text-adventist-blue font-bold text-xs uppercase hover:underline">Leer más
+                            →</a>
+                    </div>
+                </article>
+
+                <div
+                    class="bg-adventist-blue p-8 rounded-2xl shadow-xl text-white flex flex-col justify-center relative overflow-hidden">
+                    <i class="fas fa-quote-right absolute -bottom-4 -right-4 text-white/10 text-9xl"></i>
+                    <h4 class="text-adventist-gold font-heading italic text-2xl mb-4 leading-snug text-center">
+                        Inspiración del Sábado</h4>
+                    <p class="italic font-light text-center relative z-10 leading-relaxed">
+                        "La Escuela Sabática es un medio importante para guiar a las almas al estudio de las Escrituras
+                        y al conocimiento de la verdad."
+                    </p>
+                    <div class="w-10 h-0.5 bg-adventist-gold mx-auto mt-6"></div>
+                    <p class="text-center text-[10px] uppercase mt-2 tracking-widest font-bold">Elena G. de White</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-10">
+                <h3 class="font-heading italic text-3xl mb-2 italic">IASD Limache</h3>
+                <p class="text-gray-400 font-light text-sm italic italic tracking-wide leading-snug italic">Llevando el
+                    mensaje de esperanza a todo San Francisco de Limache.</p>
+            </div>
+
+            <div class="flex justify-center space-x-8 mb-12">
+                <a href="#"
+                    class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center hover:bg-adventist-gold hover:border-adventist-gold hover:text-adventist-blue transition transform hover:scale-110">
+                    <i class="fab fa-facebook-f text-lg"></i>
+                </a>
+                <a href="#"
+                    class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center hover:bg-adventist-gold hover:border-adventist-gold hover:text-adventist-blue transition transform hover:scale-110">
+                    <i class="fab fa-instagram text-lg"></i>
+                </a>
+                <a href="#"
+                    class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center hover:bg-adventist-gold hover:border-adventist-gold hover:text-adventist-blue transition transform hover:scale-110">
+                    <i class="fab fa-youtube text-lg"></i>
+                </a>
+            </div>
+
+            <hr class="border-gray-800 mb-8">
+
+            <div
+                class="flex flex-col md:flex-row justify-between items-center text-[11px] text-gray-500 uppercase tracking-widest font-bold">
+                <p>© 2025 Iglesia Adventista del Séptimo Día – San Francisco de Limache</p>
+                <p class="mt-4 md:mt-0 italic italic tracking-normal capitalize font-normal">
+                    Desarrollado con <i class="fas fa-heart text-red-600 animate-pulse mx-1"></i> por
+                    <a href="#" class="text-adventist-gold font-bold hover:underline italic">Mauricio Galaz Estay</a>
+                </p>
+            </div>
+        </div>
+
+        <button id="btnTop"
+            class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-white transition-all duration-300 z-50 hover:scale-110 active:scale-95">
+            <i class="fas fa-arrow-up"></i>
+        </button>
     </footer>
-    
-    <script>
-        /* Cambiar video */
-        function cargarVideo(url) {
-            document.getElementById("videoFrame").src = url;
+
+<script>
+    function cargarVideo(url, elemento) {
+        // 1. Cambia el video en el iframe
+        const frame = document.getElementById('videoFrame');
+        if (frame) {
+            frame.src = url;
         }
 
-        /* Botón volver arriba */
-        const btnTop = document.getElementById("btnTop");
+        // 2. Limpia los estilos de todos los botones
+        const botones = document.querySelectorAll('.video-btn');
+        botones.forEach(btn => {
+            btn.classList.remove('bg-white/20', 'border-adventist-gold');
+            btn.classList.add('bg-white/5', 'border-transparent');
+            
+            // Cambia el color del icono a gris
+            const icono = btn.querySelector('i');
+            if (icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
+        });
 
+        // 3. Aplica estilo activo al botón presionado
+        elemento.classList.add('bg-white/20', 'border-adventist-gold');
+        elemento.classList.remove('bg-white/5', 'border-transparent');
+        
+        // Cambia el color del icono a dorado
+        const iconoActivo = elemento.querySelector('i');
+        if (iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
+    }
+</script>
+
+<script>
+    function actualizarPlayer(videoId, elemento) {
+        // 1. Construir la URL limpia
+        const nuevaUrl = "https://www.youtube.com/embed/" + videoId;
+        
+        // 2. Cambiar el SRC del iframe
+        const player = document.getElementById("mainVideoPlayer");
+        if(player) {
+            player.src = nuevaUrl;
+        }
+
+        // 3. Gestionar clases visuales de los botones
+        const botones = document.querySelectorAll('.video-btn');
+        botones.forEach(btn => {
+            // Resetear todos los botones
+            btn.classList.remove('bg-white/20', 'border-adventist-gold');
+            btn.classList.add('bg-white/5', 'border-transparent');
+            const icono = btn.querySelector('i');
+            if(icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
+        });
+
+        // Activar el botón clickeado
+        elemento.classList.add('bg-white/20', 'border-adventist-gold');
+        elemento.classList.remove('bg-white/5', 'border-transparent');
+        const iconoActivo = elemento.querySelector('i');
+        if(iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
+    }
+</script>
+
+    <script>
+        /* Cambiar video con estilo de botones */
+        function cargarVideo(url, btn) {
+            document.getElementById("videoFrame").src = url;
+
+            // Estilizar botones
+            document.querySelectorAll('.video-btn').forEach(b => {
+                b.classList.remove('bg-white/20', 'border-adventist-gold');
+                b.classList.add('bg-white/5', 'border-transparent');
+            });
+            btn.classList.add('bg-white/20', 'border-adventist-gold');
+            btn.classList.remove('border-transparent');
+        }
+
+        /* Botón volver arriba suave */
+        const btnTop = document.getElementById("btnTop");
         window.addEventListener("scroll", () => {
-            btnTop.classList.toggle("hidden", window.scrollY < 300);
+            if (window.scrollY > 400) {
+                btnTop.classList.remove("hidden", "opacity-0");
+                btnTop.classList.add("block", "opacity-100");
+            } else {
+                btnTop.classList.add("hidden", "opacity-0");
+            }
         });
 
         btnTop.addEventListener("click", () => {

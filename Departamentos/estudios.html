@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudios Bíblicos LSE - IASD Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+        
+        /* ESTILO DE TARJETA CON FONDO DINÁMICO */
+        .lesson-card { 
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        /* Capa oscura para resaltar el texto sobre el fondo */
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.95));
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .lesson-card:hover { transform: translateY(-8px); }
+        .lesson-card:hover::before { background: rgba(0, 48, 94, 0.8); }
+
+        .active-ring { 
+            border: 4px solid #fec325 !important;
+            box-shadow: 0 0 20px rgba(254, 195, 37, 0.4);
+        }
+
+        .glass-header { background: rgba(0, 48, 94, 0.95); backdrop-filter: blur(10px); }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #fec325; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-slate-200 custom-scrollbar">
+
+    <nav class="fixed w-full z-50 glass-header border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="ministerio_personal.html" class="flex items-center text-adventist-gold hover:text-white transition font-bold tracking-tight">
+                <i class="fas fa-chevron-left mr-2"></i> Volver
+            </a>
+            <div class="flex items-center space-x-3">
+                <span class="text-[10px] font-black tracking-[0.3em] hidden sm:block opacity-70">CURSO BÍBLICO LSE</span>
+                <div class="h-6 w-[1px] bg-white/20"></div>
+                <img src="../imagenes/logo.jpg" class="h-8 w-8 rounded-full border border-adventist-gold shadow-lg">
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-28 pb-12 bg-gradient-to-b from-adventist-blue/40 to-[#0f172a]">
+        <div class="container mx-auto px-6">
+            <div id="videoContainer" class="max-w-5xl mx-auto rounded-[2.5rem] overflow-hidden shadow-2xl bg-black border border-white/5">
+                <div class="aspect-video relative">
+                    <iframe id="mainPlayer" class="absolute inset-0 w-full h-full" 
+                        src="https://www.youtube.com/embed/m9KOikA8Vi0?si=4mbl8Dc5fc3aTeU0" 
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="p-8 bg-[#1e293b] flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <span id="lessonTag" class="bg-adventist-gold text-adventist-blue px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-tighter">Lección 01</span>
+                        <h1 id="lessonTitle" class="text-3xl font-black text-white mt-2 leading-none italic uppercase">La Palabra de Dios</h1>
+                    </div>
+                    <button class="px-6 py-3 bg-white/5 hover:bg-white/10 rounded-2xl transition flex items-center gap-2 text-sm font-bold border border-white/5">
+                        <i class="fas fa-share-alt text-adventist-gold"></i> Compartir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-white/10 pb-6">
+            <div>
+                <h2 class="text-4xl font-black text-white tracking-tight uppercase italic">
+                    Contenido <span class="text-adventist-gold">LSE</span>
+                </h2>
+            </div>
+            <p class="text-slate-400 font-medium italic">Haz clic en una lección para estudiar</p>
+        </div>
+
+        <div id="gridLecciones" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            </div>
+    </section>
+
+    <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-youtube fa-lg"></i></a>
+            </div>
+            <p class="font-black text-adventist-gold text-xl uppercase tracking-widest italic mb-2">
+                IASD SAN FRANCISCO DE LIMACHE
+            </p>
+            <p class="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">
+                © 2026 • Diseñado por Mauricio Galaz Estay
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const videos = [
+            { id: 1, title: "La Palabra de Dios", url: "https://www.youtube.com/embed/m9KOikA8Vi0?si=4mbl8Dc5fc3aTeU0" },
+            { id: 2, title: "El Origen del Mal", url: "https://www.youtube.com/embed/7oivSZQqHNQ?si=K5rfBnLRbQgrnMej" },
+            { id: 3, title: "El Plan de Salvación", url: "https://www.youtube.com/embed/3rEtvAeTJQ4?si=zgwDXGsjRjU1PX0m" },
+            { id: 4, title: "La Fe y la Victoria", url: "https://www.youtube.com/embed/buY6pteylDI?si=c8j6NLs4DS-jlL2c" },
+            { id: 5, title: "La Segunda Venida", url: "https://www.youtube.com/embed/_abWtOvyoGg?si=Wsim6Ac8kKxXPK0F" },
+            { id: 6, title: "Señales de los Tiempos", url: "https://www.youtube.com/embed/vYW-ffBOFvA?si=0BaDnf-xnIJcPBlp" },
+            { id: 7, title: "El Milenio", url: "https://www.youtube.com/embed/OP7RJqLy65k?si=YQ8vn8mzxt3SWIgK" },
+            { id: 8, title: "La Santa Biblia", url: "https://www.youtube.com/embed/HTpKlzl6iZw?si=MK3WmusFYidRhX4G" },
+            { id: 9, title: "La Oración", url: "https://www.youtube.com/embed/gDy18vCwYRI?si=VxZsKeMhChcXVw_g" },
+            { id: 10, title: "El Sábado", url: "https://www.youtube.com/embed/wUyycFVqPJ4?si=1JBK3Fo9j8_E_gFa" },
+            { id: 11, title: "La Ley de Dios", url: "https://www.youtube.com/embed/LEAkuH8cihM?si=gYn66sZ7hZRk_0dL" },
+            { id: 12, title: "El Santuario", url: "https://www.youtube.com/embed/rQCLpNNHeeQ?si=I41bYODdyYVAtP" },
+            { id: 13, title: "El Juicio", url: "https://www.youtube.com/embed/Kj3oLDtx9_k?si=VYHkEILs6g9INaUB" },
+            { id: 14, title: "La Muerte", url: "https://www.youtube.com/embed/yThFGcOaX1U?si=i-NhCs7cJF16RYqg" },
+            { id: 15, title: "La Resurrección", url: "https://www.youtube.com/embed/Rv6nlzvTWNE?si=AV-SDbJ1vPKK-Amg" },
+            { id: 16, title: "El Bautismo", url: "https://www.youtube.com/embed/Wm-AFPKyhg8?si=HKbYENJGR219OHZa" },
+            { id: 17, title: "La Iglesia", url: "https://www.youtube.com/embed/67yvB8Rwcsw?si=c9H2gMiDiFvjHppr" },
+            { id: 18, title: "El Don de Profecía", url: "https://www.youtube.com/embed/M7xrfY1hSXU?si=pCVJqHKCXIOfZmMX" },
+            { id: 19, title: "La Mayordomía", url: "https://www.youtube.com/embed/gpssslXCa0s?si=wMgWRi3ptp6HezmM" },
+            { id: 20, title: "La Salud", url: "https://www.youtube.com/embed/XBe0MIG8vuY?si=T_6YR77CCABu6yGt" },
+            { id: 21, title: "La Vida Cristiana", url: "https://www.youtube.com/embed/XBe0MIG8vuY?si=T_6YR77CCABu6yGt" },
+            { id: 22, title: "El Matrimonio", url: "https://www.youtube.com/embed/42NPyk4mMo8?si=KcUUMQbrMx9Vr1uS" },
+            { id: 23, title: "Los Talentos", url: "https://www.youtube.com/embed/lweHdoH4Qtc?si=53wFgPmxZMWVWVJY" },
+            { id: 24, title: "La Tierra Nueva", url: "https://www.youtube.com/embed/ZVgcz41erc8?si=BlW_5hAHQcT1gFkT" }
+        ];
+
+        const grid = document.getElementById('gridLecciones');
+
+        function renderLecciones() {
+            grid.innerHTML = videos.map(v => {
+                // Genera una imagen de fondo temática basada en el ID
+                const bgImg = `https://images.unsplash.com/photo-${1504052434569 + (v.id * 123)}?auto=format&fit=crop&q=40&w=400`;
+                
+                return `
+                    <div onclick="cambiarVideo(${v.id}, '${v.url}', '${v.title}')" 
+                        id="card-${v.id}"
+                        class="lesson-card rounded-[2rem] p-6 border border-white/5 cursor-pointer group shadow-lg"
+                        style="background-image: url('${bgImg}')">
+                        
+                        <div class="relative z-10 h-full flex flex-col justify-between">
+                            <div class="w-10 h-10 rounded-xl bg-adventist-gold flex items-center justify-center text-adventist-blue font-black shadow-lg">
+                                ${v.id}
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-bold text-white group-hover:text-adventist-gold transition-colors text-lg leading-tight uppercase italic">${v.title}</h3>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <i class="fas fa-play-circle text-adventist-gold text-xs"></i>
+                                    <span class="text-[9px] text-slate-300 uppercase tracking-widest font-bold">Ver ahora</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function cambiarVideo(id, url, titulo) {
+            const player = document.getElementById('mainPlayer');
+            player.style.opacity = "0";
+            
+            setTimeout(() => {
+                player.src = url + "&autoplay=1";
+                document.getElementById('lessonTitle').innerText = titulo;
+                document.getElementById('lessonTag').innerText = `Lección ${id < 10 ? '0' + id : id}`;
+                player.style.opacity = "1";
+            }, 300);
+
+            document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active-ring'));
+            document.getElementById(`card-${id}`).classList.add('active-ring');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        renderLecciones();
+        setTimeout(() => document.getElementById('card-1').classList.add('active-ring'), 500);
+    </script>
+</body>
+</html>
