@@ -1259,21 +1259,30 @@
     <div class="h-20 md:hidden"></div>
 
     <div class="p-4">
-    <a href="Departamentos/secretaria.html" class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] hover:shadow-adventist-gold/20 border border-white/10">
-        
-        <div class="absolute top-0 right-0 w-32 h-32 bg-adventist-gold/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-adventist-gold/20 transition-all"></div>
+    <div class="p-4">
+    <a href="Departamentos/secretaria.html" class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] border border-white/10">
         
         <div class="flex items-center justify-between relative z-10">
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 group-hover:border-adventist-gold/50 transition-all">
-                    <i class="fas fa-chart-pie text-adventist-gold text-2xl group-hover:animate-pulse"></i>
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                    <i class="fas fa-chart-line text-adventist-gold text-2xl"></i>
                 </div>
                 
                 <div class="text-left">
                     <h3 class="text-white font-black uppercase tracking-tighter text-lg leading-none">Métricas de Iglesia</h3>
-                    <p class="text-adventist-gold/70 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Secretaría Digital • Estadísticas</p>
+                    <p id="ultimoConteo" class="text-adventist-gold text-[10px] font-bold uppercase tracking-[0.2em] mt-1 italic">
+                        Cargando asistencia...
+                    </p>
                 </div>
             </div>
+            
+            <div class="text-right">
+                <span id="numeroGrande" class="text-white text-2xl font-black leading-none group-hover:text-adventist-gold transition-colors">--</span>
+                <p class="text-[8px] text-white/30 uppercase font-bold">Total</p>
+            </div>
+        </div>
+    </a>
+</div>
             
             <div class="text-white/30 group-hover:text-adventist-gold group-hover:translate-x-2 transition-all">
                 <i class="fas fa-chevron-right text-xl"></i>
