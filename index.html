@@ -14,7 +14,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00305e">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png
+    <meta name=" theme-color" content="#00305e">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -468,32 +471,101 @@
             /* evita saltos */
         }
 
-        #contenedor-mensajes-slide {
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
+        #contenedor-mensajes-slide p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            width: 100%;
+            padding: 0 10px;
         }
+
+        <style>
+
+        /* Asegura que el modal flote sobre cualquier otro elemento */
+        #modalMensaje {
+            z-index: 9999 !important;
+        }
+
+        /* Evita que el texto de los mensajes se corte feo */
+        #contenedor-mensajes-slide {
+            min-height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
     </style>
 </head>
 
 <body class="font-sans text-gray-700">
 
-    <div id="banner-cumple-hoy"
-        class="hidden bg-white border-2 border-yellow-400 rounded-[2.5rem] p-6 shadow-2xl mb-8 animate__animated animate__bounceIn">
-        <div class="flex items-center gap-4 mb-4">
-            <div class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-2xl">🎂</div>
-            <div>
-                <h3 class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Hoy celebramos a:</h3>
-                <p id="nombre-cumple" class="text-2xl font-black text-[#00305e]"></p>
+    <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[100] mb-4">
+        <div class="bg-[#fec325] p-[2px] shadow-lg rounded-2xl overflow-hidden">
+            <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="text-2xl animate-bounce">🎂</div>
+                    <div>
+                        <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones en tu día!
+                        </p>
+                        <p id="nombre-cumple"
+                            class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">Cargando...
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="abrirModalMensaje()"
+                    class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-4 py-2 rounded-full shadow-md hover:bg-white transition-all transform active:scale-95">
+                    FELICITAR ✨
+                </button>
+            </div>
+
+            <div class="bg-white/95 py-2 min-h-[30px] flex items-center justify-center">
+                <div id="contenedor-mensajes-slide" class="w-full text-center px-4 transition-all duration-500">
+                    <p class="text-[#00305e] text-[10px] font-bold italic">Esperando bendiciones...</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="bg-slate-50 rounded-2xl p-4 overflow-hidden relative h-16">
-            <div id="contenedor-mensajes-slide" class="absolute w-full transition-all duration-500">
-                <p class="text-slate-500 italic text-sm text-center">Cargando bendiciones...</p>
+    <div id="modalMensaje"
+        class="hidden fixed inset-0 bg-black/80 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 shadow-2xl animate__animated animate__zoomIn">
+            <h3 class="text-[#00305e] font-black text-center mb-2 uppercase tracking-tighter text-xl">Regala una Oración
+            </h3>
+            <p class="text-gray-400 text-[10px] text-center mb-6 uppercase font-bold">Tu mensaje aparecerá en el muro
+                principal</p>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-black text-[#00305e] uppercase ml-2">Tu Nombre</label>
+                    <input type="text" id="autorMsg" maxlength="20" placeholder="Ej: Familia González"
+                        class="w-full p-4 bg-gray-100 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#fec325] text-sm">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-[#00305e] uppercase ml-2">Tu Bendición</label>
+                    <div class="relative">
+                        <textarea id="textoMsg" maxlength="100" placeholder="Escribe aquí tu deseo..."
+                            class="w-full p-4 bg-gray-100 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#fec325] text-sm"
+                            rows="3"
+                            oninput="document.getElementById('charCount').innerText = this.value.length + '/100'"></textarea>
+                        <span id="charCount"
+                            class="absolute bottom-3 right-4 text-[9px] text-gray-400 font-bold">0/100</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col space-y-2 pt-2">
+                    <button onclick="enviarSaludo()"
+                        class="w-full bg-[#00305e] text-[#fec325] py-4 rounded-2xl font-black shadow-xl hover:brightness-110 active:scale-95 transition-all">
+                        ENVIAR BENDICIÓN
+                    </button>
+                    <button onclick="cerrarModal()"
+                        class="w-full text-gray-400 font-bold text-xs py-2 uppercase tracking-widest">
+                        Tal vez después
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -619,560 +691,566 @@
 
 
             </nav>
+            <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
+                <div class="bg-[#fec325] p-[2px] shadow-lg">
+                    <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-2xl animate-bounce">🎂</div>
+                            <div>
+                                <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!
+                                </p>
+                                <p id="nombre-cumple"
+                                    class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">...
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="abrirModalMensaje()"
+                            class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-3 py-2 rounded shadow-lg hover:bg-white transition-colors">
+                            FELICITAR ✨
+                        </button>
+                        <a href="#" onclick="document.getElementById('banner-cumple-hoy').classList.add('hidden')"
+                            class="text-white text-xl ml-2">&times;</a>
+                    </div>
+
+                    <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
+                        <div id="contenedor-mensajes-slide"
+                            class="w-full text-center transition-all duration-500 opacity-100">
+                            <p class="text-[#00305e] text-[9px] font-bold italic">Cargando bendiciones...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="fixed-header"></div>
+
+    <main class="pt-[132px]">
+
+
+        <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
+            <div class="max-w-4xl text-white">
+                <h1
+                    class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
+                    UNA FAMILIA DE ESPERANZA
+                </h1>
+
+                <div class="max-w-2xl mx-auto px-6">
+
+                    <div class="flex justify-center w-full mb-8">
+                        <a href="registro.html" target="_blank"
+                            class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+
+                            <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
+
+                            <div class="text-left">
+                                <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro
+                                    de
+                                </p>
+                                <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
+                            </div>
+
+                            <i
+                                class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
+
+                            <div class="absolute inset-0 rounded-full overflow-hidden">
+                                <div class="shine-effect"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="ORACION/index.html"
+                            class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                            <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
+                        </a>
+                        <a href="estudio-biblico.html"
+                            class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                            <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
+                        </a>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
-            <div class="bg-[#fec325] p-[2px] shadow-[0_0_20px_rgba(254,195,37,0.4)]">
-                <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="text-2xl animate-bounce">🎂</div>
-                        <div>
-                            <p class="text-white font-black uppercase tracking-tighter text-[10px] leading-none mb-1">
-                                ¡Bendiciones en tu día!
-                            </p>
-                            <p id="nombre-cumple"
-                                class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">
-                                ...
-                            </p>
-                        </div>
-                    </div>
-                    <a id="link-felicitar" href="cumpleanos.html" class="...">
-                        FELICITAR ✨
-                    </a>
-                    <a href="#" onclick="cerrarBannerCumple()"
-                        class="text-white text-xl hover:text-gray-300 transition">&times;
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div id="fixed-header"></div>
-
-        <main class="pt-[132px]">
-
-
-            <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
-                <div class="max-w-4xl text-white">
-                    <h1
-                        class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
-                        UNA FAMILIA DE ESPERANZA
-                    </h1>
-
-                    <div class="max-w-2xl mx-auto px-6">
-
-                        <div class="flex justify-center w-full mb-8">
-                            <a href="registro.html" target="_blank"
-                                class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
-
-                                <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
-
-                                <div class="text-left">
-                                    <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro de
-                                    </p>
-                                    <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
-                                </div>
-
-                                <i
-                                    class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
-
-                                <div class="absolute inset-0 rounded-full overflow-hidden">
-                                    <div class="shine-effect"></div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <a href="ORACION/index.html"
-                                class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                                <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
-                            </a>
-                            <a href="estudio-biblico.html"
-                                class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                                <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </header>
 
 
 
-
-    </div>
-
-    </div>
-    </section>
-
-
-
-    </div>
-    </div>
-
-    <section class="py-12 bg-white reveal">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
-                <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
-                    Sábado</h2>
-                <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
-                    agobiados..."</p>
-                <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
-                    <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="horarios" class="py-12 bg-adventist-light reveal">
-        <div class="container mx-auto px-4">
-            <div
-                class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
-                <img id="carousel" src="imagenes/foto1.jpg"
-                    class="w-full aspect-video object-cover transition-opacity duration-1000">
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                    <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
-                    <p class="font-bold">09:30 AM — Escuela Sabática</p>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
-                    <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
-                    <p class="font-bold">17:30 PM — Oración Intercesora</p>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                    <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
-                    <p class="font-bold">19:00 PM — Culto de Oración</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
-        <div class="container mx-auto px-4 mb-10 text-center">
-            <h2
-                class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
-                Nuestros Ministerios
-            </h2>
         </div>
 
-        <div class="relative group max-w-[98%] mx-auto">
-            <button onclick="scrollMinisterios(-350)"
-                class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                <i class="fas fa-chevron-left text-xl"></i>
-            </button>
-
-            <div id="scrollContainer" class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
-                <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/ja.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Jóvenes</h3>
-                        <div class="card-icon"><i class="fas fa-users"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/mujer.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Ministerio Mujer</h3>
-                        <div class="card-icon"><i class="fas fa-female"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/salud.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Salud</h3>
-                        <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/infantil.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Infantil</h3>
-                        <div class="card-icon"><i class="fas fa-child"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/avent.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Aventureros</h3>
-                        <div class="card-icon"><i class="fas fa-hiking"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/mayor.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Mayordomía</h3>
-                        <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/diacono.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Diáconos</h3>
-                        <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/sabatica.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Escuela Sabática</h3>
-                        <div class="card-icon"><i class="fas fa-book-open"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/personal.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Personal</h3>
-                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/asa.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">ASA</h3>
-                        <div class="card-icon"><i class="fas fa-box-open"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/publicaciones.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Publicaciones</h3>
-                        <div class="card-icon"><i class="fas fa-atlas"></i></div>
-                    </div>
-                </a>
-                <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
-                    <img src="imagenes/dorcas.jpg">
-                    <div class="card-overlay">
-                        <h3 class="card-title">Dorcas</h3>
-                        <div class="card-icon"><i class="fas fa-mitten"></i></div>
-                    </div>
-                </a>
-            </div>
-
-            <button onclick="scrollMinisterios(350)"
-                class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                <i class="fas fa-chevron-right text-xl"></i>
-            </button>
         </div>
-    </section>
-
-    <style>
-        /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
-        .ministerio-card {
-            flex: 0 0 auto;
-            width: 190px;
-            height: 300px;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            background: #001529;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            transition: all 0.5s ease;
-        }
-
-        .ministerio-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 48, 94, 0.3);
-        }
-
-        .ministerio-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-            transition: all 0.8s ease;
-        }
-
-        .ministerio-card:hover img {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        /* EFECTO DE LUCES AUTOMÁTICAS (SHIMMER) */
-        .shimmer-auto::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: skewX(-25deg);
-            animation: shine-auto 4s infinite ease-in-out;
-        }
-
-        .ministerio-card:nth-child(2n)::after {
-            animation-delay: 1s;
-        }
-
-        .ministerio-card:nth-child(3n)::after {
-            animation-delay: 2s;
-        }
-
-        @keyframes shine-auto {
-            0% {
-                left: -150%;
-            }
-
-            20% {
-                left: 150%;
-            }
-
-            100% {
-                left: 150%;
-            }
-        }
-
-        .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .card-title {
-            color: white;
-            font-size: 11px;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
-        }
-
-        .ministerio-card:hover .card-icon {
-            background: #fec325;
-            color: #00305e;
-            border-color: #fec325;
-            transform: rotate(360deg);
-        }
-
-        /* TUS ANIMACIONES DE BARRA Y SHIMMER ORIGINALES */
-        .progress-fill-jesus {
-            height: 100%;
-            width: 100%;
-            background: #b45309;
-            border-radius: 9999px;
-            animation: countdown-jesus 25s linear forwards;
-        }
-
-        @keyframes countdown-jesus {
-            from {
-                width: 100%;
-            }
-
-            to {
-                width: 0%;
-            }
-        }
-
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: skewX(-25deg);
-            animation: shine-slow 10s infinite;
-        }
-
-        @keyframes shine-slow {
-            0% {
-                left: -150%;
-            }
-
-            15% {
-                left: 250%;
-            }
-
-            100% {
-                left: 250%;
-            }
-        }
-
-        .shine-effect {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 12s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                left: -100%;
-            }
-
-            20% {
-                left: 150%;
-            }
-
-            100% {
-                left: 150%;
-            }
-        }
-
-        /* Ocultar barra de scroll estética */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Asegurar que las imágenes no se deformen */
-        #scrollContainer img {
-            min-width: 112px;
-            /* h-28 */
-            min-height: 112px;
-        }
-
-        /* Barra de progreso suave para el mensaje de Jesús */
-        .progress-fill-jesus {
-            height: 100%;
-            width: 100%;
-            background: #b45309;
-            border-radius: 9999px;
-            animation: countdown-jesus 25s linear forwards;
-        }
-
-        @keyframes countdown-jesus {
-            from {
-                width: 100%;
-            }
-
-            to {
-                width: 0%;
-            }
-        }
-
-        /* Shimmer solo para botones, muy lento y sutil */
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: skewX(-25deg);
-            animation: shine-slow 10s infinite;
-        }
-
-        @keyframes shine-slow {
-            0% {
-                left: -150%;
-            }
-
-            15% {
-                left: 250%;
-            }
-
-            100% {
-                left: 250%;
-            }
-        }
+        </section>
 
 
 
+        </div>
+        </div>
 
-        /* Estilo adicional para que el modal se vea tipo cristal */
-
-        .glass-modal {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-        }
-    </style>
-
-    <section id="accion-gracias" class="py-16 bg-white reveal">
-        <div class="container mx-auto px-4 max-w-5xl">
-            <div
-                class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
-
-                <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
-                    <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
-                        class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
+        <section class="py-12 bg-white reveal">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
+                    <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
+                        Sábado</h2>
+                    <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
+                        agobiados..."</p>
+                    <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
+                        <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
+                        </p>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <section id="horarios" class="py-12 bg-adventist-light reveal">
+            <div class="container mx-auto px-4">
                 <div
-                    class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
-                    <span
-                        class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
-                        <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
-                    </span>
-
-                    <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
-                        Acción de <br><span class="text-[#fec325]">Gracias</span>
-                    </h3>
-
-                    <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
-                        Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
-                        este año.
-                    </p>
-
-                    <div>
-                        <button onclick="playFullVideo()"
-                            class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
-                            <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
-
-                        </button>
+                    class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
+                    <img id="carousel" src="imagenes/foto1.jpg"
+                        class="w-full aspect-video object-cover transition-opacity duration-1000">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                        <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
+                        <p class="font-bold">09:30 AM — Escuela Sabática</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
+                        <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
+                        <p class="font-bold">17:30 PM — Oración Intercesora</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                        <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
+                        <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
+                        <p class="font-bold">19:00 PM — Culto de Oración</p>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
+            <div class="container mx-auto px-4 mb-10 text-center">
+                <h2
+                    class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
+                    Nuestros Ministerios
+                </h2>
+            </div>
+
+            <div class="relative group max-w-[98%] mx-auto">
+                <button onclick="scrollMinisterios(-350)"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+
+                <div id="scrollContainer"
+                    class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
+                    <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/ja.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Jóvenes</h3>
+                            <div class="card-icon"><i class="fas fa-users"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/mujer.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Ministerio Mujer</h3>
+                            <div class="card-icon"><i class="fas fa-female"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/salud.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Salud</h3>
+                            <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/infantil.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Infantil</h3>
+                            <div class="card-icon"><i class="fas fa-child"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/avent.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Aventureros</h3>
+                            <div class="card-icon"><i class="fas fa-hiking"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/mayor.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Mayordomía</h3>
+                            <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/diacono.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Diáconos</h3>
+                            <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/sabatica.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Escuela Sabática</h3>
+                            <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/personal.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Personal</h3>
+                            <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/asa.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">ASA</h3>
+                            <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/publicaciones.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Publicaciones</h3>
+                            <div class="card-icon"><i class="fas fa-atlas"></i></div>
+                        </div>
+                    </a>
+                    <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
+                        <img src="imagenes/dorcas.jpg">
+                        <div class="card-overlay">
+                            <h3 class="card-title">Dorcas</h3>
+                            <div class="card-icon"><i class="fas fa-mitten"></i></div>
+                        </div>
+                    </a>
+                </div>
+
+                <button onclick="scrollMinisterios(350)"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </section>
+
+        <style>
+            /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
+            .ministerio-card {
+                flex: 0 0 auto;
+                width: 190px;
+                height: 300px;
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                background: #001529;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                transition: all 0.5s ease;
+            }
+
+            .ministerio-card:hover {
+                transform: translateY(-10px) scale(1.03);
+                box-shadow: 0 20px 40px rgba(0, 48, 94, 0.3);
+            }
+
+            .ministerio-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.7;
+                transition: all 0.8s ease;
+            }
+
+            .ministerio-card:hover img {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+
+            /* EFECTO DE LUCES AUTOMÁTICAS (SHIMMER) */
+            .shimmer-auto::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -150%;
+                width: 60%;
+                height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+                transform: skewX(-25deg);
+                animation: shine-auto 4s infinite ease-in-out;
+            }
+
+            .ministerio-card:nth-child(2n)::after {
+                animation-delay: 1s;
+            }
+
+            .ministerio-card:nth-child(3n)::after {
+                animation-delay: 2s;
+            }
+
+            @keyframes shine-auto {
+                0% {
+                    left: -150%;
+                }
+
+                20% {
+                    left: 150%;
+                }
+
+                100% {
+                    left: 150%;
+                }
+            }
+
+            .card-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .card-title {
+                color: white;
+                font-size: 11px;
+                font-weight: 900;
+                text-transform: uppercase;
+                margin-bottom: 12px;
+                letter-spacing: 1px;
+            }
+
+            .card-icon {
+                width: 44px;
+                height: 44px;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(4px);
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 18px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: all 0.3s;
+            }
+
+            .ministerio-card:hover .card-icon {
+                background: #fec325;
+                color: #00305e;
+                border-color: #fec325;
+                transform: rotate(360deg);
+            }
+
+            /* TUS ANIMACIONES DE BARRA Y SHIMMER ORIGINALES */
+            .progress-fill-jesus {
+                height: 100%;
+                width: 100%;
+                background: #b45309;
+                border-radius: 9999px;
+                animation: countdown-jesus 25s linear forwards;
+            }
+
+            @keyframes countdown-jesus {
+                from {
+                    width: 100%;
+                }
+
+                to {
+                    width: 0%;
+                }
+            }
+
+            .shimmer-effect::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -150%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transform: skewX(-25deg);
+                animation: shine-slow 10s infinite;
+            }
+
+            @keyframes shine-slow {
+                0% {
+                    left: -150%;
+                }
+
+                15% {
+                    left: 250%;
+                }
+
+                100% {
+                    left: 250%;
+                }
+            }
+
+            .shine-effect {
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+                transform: skewX(-25deg);
+                animation: shine 12s infinite;
+            }
+
+            @keyframes shine {
+                0% {
+                    left: -100%;
+                }
+
+                20% {
+                    left: 150%;
+                }
+
+                100% {
+                    left: 150%;
+                }
+            }
+
+            /* Ocultar barra de scroll estética */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            /* Asegurar que las imágenes no se deformen */
+            #scrollContainer img {
+                min-width: 112px;
+                /* h-28 */
+                min-height: 112px;
+            }
+
+            /* Barra de progreso suave para el mensaje de Jesús */
+            .progress-fill-jesus {
+                height: 100%;
+                width: 100%;
+                background: #b45309;
+                border-radius: 9999px;
+                animation: countdown-jesus 25s linear forwards;
+            }
+
+            @keyframes countdown-jesus {
+                from {
+                    width: 100%;
+                }
+
+                to {
+                    width: 0%;
+                }
+            }
+
+            /* Shimmer solo para botones, muy lento y sutil */
+            .shimmer-effect::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -150%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transform: skewX(-25deg);
+                animation: shine-slow 10s infinite;
+            }
+
+            @keyframes shine-slow {
+                0% {
+                    left: -150%;
+                }
+
+                15% {
+                    left: 250%;
+                }
+
+                100% {
+                    left: 250%;
+                }
+            }
+
+
+
+
+            /* Estilo adicional para que el modal se vea tipo cristal */
+
+            .glass-modal {
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+            }
+        </style>
+
+        <section id="accion-gracias" class="py-16 bg-white reveal">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <div
+                    class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
+
+                    <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
+                        <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
+                            class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
+                        </div>
+                    </div>
+
+                    <div
+                        class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
+                        <span
+                            class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
+                            <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
+                        </span>
+
+                        <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
+                            Acción de <br><span class="text-[#fec325]">Gracias</span>
+                        </h3>
+
+                        <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
+                            Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
+                            este año.
+                        </p>
+
+                        <div>
+                            <button onclick="playFullVideo()"
+                                class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
+                                <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
+            <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
+            <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
+
+            <div class="mt-10">
+                <a href="Anuncios 2026.html"
+                    class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
+                    <i class="fas fa-bullhorn animate-bounce"></i>
+                    MURO DE ANUNCIOS LÍDERES
+                </a>
+                <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
+            </div>
+        </header>
+
+        <div class="py-12 flex justify-center px-4">
+            <button onclick="abrirModalAncianos()"
+                class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+                <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
+                    class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
+            </button>
         </div>
-    </section>
-
-    <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
-        <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
-        <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
-
-        <div class="mt-10">
-            <a href="Anuncios 2026.html"
-                class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
-                <i class="fas fa-bullhorn animate-bounce"></i>
-                MURO DE ANUNCIOS LÍDERES
-            </a>
-            <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
-        </div>
-    </header>
-
-    <div class="py-12 flex justify-center px-4">
-        <button onclick="abrirModalAncianos()"
-            class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
-            <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
-                class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
-        </button>
-    </div>
     </main>
 
     <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
@@ -1641,7 +1719,7 @@
 
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+            import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
             const firebaseConfig = {
                 apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
@@ -1654,114 +1732,152 @@
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
 
-            async function cargarDatos() {
+            // --- FUNCIONES GLOBALES (Para que los botones las encuentren) ---
+            window.abrirModalMensaje = () => {
+                const modal = document.getElementById('modalMensaje');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex'); // Forzamos el centrado
+            };
+
+            window.cerrarModal = () => {
+                const modal = document.getElementById('modalMensaje');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+
+            // --- FUNCIÓN DE CONFETI ---
+            function lanzarCelebracion() {
+                const duracion = 5 * 1000;
+                const final = Date.now() + duracion;
+                (function frame() {
+                    confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#fec325', '#00305e'] });
+                    confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#fec325', '#ffffff'] });
+                    if (Date.now() < final) requestAnimationFrame(frame);
+                }());
+            }
+
+            // --- LÓGICA PRINCIPAL ---
+            async function gestionarMuroFrontal() {
                 const ahora = new Date();
                 const hora = ahora.getHours();
-                const dia = ahora.getDay();
+                const diaSemana = ahora.getDay();
+                const diaMes = ahora.getDate();
+                const mes = ahora.getMonth() + 1;
+
                 const banner = document.getElementById('banner-cumple-hoy');
                 const txt = document.getElementById('nombre-cumple');
 
                 if (!banner || !txt) return;
 
-                // Puesta de sol (20:00 hrs)
-                if (hora >= 20) {
-                    banner.classList.remove('hidden');
-                    txt.innerHTML = (dia === 5) ? "✨ ¡FELIZ SÁBADO!" : "🌙 INICIO DE NUEVO DÍA";
+                try {
+                    const q = query(collection(db, "cumpleanos"), where("dia", "==", diaMes), where("mes", "==", mes));
+                    const snap = await getDocs(q);
+
+                    if (!snap.empty) {
+                        const docHero = snap.docs[0];
+                        window.idCumpleActual = docHero.id;
+                        const nombreHero = docHero.data().nombre;
+
+                        banner.classList.remove('hidden');
+
+                        if ((diaSemana === 5 && hora >= 20) || (diaSemana === 6 && hora < 20)) {
+                            txt.innerHTML = `<span class="text-[10px] block text-yellow-400 font-black animate__animated animate__flash animate__infinite">✨ ¡FELIZ SÁBADO! ✨</span> ${nombreHero}`;
+                        } else {
+                            txt.innerText = nombreHero;
+                        }
+
+                        lanzarCelebracion();
+                        iniciarCarruselMensajes(window.idCumpleActual);
+                    } else {
+                        if ((diaSemana === 5 && hora >= 20) || (diaSemana === 6 && hora < 20)) {
+                            banner.classList.remove('hidden');
+                            txt.innerHTML = "✨ ¡FELIZ SÁBADO!";
+                        } else {
+                            banner.classList.add('hidden');
+                        }
+                    }
+                } catch (e) { console.error("Error en Muro:", e); }
+            }
+
+            // --- ENVIAR SALUDO A FIREBASE ---
+            window.enviarSaludo = async function () {
+                const autor = document.getElementById('autorMsg').value;
+                const texto = document.getElementById('textoMsg').value;
+
+                if (!autor || !texto) {
+                    alert("Por favor escribe tu nombre y tu mensaje");
                     return;
                 }
 
-                // Cumpleaños
                 try {
-                    const q = query(collection(db, "cumpleanos"),
-                        where("dia", "==", ahora.getDate()),
-                        where("mes", "==", ahora.getMonth() + 1));
-                    const snap = await getDocs(q);
-                    if (!snap.empty) {
-                        txt.innerText = snap.docs[0].data().nombre;
-                        banner.classList.remove('hidden');
-                    } else {
-                        banner.classList.add('hidden');
-                    }
-                } catch (e) { console.error("Firebase:", e); }
-            }
+                    await addDoc(collection(db, "oraciones"), {
+                        idCumple: window.idCumpleActual,
+                        autor: autor,
+                        texto: texto,
+                        fecha: serverTimestamp()
+                    });
 
-            cargarDatos();
-        </script>
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                    window.cerrarModal();
 
-
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-            // Tu firebaseConfig aquí...
-
-            const db = getFirestore(app);
-
-            async function cargarCumpleañeroPrincipal() {
-                const ahora = new Date();
-                const dia = ahora.getDate();
-                const mes = ahora.getMonth() + 1;
-
-                // 1. Buscar cumpleañero de HOY
-                const q = query(collection(db, "cumpleanos"),
-                    where("dia", "==", dia),
-                    where("mes", "==", mes));
-
-                const snap = await getDocs(q);
-
-                if (!snap.empty) {
-                    const docHero = snap.docs[0];
-                    const datos = docHero.data();
-                    const idCumple = docHero.id;
-
-                    document.getElementById('banner-cumple-hoy').classList.remove('hidden');
-                    document.getElementById('nombre-cumple').innerText = datos.nombre;
-
-                    // 2. Vincular y deslizar mensajes
-                    vincularMensajesDeslizantes(idCumple);
+                    document.getElementById('autorMsg').value = "";
+                    document.getElementById('textoMsg').value = "";
+                    document.getElementById('charCount').innerText = "0/100";
+                } catch (e) {
+                    console.error("Error al enviar:", e);
                 }
-            }
+            };
 
-            function vincularMensajesDeslizantes(id) {
-                const qMsg = query(collection(db, "oraciones"),
-                    where("idCumple", "==", id),
-                    orderBy("fecha", "desc"));
-
+            // --- CARRUSEL DE MENSAJES ---
+            function iniciarCarruselMensajes(id) {
+                const qMsg = query(collection(db, "oraciones"), where("idCumple", "==", id), orderBy("fecha", "desc"));
                 onSnapshot(qMsg, (snapshot) => {
                     const contenedor = document.getElementById('contenedor-mensajes-slide');
+                    if (!contenedor) return;
+
                     if (snapshot.empty) {
-                        contenedor.innerHTML = `<p class="text-slate-400 text-center text-sm">¡Sé el primero en regalar una oración!</p>`;
+                        contenedor.innerHTML = `<p class="text-[#00305e] text-[9px] font-bold italic">¡Sé el primero en felicitar!</p>`;
                         return;
                     }
 
                     let mensajes = [];
                     snapshot.forEach(doc => mensajes.push(doc.data()));
 
-                    // Iniciar carrusel de mensajes
                     let idx = 0;
-                    const mostrarSiguiente = () => {
-                        const m = mensajes[idx];
+                    const rotar = () => {
                         contenedor.style.opacity = "0";
-                        contenedor.style.transform = "translateY(10px)";
-
                         setTimeout(() => {
+                            const m = mensajes[idx];
                             contenedor.innerHTML = `
-                        <p class="text-[#00305e] font-black text-[9px] uppercase text-center">${m.autor} dice:</p>
-                        <p class="text-slate-600 italic text-xs text-center">"${m.texto}"</p>
-                    `;
+                        <div class="animate__animated animate__fadeInUp">
+                            <p class="text-[#00305e] text-[9px] font-bold">
+                                <span class="text-yellow-600 uppercase font-black">${m.autor}:</span> "${m.texto}"
+                            </p>
+                        </div>`;
                             contenedor.style.opacity = "1";
-                            contenedor.style.transform = "translateY(0)";
                             idx = (idx + 1) % mensajes.length;
                         }, 500);
                     };
 
-                    mostrarSiguiente();
-                    setInterval(mostrarSiguiente, 5000); // Cambia el mensaje cada 5 segundos
+                    rotar();
+                    if (window.intervaloMuro) clearInterval(window.intervaloMuro);
+                    window.intervaloMuro = setInterval(rotar, 5000);
                 });
             }
 
-            cargarCumpleañeroPrincipal();
+            gestionarMuroFrontal();
+        </script>
 
+        </script>
+
+        <script>
+            function abrirModalMensaje() {
+                document.getElementById('modalMensaje').classList.remove('hidden');
+            }
+
+            function cerrarModal() {
+                document.getElementById('modalMensaje').classList.add('hidden');
+            }
         </script>
 </body>
 
