@@ -467,6 +467,7 @@
             transform: translateZ(0);
             /* evita saltos */
         }
+    
     </style>
 </head>
 
@@ -1259,352 +1260,214 @@
     <div class="h-20 md:hidden"></div>
 
     <div class="p-4">
+    
     <div class="p-4">
-    <a href="Departamentos/secretaria.html" class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] border border-white/10">
-        
+    <a href="Departamentos/secretaria.html"
+    class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] border border-white/10">
+
+        <!-- FILA SUPERIOR -->
         <div class="flex items-center justify-between relative z-10">
             <div class="flex items-center gap-4">
                 <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
                     <i class="fas fa-chart-line text-adventist-gold text-2xl"></i>
                 </div>
-                
+
                 <div class="text-left">
-                    <h3 class="text-white font-black uppercase tracking-tighter text-lg leading-none">Métricas de Iglesia</h3>
-                    <p id="ultimoConteo" class="text-adventist-gold text-[10px] font-bold uppercase tracking-[0.2em] mt-1 italic">
+                    <h3 class="text-white font-black uppercase tracking-tighter text-lg leading-none">
+                        Métricas de Iglesia
+                    </h3>
+                    <p id="ultimoConteo"
+                    class="text-adventist-gold text-[10px] font-bold uppercase tracking-[0.2em] mt-1 italic">
                         Cargando asistencia...
                     </p>
                 </div>
             </div>
-            
+
             <div class="text-right">
-                <span id="numeroGrande" class="text-white text-2xl font-black leading-none group-hover:text-adventist-gold transition-colors">--</span>
+                <span id="numeroGrande"
+                    class="text-white text-2xl font-black leading-none group-hover:text-adventist-gold transition-colors">
+                    --
+                </span>
                 <p class="text-[8px] text-white/30 uppercase font-bold">Total</p>
             </div>
         </div>
-    </a>
-</div>
-            
-            <div class="text-white/30 group-hover:text-adventist-gold group-hover:translate-x-2 transition-all">
-                <i class="fas fa-chevron-right text-xl"></i>
-            </div>
+
+        <!-- FLECHA -->
+        <div class="mt-4 text-white/30 group-hover:text-adventist-gold group-hover:translate-x-2 transition-all">
+            <i class="fas fa-chevron-right text-xl"></i>
         </div>
-        
+
+        <!-- ESTADO -->
         <div class="mt-4 flex items-center gap-2">
             <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none">Datos sincronizados en tiempo real</span>
+            <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none">
+                Datos sincronizados en tiempo real
+            </span>
         </div>
+
     </a>
 </div>
 
+
     <script>
-        // Lógica del Menú Móvil
-        const menuBtn = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // --- CONSTANTES Y VARIABLES ---
+        const fotosCarousel = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
+        const imagenesAccion = [
+            "imagenes/accion/acc2.jpg", "imagenes/accion/acc3.jpg", "imagenes/accion/acc4.jpg",
+            "imagenes/accion/acc5.jpg", "imagenes/accion/acc6.jpg", "imagenes/accion/acc7.jpg",
+            "imagenes/accion/acc8.jpg"
+        ];
+        let idxCarousel = 0;
+        let idxAccion = 0;
+        let deferredPrompt = null;
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        // --- FUNCIONES GLOBALES (Modales y PWA) ---
+        window.cerrarInvitacion = () => document.getElementById('invitacion-central')?.classList.remove('active');
+        window.cerrarBannerCumple = () => document.getElementById('banner-cumple-hoy')?.classList.add('hidden');
+        
+        window.cerrarMensaje = () => {
+            const modal = document.getElementById('modal-esperanza');
+            if (modal) {
+                modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
+                setTimeout(() => modal.classList.add('hidden'), 500);
+            }
+        };
 
-            // CONTROL DE MENSAJES (Para que no salgan a cada rato)
-            document.addEventListener("DOMContentLoaded", () => {
-                const yaVisto = sessionStorage.getItem('mensajeVisto');
+        window.abrirModalAncianos = () => document.getElementById('modalAncianos')?.classList.remove('hidden');
+        window.cerrarModalAncianos = () => document.getElementById('modalAncianos')?.classList.add('hidden');
+        window.validarAncianos = () => {
+            if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
+            else document.getElementById('errorAncianos')?.classList.remove('hidden');
+        };
 
-                if (!yaVisto) {
-                    const invitacion = document.getElementById('invitacion-central');
-                    const modalEsp = document.getElementById('modal-esperanza');
+        window.instalarApp = () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt = null;
+            } else alert("Usa el menú de tu navegador para instalar la App.");
+        };
 
+        // --- EVENTOS AL CARGAR LA PÁGINA ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // Menú Móvil
+            const menuBtn = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn?.addEventListener('click', () => mobileMenu?.classList.toggle('hidden'));
+
+            // Control de Mensajes (Solo una vez por sesión)
+            if (!sessionStorage.getItem('mensajeVisto')) {
+                const invitacion = document.getElementById('invitacion-central');
+                const modalEsp = document.getElementById('modal-esperanza');
+                const barra = document.getElementById('progress-timer');
+
+                setTimeout(() => {
+                    invitacion?.classList.add('show');
                     setTimeout(() => {
-                        invitacion.classList.add('show');
-                        setTimeout(() => {
-                            invitacion.classList.remove('show');
-                            modalEsp.classList.remove('hidden');
-                            modalEsp.classList.add('animate__fadeInUp');
-
-                            // Marcar como visto en esta sesión
-                            sessionStorage.setItem('mensajeVisto', 'true');
-
-                            setTimeout(() => cerrarMensaje(), 25000);
-                        }, 10000);
-                    }, 2000);
-                }
-            });
-
-            function cerrarMensaje() {
-                const m = document.getElementById('modal-esperanza');
-                if (m) {
-                    m.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
-                    setTimeout(() => m.classList.add('hidden'), 800);
-                }
+                        invitacion?.classList.remove('show');
+                        modalEsp?.classList.remove('hidden');
+                        modalEsp?.classList.add('animate__fadeIn');
+                        sessionStorage.setItem('mensajeVisto', 'true');
+                        
+                        // Cierre automático por barra de progreso
+                        barra?.addEventListener('animationend', () => setTimeout(window.cerrarMensaje, 300));
+                    }, 10000);
+                }, 2000);
             }
 
-            // Carrusel de fotos
-            const fotos = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
-            let idx = 0;
+            // Carrusel Principal
             setInterval(() => {
                 const img = document.getElementById("carousel");
                 if (img) {
                     img.style.opacity = "0.3";
                     setTimeout(() => {
-                        idx = (idx + 1) % fotos.length;
-                        img.src = fotos[idx];
+                        idxCarousel = (idxCarousel + 1) % fotosCarousel.length;
+                        img.src = fotosCarousel[idxCarousel];
                         img.style.opacity = "1";
                     }, 500);
                 }
             }, 5000);
 
-            // Modales de Acceso
-            function abrirModalAncianos() { document.getElementById('modalAncianos').classList.remove('hidden'); }
-            function cerrarModalAncianos() { document.getElementById('modalAncianos').classList.add('hidden'); }
-            function validarAncianos() {
-                if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
-                else document.getElementById('errorAncianos').classList.remove('hidden');
-            }
-    </script>
-
-
-    <script>
-
-            function mostrarMensaje() {
-                const modal = document.getElementById('modal-esperanza');
-                const barra = document.getElementById('progress-timer');
-
-                if (!modal || !barra) return;
-
-                modal.classList.remove('hidden');
-                modal.classList.add('animate__fadeIn');
-
-                // Escucha cuando la barra llega al final de los 9 segundos
-                barra.addEventListener('animationend', () => {
-                    // Espera un instante (300ms) para que se vea llena y cierra
-                    setTimeout(cerrarMensaje, 300);
-                });
-            }
-
-            function cerrarMensaje() {
-                const modal = document.getElementById('modal-esperanza');
-                if (modal && !modal.classList.contains('hidden')) {
-                    modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
+            // Carrusel Acción
+            setInterval(() => {
+                const imgAcc = document.getElementById('carrusel-accion');
+                if (imgAcc) {
+                    imgAcc.style.opacity = "0";
                     setTimeout(() => {
-                        modal.classList.add('hidden');
-                    }, 500);
+                        idxAccion = (idxAccion + 1) % imagenesAccion.length;
+                        imgAcc.src = imagenesAccion[idxAccion];
+                        imgAcc.style.opacity = "1";
+                    }, 1000);
                 }
-            }
+            }, 4000);
 
-            // Iniciar al cargar la página o al evento que prefieras
-            window.addEventListener('load', mostrarMensaje);
-    </script>
-    <script>
-
-
-            const imagenesAccion = [
-                "imagenes/accion/acc2.jpg",
-                "imagenes/accion/acc3.jpg",
-                "imagenes/accion/acc4.jpg",
-                "imagenes/accion/acc5.jpg",
-                "imagenes/accion/acc6.jpg",
-                "imagenes/accion/acc7.jpg",
-                "imagenes/accion/acc8.jpg"
-            ];
-
-            let iAccion = 0;
-            const imgAccion = document.getElementById('carrusel-accion');
-
-            function carruselAccion() {
-                if (!imgAccion) return;
-
-                // Desvanecer
-                imgAccion.style.opacity = "0";
-
-                setTimeout(() => {
-                    iAccion = (iAccion + 1) % imagenesAccion.length;
-                    imgAccion.src = imagenesAccion[iAccion];
-
-                    // Volver a mostrar con la nueva imagen
-                    imgAccion.style.opacity = "1";
-                }, 1000); // Tiempo de la transición
-            }
-
-            // Cambiar cada 4 segundos
-            setInterval(carruselAccion, 4000);
-    </script>
-    <script>
-            window.addEventListener('load', () => {
-                const banners = document.querySelectorAll('.reveal');
-                banners.forEach((el, index) => {
-                    setTimeout(() => {
-                        el.classList.add('active');
-                    }, index * 200); // Aparecen uno tras otro
-                });
+            // Revelado de Banners
+            const banners = document.querySelectorAll('.reveal');
+            banners.forEach((el, index) => {
+                setTimeout(() => el.classList.add('active'), index * 200);
             });
+        });
+
+        // Eventos de PWA
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js").catch(err => console.log("SW error:", err));
+        }
     </script>
 
     <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-            // Configuración de tu Firebase
-            const firebaseConfig = {
-                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-                authDomain: "iasd-limache-muro.firebaseapp.com",
-                projectId: "iasd-limache-muro",
-                storageBucket: "iasd-limache-muro.firebasestorage.app",
-                appId: "1:277039117234:web:65f4e76064935cadabaaab"
-            };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
 
-            // Inicializar Firebase
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-            async function activarBannerBiblico() {
-                const ahora = new Date();
-                const horaActual = ahora.getHours();
-                const diaSemana = ahora.getDay(); // 5 = Viernes, 6 = Sábado
-                const banner = document.getElementById('banner-cumple-hoy');
-                const txtNombre = document.getElementById('nombre-cumple');
-                const txtTitulo = banner.querySelector('h2');
-                const btnFelicitar = banner.querySelector('a');
+        async function cargarDatos() {
+            const ahora = new Date();
+            const hora = ahora.getHours();
+            const dia = ahora.getDay(); 
+            const banner = document.getElementById('banner-cumple-hoy');
+            const txt = document.getElementById('nombre-cumple');
 
-                // --- LÓGICA DE PUESTA DE SOL (Inicio del Nuevo Día Bíblico) ---
-                // Usamos las 20:00 hrs como estándar, pero puedes ajustarlo
-                if (horaActual >= 20) {
-                    banner.classList.remove('hidden', 'bg-adventist-blue');
-                    banner.classList.add('bg-slate-900', 'border-t-4', 'border-adventist-gold');
+            if (!banner || !txt) return;
 
-                    if (diaSemana === 5) {
-                        // Es Viernes después de las 20:00 -> YA ES SÁBADO
-                        txtTitulo.innerHTML = "✨ ¡FELIZ SÁBADO!";
-                        txtNombre.innerText = "El séptimo día ha comenzado. ¡Bendiciones!";
-                        if (btnFelicitar) btnFelicitar.classList.add('hidden');
-                    } else {
-                        // Cambio de día normal (Ej: Lunes noche ya es Martes bíblico)
-                        txtTitulo.innerHTML = "🌙 INICIO DEL NUEVO DÍA";
-                        txtNombre.innerText = "Buscando la presencia de Dios para una nueva jornada";
-                        if (btnFelicitar) btnFelicitar.classList.add('hidden');
-                    }
-                    return;
-                }
+            // Puesta de sol (20:00 hrs)
+            if (hora >= 20) {
+                banner.classList.remove('hidden');
+                txt.innerHTML = (dia === 5) ? "✨ ¡FELIZ SÁBADO!" : "🌙 INICIO DE NUEVO DÍA";
+                return;
+            }
 
-                // --- LÓGICA DE CUMPLEAÑOS (Durante el día hasta la puesta de sol) ---
-                const q = query(collection(db, "cumpleanos"),
-                    where("dia", "==", ahora.getDate()),
+            // Cumpleaños
+            try {
+                const q = query(collection(db, "cumpleanos"), 
+                    where("dia", "==", ahora.getDate()), 
                     where("mes", "==", ahora.getMonth() + 1));
-
                 const snap = await getDocs(q);
-
                 if (!snap.empty) {
-                    const cumple = snap.docs[0].data();
-                    txtTitulo.innerHTML = "🎂 CUMPLEAÑOS DE HOY";
-                    txtNombre.innerText = cumple.nombre;
+                    txt.innerText = snap.docs[0].data().nombre;
                     banner.classList.remove('hidden');
-                    if (btnFelicitar) btnFelicitar.classList.remove('hidden');
                 } else {
                     banner.classList.add('hidden');
                 }
-            }
-
-            // Ejecutar la función apenas cargue la página
-            document.addEventListener('DOMContentLoaded', activarBannerCumpleanos);
-    </script>
-
-    <script>
-            // Lógica del menú móvil (ya que estaba en tu código original)
-            const menuBtn = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-
-            // Cerrar mensajes de invitación
-            window.cerrarInvitacion = () => {
-                document.getElementById('invitacion-central').classList.remove('active');
-            };
-
-            window.cerrarMensaje = () => {
-                document.getElementById('modal-esperanza').classList.add('hidden');
-            };
-
-
-    </script>
-
-    <script>
-            let deferredPrompt = null;
-
-            window.addEventListener("beforeinstallprompt", (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-            });
-
-            function instalarApp() {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.finally(() => {
-                        deferredPrompt = null;
-                        document.getElementById('modalApp').classList.add('hidden');
-                    });
-                } else {
-                    const ua = navigator.userAgent.toLowerCase();
-                    if (ua.includes("iphone")) {
-                        alert("📱 iPhone:\nCompartir → Añadir a pantalla de inicio");
-                    } else {
-                        alert("⚠️ La instalación se habilita solo en HTTPS.");
-                    }
-                }
-            }
-
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("service-worker.js");
-            }
-    </script>
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    import { getDocs, updateDoc, doc } from "firebase/firestore";
-
-    const snap = await getDocs(collection(db, "avisos"));
-
-    snap.forEach(async d => {
-    const data = d.data();
-    if (!data.expira) {
-    await updateDoc(doc(db, "avisos", d.id), {
-    expira: null
-    });
-    }
-    });
-    </script>
-    <>
-
-    
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("sw.js");
-            }
-}
-    
-
-<script>
-    window.scrollMinisterios = function (distance) {
-        const container = document.getElementById('scrollContainer');
-
-        if (container) {
-            container.scrollBy({
-                left: distance,
-                behavior: 'smooth'
-            });
-        } else {
-            console.error(
-                "Error: No se encontró el ID 'scrollContainer'. Verifica que el div de las tarjetas tenga id='scrollContainer'"
-            );
+            } catch (e) { console.error("Firebase:", e); }
         }
-    };
-</script>   
-</script>
 
-
+        cargarDatos();
+    </script>
 </body>
 </html>
-

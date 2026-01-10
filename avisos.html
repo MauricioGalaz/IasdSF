@@ -147,104 +147,163 @@
 
 
             <section
-                class="hover-card bg-white border-t-[12px] md:border-t-[16px] border-adventist-green rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-16 shadow-2xl text-center">
-                <i class="fas fa-bus-alt text-6xl md:text-9xl text-adventist-green mb-6 animate-bounce"></i>
-                <h2 class="text-3xl md:text-8xl font-heading font-black text-slate-800 leading-none mb-6">PASEO DE
-                    <br>IGLESIA
+                class="hover-card bg-white border-t-[12px] md:border-t-[16px] border-green-600 rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl text-center overflow-hidden">
+
+                <div class="relative w-full h-48 md:h-96 mb-8 rounded-[2rem] overflow-hidden shadow-inner bg-slate-100">
+                    <img id="imgPaseo" src="paseo/p1.jpg"
+                        class="w-full h-full object-cover transition-opacity duration-1000" style="opacity: 1;"
+                        alt="Fotos del paseo">
+
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-lg">
+                        <span class="text-[10px] md:text-sm font-black text-green-700 uppercase tracking-widest">Próxima
+                            Aventura</span>
+                    </div>
+                </div>
+
+                <i class="fas fa-bus-alt text-5xl md:text-8xl text-green-600 mb-6 animate-bounce"></i>
+
+                <h2 class="text-3xl md:text-7xl font-black text-slate-800 leading-none mb-6 uppercase">
+                    Paseo de<br><span class="text-green-600">Iglesia</span>
                 </h2>
+
                 <div
-                    class="inline-block bg-adventist-green text-white px-8 py-3 md:px-10 md:py-4 rounded-2xl md:rounded-3xl font-black text-xl md:text-4xl shadow-xl">
+                    class="inline-block bg-green-600 text-white px-8 py-3 md:px-12 md:py-5 rounded-2xl md:rounded-3xl font-black text-xl md:text-4xl shadow-xl transform hover:scale-105 transition-transform">
                     22 DE FEBRERO 2026
                 </div>
+
                 <p class="mt-6 md:mt-8 text-slate-500 text-sm md:text-2xl font-bold italic uppercase tracking-wide">
-                    !!CUPOS LIMITADOS (solo 80) !!</p>
+                    ¡¡CUPOS LIMITADOS (SOLO 80)!!
+                </p>
+
+                <div class="w-24 h-1 bg-green-600 mx-auto mt-6 rounded-full opacity-30"></div>
             </section>
 
-<section class="relative overflow-hidden bg-slate-100 border-t-[16px] md:border-t-[20px] border-adventist-blue rounded-[3rem] p-4 md:p-10 shadow-2xl text-center">
-    
-    <h2 class="text-5xl md:text-8xl font-heading font-black text-slate-900 leading-none mb-2 uppercase tracking-tighter">
-        ÉXODO
-        <span class="block text-xl md:text-4xl text-adventist-blue tracking-widest mt-1">EL GRAN EVENTO</span>
-    </h2>
+            <script>
+                    // Lógica del Carrusel de Fotos del Paseo
+                    (function () {
+                        const fotosPaseo = ["imagenes/paseo/p1.jpg", "imagenes/paseo/p2.jpg", "imagenes/paseo/p3.jpg"];
+                        let i = 0;
+                        const imgElement = document.getElementById("imgPaseo");
 
-    <p class="bg-adventist-blue text-adventist-gold inline-block px-8 py-2 rounded-2xl font-black text-xl md:text-4xl italic shadow-lg mb-8 transform -rotate-1 border-b-4 border-adventist-gold">
-        SÁBADO 10 -- 19:00 HRS
-    </p>
+                        setInterval(() => {
+                            if (imgElement) {
+                                // Efecto de desvanecimiento
+                                imgElement.style.opacity = "0";
 
-    <div class="mb-10 relative max-w-3xl mx-auto">
-        <div class="bg-red-600 text-white p-6 md:p-8 rounded-[2.5rem] border-4 border-dashed border-white/40 shadow-xl relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
-            
-            <h3 class="text-2xl md:text-5xl font-black uppercase mb-2 [text-shadow:_2px_2px_0_rgba(0,0,0,0.3)]">⚠️ AVISO IMPORTANTE ⚠️</h3>
-            <p class="text-lg md:text-3xl font-bold mb-3">
-                TRAE TU <span class="text-yellow-300 underline decoration-2">AMIGO DE ESPERANZA</span>
-            </p>
-            <p class="text-4xl md:text-6xl font-black text-yellow-200 drop-shadow-xl uppercase">Ministerio de Música</p>
-        </div>
-    </div>
+                                setTimeout(() => {
+                                    i = (i + 1) % fotosPaseo.length;
+                                    imgElement.src = fotosPaseo[i];
+                                    imgElement.style.opacity = "1";
+                                }, 1000); // Tiempo para cambiar la imagen mientras está invisible
+                            }
+                        }, 5000); // Cambia cada 5 segundos
+                    })();
+            </script>
 
-    <div class="relative mx-auto max-w-2xl mb-12 group">
-        <div class="bg-[#4e342e] p-6 md:p-10 rounded-[4rem] shadow-[0_25px_0_0_#2d1d1a] border-t-8 border-l-8 border-white/5 relative">
-            
-            <div class="relative bg-black rounded-[2.5rem] overflow-hidden border-[15px] md:border-[20px] border-slate-900 shadow-[inset_0_0_50px_rgba(0,0,0,1)] aspect-video flex items-center justify-center">
-                
-                <video 
-                    class="w-full h-full object-cover scale-125 transition-transform duration-700 group-hover:scale-110" 
-                    style="object-position: center 30%;" 
-                    autoplay 
-                    loop 
-                    controls
-                    playsinline>
-                    <source src="imagenes/avisos/exodovideo.mp4" type="video/mp4">
-                    Tu navegador no soporta video.
-                </video>
+            <section
+                class="relative overflow-hidden bg-slate-100 border-t-[16px] md:border-t-[20px] border-adventist-blue rounded-[3rem] p-4 md:p-10 shadow-2xl text-center">
 
-                <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none z-10"></div>
-                <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none"></div>
-            </div>
+                <h2
+                    class="text-5xl md:text-8xl font-heading font-black text-slate-900 leading-none mb-2 uppercase tracking-tighter">
+                    ÉXODO
+                    <span class="block text-xl md:text-4xl text-adventist-blue tracking-widest mt-1">EL GRAN
+                        EVENTO</span>
+                </h2>
 
-            <div class="flex justify-between items-center mt-8 px-6">
-                <div class="flex flex-col items-start gap-1">
-                    <div class="flex items-center gap-3">
-                        <div class="w-4 h-4 rounded-full bg-red-600 shadow-[0_0_15px_red] animate-pulse"></div>
-                        <span class="text-xs md:text-sm text-white/60 font-mono tracking-widest uppercase">High Definition Retro</span>
-                    </div>
-                    <div class="w-32 h-2 bg-black/40 rounded-full mt-2"></div>
-                </div>
-                
-                <div class="flex gap-6">
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-black to-[#3e2723] border-2 border-white/10 shadow-xl flex items-center justify-center">
-                        <div class="w-1 h-4 bg-white/20 rounded-full transform rotate-45"></div>
-                    </div>
-                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-black to-[#3e2723] border-2 border-white/10 shadow-xl flex items-center justify-center">
-                        <div class="w-1 h-4 bg-white/20 rounded-full transform -rotate-12"></div>
+                <p
+                    class="bg-adventist-blue text-adventist-gold inline-block px-8 py-2 rounded-2xl font-black text-xl md:text-4xl italic shadow-lg mb-8 transform -rotate-1 border-b-4 border-adventist-gold">
+                    SÁBADO 10 -- 19:00 HRS
+                </p>
+
+                <div class="mb-10 relative max-w-3xl mx-auto">
+                    <div
+                        class="bg-red-600 text-white p-6 md:p-8 rounded-[2.5rem] border-4 border-dashed border-white/40 shadow-xl relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]">
+                        </div>
+
+                        <h3
+                            class="text-2xl md:text-5xl font-black uppercase mb-2 [text-shadow:_2px_2px_0_rgba(0,0,0,0.3)]">
+                            ⚠️ AVISO IMPORTANTE ⚠️</h3>
+                        <p class="text-lg md:text-3xl font-bold mb-3">
+                            TRAE TU <span class="text-yellow-300 underline decoration-2">AMIGO DE ESPERANZA</span>
+                        </p>
+                        <p class="text-4xl md:text-6xl font-black text-yellow-200 drop-shadow-xl uppercase">Ministerio
+                            de Música</p>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="flex justify-around px-20 -mt-2">
-            <div class="w-8 h-12 bg-[#2d1d1a] rounded-b-2xl shadow-2xl"></div>
-            <div class="w-8 h-12 bg-[#2d1d1a] rounded-b-2xl shadow-2xl"></div>
-        </div>
-    </div>
 
-    <div class="max-w-xs mx-auto mt-4 transform hover:scale-110 transition-all duration-500 cursor-pointer">
-        <div class="bg-white p-4 shadow-2xl rounded-sm border-b-4 border-adventist-blue">
-            <img src="imagenes/avisos/exodo.jpeg" alt="Tarjeta Éxodo" class="w-full rounded-sm mb-2">
-            <p class="font-black text-adventist-blue text-sm uppercase">Pase de Invitado Especial</p>
-            <p class="text-[10px] text-slate-400 font-bold"></p>
-        </div>
-    </div>
+                <div class="relative mx-auto max-w-2xl mb-12 group">
+                    <div
+                        class="bg-[#4e342e] p-6 md:p-10 rounded-[4rem] shadow-[0_25px_0_0_#2d1d1a] border-t-8 border-l-8 border-white/5 relative">
 
-</section>
+                        <div
+                            class="relative bg-black rounded-[2.5rem] overflow-hidden border-[15px] md:border-[20px] border-slate-900 shadow-[inset_0_0_50px_rgba(0,0,0,1)] aspect-video flex items-center justify-center">
 
-<style>
-@keyframes shimmer {
-    100% { transform: translateX(100%); }
-}
-</style>
-</section>
+                            <video
+                                class="w-full h-full object-cover scale-125 transition-transform duration-700 group-hover:scale-110"
+                                style="object-position: center 30%;" autoplay loop controls playsinline>
+                                <source src="imagenes/avisos/exodovideo.mp4" type="video/mp4">
+                                Tu navegador no soporta video.
+                            </video>
+
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none z-10">
+                            </div>
+                            <div
+                                class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-8 px-6">
+                            <div class="flex flex-col items-start gap-1">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 rounded-full bg-red-600 shadow-[0_0_15px_red] animate-pulse">
+                                    </div>
+                                    <span
+                                        class="text-xs md:text-sm text-white/60 font-mono tracking-widest uppercase">High
+                                        Definition Retro</span>
+                                </div>
+                                <div class="w-32 h-2 bg-black/40 rounded-full mt-2"></div>
+                            </div>
+
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gradient-to-tr from-black to-[#3e2723] border-2 border-white/10 shadow-xl flex items-center justify-center">
+                                    <div class="w-1 h-4 bg-white/20 rounded-full transform rotate-45"></div>
+                                </div>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gradient-to-tr from-black to-[#3e2723] border-2 border-white/10 shadow-xl flex items-center justify-center">
+                                    <div class="w-1 h-4 bg-white/20 rounded-full transform -rotate-12"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-around px-20 -mt-2">
+                        <div class="w-8 h-12 bg-[#2d1d1a] rounded-b-2xl shadow-2xl"></div>
+                        <div class="w-8 h-12 bg-[#2d1d1a] rounded-b-2xl shadow-2xl"></div>
+                    </div>
+                </div>
+
+                <div class="max-w-xs mx-auto mt-4 transform hover:scale-110 transition-all duration-500 cursor-pointer">
+                    <div class="bg-white p-4 shadow-2xl rounded-sm border-b-4 border-adventist-blue">
+                        <img src="imagenes/avisos/exodo.jpeg" alt="Tarjeta Éxodo" class="w-full rounded-sm mb-2">
+                        <p class="font-black text-adventist-blue text-sm uppercase">Pase de Invitado Especial</p>
+                        <p class="text-[10px] text-slate-400 font-bold"></p>
+                    </div>
+                </div>
+
+            </section>
+
+            <style>
+                @keyframes shimmer {
+                    100% {
+                        transform: translateX(100%);
+                    }
+                }
+            </style>
+            </section>
 
 
             <section
@@ -261,7 +320,7 @@
                     !!NO FALTES A ESTA CITA CON DIOS !!
 
 
-</section>
+            </section>
             <section
                 class="max-w-4xl mx-auto my-10 p-1 bg-gradient-to-br from-adventist-blue to-blue-900 rounded-[3.5rem] shadow-[0_35px_60px_-15px_rgba(0,48,94,0.4)] overflow-hidden">
 
@@ -396,21 +455,24 @@
 
         </main>
 
-    <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-youtube fa-lg"></i></a>
+        <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                            class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                            class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                            class="fab fa-youtube fa-lg"></i></a>
+                </div>
+                <p class="font-black text-adventist-gold text-xl uppercase tracking-widest italic mb-2">
+                    IASD SAN FRANCISCO DE LIMACHE
+                </p>
+                <p class="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">
+                    © 2026 • Diseñado por Mauricio Galaz Estay
+                </p>
             </div>
-            <p class="font-black text-adventist-gold text-xl uppercase tracking-widest italic mb-2">
-                IASD SAN FRANCISCO DE LIMACHE
-            </p>
-            <p class="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">
-                © 2026 • Diseñado por Mauricio Galaz Estay
-            </p>
-        </div>
-    </footer>
+        </footer>
 
         <button id="btnTop"
             class="hidden fixed bottom-6 right-6 bg-adventist-blue text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl shadow-2xl z-[100] items-center justify-center">
