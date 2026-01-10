@@ -33,8 +33,8 @@
 
     <div class="hoja">
         <div class="text-center border-b-[6px] border-[#fec325] pb-6 mb-8">
-            <h2 class="text-3xl font-black text-[#00305e] uppercase tracking-tighter">Guion Litúrgico Sabático</h2>
-            <p class="text-[10px] font-black text-slate-400 tracking-[0.4em] uppercase italic">Ministerio de Culto - IASD Limache</p>
+            <h2 class="text-3xl font-black text-[#00305e] uppercase tracking-tighter">Orden Doxológico de Sábado</h2>
+            <p class="text-[10px] font-black text-slate-400 tracking-[0.4em] uppercase italic">Midea - IASD San Francisco de Limache</p>
         </div>
 
         <div class="grid grid-cols-2 gap-8 mb-8">
@@ -199,10 +199,19 @@
     </div>
 
     <script>
-        new QRCode(document.getElementById("qrcode"), {
-            text: window.location.href.replace("imprimir_pro.html", "secretaria.html"),
-            width: 120, height: 120, colorDark : "#00305e"
-        });
-    </script>
+    // Limpiamos el contenedor por si acaso antes de generar
+    const qrContainer = document.getElementById("qrcode");
+    qrContainer.innerHTML = ""; 
+
+    new QRCode(qrContainer, {
+        // Ponemos la URL directa y completa
+        text: "https://iasdsflim.netlify.app/departamentos/secretaria",
+        width: 180, // Un poco más grande para que sea fácil de escanear
+        height: 180,
+        colorDark : "#00305e",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H // Nivel de corrección alto para apertura rápida
+    });
+</script>
 </body>
 </html>
