@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pauta Litúrgica Profesional - Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: 'Outfit', sans-serif; background: #f1f5f9; color: #1e293b; }
+        .hoja { width: 210mm; min-height: 297mm; padding: 15mm; margin: 20px auto; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .caja-input { border: 1.5px solid #e2e8f0; border-radius: 8px; height: 2.2rem; margin-top: 4px; background: #fcfcfc; }
+        .instruccion { border-left: 4px solid #fec325; padding-left: 1rem; background: #f8fafc; border-radius: 0 8px 8px 0; font-size: 0.8rem; margin: 10px 0; }
+        @media print {
+            body { background: white; padding: 0; }
+            .no-print { display: none !important; }
+            .hoja { margin: 0; box-shadow: none; page-break-after: always; border: none; }
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="max-w-4xl mx-auto no-print bg-white p-6 rounded-3xl shadow-xl mb-10 flex justify-between items-center border-l-[12px] border-[#00305e]">
+        <div>
+            <h1 class="text-xl font-black text-[#00305e] tracking-tight uppercase">Modo Impresión Trimestral</h1>
+            <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Generar hojas para completar a mano</p>
+        </div>
+        <button onclick="window.print()" class="bg-[#00305e] text-white px-8 py-4 rounded-2xl font-black flex items-center gap-3 hover:scale-105 transition-all shadow-lg text-sm">
+            <i class="fas fa-print"></i> IMPRIMIR PAUTAS
+        </button>
+    </div>
+
+    <div class="hoja">
+        <div class="text-center border-b-[6px] border-[#fec325] pb-6 mb-8">
+            <h2 class="text-3xl font-black text-[#00305e] uppercase tracking-tighter">Guion Litúrgico Sabático</h2>
+            <p class="text-[10px] font-black text-slate-400 tracking-[0.4em] uppercase italic">Ministerio de Culto - IASD Limache</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 mb-8">
+            <div class="flex flex-col">
+                <span class="text-[9px] font-black text-slate-400 uppercase ml-1">📅 Fecha del Sábado</span>
+                <div class="caja-input w-full"></div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[9px] font-black text-slate-400 uppercase ml-1">🎤 Predicador(a)</span>
+                <div class="caja-input w-full"></div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="bg-[#00305e] text-white w-8 h-8 rounded-lg flex items-center justify-center font-black">I</div>
+                <h3 class="text-lg font-black text-[#00305e] uppercase italic">Liturgia Inicial y Alabanza</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">👤 Acompañante 1</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">🎼 Temática de Cantos</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <span class="text-[9px] font-black text-red-600 uppercase ml-1">🎹 Himnos Previos (Antes de Iniciar)</span>
+                <div class="grid grid-cols-3 gap-3 mt-1">
+                    <div class="caja-input text-center font-black"></div>
+                    <div class="caja-input text-center font-black"></div>
+                    <div class="caja-input text-center font-black"></div>
+                </div>
+            </div>
+
+            <div class="instruccion space-y-2">
+                <p>🚶 <b>Ingreso:</b> Himno 32 — "Nos reunimos en tu santuario"</p>
+                <p>🛐 <b>Plataforma:</b> Himno 135 — "Cristo, nombre sublime"</p>
+                <p class="font-black text-[#00305e] pt-2 uppercase text-[10px]">Guion del Responsable:</p>
+                <ul class="list-disc list-inside text-xs font-semibold leading-relaxed">
+                    <li>Dar Bienvenida oficial y saludo a la hermandad.</li>
+                    <li>Presentar e invitar a ver Video misionero "Probad y Ved".</li>
+                    <li>Invitar a cantar Himno #525 ("Con gratitud llegamos").</li>
+                    <li>Solicitar al Diaconado la oración de Diezmos y Ofrendas.</li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mt-6">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">💰 Oración Ofrendas (Diácono)</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-red-600 uppercase ml-1">🎼 Himno Inicial del Culto</span>
+                    <div class="caja-input w-full border-[#00305e]"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="bg-[#fec325] text-[#00305e] w-8 h-8 rounded-lg flex items-center justify-center font-black shadow-sm">II</div>
+                <h3 class="text-lg font-black text-[#00305e] uppercase italic">Mensaje y Bloque Espiritual</h3>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">👤 Acompañante 2</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">📖 Lectura Bíblica (Pasaje)</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">👶 Adoración Infantil (Encargado)</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black text-slate-400 uppercase ml-1">🎵 Alabanza Especial</span>
+                    <div class="caja-input w-full"></div>
+                </div>
+            </div>
+
+            <div class="instruccion border-l-[#00305e] italic">
+                <p>🎤 <b>Mensaje:</b> Presentar al predicador(a) y ceder el tiempo del sermón.</p>
+                <p>🙏 <b>Cierre:</b> Después del mensaje, invitar a Himno Final y solicitar Oración de Cierre.</p>
+            </div>
+
+            <div class="flex flex-col mt-6">
+                <span class="text-[9px] font-black text-red-600 uppercase ml-1">🎼 Himno Final</span>
+                <div class="caja-input w-full border-[#00305e]"></div>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center border-t pt-4">
+            <p class="text-[9px] font-bold text-slate-300 tracking-[0.5em] uppercase italic">Esperanza en Limache</p>
+        </div>
+    </div>
+
+    <div class="hoja">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-black text-[#00305e] uppercase">Control y Métricas Sabáticas</h2>
+            <p class="text-[9px] font-bold text-slate-400 italic">USO EXCLUSIVO SECRETARÍA Y DIACONADO</p>
+        </div>
+
+        <div class="box-registro border-[3px] border-slate-100 p-8">
+            <h4 class="text-xs font-black text-[#00305e] uppercase mb-6 underline decoration-[#fec325] decoration-4">1. Conteo de Asistencia</h4>
+            <div class="grid grid-cols-4 gap-4 text-center">
+                <div><span class="text-[9px] font-bold uppercase">Varones</span><div class="caja-input w-full"></div></div>
+                <div><span class="text-[9px] font-bold uppercase">Damas</span><div class="caja-input w-full"></div></div>
+                <div><span class="text-[9px] font-bold uppercase">Niños</span><div class="caja-input w-full"></div></div>
+                <div class="bg-slate-50 p-2 rounded-xl border border-slate-200">
+                    <span class="text-[9px] font-black text-[#00305e] uppercase">TOTAL</span>
+                    <div class="linea w-full border-b-2 border-[#00305e]"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-registro border-[3px] border-slate-100 p-8">
+            <h4 class="text-xs font-black text-[#00305e] uppercase mb-6 underline decoration-[#fec325] decoration-4">2. Registro de Visitas</h4>
+            <div class="space-y-6">
+                <div class="grid grid-cols-3 gap-2 border-b-2 pb-2 text-[9px] font-black text-slate-400 uppercase">
+                    <span>Nombre Completo</span><span>Teléfono</span><span>Contacto de seguimiento</span>
+                </div>
+                <div class="h-8 border-b border-slate-100"></div>
+                <div class="h-8 border-b border-slate-100"></div>
+                <div class="h-8 border-b border-slate-100"></div>
+                <div class="h-8 border-b border-slate-100"></div>
+                <div class="h-8 border-b border-slate-100"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mt-6">
+            <div class="flex flex-col items-center justify-center p-8 bg-[#00305e] rounded-[3rem] text-white">
+                <div id="qrcode" class="bg-white p-2 rounded-2xl"></div>
+                <p class="text-[10px] font-black uppercase text-center mt-4 tracking-widest">Sincronizar Métricas<br><span class="text-adventist-gold">Secretaría Cloud</span></p>
+            </div>
+            <div class="box-registro h-full">
+                <h4 class="text-xs font-black text-[#00305e] uppercase mb-4 underline">Observaciones</h4>
+                <div class="h-28 border-b border-dashed border-slate-300"></div>
+            </div>
+        </div>
+
+        <div class="mt-20 flex justify-between px-10">
+            <div class="text-center">
+                <div class="linea w-48"></div>
+                <p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Firma Encargada Recepcion</p>
+            </div>
+            <div class="text-center">
+                <div class="linea w-48"></div>
+                <p class="text-[8px] font-bold text-slate-400 uppercase mt-1">Firma Anciano de Turno</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new QRCode(document.getElementById("qrcode"), {
+            text: window.location.href.replace("imprimir_pro.html", "secretaria.html"),
+            width: 120, height: 120, colorDark : "#00305e"
+        });
+    </script>
+</body>
+</html>

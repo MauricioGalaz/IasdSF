@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Doxología de Sábado - IASD Limache</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pauta Litúrgica Sabática - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -17,7 +16,7 @@
             theme: {
                 extend: {
                     colors: {
-                        adventist: { blue: '#00305e', gold: '#fec325' }
+                        adventist: { blue: '#00305e', gold: '#fec325', bg: '#f1f5f9' }
                     }
                 }
             }
@@ -25,556 +24,190 @@
     </script>
 
     <style>
-        body {
-            background: radial-gradient(circle at top, #f8fafc, #e2e8f0);
-            min-height: 100vh;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .input-premium {
-            background: #f1f5f9;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            font-weight: 600;
-            color: #1e3a8a;
-        }
-
-        .input-premium:focus {
-            border-color: #fec325;
-            background: white;
-            outline: none;
-        }
-
-        .section-label {
-            color: #00305e;
-            font-family: 'Montserrat';
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.7rem;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        /* ETIQUETAS ROJAS PARA HIMNOS */
-        .label-rojo {
-            color: #dc2626;
-            font-family: 'Montserrat';
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.75rem;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .pauta-fija {
-            background: #f8fafc;
-            border-left: 4px solid #fec325;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            color: #475569;
-            font-weight: 600;
-        }
-
-        .dato-ingresado {
-            background: #e0f2fe;
-            border-left: 4px solid #0ea5e9;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 5px;
-            color: #0c4a6e;
-            font-weight: 600;
-        }
-
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            body {
-                background: white;
-            }
-            .glass-card {
-                box-shadow: none;
-                border: none;
-            }
-        }
-
-        .printing .no-print {
-            display: none !important;
-        }
-
-        .printing {
-            background: white !important;
-        }
-
-        .btn-segmento {
-            padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            font-weight: 700;
-            font-size: 0.75rem;
-            transition: all 0.3s;
-            border: 2px solid;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .btn-segmento:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h3.section-label {
-            font-size: 1.125rem;
-        }
-
-        input::placeholder {
-            color: #94a3b8;
-            opacity: 1;
-        }
+        body { font-family: 'Outfit', sans-serif; }
+        .input-pauta { @apply w-full p-3 bg-slate-100 border-2 border-transparent rounded-xl focus:border-adventist-gold focus:bg-white outline-none font-bold transition-all; }
+        .step-box { @apply border-l-4 border-adventist-blue bg-white p-4 rounded-r-xl shadow-sm mb-4; }
+        #export-area { position: absolute; left: -9999px; top: 0; width: 800px; background: white; }
+        .pdf-header { border-bottom: 4px solid #fec325; padding-bottom: 20px; margin-bottom: 20px; }
+        .pdf-section-title { background: #00305e; color: white; padding: 8px 15px; border-radius: 8px; font-weight: 900; text-transform: uppercase; margin: 20px 0 10px 0; }
     </style>
 </head>
+<body class="bg-adventist-bg pb-28">
 
-<body class="p-4 md:p-8">
-
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
         <header class="text-center mb-8 no-print">
-            <div class="bg-adventist-blue inline-block p-4 rounded-3xl shadow-xl mb-4 border-b-4 border-adventist-gold">
-                <i class="fas fa-church text-white text-3xl"></i>
-            </div>
-            <h1 class="text-3xl md:text-5xl font-black text-adventist-blue uppercase">Doxología de Sábado</h1>
-            <p class="text-slate-600 mt-2 font-semibold">IASD San Francisco de Limache</p>
+            <h1 class="text-3xl font-black text-adventist-blue uppercase tracking-tighter">Guion de Culto Sabático</h1>
+            <p class="text-slate-500 font-bold italic">IASD San Francisco de Limache</p>
         </header>
 
-        <div id="contenido-completo" class="glass-card shadow-2xl p-6 md:p-10 border border-white mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <main id="form-ui" class="bg-white rounded-[2.5rem] shadow-xl p-6 md:p-10 border border-slate-200">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                 <div>
-                    <label class="section-label">Sábado Fecha</label>
-                    <input type="date" id="fecha" class="input-premium" onchange="actualizarVistas()">
+                    <label class="text-[10px] font-black uppercase text-slate-400 mb-1 block ml-2">Sábado Fecha</label>
+                    <input type="date" id="fecha" class="input-pauta text-adventist-blue">
                 </div>
                 <div>
-                    <label class="section-label">Predicador(a)</label>
-                    <input type="text" id="predicador" class="input-premium" placeholder="Nombre completo" onchange="actualizarVistas()">
+                    <label class="text-[10px] font-black uppercase text-slate-400 mb-1 block ml-2">Predicador(a)</label>
+                    <input type="text" id="predicador" placeholder="Nombre completo" class="input-pauta">
                 </div>
             </div>
 
-            <div class="space-y-6">
-                <!-- LITURGIA INICIAL -->
-                <div class="p-5 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <h3 class="section-label text-adventist-gold flex items-center gap-2">
-                        <i class="fas fa-music"></i> 1. Liturgia Inicial
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="no-print">
-                            <label class="section-label text-sm">TEMÁTICA DE CANTOS:</label>
-                            <input type="text" id="tematica" placeholder="Nombre de la Temática de himnos" class="input-premium" onchange="actualizarVistas()">
-                        </div>
+            <section class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-music text-adventist-gold text-2xl"></i>
+                    <h2 class="text-2xl font-black text-adventist-blue uppercase">I. Liturgia Inicial</h2>
+                </div>
 
-                        <div class="no-print">
-                            <label class="label-rojo">1°🎵 HIMNO PREVIO</label>
-                            <input type="text" id="himno_previo_1" placeholder="Ej: Himno 1" class="input-premium" onchange="actualizarVistas()">
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input type="text" id="acomp1" placeholder="Nombre Acompañante 1" class="input-pauta">
+                    <input type="text" id="tematica" placeholder="Temática de Cantos" class="input-pauta">
+                </div>
 
-                        <div class="no-print">
-                            <label class="label-rojo">2°🎵 HIMNO PREVIO</label>
-                            <input type="text" id="himno_previo_2" placeholder="Ej: Himno 2" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                        <div class="no-print">
-                            <label class="label-rojo">3°🎵 HIMNO PREVIO</label>
-                            <input type="text" id="himno_previo_3" placeholder="Ej: Himno 3" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                        <div class="pauta-fija">
-                            🚶 <strong>Himno de Ingreso:</strong> Himno 32 - "Nos reunimos en tu santuario"<br>
-                            🎵 <strong>Himno de Plataforma:</strong> Himno 135 - "Cristo, nombre sublime"
-                        </div>
-
-                <!-- 1ER BLOQUE -->
-                <div class="p-5 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <h3 class="section-label text-adventist-gold flex items-center gap-2">
-                        <i class="fas fa-bible"></i>(1ER. BLOQUE)
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="no-print">
-                            <label class="section-label text-sm"> 👤 Acompañante 1:</label>
-                            <input type="text" id="acomp1" placeholder="Nombre del Acompañante" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                            <div class="pauta-fija mb-2">
-                                📖 <strong>¡BIENVENIDA Y SALUDO INICIAL!</strong> (Acomp. 1)
-                            </div>
-
-                            <div class="pauta-fija mb-2">
-                                💰 <strong>SE INVITA A VER VIDEO "PROBAD Y VED"</strong> (Acomp. 1)
-                            </div>
-
-                            <div class="pauta-fija mb-2">
-                                🎵 <strong>INVITAR A ENTONAR HIMNO # 525 - "CON GRATITUD LLEGAMOS"</strong> (Acomp. 1)
-                            </div>
-
-                            <div class="pauta-fija">
-                                📖 <strong>ORACIÓN POR LOS DIEZMOS Y OFRENDAS</strong> (Diácono o Diaconisa)
-                            </div><br>
-                        </div>
-
-                        <div class="no-print">
-                            <label class="section-label text-sm">Encargados de Recibir Diezmos y Ofrendas:</label>
-                            <input type="text" id="diacono1" placeholder="Nombre de Diácono o Diaconisa 1" class="input-premium mb-2" onchange="actualizarVistas()">
-                            <input type="text" id="diacono2" placeholder="Nombre de Diácono o Diaconisa 2" class="input-premium" onchange="actualizarVistas()">
-                        </div><br>
-
-                        <div class="no-print">
-                            <label class="label-rojo"> 🎵 HIMNO INICIAL</label>
-                            <input type="text" id="himno_i" placeholder="Ej: Himno 25" class="input-premium" onchange="actualizarVistas()">
+                <div class="space-y-3">
+                    <div class="step-box">
+                        <p class="text-xs font-black text-adventist-blue uppercase opacity-50">Momento 1: Himnos Previos</p>
+                        <div class="flex gap-2 mt-2">
+                            <input type="text" id="hp1" placeholder="H1" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
+                            <input type="text" id="hp2" placeholder="H2" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
+                            <input type="text" id="hp3" placeholder="H3" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
                         </div>
                     </div>
-                </div>
 
-                <!-- 2DO BLOQUE -->
-                <div class="p-5 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <h3 class="section-label text-adventist-gold flex items-center gap-2">
-                        <i class="fas fa-bible"></i>(2do. BLOQUE)
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="no-print">
-                            <label class="section-label text-sm"> 👤 Acompañante 2:</label>
-                            <input type="text" id="acomp2" placeholder="Nombre del Acompañante" class="input-premium" onchange="actualizarVistas()">
-                        </div>
+                    <div class="step-box">
+                        <p class="font-bold">🚶 Ingreso: <span class="text-slate-500">Himno 32 "Nos reunimos en tu santuario"</span></p>
+                        <p class="font-bold">🛐 Plataforma: <span class="text-slate-500">Himno 135 "Cristo, nombre sublime"</span></p>
+                    </div>
 
-                        <div class="no-print">
-                            <label class="section-label text-sm"> 📖 Lectura Bíblica</label>
-                            <input type="text" id="lectura" placeholder="Ej: Salmos 23" class="input-premium" onchange="actualizarVistas()">
-                        </div>
+                    <div class="step-box bg-slate-50 border-adventist-gold">
+                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para Acompañante 1:</p>
+                        <ul class="text-sm space-y-2 font-medium">
+                            <li>✨ Saludo oficial y bienvenida a la congregación.</li>
+                            <li>📽️ Presentación e invitación a ver video misionero "Probad y Ved".</li>
+                            <li>🎶 Invitar a entonar Himno #525 "Con gratitud llegamos".</li>
+                            <li>💰 Invitar al Diaconado para la oración de Diezmos y Ofrendas.</li>
+                        </ul>
+                    </div>
 
-                        <div class="no-print">
-                            <label class="section-label text-sm"> 👶 Adoración Infantil</label>
-                            <input type="text" id="relatador_nombre" placeholder="Nombre del encargado o Proyectado" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                        <div class="no-print">
-                            <label class="section-label text-sm"> 🎵 Alabanza Especial</label>
-                            <input type="text" id="especial" placeholder="Nombre o grupo" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                        <div class="pauta-fija">
-                            🎤 👤 <strong>SERMÓN:</strong> <b> A CARGO DEL PREDICADOR(a)</b>  
-                        </div>
-
-                        <div class="no-print">
-                            <label class="label-rojo">🎵 HIMNO FINAL</label>
-                            <input type="text" id="himno_f" placeholder="Ej: Himno 280" class="input-premium" onchange="actualizarVistas()">
-                        </div>
-
-                        <div class="pauta-fija">
-                            🙏 <strong>Oración Final</strong> (PREDICADOR)<br><br>
-                            🎵 <strong>SALIDA DE PLATAFORMA</strong> HIMNO 41 - Gracia amor y comunion <br>
-                            🎵 <strong>SALIDA DE MEMBRESÍA</strong> HIMNO 37 - Dios os guarde
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <input type="text" id="diacono" placeholder="Diácono de oración" class="input-pauta border-l-4 border-adventist-gold">
+                        <input type="text" id="himno_i" placeholder="Himno Inicial del Culto" class="input-pauta border-l-4 border-adventist-gold">
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- BOTONES PRINCIPALES -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10 no-print">
-                <button onclick="descargarPDFCompleto()" class="bg-adventist-blue text-white py-4 rounded-2xl font-black uppercase shadow-xl flex items-center justify-center gap-2 hover:bg-blue-900 transition">
-                    <i class="fas fa-file-pdf"></i> PDF COMPLETO
-                </button>
-                <button onclick="enviarWACompleto()" class="bg-[#25d366] text-white py-4 rounded-2xl font-black uppercase shadow-xl flex items-center justify-center gap-2 hover:bg-green-600 transition">
-                    <i class="fab fa-whatsapp"></i> WA COMPLETO
-                </button>
-            </div>
-
-            <!-- BOTONES SEGMENTADOS -->
-            <div class="mt-8 no-print pt-6 border-t border-slate-100">
-                <h4 class="section-label text-center mb-4 text-base">📋 Acciones por Acompañante</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <button onclick="descargarPDFAcomp1()" class="btn-segmento bg-blue-100 text-blue-700 border-blue-300">
-                        <i class="fas fa-file-pdf"></i> PDF A1
-                    </button>
-                    <button onclick="enviarWAAcomp1()" class="btn-segmento bg-green-100 text-green-700 border-green-300">
-                        <i class="fab fa-whatsapp"></i> WA A1
-                    </button>
-                    <button onclick="descargarPDFAcomp2()" class="btn-segmento bg-purple-100 text-purple-700 border-purple-300">
-                        <i class="fas fa-file-pdf"></i> PDF A2
-                    </button>
-                    <button onclick="enviarWAAcomp2()" class="btn-segmento bg-teal-100 text-teal-700 border-teal-300">
-                        <i class="fab fa-whatsapp"></i> WA A2
-                    </button>
+            <section>
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-bible text-adventist-gold text-2xl"></i>
+                    <h2 class="text-2xl font-black text-adventist-blue uppercase">II. Bloque Espiritual</h2>
                 </div>
-            </div>
-        </div>
 
-        <!-- VISTAS OCULTAS PARA PDF -->
-        <div id="vista-acomp1" style="display:none; position: fixed; left: -9999px; width: 800px;" class="glass-card p-10">
-            <div id="contenido-acomp1"></div>
-        </div>
-        <div id="vista-acomp2" style="display:none; position: fixed; left: -9999px; width: 800px;" class="glass-card p-10">
-            <div id="contenido-acomp2"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input type="text" id="acomp2" placeholder="Nombre Acompañante 2" class="input-pauta">
+                    <input type="text" id="lectura" placeholder="Lectura Bíblica (Cita)" class="input-pauta">
+                </div>
+
+                <div class="space-y-3">
+                    <div class="step-box">
+                        <p class="font-bold">📖 Lectura: <span class="text-slate-400 font-normal italic">(El acompañante 2 lee el texto bíblico)</span></p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input type="text" id="infantil" placeholder="Relatador Historia Infantil" class="input-pauta">
+                        <input type="text" id="especial" placeholder="Nombre Alabanza Especial" class="input-pauta">
+                    </div>
+
+                    <div class="step-box bg-slate-50 border-adventist-gold">
+                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para Acompañante 2:</p>
+                        <ul class="text-sm space-y-2 font-medium">
+                            <li>🎤 Presentación del Predicador(a) del día.</li>
+                            <li>🙏 Al finalizar el sermón, dirigir el Himno Final.</li>
+                            <li>🛐 Solicitar la Oración de cierre al Predicador(a).</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-box">
+                        <input type="text" id="himno_f" placeholder="Himno Final" class="input-pauta mb-4">
+                        <p class="font-bold text-sm">🎵 Salida Plataforma: <span class="text-slate-500">Himno 41</span></p>
+                        <p class="font-bold text-sm">🎵 Salida Miembros: <span class="text-slate-500">Himno 37</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="fixed bottom-6 left-0 right-0 z-50 px-6 no-print">
+            <div class="max-w-md mx-auto">
+                <button onclick="descargarPauta()" class="w-full bg-adventist-blue text-white py-5 rounded-2xl font-black uppercase shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-all">
+                    <i class="fas fa-file-pdf text-adventist-gold"></i> Descargar Pauta Completa PDF
+                </button>
+            </div>
         </div>
     </div>
 
+    <div id="export-area"></div>
+
     <script>
-        function actualizarVistas() {
-            const data = {
-                fecha: document.getElementById('fecha').value || '---',
-                predicador: document.getElementById('predicador').value || '---',
-                tematica: document.getElementById('tematica').value || '---',
-                himno1: document.getElementById('himno_previo_1').value || '---',
-                himno2: document.getElementById('himno_previo_2').value || '---',
-                himno3: document.getElementById('himno_previo_3').value || '---',
-                acomp1: document.getElementById('acomp1').value || '---',
-                diacono1: document.getElementById('diacono1').value || '---',
-                diacono2: document.getElementById('diacono2').value || '---',
-                himnoI: document.getElementById('himno_i').value || '---',
-                acomp2: document.getElementById('acomp2').value || '---',
-                lectura: document.getElementById('lectura').value || '---',
-                infantil: document.getElementById('relatador_nombre').value || '---',
-                especial: document.getElementById('especial').value || '---',
-                himnoF: document.getElementById('himno_f').value || '---'
-            };
-
-            // Vista Acomp 1
-            document.getElementById('contenido-acomp1').innerHTML = `
-                <div style="text-align:center; margin-bottom: 30px;">
-                    <div style="background:#00305e; display:inline-block; padding:15px; border-radius:15px; margin-bottom:15px;">
-                        <i class="fas fa-user" style="color:white; font-size:30px;"></i>
-                    </div>
-                    <h2 style="color:#00305e; font-size: 28px; font-weight: 900; margin-bottom:10px;">LITURGIA INICIAL - 1ER BLOQUE</h2>
-                    <p style="color:#64748b; font-weight: bold; font-size:16px;">${data.fecha}</p>
-                </div>
-                
-                <div class="dato-ingresado" style="margin-bottom:15px;">
-                    <strong style="color:#0c4a6e;">👤 Tu Nombre:</strong> ${data.acomp1}
-                </div>
-                
-                <div class="dato-ingresado" style="margin-bottom:15px;">
-                    <strong style="color:#0c4a6e;">🎤 Predicador:</strong> ${data.predicador}
-                </div>
-
-                <div style="background:#dbeafe; padding:20px; border-radius:15px; border-left:5px solid #3b82f6; margin-top:20px;">
-                    <h3 style="color:#1e40af; font-weight:900; margin-bottom:15px; font-size:18px;">📋 TUS RESPONSABILIDADES:</h3>
-                    
-                    
-                   
-                    <div class="pauta-fija" style="margin-bottom:10px;">
-                        <p style="margin:5px 0;">📖 <strong>¡BIENVENIDA Y SALUDO INICIAL!</strong> (Tú lo haces)</p>
+        async function descargarPauta() {
+            const area = document.getElementById('export-area');
+            const fechaVal = document.getElementById('fecha').value || 'Sábado';
+            
+            // Construcción del documento paso a paso para el PDF
+            area.innerHTML = `
+                <div style="padding: 40px;">
+                    <div class="pdf-header text-center">
+                        <h1 style="color: #00305e; font-size: 28px; font-weight: 900; margin: 0;">ORDEN DEL CULTO ADORACIÓN</h1>
+                        <p style="color: #64748b; font-weight: bold; margin-top: 5px;">IASD SAN FRANCISCO DE LIMACHE — ${fechaVal}</p>
                     </div>
 
-                    <div class="pauta-fija" style="margin-bottom:10px;">
-                        <p style="margin:5px 0;">💰 <strong>Video "PROBAD Y VED"</strong> (Tú invitas a verlo)</p>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <p><b>Predicador(a):</b> ${document.getElementById('predicador').value || '---'}</p>
                     </div>
 
-                    <div class="pauta-fija" style="margin-bottom:10px;">
-                        <p style="margin:5px 0;">🎵 <strong>Himno # 525 "CON GRATITUD LLEGAMOS"</strong> (Tú invitas a entonarlo)</p>
+                    <div class="pdf-section-title">I. Liturgia Inicial (Acompañante 1: ${document.getElementById('acomp1').value || '---'})</div>
+                    <div style="padding-left: 10px; font-size: 14px; line-height: 1.8;">
+                        <p>🎵 <b>Temática:</b> ${document.getElementById('tematica').value || '---'}</p>
+                        <p>🎹 <b>Himnos Previos:</b> ${document.getElementById('hp1').value || '-'} | ${document.getElementById('hp2').value || '-'} | ${document.getElementById('hp3').value || '-'}</p>
+                        <p>🚶 <b>Himno Ingreso:</b> Himno 32 | 🛐 <b>Himno Plataforma:</b> Himno 135</p>
+                        <p>📢 <b>Acción:</b> Saludo y Bienvenida oficial.</p>
+                        <p>📽️ <b>Acción:</b> Video misionero "Probad y Ved".</p>
+                        <p>🎶 <b>Acción:</b> Himno #525 "Con gratitud llegamos".</p>
+                        <p>💰 <b>Oración Ofrendas:</b> ${document.getElementById('diacono').value || '---'}</p>
+                        <p style="background: #f1f5f9; padding: 8px; border-radius: 5px; margin-top: 5px;">🎼 <b>HIMNO INICIAL:</b> ${document.getElementById('himno_i').value || '---'}</p>
                     </div>
 
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:10px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">💰 ENCARGADOS DE OFRENDAS</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.diacono1}</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.diacono2}</p>
-                        <p style="color:#64748b; font-size:11px; margin-top:5px;">Ellos harán la oración por los diezmos y ofrendas</p>
+                    <div class="pdf-section-title">II. Bloque Espiritual (Acompañante 2: ${document.getElementById('acomp2').value || '---'})</div>
+                    <div style="padding-left: 10px; font-size: 14px; line-height: 1.8;">
+                        <p>📖 <b>Lectura Bíblica:</b> ${document.getElementById('lectura').value || '---'}</p>
+                        <p>👶 <b>Historia Infantil:</b> ${document.getElementById('infantil').value || '---'}</p>
+                        <p>🎵 <b>Alabanza Especial:</b> ${document.getElementById('especial').value || '---'}</p>
+                        <p>🎤 <b>Mensaje:</b> Presentación y tiempo para el Predicador(a).</p>
+                        <p style="background: #f1f5f9; padding: 8px; border-radius: 5px; margin-top: 5px;">🎼 <b>HIMNO FINAL:</b> ${document.getElementById('himno_f').value || '---'}</p>
+                        <p>🙏 <b>Oración Final:</b> Solicitada al Predicador(a).</p>
+                        <p>🎵 <b>Salida:</b> Plataforma (Himno 41) | Membresía (Himno 37)</p>
                     </div>
 
-                    <div style="background:white; padding:12px; border-radius:8px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">🎼 HIMNO INICIAL</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.himnoI}</p>
+                    <div style="text-align: center; margin-top: 40px; font-size: 10px; color: #94a3b8; border-top: 1px solid #eee; padding-top: 20px;">
+                        "Cosechando Esperanza en Limache"
                     </div>
-                </div>
-
-                <div style="background:#fef3c7; padding:15px; border-radius:10px; margin-top:20px; text-align:center;">
-                    <p style="color:#92400e; font-weight:bold; margin:0;">🙏 ¡Que Dios te bendiga en tu servicio!</p>
                 </div>
             `;
 
-            // Vista Acomp 2
-            document.getElementById('contenido-acomp2').innerHTML = `
-                <div style="text-align:center; margin-bottom:30px;">
-                    <div style="background:#fec325; display:inline-block; padding:15px; border-radius:15px; margin-bottom:15px;">
-                        <i class="fas fa-bible" style="color:white; font-size:30px;"></i>
-                    </div>
-                    <h2 style="color:#00305e; font-size: 28px; font-weight: 900; margin-bottom:10px;">BLOQUE ESPIRITUAL - 2DO BLOQUE</h2>
-                    <p style="color:#64748b; font-weight: bold; font-size:16px;">${data.fecha}</p>
-                </div>
-                
-                <div class="dato-ingresado" style="margin-bottom:15px;">
-                    <strong style="color:#0c4a6e;">👤 Tu Nombre:</strong> ${data.acomp2}
-                </div>
-                
-                <div class="dato-ingresado" style="margin-bottom:15px;">
-                    <strong style="color:#0c4a6e;">🎤 Predicador:</strong> ${data.predicador}
-                </div>
-
-                <div style="background:#fef3c7; padding:20px; border-radius:15px; border-left:5px solid #f59e0b; margin-top:20px;">
-                    <h3 style="color:#92400e; font-weight:900; margin-bottom:15px; font-size:18px;">📋 TUS RESPONSABILIDADES:</h3>
-                    
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:10px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">📖 LECTURA BÍBLICA</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.lectura}</p>
-                        <p style="color:#64748b; font-size:11px; margin-top:5px;">Tú lees este pasaje</p>
-                    </div>
-
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:10px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">👶 ADORACIÓN INFANTIL</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.infantil}</p>
-                        <p style="color:#64748b; font-size:11px; margin-top:5px;">Tú presentas al encargado</p>
-                    </div>
-
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:10px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">🎵 ALABANZA ESPECIAL</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.especial}</p>
-                        <p style="color:#64748b; font-size:11px; margin-top:5px;">Tú presentas esta alabanza</p>
-                    </div>
-
-                    <div class="pauta-fija" style="margin-bottom:10px;">
-                        <p style="margin:5px 0;">🎤 <strong>SERMÓN:</strong> ${data.predicador}</p>
-                        <p style="color:#64748b; font-size:11px; margin-top:5px;">Tú presentas al predicador(a)</p>
-                    </div>
-
-                    <div style="background:white; padding:12px; border-radius:8px; margin-bottom:10px;">
-                        <p style="color:#64748b; font-size:12px; font-weight:bold; margin:0;">🎼 HIMNO FINAL</p>
-                        <p style="color:#1e3a8a; font-weight:bold; margin:5px 0 0 0;">${data.himnoF}</p>
-                    </div>
-
-                    <div class="pauta-fija">
-                        <p style="margin:5px 0;">🙏 <strong>ORACIÓN FINAL:</strong> Tú diriges la oración de cierre</p>
-                    </div>
-                </div>
-
-                <div style="background:#dbeafe; padding:15px; border-radius:10px; margin-top:20px; text-align:center;">
-                    <p style="color:#1e40af; font-weight:bold; margin:0;">🙏 ¡Que Dios te bendiga en tu servicio!</p>
-                </div>
-            `;
-        }
-
-        async function generarPDF(idElemento, nombreArchivo) {
-            const elemento = document.getElementById(idElemento);
-            elemento.style.display = 'block';
-            elemento.style.position = 'static';
-            elemento.style.left = 'auto';
-            
-            await new Promise(resolve => setTimeout(resolve, 100));
-            
             try {
-                const canvas = await html2canvas(elemento, { 
-                    scale: 2, 
-                    backgroundColor: '#ffffff',
-                    logging: false,
-                    useCORS: true
-                });
-                
-                const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
+                const canvas = await html2canvas(area, { scale: 2, useCORS: true });
+                const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
-                const width = pdf.internal.pageSize.getWidth();
-                const height = (canvas.height * width) / canvas.width;
-                
-                pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-                pdf.save(nombreArchivo);
-                
-                alert('✅ PDF descargado correctamente');
-            } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Error al generar PDF: ' + error.message);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(`Pauta_Sabado_${fechaVal}.pdf`);
+            } catch (err) {
+                alert('Error al generar PDF');
             } finally {
-                if (idElemento !== 'contenido-completo') {
-                    elemento.style.display = 'none';
-                    elemento.style.position = 'fixed';
-                    elemento.style.left = '-9999px';
-                }
+                area.innerHTML = '';
             }
         }
-
-        function descargarPDFCompleto() { 
-            actualizarVistas();
-            generarPDF('contenido-completo', 'Doxologia_Limache.pdf'); 
-        }
-        
-        function descargarPDFAcomp1() { 
-            actualizarVistas();
-            generarPDF('vista-acomp1', 'Acompanante_1.pdf'); 
-        }
-        
-        function descargarPDFAcomp2() { 
-            actualizarVistas();
-            generarPDF('vista-acomp2', 'Acompanante_2.pdf'); 
-        }
-
-        function enviarWACompleto() {
-            const msj = `📋 *DOXOLOGÍA COMPLETA - IASD LIMACHE*\n\n` +
-                `📅 *Fecha:* ${document.getElementById('fecha').value}\n` +
-                `🎤 *Predicador:* ${document.getElementById('predicador').value}\n\n` +
-                `*═══ 1ER BLOQUE ═══*
-\n` +
-                `🎵 *Temática de Himnos:* ${document.getElementById('tematica').value}\n` +
-                `1° Himno Previo: ${document.getElementById('himno_previo_1').value}\n` +
-                `2° Himno Previo: ${document.getElementById('himno_previo_2').value}\n` +
-                `3° Himno Previo: ${document.getElementById('himno_previo_3').value}\n` +
-                `Himno Inicial: ${document.getElementById('himno_i').value}\n\n` +
-                `2DO BLOQUE ═══\n+                👤 Acomp 2: ${document.getElementById('acomp2').value}\n+                📖 Lectura: ${document.getElementById('lectura').value}\n+                👶 Infantil: ${document.getElementById('relatador_nombre').value}\n+                🎵 Especial: ${document.getElementById('especial').value}\n+                🎼 Himno Final: ${document.getElementById('himno_f').value}`;
-            const url = `https://wa.me/?text=${encodeURIComponent(msj)}`;
-           window.open(`https://wa.me/?text=${encodeURIComponent(msj)}`, "_blank");
-    }
-
-    function enviarWAAcomp1() {
-        const msj = `🎵 *TU PARTE: LITURGIA INICIAL*\n` +
-            `_IASD Limache - ${document.getElementById('fecha').value}_\n\n` +
-            `👤 *Tu nombre:* ${document.getElementById('acomp1').value}\n` +
-            `🎤 *Predicador:* ${document.getElementById('predicador').value}\n\n` +
-            `*═══ TUS RESPONSABILIDADES ═══*\n\n` +
-            `🎵 *Temática:* ${document.getElementById('tematica').value}\n` +
-            `🎼 *Himnos Previos:*\n` +
-            `   1° ${document.getElementById('himno_previo_1').value}\n` +
-            `   2° ${document.getElementById('himno_previo_2').value}\n` +
-            `   3° ${document.getElementById('himno_previo_3').value}\n\n` +
-            `🚶 *Himno Ingreso:* Himno 32\n` +
-            `🛐 *Himno Plataforma:* Himno 135\n\n` +
-            `📖 *Bienvenida y Saludo* (Tú lo haces)\n` +
-            `💰 *Video "Probad y Ved"* (Tú invitas)\n` +
-            `🎵 *Himno 525* (Tú invitas a cantar)\n\n` +
-            `💰 *Encargados Ofrendas:*\n` +
-            `   ${document.getElementById('diacono1').value}\n` +
-            `   ${document.getElementById('diacono2').value}\n\n` +
-            `🎼 *Himno Inicial:* ${document.getElementById('himno_i').value}\n\n` +
-            `_¡Que Dios te bendiga! 🙏_`;
-        
-        window.open(`https://wa.me/?text=${encodeURIComponent(msj)}`, "_blank");
-    }
-
-    function enviarWAAcomp2() {
-        const msj = `📖 *TU PARTE: BLOQUE ESPIRITUAL*\n` +
-            `_IASD Limache - ${document.getElementById('fecha').value}_\n\n` +
-            `👤 *Tu nombre:* ${document.getElementById('acomp2').value}\n` +
-            `🎤 *Predicador:* ${document.getElementById('predicador').value}\n\n` +
-            `*═══ TUS RESPONSABILIDADES ═══*\n\n` +
-            `📖 *Lectura Bíblica:*\n${document.getElementById('lectura').value}\n(Tú la lees)\n\n` +
-            `👶 *Adoración Infantil:*\nPresentas a: ${document.getElementById('relatador_nombre').value}\n\n` +
-            `🎵 *Alabanza Especial:*\nPresentas a: ${document.getElementById('especial').value}\n\n` +
-            `🎤 *Sermón:* Presentas a ${document.getElementById('predicador').value}\n\n` +
-            `🎼 *Himno Final:* ${document.getElementById('himno_f').value}\n\n` +
-            `🙏 *Oración Final:* Tú la diriges\n\n` +
-            `_¡Que Dios te bendiga! 🙏_`;
-        
-        window.open(`https://wa.me/?text=${encodeURIComponent(msj)}`, "_blank");
-    }
-
-    // Actualizar al cargar
-    window.onload = actualizarVistas;
-</script>
-
+    </script>
 </body>
-</html
+</html>
