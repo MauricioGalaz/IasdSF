@@ -467,11 +467,36 @@
             transform: translateZ(0);
             /* evita saltos */
         }
-    
+
+        #contenedor-mensajes-slide {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body class="font-sans text-gray-700">
+
+    <div id="banner-cumple-hoy"
+        class="hidden bg-white border-2 border-yellow-400 rounded-[2.5rem] p-6 shadow-2xl mb-8 animate__animated animate__bounceIn">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-2xl">🎂</div>
+            <div>
+                <h3 class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Hoy celebramos a:</h3>
+                <p id="nombre-cumple" class="text-2xl font-black text-[#00305e]"></p>
+            </div>
+        </div>
+
+        <div class="bg-slate-50 rounded-2xl p-4 overflow-hidden relative h-16">
+            <div id="contenedor-mensajes-slide" class="absolute w-full transition-all duration-500">
+                <p class="text-slate-500 italic text-sm text-center">Cargando bendiciones...</p>
+            </div>
+        </div>
+    </div>
 
     <div id="invitacion-central"
         class="fixed inset-0 z-[7000] flex items-center justify-center bg-adventist-blue/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-700 p-4">
@@ -530,10 +555,11 @@
             <!-- MARQUEE -->
             <div class="marquee-wrapper h-[44px] w-full bg-adventist-blue text-white overflow-hidden flex items-center">
                 <div class="marquee-text whitespace-nowrap px-4">
-                    ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Escuela Sabática 09:30 hrs. - Culto de Adoración 11:00 hrs.•
+                    ¡Bienvenidos a la IASD San Francisco de Limache! • Próximo Sábado: Escuela Sabática 09:30 hrs. -
+                    Culto de Adoración 11:00 hrs.•
                     "Lámpara es a mis pies tu palabra" • Paseo de Iglesia el 22 de febrero •
-                    ¡Hoy Reunión de oración 17:30 hrs! • Concierto de inicio de año 19:00 hrs.- Ministerio Éxodo 
-            </div>
+                    ¡Hoy Reunión de oración 17:30 hrs! • Concierto de inicio de año 19:00 hrs.- Ministerio Éxodo
+                </div>
             </div>
 
             <!-- NAVBAR -->
@@ -590,7 +616,7 @@
                     <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
                 </div>
 
-                
+
 
             </nav>
         </header>
@@ -724,106 +750,292 @@
     </section>
 
     <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
-            <div class="container mx-auto px-4 mb-10 text-center">
-                <h2 class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
-                    Nuestros Ministerios
-                </h2>
+        <div class="container mx-auto px-4 mb-10 text-center">
+            <h2
+                class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
+                Nuestros Ministerios
+            </h2>
+        </div>
+
+        <div class="relative group max-w-[98%] mx-auto">
+            <button onclick="scrollMinisterios(-350)"
+                class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                <i class="fas fa-chevron-left text-xl"></i>
+            </button>
+
+            <div id="scrollContainer" class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
+                <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/ja.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Jóvenes</h3>
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/mujer.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Ministerio Mujer</h3>
+                        <div class="card-icon"><i class="fas fa-female"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/salud.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Salud</h3>
+                        <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/infantil.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Infantil</h3>
+                        <div class="card-icon"><i class="fas fa-child"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/avent.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Aventureros</h3>
+                        <div class="card-icon"><i class="fas fa-hiking"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/mayor.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Mayordomía</h3>
+                        <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/diacono.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Diáconos</h3>
+                        <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/sabatica.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Escuela Sabática</h3>
+                        <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/personal.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Personal</h3>
+                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/asa.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">ASA</h3>
+                        <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/publicaciones.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Publicaciones</h3>
+                        <div class="card-icon"><i class="fas fa-atlas"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/dorcas.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Dorcas</h3>
+                        <div class="card-icon"><i class="fas fa-mitten"></i></div>
+                    </div>
+                </a>
             </div>
 
-            <div class="relative group max-w-[98%] mx-auto">
-                <button onclick="scrollMinisterios(-350)" class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                    <i class="fas fa-chevron-left text-xl"></i>
-                </button>
-
-                <div id="scrollContainer" class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
-                    <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/ja.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Jóvenes</h3><div class="card-icon"><i class="fas fa-users"></i></div></div>
-                    </a>
-                    <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/mujer.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Ministerio Mujer</h3><div class="card-icon"><i class="fas fa-female"></i></div></div>
-                    </a>
-                    <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/salud.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Salud</h3><div class="card-icon"><i class="fas fa-heartbeat"></i></div></div>
-                    </a>
-                    <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/infantil.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Infantil</h3><div class="card-icon"><i class="fas fa-child"></i></div></div>
-                    </a>
-                    <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/avent.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Aventureros</h3><div class="card-icon"><i class="fas fa-hiking"></i></div></div>
-                    </a>
-                    <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/mayor.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Mayordomía</h3><div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div></div>
-                    </a>
-                    <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/diacono.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Diáconos</h3><div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div></div>
-                    </a>
-                    <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/sabatica.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Escuela Sabática</h3><div class="card-icon"><i class="fas fa-book-open"></i></div></div>
-                    </a>
-                    <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/personal.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Personal</h3><div class="card-icon"><i class="fas fa-bullhorn"></i></div></div>
-                    </a>
-                    <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/asa.jpg">
-                        <div class="card-overlay"><h3 class="card-title">ASA</h3><div class="card-icon"><i class="fas fa-box-open"></i></div></div>
-                    </a>
-                    <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/publicaciones.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Publicaciones</h3><div class="card-icon"><i class="fas fa-atlas"></i></div></div>
-                    </a>
-                    <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/dorcas.jpg">
-                        <div class="card-overlay"><h3 class="card-title">Dorcas</h3><div class="card-icon"><i class="fas fa-mitten"></i></div></div>
-                    </a>
-                </div>
-
-                <button onclick="scrollMinisterios(350)" class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                    <i class="fas fa-chevron-right text-xl"></i>
-                </button>
-            </div>
-        </section>
+            <button onclick="scrollMinisterios(350)"
+                class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                <i class="fas fa-chevron-right text-xl"></i>
+            </button>
+        </div>
+    </section>
 
     <style>
-/* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
+        /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
         .ministerio-card {
-            flex: 0 0 auto; width: 190px; height: 300px; position: relative; border-radius: 20px;
-            overflow: hidden; background: #001529; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: all 0.5s ease;
+            flex: 0 0 auto;
+            width: 190px;
+            height: 300px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #001529;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
         }
-        .ministerio-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 20px 40px rgba(0,48,94,0.3); }
-        .ministerio-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: all 0.8s ease; }
-        .ministerio-card:hover img { opacity: 1; transform: scale(1.1); }
+
+        .ministerio-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 48, 94, 0.3);
+        }
+
+        .ministerio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: all 0.8s ease;
+        }
+
+        .ministerio-card:hover img {
+            opacity: 1;
+            transform: scale(1.1);
+        }
 
         /* EFECTO DE LUCES AUTOMÁTICAS (SHIMMER) */
         .shimmer-auto::after {
-            content: ''; position: absolute; top: 0; left: -150%; width: 60%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
             background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: skewX(-25deg); animation: shine-auto 4s infinite ease-in-out;
+            transform: skewX(-25deg);
+            animation: shine-auto 4s infinite ease-in-out;
         }
-        .ministerio-card:nth-child(2n)::after { animation-delay: 1s; }
-        .ministerio-card:nth-child(3n)::after { animation-delay: 2s; }
-        @keyframes shine-auto { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
 
-        .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 20px; text-align: center; }
-        .card-title { color: white; font-size: 11px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; }
-        .card-icon { width: 44px; height: 44px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s; }
-        .ministerio-card:hover .card-icon { background: #fec325; color: #00305e; border-color: #fec325; transform: rotate(360deg); }
+        .ministerio-card:nth-child(2n)::after {
+            animation-delay: 1s;
+        }
+
+        .ministerio-card:nth-child(3n)::after {
+            animation-delay: 2s;
+        }
+
+        @keyframes shine-auto {
+            0% {
+                left: -150%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .ministerio-card:hover .card-icon {
+            background: #fec325;
+            color: #00305e;
+            border-color: #fec325;
+            transform: rotate(360deg);
+        }
 
         /* TUS ANIMACIONES DE BARRA Y SHIMMER ORIGINALES */
-        .progress-fill-jesus { height: 100%; width: 100%; background: #b45309; border-radius: 9999px; animation: countdown-jesus 25s linear forwards; }
-        @keyframes countdown-jesus { from { width: 100%; } to { width: 0%; } }
-        .shimmer-effect::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent); transform: skewX(-25deg); animation: shine-slow 10s infinite; }
-        @keyframes shine-slow { 0% { left: -150%; } 15% { left: 250%; } 100% { left: 250%; } }
-        .shine-effect { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%); transform: skewX(-25deg); animation: shine 12s infinite; }
-        @keyframes shine { 0% { left: -100%; } 20% { left: 150%; } 100% { left: 150%; } }
+        .progress-fill-jesus {
+            height: 100%;
+            width: 100%;
+            background: #b45309;
+            border-radius: 9999px;
+            animation: countdown-jesus 25s linear forwards;
+        }
+
+        @keyframes countdown-jesus {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            animation: shine-slow 10s infinite;
+        }
+
+        @keyframes shine-slow {
+            0% {
+                left: -150%;
+            }
+
+            15% {
+                left: 250%;
+            }
+
+            100% {
+                left: 250%;
+            }
+        }
+
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 12s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
 
         /* Ocultar barra de scroll estética */
         .no-scrollbar::-webkit-scrollbar {
@@ -966,9 +1178,12 @@
     <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
         <div class="container mx-auto px-6">
             <div class="flex justify-center space-x-6 mb-6">
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i class="fab fa-youtube fa-lg"></i></a>
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                        class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                        class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
+                        class="fab fa-youtube fa-lg"></i></a>
             </div>
             <p class="font-black text-adventist-gold text-xl uppercase tracking-widest italic mb-2">
                 IASD SAN FRANCISCO DE LIMACHE
@@ -1260,214 +1475,294 @@
     <div class="h-20 md:hidden"></div>
 
     <div class="p-4">
-    
-    <div class="p-4">
-    <a href="Departamentos/secretaria.html"
-    class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] border border-white/10">
 
-        <!-- FILA SUPERIOR -->
-        <div class="flex items-center justify-between relative z-10">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
-                    <i class="fas fa-chart-line text-adventist-gold text-2xl"></i>
+        <div class="p-4">
+            <a href="Departamentos/secretaria.html"
+                class="group block relative overflow-hidden bg-[#00305e] rounded-[2rem] p-6 shadow-2xl transition-all hover:scale-[1.03] border border-white/10">
+
+                <!-- FILA SUPERIOR -->
+                <div class="flex items-center justify-between relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                            <i class="fas fa-chart-line text-adventist-gold text-2xl"></i>
+                        </div>
+
+                        <div class="text-left">
+                            <h3 class="text-white font-black uppercase tracking-tighter text-lg leading-none">
+                                Métricas de Iglesia
+                            </h3>
+                            <p id="ultimoConteo"
+                                class="text-adventist-gold text-[10px] font-bold uppercase tracking-[0.2em] mt-1 italic">
+                                Cargando asistencia...
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <span id="numeroGrande"
+                            class="text-white text-2xl font-black leading-none group-hover:text-adventist-gold transition-colors">
+                            --
+                        </span>
+                        <p class="text-[8px] text-white/30 uppercase font-bold">Total</p>
+                    </div>
                 </div>
 
-                <div class="text-left">
-                    <h3 class="text-white font-black uppercase tracking-tighter text-lg leading-none">
-                        Métricas de Iglesia
-                    </h3>
-                    <p id="ultimoConteo"
-                    class="text-adventist-gold text-[10px] font-bold uppercase tracking-[0.2em] mt-1 italic">
-                        Cargando asistencia...
-                    </p>
+                <!-- FLECHA -->
+                <div
+                    class="mt-4 text-white/30 group-hover:text-adventist-gold group-hover:translate-x-2 transition-all">
+                    <i class="fas fa-chevron-right text-xl"></i>
                 </div>
-            </div>
 
-            <div class="text-right">
-                <span id="numeroGrande"
-                    class="text-white text-2xl font-black leading-none group-hover:text-adventist-gold transition-colors">
-                    --
-                </span>
-                <p class="text-[8px] text-white/30 uppercase font-bold">Total</p>
-            </div>
+                <!-- ESTADO -->
+                <div class="mt-4 flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none">
+                        Datos sincronizados en tiempo real
+                    </span>
+                </div>
+
+            </a>
         </div>
 
-        <!-- FLECHA -->
-        <div class="mt-4 text-white/30 group-hover:text-adventist-gold group-hover:translate-x-2 transition-all">
-            <i class="fas fa-chevron-right text-xl"></i>
-        </div>
 
-        <!-- ESTADO -->
-        <div class="mt-4 flex items-center gap-2">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span class="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none">
-                Datos sincronizados en tiempo real
-            </span>
-        </div>
+        <script>
+            // --- CONSTANTES Y VARIABLES ---
+            const fotosCarousel = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
+            const imagenesAccion = [
+                "imagenes/accion/acc2.jpg", "imagenes/accion/acc3.jpg", "imagenes/accion/acc4.jpg",
+                "imagenes/accion/acc5.jpg", "imagenes/accion/acc6.jpg", "imagenes/accion/acc7.jpg",
+                "imagenes/accion/acc8.jpg"
+            ];
+            let idxCarousel = 0;
+            let idxAccion = 0;
+            let deferredPrompt = null;
 
-    </a>
-</div>
+            // --- FUNCIONES GLOBALES (Modales y PWA) ---
+            window.cerrarInvitacion = () => document.getElementById('invitacion-central')?.classList.remove('active');
+            window.cerrarBannerCumple = () => document.getElementById('banner-cumple-hoy')?.classList.add('hidden');
 
-
-    <script>
-        // --- CONSTANTES Y VARIABLES ---
-        const fotosCarousel = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
-        const imagenesAccion = [
-            "imagenes/accion/acc2.jpg", "imagenes/accion/acc3.jpg", "imagenes/accion/acc4.jpg",
-            "imagenes/accion/acc5.jpg", "imagenes/accion/acc6.jpg", "imagenes/accion/acc7.jpg",
-            "imagenes/accion/acc8.jpg"
-        ];
-        let idxCarousel = 0;
-        let idxAccion = 0;
-        let deferredPrompt = null;
-
-        // --- FUNCIONES GLOBALES (Modales y PWA) ---
-        window.cerrarInvitacion = () => document.getElementById('invitacion-central')?.classList.remove('active');
-        window.cerrarBannerCumple = () => document.getElementById('banner-cumple-hoy')?.classList.add('hidden');
-        
-        window.cerrarMensaje = () => {
-            const modal = document.getElementById('modal-esperanza');
-            if (modal) {
-                modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
-                setTimeout(() => modal.classList.add('hidden'), 500);
-            }
-        };
-
-        window.abrirModalAncianos = () => document.getElementById('modalAncianos')?.classList.remove('hidden');
-        window.cerrarModalAncianos = () => document.getElementById('modalAncianos')?.classList.add('hidden');
-        window.validarAncianos = () => {
-            if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
-            else document.getElementById('errorAncianos')?.classList.remove('hidden');
-        };
-
-        window.instalarApp = () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt = null;
-            } else alert("Usa el menú de tu navegador para instalar la App.");
-        };
-
-        // --- EVENTOS AL CARGAR LA PÁGINA ---
-        document.addEventListener("DOMContentLoaded", () => {
-            // Menú Móvil
-            const menuBtn = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            menuBtn?.addEventListener('click', () => mobileMenu?.classList.toggle('hidden'));
-
-            // Control de Mensajes (Solo una vez por sesión)
-            if (!sessionStorage.getItem('mensajeVisto')) {
-                const invitacion = document.getElementById('invitacion-central');
-                const modalEsp = document.getElementById('modal-esperanza');
-                const barra = document.getElementById('progress-timer');
-
-                setTimeout(() => {
-                    invitacion?.classList.add('show');
-                    setTimeout(() => {
-                        invitacion?.classList.remove('show');
-                        modalEsp?.classList.remove('hidden');
-                        modalEsp?.classList.add('animate__fadeIn');
-                        sessionStorage.setItem('mensajeVisto', 'true');
-                        
-                        // Cierre automático por barra de progreso
-                        barra?.addEventListener('animationend', () => setTimeout(window.cerrarMensaje, 300));
-                    }, 10000);
-                }, 2000);
-            }
-
-            // Carrusel Principal
-            setInterval(() => {
-                const img = document.getElementById("carousel");
-                if (img) {
-                    img.style.opacity = "0.3";
-                    setTimeout(() => {
-                        idxCarousel = (idxCarousel + 1) % fotosCarousel.length;
-                        img.src = fotosCarousel[idxCarousel];
-                        img.style.opacity = "1";
-                    }, 500);
+            window.cerrarMensaje = () => {
+                const modal = document.getElementById('modal-esperanza');
+                if (modal) {
+                    modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
+                    setTimeout(() => modal.classList.add('hidden'), 500);
                 }
-            }, 5000);
+            };
 
-            // Carrusel Acción
-            setInterval(() => {
-                const imgAcc = document.getElementById('carrusel-accion');
-                if (imgAcc) {
-                    imgAcc.style.opacity = "0";
+            window.abrirModalAncianos = () => document.getElementById('modalAncianos')?.classList.remove('hidden');
+            window.cerrarModalAncianos = () => document.getElementById('modalAncianos')?.classList.add('hidden');
+            window.validarAncianos = () => {
+                if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
+                else document.getElementById('errorAncianos')?.classList.remove('hidden');
+            };
+
+            window.instalarApp = () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt = null;
+                } else alert("Usa el menú de tu navegador para instalar la App.");
+            };
+
+            // --- EVENTOS AL CARGAR LA PÁGINA ---
+            document.addEventListener("DOMContentLoaded", () => {
+                // Menú Móvil
+                const menuBtn = document.getElementById('menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                menuBtn?.addEventListener('click', () => mobileMenu?.classList.toggle('hidden'));
+
+                // Control de Mensajes (Solo una vez por sesión)
+                if (!sessionStorage.getItem('mensajeVisto')) {
+                    const invitacion = document.getElementById('invitacion-central');
+                    const modalEsp = document.getElementById('modal-esperanza');
+                    const barra = document.getElementById('progress-timer');
+
                     setTimeout(() => {
-                        idxAccion = (idxAccion + 1) % imagenesAccion.length;
-                        imgAcc.src = imagenesAccion[idxAccion];
-                        imgAcc.style.opacity = "1";
-                    }, 1000);
-                }
-            }, 4000);
+                        invitacion?.classList.add('show');
+                        setTimeout(() => {
+                            invitacion?.classList.remove('show');
+                            modalEsp?.classList.remove('hidden');
+                            modalEsp?.classList.add('animate__fadeIn');
+                            sessionStorage.setItem('mensajeVisto', 'true');
 
-            // Revelado de Banners
-            const banners = document.querySelectorAll('.reveal');
-            banners.forEach((el, index) => {
-                setTimeout(() => el.classList.add('active'), index * 200);
+                            // Cierre automático por barra de progreso
+                            barra?.addEventListener('animationend', () => setTimeout(window.cerrarMensaje, 300));
+                        }, 10000);
+                    }, 2000);
+                }
+
+                // Carrusel Principal
+                setInterval(() => {
+                    const img = document.getElementById("carousel");
+                    if (img) {
+                        img.style.opacity = "0.3";
+                        setTimeout(() => {
+                            idxCarousel = (idxCarousel + 1) % fotosCarousel.length;
+                            img.src = fotosCarousel[idxCarousel];
+                            img.style.opacity = "1";
+                        }, 500);
+                    }
+                }, 5000);
+
+                // Carrusel Acción
+                setInterval(() => {
+                    const imgAcc = document.getElementById('carrusel-accion');
+                    if (imgAcc) {
+                        imgAcc.style.opacity = "0";
+                        setTimeout(() => {
+                            idxAccion = (idxAccion + 1) % imagenesAccion.length;
+                            imgAcc.src = imagenesAccion[idxAccion];
+                            imgAcc.style.opacity = "1";
+                        }, 1000);
+                    }
+                }, 4000);
+
+                // Revelado de Banners
+                const banners = document.querySelectorAll('.reveal');
+                banners.forEach((el, index) => {
+                    setTimeout(() => el.classList.add('active'), index * 200);
+                });
             });
-        });
 
-        // Eventos de PWA
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+            // Eventos de PWA
+            window.addEventListener("beforeinstallprompt", (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+            });
 
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js").catch(err => console.log("SW error:", err));
-        }
-    </script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.js").catch(err => console.log("SW error:", err));
+            }
+        </script>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+            import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-            authDomain: "iasd-limache-muro.firebaseapp.com",
-            projectId: "iasd-limache-muro",
-            storageBucket: "iasd-limache-muro.firebasestorage.app",
-            appId: "1:277039117234:web:65f4e76064935cadabaaab"
-        };
+            const firebaseConfig = {
+                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+                authDomain: "iasd-limache-muro.firebaseapp.com",
+                projectId: "iasd-limache-muro",
+                storageBucket: "iasd-limache-muro.firebasestorage.app",
+                appId: "1:277039117234:web:65f4e76064935cadabaaab"
+            };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-        async function cargarDatos() {
-            const ahora = new Date();
-            const hora = ahora.getHours();
-            const dia = ahora.getDay(); 
-            const banner = document.getElementById('banner-cumple-hoy');
-            const txt = document.getElementById('nombre-cumple');
+            async function cargarDatos() {
+                const ahora = new Date();
+                const hora = ahora.getHours();
+                const dia = ahora.getDay();
+                const banner = document.getElementById('banner-cumple-hoy');
+                const txt = document.getElementById('nombre-cumple');
 
-            if (!banner || !txt) return;
+                if (!banner || !txt) return;
 
-            // Puesta de sol (20:00 hrs)
-            if (hora >= 20) {
-                banner.classList.remove('hidden');
-                txt.innerHTML = (dia === 5) ? "✨ ¡FELIZ SÁBADO!" : "🌙 INICIO DE NUEVO DÍA";
-                return;
+                // Puesta de sol (20:00 hrs)
+                if (hora >= 20) {
+                    banner.classList.remove('hidden');
+                    txt.innerHTML = (dia === 5) ? "✨ ¡FELIZ SÁBADO!" : "🌙 INICIO DE NUEVO DÍA";
+                    return;
+                }
+
+                // Cumpleaños
+                try {
+                    const q = query(collection(db, "cumpleanos"),
+                        where("dia", "==", ahora.getDate()),
+                        where("mes", "==", ahora.getMonth() + 1));
+                    const snap = await getDocs(q);
+                    if (!snap.empty) {
+                        txt.innerText = snap.docs[0].data().nombre;
+                        banner.classList.remove('hidden');
+                    } else {
+                        banner.classList.add('hidden');
+                    }
+                } catch (e) { console.error("Firebase:", e); }
             }
 
-            // Cumpleaños
-            try {
-                const q = query(collection(db, "cumpleanos"), 
-                    where("dia", "==", ahora.getDate()), 
-                    where("mes", "==", ahora.getMonth() + 1));
-                const snap = await getDocs(q);
-                if (!snap.empty) {
-                    txt.innerText = snap.docs[0].data().nombre;
-                    banner.classList.remove('hidden');
-                } else {
-                    banner.classList.add('hidden');
-                }
-            } catch (e) { console.error("Firebase:", e); }
-        }
+            cargarDatos();
+        </script>
 
-        cargarDatos();
-    </script>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+            import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+            // Tu firebaseConfig aquí...
+
+            const db = getFirestore(app);
+
+            async function cargarCumpleañeroPrincipal() {
+                const ahora = new Date();
+                const dia = ahora.getDate();
+                const mes = ahora.getMonth() + 1;
+
+                // 1. Buscar cumpleañero de HOY
+                const q = query(collection(db, "cumpleanos"),
+                    where("dia", "==", dia),
+                    where("mes", "==", mes));
+
+                const snap = await getDocs(q);
+
+                if (!snap.empty) {
+                    const docHero = snap.docs[0];
+                    const datos = docHero.data();
+                    const idCumple = docHero.id;
+
+                    document.getElementById('banner-cumple-hoy').classList.remove('hidden');
+                    document.getElementById('nombre-cumple').innerText = datos.nombre;
+
+                    // 2. Vincular y deslizar mensajes
+                    vincularMensajesDeslizantes(idCumple);
+                }
+            }
+
+            function vincularMensajesDeslizantes(id) {
+                const qMsg = query(collection(db, "oraciones"),
+                    where("idCumple", "==", id),
+                    orderBy("fecha", "desc"));
+
+                onSnapshot(qMsg, (snapshot) => {
+                    const contenedor = document.getElementById('contenedor-mensajes-slide');
+                    if (snapshot.empty) {
+                        contenedor.innerHTML = `<p class="text-slate-400 text-center text-sm">¡Sé el primero en regalar una oración!</p>`;
+                        return;
+                    }
+
+                    let mensajes = [];
+                    snapshot.forEach(doc => mensajes.push(doc.data()));
+
+                    // Iniciar carrusel de mensajes
+                    let idx = 0;
+                    const mostrarSiguiente = () => {
+                        const m = mensajes[idx];
+                        contenedor.style.opacity = "0";
+                        contenedor.style.transform = "translateY(10px)";
+
+                        setTimeout(() => {
+                            contenedor.innerHTML = `
+                        <p class="text-[#00305e] font-black text-[9px] uppercase text-center">${m.autor} dice:</p>
+                        <p class="text-slate-600 italic text-xs text-center">"${m.texto}"</p>
+                    `;
+                            contenedor.style.opacity = "1";
+                            contenedor.style.transform = "translateY(0)";
+                            idx = (idx + 1) % mensajes.length;
+                        }, 500);
+                    };
+
+                    mostrarSiguiente();
+                    setInterval(mostrarSiguiente, 5000); // Cambia el mensaje cada 5 segundos
+                });
+            }
+
+            cargarCumpleañeroPrincipal();
+
+        </script>
 </body>
+
 </html>

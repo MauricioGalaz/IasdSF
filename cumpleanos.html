@@ -251,18 +251,26 @@
             }
         };
 
-        function vincularOraciones(id) {
-            const q = query(collection(db, "oraciones"), where("idCumple", "==", id), orderBy("fecha", "asc"));
-            onSnapshot(q, (s) => {
-                const box = document.getElementById(`oraciones-${id}`);
-                if (!box) return;
-                box.innerHTML = "";
-                s.forEach(d => {
-                    const o = d.data();
-                    box.innerHTML += `<div class="bg-slate-50 p-3 rounded-xl border-l-4 border-[#00305e]"><p class="text-[8px] font-black uppercase mb-1">${o.autor}</p><p class="text-[11px] text-slate-600 italic">"${o.texto}"</p></div>`;
-                });
-            });
-        }
+function vincularOraciones(id) {
+    // Busca en la colección "oraciones" las que pertenecen a esta persona (idCumple)
+    const q = query(collection(db, "oraciones"), where("idCumple", "==", id), orderBy("fecha", "asc"));
+    
+    onSnapshot(q, (s) => {
+        const box = document.getElementById(`oraciones-${id}`);
+        if (!box) return;
+        
+        box.innerHTML = ""; // Limpia para no repetir
+        s.forEach(d => {
+            const o = d.data();
+            // AQUÍ ES DONDE SE CONSTRUYE LO QUE VES EN PANTALLA
+            box.innerHTML += `
+                <div class="bg-slate-50 p-3 rounded-xl border-l-4 border-[#00305e] mb-2">
+                    <p class="text-[8px] font-black uppercase mb-1 text-[#00305e]">${o.autor}</p>
+                    <p class="text-[11px] text-slate-600 italic">"${o.texto}"</p>
+                </div>`;
+        });
+    });
+}
 
         window.abrirModal = (id, nombre) => {
             document.getElementById('modalIdCumple').value = id;
