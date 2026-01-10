@@ -1576,42 +1576,35 @@
     });
     }
     });
-
+    </script>
+    <>
 
     
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker.register("sw.js");
             }
 }
-    </script>
+    
 
 <script>
-    // Usamos window. para asegurar que la función sea global y los botones la encuentren
-    window.scrollMinisterios = function(distance) {
+    window.scrollMinisterios = function (distance) {
         const container = document.getElementById('scrollContainer');
-        
+
         if (container) {
             container.scrollBy({
                 left: distance,
                 behavior: 'smooth'
             });
         } else {
-            console.error("Error: No se encontró el ID 'scrollContainer'. Verifica que el div de las tarjetas tenga id='scrollContainer'");
+            console.error(
+                "Error: No se encontró el ID 'scrollContainer'. Verifica que el div de las tarjetas tenga id='scrollContainer'"
+            );
         }
-    })
-
-    // Lógica del menú móvil (se mantiene para no romper nada)
-    const btnMenu = document.getElementById('menu-button');
-    const menuMovil = document.getElementById('mobile-menu');
-    if (btnMenu && menuMovil) {
-        btnMenu.onclick = function() {
-            menuMovil.classList.toggle('hidden');
-        };
-    }
+    };
+</script>   
 </script>
 
 
-    </body>
-
+</body>
 </html>
 
