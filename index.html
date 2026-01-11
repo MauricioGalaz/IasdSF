@@ -498,6 +498,20 @@
         .qr-container img {
             filter: drop-shadow(0 8px 8px rgba(0, 48, 94, 0.1));
         }
+
+        #contenedor-mensajes-slide p {
+            /* Permite que el texto ocupe varias líneas en lugar de una sola */
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            /* Ajuste para palabras extremadamente largas */
+            word-break: break-word;
+        }
+
+        /* Asegura que el banner de cumpleaños no tape el contenido al crecer */
+        #banner-cumple-hoy {
+            height: auto !important;
+        }
     </style>
 
     </style>
@@ -525,9 +539,12 @@
                 </button>
             </div>
 
-            <div class="bg-white/95 py-2 min-h-[30px] flex items-center justify-center">
-                <div id="contenedor-mensajes-slide" class="w-full text-center px-4 transition-all duration-500">
-                    <p class="text-[#00305e] text-[10px] font-bold italic">Esperando bendiciones...</p>
+            <div class="bg-white/95 py-6 flex items-center justify-center border-t border-[#fec325]/20 min-h-[120px]">
+                <div id="contenedor-mensajes-slide"
+                    class="w-full flex flex-col items-center justify-center overflow-hidden px-4 transition-all duration-500">
+                    <p class="text-[#00305e]/50 text-sm font-bold italic animate-pulse text-center">
+                        Conectando con el muro de bendiciones...
+                    </p>
                 </div>
             </div>
         </div>
@@ -1737,55 +1754,55 @@
         }
     </script>
 
-<script type="module">
-    // SE AGREGÓ 'limit' A LA IMPORTACIÓN
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy, addDoc, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <script type="module">
+        // SE AGREGÓ 'limit' A LA IMPORTACIÓN
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy, addDoc, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-        authDomain: "iasd-limache-muro.firebaseapp.com",
-        projectId: "iasd-limache-muro",
-        storageBucket: "iasd-limache-muro.firebasestorage.app",
-        appId: "1:277039117234:web:65f4e76064935cadabaaab"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    // --- LÓGICA PARA CARGAR LA ÚLTIMA MÉTRICA EN LA TARJETA ---
-    async function cargarUltimaMetrica() {
-        const txtFecha = document.getElementById('ultimoConteo');
-        const txtNumero = document.getElementById('numeroGrande');
+        // --- LÓGICA PARA CARGAR LA ÚLTIMA MÉTRICA EN LA TARJETA ---
+        async function cargarUltimaMetrica() {
+            const txtFecha = document.getElementById('ultimoConteo');
+            const txtNumero = document.getElementById('numeroGrande');
 
-        try {
-            const metricaRef = collection(db, "asistencia_sabados");
-            // Ahora 'limit' funcionará correctamente
-            const q = query(metricaRef, orderBy("fecha", "desc"), limit(1));
+            try {
+                const metricaRef = collection(db, "asistencia_sabados");
+                // Ahora 'limit' funcionará correctamente
+                const q = query(metricaRef, orderBy("fecha", "desc"), limit(1));
 
-            onSnapshot(q, (snapshot) => {
-                if (!snapshot.empty) {
-                    const data = snapshot.docs[0].data();
-                    let fechaFormateada = "Reciente";
-                    
-                    if (data.fecha) {
-                        const partes = data.fecha.split('-');
-                        fechaFormateada = `${partes[2]}/${partes[1]}`;
+                onSnapshot(q, (snapshot) => {
+                    if (!snapshot.empty) {
+                        const data = snapshot.docs[0].data();
+                        let fechaFormateada = "Reciente";
+
+                        if (data.fecha) {
+                            const partes = data.fecha.split('-');
+                            fechaFormateada = `${partes[2]}/${partes[1]}`;
+                        }
+
+                        if (txtFecha) txtFecha.innerText = `Sábado ${fechaFormateada}`;
+                        if (txtNumero) txtNumero.innerText = data.total || 0;
+
+                        console.log("Métrica cargada:", data);
+                    } else {
+                        if (txtFecha) txtFecha.innerText = "Sin registros";
+                        if (txtNumero) txtNumero.innerText = "--";
                     }
-
-                    if (txtFecha) txtFecha.innerText = `Sábado ${fechaFormateada}`;
-                    if (txtNumero) txtNumero.innerText = data.total || 0;
-                    
-                    console.log("Métrica cargada:", data);
-                } else {
-                    if (txtFecha) txtFecha.innerText = "Sin registros";
-                    if (txtNumero) txtNumero.innerText = "--";
-                }
-            });
-        } catch (error) {
-            console.error("Error al cargar métricas:", error);
+                });
+            } catch (error) {
+                console.error("Error al cargar métricas:", error);
+            }
         }
-    }
 
         // --- FUNCIONES GLOBALES (Para que los botones las encuentren) ---
         window.abrirModalMensaje = () => {
@@ -1901,27 +1918,33 @@
                 let idx = 0;
                 const rotar = () => {
                     contenedor.style.opacity = "0";
+                    contenedor.style.transition = "opacity 0.5s ease";
+
                     setTimeout(() => {
                         const m = mensajes[idx];
+                        // AJUSTE DE TAMAÑO RESPONSIVO: text-base (móvil) a text-2xl (escritorio)
                         contenedor.innerHTML = `
-                        <div class="animate__animated animate__fadeInUp">
-                            <p class="text-[#00305e] text-[9px] font-bold">
-                                <span class="text-yellow-600 uppercase font-black">${m.autor}:</span> "${m.texto}"
-                            </p>
-                        </div>`;
+            <div class="animate__animated animate__zoomIn flex flex-col items-center justify-center w-full py-2">
+                <span class="text-yellow-600 font-black uppercase text-[9px] tracking-[0.2em] mb-2">
+                    ${m.autor} escribió:
+                </span>
+                <p class="text-[#00305e] text-base md:text-2xl font-black italic leading-tight text-center max-w-2xl mx-auto break-words whitespace-normal">
+                    "${m.texto}"
+                </p>
+            </div>`;
+
                         contenedor.style.opacity = "1";
                         idx = (idx + 1) % mensajes.length;
                     }, 500);
                 };
-
                 rotar();
                 if (window.intervaloMuro) clearInterval(window.intervaloMuro);
                 window.intervaloMuro = setInterval(rotar, 5000);
             });
         }
 
-    cargarUltimaMetrica();
-    gestionarMuroFrontal();
+        cargarUltimaMetrica();
+        gestionarMuroFrontal();
     </script>
 
     </script>
