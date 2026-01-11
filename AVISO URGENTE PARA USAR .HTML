@@ -297,3 +297,68 @@ npx cap open android -->
                 </div>
             </div>
         </section>
+
+
+
+
+        //METRICAS
+
+            <script type="module">
+        // 1. IMPORTACIÓN CORREGIDA (Se agregó 'limit')
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, onSnapshot, orderBy, addDoc, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- LÓGICA PARA CARGAR LA ÚLTIMA MÉTRICA EN LA TARJETA ---
+        async function cargarUltimaMetrica() {
+            const txtFecha = document.getElementById('ultimoConteo');
+            const txtNumero = document.getElementById('numeroGrande');
+
+            try {
+                // Referencia a la colección
+                const metricaRef = collection(db, "asistencia_sabados");
+
+                // Consultamos el registro más reciente ordenado por fecha
+                const q = query(metricaRef, orderBy("fecha", "desc"), limit(1));
+
+                // Escuchamos cambios
+                onSnapshot(q, (snapshot) => {
+                    if (!snapshot.empty) {
+                        const data = snapshot.docs[0].data();
+
+                        // Procesar la fecha (Ej: 2026-01-10 -> 10/01)
+                        let fechaFormateada = "Reciente";
+                        if (data.fecha) {
+                            const partes = data.fecha.split('-');
+                            fechaFormateada = `${partes[2]}/${partes[1]}`;
+                        }
+
+                        // Actualizar el HTML
+                        if (txtFecha) txtFecha.innerText = `Sábado ${fechaFormateada}`;
+                        if (txtNumero) txtNumero.innerText = data.total || 0;
+
+                        console.log("Datos de métrica cargados:", data);
+                    } else {
+                        if (txtFecha) txtFecha.innerText = "Sin registros";
+                        if (txtNumero) txtNumero.innerText = "--";
+                    }
+                }, (error) => {
+                    console.error("Error en Snapshot:", error);
+                });
+            } catch (error) {
+                console.error("Error al cargar métricas:", error);
+            }
+        }
+
+        // EJECUTAR CARGA DE MÉTRICAS
+        cargarUltimaMetrica();
