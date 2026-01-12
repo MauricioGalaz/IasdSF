@@ -24,13 +24,42 @@
     </script>
 
     <style>
-        body { font-family: 'Outfit', sans-serif; }
-        .input-pauta { @apply w-full p-3 bg-slate-100 border-2 border-transparent rounded-xl focus:border-adventist-gold focus:bg-white outline-none font-bold transition-all; }
-        .step-box { @apply border-l-4 border-adventist-blue bg-white p-4 rounded-r-xl shadow-sm mb-4; }
-        #export-area { position: absolute; left: -9999px; top: 0; width: 800px; background: white; }
-        .pdf-header { border-bottom: 4px solid #fec325; padding-bottom: 20px; margin-bottom: 20px; }
-        .pdf-section-title { background: #00305e; color: white; padding: 8px 15px; border-radius: 8px; font-weight: 900; text-transform: uppercase; margin: 20px 0 10px 0; }
-    </style>
+    body { font-family: 'Outfit', sans-serif; }
+
+    /* .input-pauta convertido a CSS puro */
+    .input-pauta { 
+        width: 100%;
+        padding: 0.75rem; /* p-3 */
+        background-color: #f1f5f9; /* bg-slate-100 */
+        border: 2px solid transparent;
+        border-radius: 0.75rem; /* rounded-xl */
+        font-weight: 700;
+        outline: none;
+        transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .input-pauta:focus {
+        border-color: #fec325; /* focus:border-adventist-gold */
+        background-color: white; /* focus:bg-white */
+    }
+
+    /* .step-box convertido a CSS puro */
+    .step-box { 
+        border-left-width: 4px;
+        border-left-style: solid;
+        border-left-color: #00305e; /* border-adventist-blue */
+        background-color: white;
+        padding: 1rem; /* p-4 */
+        border-top-right-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        margin-bottom: 1rem;
+    }
+
+    #export-area { position: absolute; left: -9999px; top: 0; width: 800px; background: white; }
+    .pdf-header { border-bottom: 4px solid #fec325; padding-bottom: 20px; margin-bottom: 20px; }
+    .pdf-section-title { background: #00305e; color: white; padding: 8px 15px; border-radius: 8px; font-weight: 900; text-transform: uppercase; margin: 20px 0 10px 0; }
+</style>
 </head>
 <body class="bg-adventist-bg pb-28">
 

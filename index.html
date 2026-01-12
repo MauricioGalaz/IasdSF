@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png
-    <meta name=" theme-color" content="#00305e">
+    <meta name=" theme-color content="#00305e">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -417,6 +417,7 @@
         }
 
         /* Marquesina Deslizante Moderna */
+        /* Marquesina Deslizante Moderna */
         .marquee-wrapper {
             background: #00305e;
             color: #fec325;
@@ -430,7 +431,8 @@
 
         .marquee-text {
             display: inline-block;
-            animation: scroll-text 40s linear infinite;
+            animation: scroll-text 36s linear infinite;
+            /* AQUÍ AJUSTAS LA VELOCIDAD */
             font-family: 'Montserrat';
             font-weight: 700;
             text-transform: uppercase;
@@ -651,7 +653,9 @@
                     ¡ Bienvenidos a la IASD San Francisco de Limache ! • Próximo Sábado: Escuela Sabática 09:30 hrs. -
                     Culto de Adoración 11:00 hrs.•
                     "Lámpara es a mis pies tu palabra" • Paseo de Iglesia el 22 de febrero "Solo 80 CUPOS"•
-                    ¡Sábado 17 de enero Reunión de oración Intercesora  16:00 hrs! • Sábado 17 de enero Investidura de cierre año 2025 de Club de Aventureros 18:00 Hrs. • Al terminar Culto de Adoración, !! Madres de Rodillas Hijos de pie !!
+                    ¡Sábado 17 de enero Reunión de oración Intercesora 16:00 hrs! • Sábado 17 de enero Investidura de
+                    cierre año 2025 de Club de Aventureros 18:00 Hrs. • Al terminar Culto de Adoración, !! Madres de
+                    Rodillas Hijos de pie !!
                 </div>
             </div>
 
@@ -1274,23 +1278,41 @@
         </div>
     </main>
 
-    <footer class="bg-[#0f172a] py-10 border-t border-white/10 text-center">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F" class="text-white/40 hover:text-adventist-gold transition"><i
-                        class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#" class="text-white/40 hover:text-adventist-gold transition"><i
-                        class="fab fa-instagram fa-lg"></i></a>
-                <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blankclass="text-white/40 hover:text-adventist-gold transition"><i
-                        class="fab fa-youtube fa-lg"></i></a>
+            <div class="flex flex-col items-center">
+                <img src="imagenes/logo.jpg"
+                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                <h2 class="text-adventist-gold font-bold">Igesia Adeventista del Septimo día</h2><br>
+
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f fa-2xl"></i></a>
+                    <a href="#"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-instagram fa-2xl"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-youtube fa-2xl"></i></a>
+                </div>
+
+                <div class="w-full border-t border-white/5 pt-8 text-center">
+                    <p class="text-slate-500 text-xs">© 2026 Aviso de iglesia - IASD - Todos los derechos reservados.
+                    </p>
+                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                    </p>
+                </div>
             </div>
-            <p class="font-black text-adventist-gold text-xl uppercase tracking-widest italic mb-2">
-                IASD SAN FRANCISCO DE LIMACHE
-            </p>
-            <p class="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">
-                © 2026 • Diseñado por Mauricio Galaz Estay
-            </p>
         </div>
+
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
     </footer>
 
     <div id="modalAncianos" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6">
