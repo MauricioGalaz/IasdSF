@@ -31,20 +31,68 @@
         .hero-gradient {
             background: linear-gradient(135deg, rgba(0, 48, 94, 0.7) 0%, rgba(0, 78, 146, 0.8) 100%);
         }
+
         .video-background {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; overflow: hidden;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
             background-color: #00305e;
         }
+
         .video-background iframe {
-            width: 150vw; height: 84.37vw;
-            min-height: 150vh; min-width: 266.66vh;
-            position: absolute; top: 50%; left: 50%;
+            width: 150vw;
+            height: 84.37vw;
+            min-height: 150vh;
+            min-width: 266.66vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
         }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+        }
+
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-20deg);
+            animation: shine 2s infinite linear;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -75%;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: -75%;
+            }
+        }
     </style>
 </head>
 
@@ -52,13 +100,15 @@
 
     <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
-            <a href="../index.html" class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
+            <a href="../index.html"
+                class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
                 <i class="fas fa-arrow-left bg-white/10 p-2 rounded-full group-hover:bg-adventist-gold transition"></i>
                 <span class="hidden sm:inline">Volver al Inicio</span>
             </a>
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio Jóvenes</p>
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio Jóvenes
+                    </p>
                     <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - Limache</p>
                 </div>
                 <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
@@ -66,13 +116,15 @@
         </div>
     </nav>
 
-    <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
+    <header id="hero-header"
+        class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
         <div class="video-background">
             <div id="player-profesional"></div>
         </div>
         <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <span class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold mb-6 tracking-widest uppercase animate-pulse">
+            <span
+                class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold mb-6 tracking-widest uppercase animate-pulse">
                 Generación de Esperanza 2026
             </span>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg uppercase">
@@ -82,10 +134,12 @@
                 Un espacio para conectar, crecer y transformar San Francisco de Limache con el amor de Jesús.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#noticias" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
+                <a href="#noticias"
+                    class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
                     Ver Actividades
                 </a>
-                <button onclick="alternarMute(event)" id="audio-btn" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
+                <button onclick="alternarMute(event)" id="audio-btn"
+                    class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
                     <i id="audio-icon" class="fas fa-volume-mute"></i> <span id="audio-text">Activar Sonido</span>
                 </button>
             </div>
@@ -95,21 +149,24 @@
     <section class="py-20 bg-adventist-dark text-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold italic text-adventist-gold uppercase tracking-widest">Álbum: Fieles hasta el final</h2>
+                <h2 class="text-3xl font-extrabold italic text-adventist-gold uppercase tracking-widest">Álbum: Fieles
+                    hasta el final</h2>
                 <div class="h-1.5 w-24 bg-adventist-gold mx-auto mt-4 rounded-full"></div>
             </div>
-            
+
             <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
                 <div class="bg-adventist-blue/30 p-4 rounded-3xl border border-white/10 card-hover shadow-2xl">
                     <div class="aspect-video rounded-2xl overflow-hidden mb-6">
-                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/QQqaJRArx0k" title="La gracia terminará" allowfullscreen></iframe>
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/QQqaJRArx0k"
+                            title="La gracia terminará" allowfullscreen></iframe>
                     </div>
                     <h3 class="text-xl font-bold text-adventist-gold ml-2 italic uppercase">La gracia terminará</h3>
                 </div>
 
                 <div class="bg-adventist-blue/30 p-4 rounded-3xl border border-white/10 card-hover shadow-2xl">
                     <div class="aspect-video rounded-2xl overflow-hidden mb-6">
-                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/FEX0ZLhe0dw" title="Procesos" allowfullscreen></iframe>
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/FEX0ZLhe0dw"
+                            title="Procesos" allowfullscreen></iframe>
                     </div>
                     <h3 class="text-xl font-bold text-adventist-gold ml-2 italic uppercase">Procesos</h3>
                 </div>
@@ -122,40 +179,93 @@
             <h2 class="text-3xl font-extrabold text-adventist-blue italic uppercase mb-12">Mira el Movimiento</h2>
             <div class="grid lg:grid-cols-2 gap-8">
                 <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
-                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube-nocookie.com/embed/7-4fhrpfuP0" allowfullscreen></iframe>
+                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition"
+                        src="https://www.youtube-nocookie.com/embed/7-4fhrpfuP0" allowfullscreen></iframe>
                 </div>
                 <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
-                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube-nocookie.com/embed/6e_4vHLZ7Ss" allowfullscreen></iframe>
+                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition"
+                        src="https://www.youtube-nocookie.com/embed/6e_4vHLZ7Ss" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="noticias" class="py-20 bg-slate-100">
-        <div class="container mx-auto px-6 text-center text-left">
-            <h2 class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8 uppercase">¿Qué está pasando?</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
-                    <h3 class="text-xl font-bold mb-3 italic">Próximo GP</h3>
-                    <p class="text-slate-500 text-sm mb-6 italic">Compartiremos pizza y un mensaje que cambiará tu semana.</p>
-                </div>
-                <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white card-hover text-left">
-                    <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase">Misión Caleb</h3>
-                    <p class="text-blue-100 text-sm mb-6 leading-relaxed">¡Prepárate para servir a Limache!</p>
-                </div>
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
-                    <h3 class="text-xl font-bold mb-3 text-adventist-blue uppercase">Tips de Salud</h3>
-                    <p class="text-slate-500 text-sm mb-6">Reflexión semanal sobre el bienestar integral.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="noticias" class="py-20 bg-slate-100 font-sans">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8 uppercase tracking-tight">
+            ¿Qué está pasando?
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8 items-stretch">
 
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
+                <a href="../imagenes/gp.jpg" target="_blank" class="block flex-grow">
+                    <div class="w-full h-56 overflow-hidden bg-adventist-blue">
+                        <img src="../imagenes/gp.jpg" alt="Infografía GP" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fas fa-users text-adventist-blue"></i>
+                            <h3 class="text-xl font-bold italic text-adventist-blue uppercase">Próximo GP</h3>
+                        </div>
+                        <p class="text-slate-700 text-sm mb-6 leading-relaxed">
+                            ¡No te quedes fuera! Nos reuniremos para compartir momentos de amistad, música y algo rico para comer.
+                        </p>
+                        <div class="bg-adventist-gold/20 p-3 rounded-xl border-l-4 border-adventist-gold mb-4 font-bold text-adventist-blue">
+                            <p class="text-[11px] uppercase">📍 Te esperamos este viernes</p>
+                        </div>
+                        <span class="text-adventist-blue font-bold flex items-center gap-2 group">
+                            Quiero participar <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="bg-adventist-blue rounded-3xl shadow-xl text-white transition-all duration-300 hover:ring-4 hover:ring-adventist-gold card-hover shine-effect overflow-hidden flex flex-col">
+                <a href="../imagenes/caleb.jpg" target="_blank" class="block flex-grow">
+                    <div class="w-full h-56 overflow-hidden">
+                        <img src="../imagenes/caleb.jpg" alt="Misión Caleb" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col h-full">
+                        <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase tracking-widest">Misión Caleb Limache</h3>
+                        <p class="text-blue-50 text-sm mb-6 leading-relaxed">
+                            ¡Misión confirmada! Este verano junto a la Escuela Cristiana de Vacaciones. Deja tu huella sirviendo con alegría.
+                        </p>
+                        <span class="w-full text-center bg-white text-adventist-blue py-3 px-6 rounded-xl text-xs font-bold inline-block uppercase shadow-lg">
+                            Inscribirme al equipo
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-300 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
+                <a href="../imagenes/tips salud.jpg" target="_blank" class="block flex-grow">
+                    <div class="w-full h-56 overflow-hidden bg-slate-900">
+                        <img src="../imagenes/tips salud.jpg" alt="Salud Integral" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="p-6 text-left">
+                        <h3 class="text-xl font-bold mb-3 text-adventist-blue uppercase tracking-widest">Salud Integral</h3>
+                        <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                            Consejos prácticos para cuidar tu cuerpo y mente. Una reflexión semanal para tu bienestar físico y espiritual.
+                        </p>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
+                                Generación de Esperanza 2026
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
     <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
         <div class="container mx-auto px-6">
             <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6">
             <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
-            <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-8 italic">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-8 italic">© 2026 Ministerio de Jóvenes -
+                Creado por Mauricio Galaz Estay</p>
         </div>
     </footer>
 
@@ -179,13 +289,13 @@
                     'origin': window.location.origin
                 },
                 events: {
-                    'onReady': function(e) {
+                    'onReady': function (e) {
                         e.target.playVideo();
-                        setInterval(function() {
+                        setInterval(function () {
                             if (player && player.getPlayerState() !== 1) player.playVideo();
                         }, 1000);
                     },
-                    'onStateChange': function(e) {
+                    'onStateChange': function (e) {
                         if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) player.playVideo();
                     }
                 }
@@ -216,4 +326,5 @@
         }
     </script>
 </body>
+
 </html>
