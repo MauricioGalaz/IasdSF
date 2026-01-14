@@ -4,156 +4,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Ministerio – IASD Limache</title>
-
+    <title>Ministerio Infantil 2026 – IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        adventist: {
-                            blue: '#00305e',
-                            gold: '#fec325',
-                            light: '#f4f4f4'
-                        }
+                        adventist: { blue: '#00305e', gold: '#fec325', light: '#f1f5f9', purple: '#673ab7', teal: '#00bcd4', dark: '#0a192f' }
                     }
                 }
             }
         }
     </script>
+    <style>
+        .video-docker iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        @media (min-aspect-ratio: 16/9) {
+            .video-docker iframe {
+                height: 56.25vw;
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            .video-docker iframe {
+                width: 177.78vh;
+            }
+        }
+
+        .video-docker::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 48, 94, 0.45);
+            z-index: 1;
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 80px;
+            background: #f1f5f9;
+            border-radius: 100px;
+            padding: 10px;
+            position: relative;
+            cursor: pointer;
+            border: 6px solid #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .slider-thumb {
+            width: 60px;
+            height: 60px;
+            background: #fec325;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00305e;
+            font-size: 30px;
+            transition: transform 0.1s linear;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 900;
+            font-size: 16px;
+            color: #00305e;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+
+        .neumorphic {
+            background: #ffffff;
+            box-shadow: 20px 20px 60px #d1d5db, -20px -20px 60px #ffffff;
+            border-radius: 2.5rem;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-pop {
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-gray-700">
+<body class="font-['Quicksand'] bg-slate-50 overflow-x-hidden">
 
-        <!-- NAV MINISTERIOS -->
-    <nav class="bg-adventist-blue text-white shadow fixed w-full z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div id="modalSonido" class="fixed inset-0 z-[200] flex items-center justify-center bg-adventist-blue p-6">
+        <div class="bg-white p-10 rounded-[3rem] text-center shadow-2xl border-b-8 border-adventist-gold max-w-sm">
+            <div class="text-7xl mb-6 animate-bounce">🌈</div>
+            <h2 class="font-['Montserrat'] font-black text-3xl text-adventist-blue mb-2 uppercase italic">¡Bienvenido!
+            </h2>
+            <p class="font-bold text-slate-500 mb-8 uppercase text-xs tracking-widest leading-relaxed">Toca para activar
+                la música del <br>Ministerio Infantil</p>
+            <button onclick="activarTodo()"
+                class="bg-adventist-gold text-adventist-blue w-full py-5 rounded-3xl font-black uppercase shadow-xl hover:scale-105 transition-all text-xl">
+                ¡ENTRAR! 🚀
+            </button>
+        </div>
+    </div>
 
-            <!-- VOLVER -->
+    <div id="modalVersiculoSabado"
+        class="hidden fixed inset-0 z-[400] flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div
+            class="neumorphic bg-white p-10 max-w-lg w-full text-center relative border-t-8 border-adventist-gold animate-pop">
+            <button onclick="cerrarVersiculoFlotante()"
+                class="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition">
+                <i class="fas fa-times-circle text-2xl"></i>
+            </button>
+            <div class="text-adventist-purple text-5xl mb-4"><i class="fas fa-bible"></i></div>
+            <h2 class="font-['Montserrat'] font-black text-adventist-blue text-xl uppercase mb-2">Versículo para hoy
+            </h2>
+            <p id="fechaSabado" class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6"></p>
+            <div class="bg-slate-50 p-6 rounded-3xl border-2 border-dashed border-adventist-gold/30">
+                <p id="textoFlotante" class="text-xl font-bold italic text-slate-700 leading-snug mb-4"></p>
+                <p id="citaFlotante" class="font-black text-adventist-purple uppercase text-sm"></p>
+            </div>
+            <button onclick="cerrarVersiculoFlotante()"
+                class="mt-8 bg-adventist-blue text-white px-10 py-3 rounded-2xl font-black uppercase text-xs shadow-lg hover:bg-adventist-purple transition">
+                ¡Amén! Lo memorizaré
+            </button>
+        </div>
+    </div>
+
+    <nav class="bg-adventist-blue/90 backdrop-blur-md text-white fixed w-full z-50 border-b-2 border-adventist-gold">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="flex items-center space-x-2 text-sm font-semibold hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left text-lg"></i>
-                <span>Inicio</span>
+                class="font-black text-xs tracking-tighter uppercase flex items-center hover:text-adventist-gold transition">
+                <i class="fas fa-arrow-left mr-2"></i> Inicio
             </a>
-
-            <!-- LOGO -->
-            <div class="flex items-center space-x-3">
-                <img src="../imagenes/logo.jpg" class="h-8 rounded-full">
-                <span class="font-heading font-bold text-xs leading-tight">
-                    IASD<br>San Francisco de Limache
-                </span>
+            <div class="text-center hidden md:block">
+                <p class="font-heading font-black text-xs leading-none uppercase text-adventist-gold">Departamento de
+                    Niños</p>
+                <p class="font-heading font-black text-[10px] leading-none uppercase">IASD San Francisco de Limache</p>
+            </div>
+            <div
+                class="bg-adventist-gold text-adventist-blue px-4 py-1 rounded-full font-black text-xs shadow-lg flex items-center">
+                ⭐ <span id="contadorEstrellas" class="ml-1">0</span> - LOGROS
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="py-20 bg-adventist-light text-center">
-        <h1 class="text-4xl font-bold text-adventist-blue mb-4">
-            MINISTERIO INFANTIL
-        </h1>
-        <p class="max-w-3xl mx-auto text-gray-600">
-            Ministerio infantil para el desarrollo integral.
-        </p>
-    </section>
-
-    <!-- VIDEOS -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-adventist-blue mb-6">📹 Videos</h2>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <button onclick="cargarVideo('https://www.youtube.com/embed/dsdjHEMnFJs')"
-                    class="bg-adventist-blue text-white py-2 rounded">Video 1</button>
-                <button onclick="cargarVideo('https://www.youtube.com/embed/yCIyxcDc5Z4')"
-                    class="bg-adventist-blue text-white py-2 rounded">Video 2</button>
-            </div>
-
-            <iframe id="videoFrame" class="w-full h-96 rounded shadow" allowfullscreen></iframe>
+    <header class="relative h-screen flex items-center justify-center overflow-hidden video-docker">
+        <div id="playerFondo"></div>
+        <div class="relative z-10 text-center text-white px-6">
+            <span
+                class="bg-adventist-gold text-adventist-blue px-6 py-2 rounded-full font-black text-sm uppercase tracking-widest shadow-2xl">Materia:
+                Escuela Sabática</span>
+            <h1 class="font-['Montserrat'] text-6xl md:text-9xl font-black mt-8 mb-4 drop-shadow-2xl uppercase italic">
+                Pequeños <br><span class="text-adventist-gold">Discípulos</span>
+            </h1>
         </div>
-    </section>
+    </header>
 
-    <!-- SECCIÓN NOTICIAS -->
-    <section class="py-20 bg-adventist-light">
-        <div class="container mx-auto px-6">
-            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📰 Noticias</h2>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Actividad Próxima</h4>
-                    <p class="text-sm text-gray-600">Información destacada del ministerio.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Evento Especial</h4>
-                    <p class="text-sm text-gray-600">Invitación o anuncio.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
-                    <h4 class="font-bold mb-2">Mensaje Espiritual</h4>
-                    <p class="text-sm text-gray-600">Reflexión breve.</p>
-                </div>
+    <section class="py-24 bg-white relative border-b-8 border-adventist-light">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 text-center">
+            <div class="neumorphic p-10 border-t-8 border-pink-400 group hover:scale-105 transition-all">
+                <i class="fas fa-baby text-6xl text-pink-400 mb-6"></i>
+                <h3 class="font-['Montserrat'] text-4xl font-black text-adventist-blue uppercase mb-4 italic">Clase Cuna
+                </h3>
+                <p class="text-slate-600 mb-8 italic">(0 a 3 años) - El amor de Jesús para los pequeñitos.</p>
+                <button onclick="abrirModal('IZeh_EtzN8c')"
+                    class="w-full bg-pink-500 text-white py-4 rounded-2xl font-black uppercase hover:bg-pink-600 transition shadow-lg">Ver
+                    Video Lección</button>
+            </div>
+            <div class="neumorphic p-10 border-t-8 border-blue-400 group hover:scale-105 transition-all">
+                <i class="fas fa-child text-6xl text-blue-400 mb-6"></i>
+                <h3 class="font-['Montserrat'] text-4xl font-black text-adventist-blue uppercase mb-4 italic">Primarios
+                </h3>
+                <p class="text-slate-600 mb-8 italic">(7 a 9 años) - Aventuras con la Biblia.</p>
+                <button onclick="abrirModal('XLUf0z95-mY')"
+                    class="w-full bg-blue-500 text-white py-4 rounded-2xl font-black uppercase hover:bg-blue-600 transition shadow-lg">Ver
+                    Video Lección</button>
             </div>
         </div>
     </section>
 
-<!-- FOOTER -->
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="../imagenes/logo.jpg"
-                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
-
-                <div class="flex justify-center space-x-8 mb-8">
-                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-facebook-f fa-2xl"></i></a>
-                    <a href="#"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-instagram fa-2xl"></i></a>
-                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-youtube fa-2xl"></i></a>
-                </div>
-
-                <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Ministerio de Menores - IASD - Todos los derechos reservados.</p>
-                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                    </p>
+    <section class="py-24 bg-adventist-blue relative overflow-hidden">
+        <div class="container mx-auto px-6 text-center text-white">
+            <h2
+                class="font-['Montserrat'] text-4xl font-black text-adventist-gold uppercase mb-12 italic tracking-tighter">
+                Reto Estrella de Sabiduría</h2>
+            <div
+                class="max-w-2xl mx-auto bg-white/10 backdrop-blur-xl p-12 rounded-[4rem] border-2 border-white/20 shadow-2xl">
+                <p id="textoVersiculo" class="text-2xl font-bold mb-8 italic transition-all duration-500">Cargando
+                    desafío...</p>
+                <div id="timer" class="text-7xl font-black mb-10 text-white tabular-nums">15</div>
+                <div id="areaJuego">
+                    <button id="btnStart" onclick="iniciarReto()"
+                        class="bg-adventist-gold text-adventist-blue px-14 py-5 rounded-full font-black uppercase text-xl shadow-2xl hover:scale-110 transition">¡COMENZAR!</button>
+                    <div id="contenedorSlider" class="hidden mt-6">
+                        <div class="slider-container" id="sliderTrack">
+                            <div class="slider-text">¡DESLIZA PARA GANAR! ⭐</div>
+                            <div class="slider-thumb" id="thumb"><i class="fas fa-star text-white"></i></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2
+                class="font-['Montserrat'] text-3xl font-black text-adventist-blue uppercase mb-16 italic underline decoration-adventist-gold decoration-8 underline-offset-8">
+                Rincón de Materiales</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <a href="../libros/primarios/p17en.pdf" target="_blank"
+                    class="p-8 neumorphic group hover:bg-adventist-gold transition-all border-2 border-slate-50 flex flex-col items-center">
+                    <i class="fas fa-file-pdf text-5xl text-red-500 mb-4 group-hover:scale-125 transition"></i>
+                    <p class="font-black text-xs uppercase tracking-tighter">Folleto Menores</p>
+                </a>
+                <a href="../libros/prim.pdf" target="_blank"
+                    class="p-8 neumorphic group hover:bg-adventist-gold transition-all border-2 border-slate-50 flex flex-col items-center">
+                    <i
+                        class="fas fa-paint-brush text-5xl text-adventist-teal mb-4 group-hover:scale-125 transition"></i>
+                    <p class="font-black text-xs uppercase tracking-tighter">Para Colorear</p>
+                </a>
+                <a href="../libros/versmemoria.pdf" target="_blank"
+                    class="p-8 neumorphic group hover:bg-adventist-gold transition-all border-2 border-slate-50 flex flex-col items-center justify-center">
+                    <i
+                        class="fas fa-scroll text-5xl text-adventist-purple mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300"></i>
+                    <p class="font-black text-xs uppercase tracking-tighter text-adventist-blue">Versículo Semanal</p>
+                    <span class="mt-2 text-[8px] font-bold text-red-500 uppercase opacity-70"><i
+                            class="fas fa-file-pdf"></i> Abrir PDF Local</span>
+                </a>
+                <a href="https://www.adventistas.org/es/ninos/categoria/actividades/" target="_blank"
+                    class="p-8 neumorphic group hover:bg-adventist-gold transition-all border-2 border-slate-50 flex flex-col items-center">
+                    <i class="fas fa-tasks text-5xl text-pink-500 mb-4 group-hover:scale-125 transition"></i>
+                    <p class="font-black text-xs uppercase tracking-tighter">Retos e Ideas</p>
+                </a>
+            </div>
+        </div>
+    </section>
 
+    <footer class="bg-adventist-dark text-white pt-20 pb-10 border-t-8 border-adventist-gold text-center">
+        <div class="container mx-auto px-6">
+            <img src="../imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-4 border-white/20">
+            <h2 class="text-adventist-gold font-black uppercase text-xl tracking-widest">IASD San Francisco de Limache
+            </h2>
+            <p class="mt-8 text-[10px] opacity-40 uppercase tracking-[0.5em]">© 2026 Ministerio Infantil - Creado por
+                Mauricio Galaz Estay</p>
+        </div>
     </footer>
+
+    <div id="videoModal" class="hidden fixed inset-0 bg-black/95 z-[500] flex items-center justify-center p-4">
+        <div class="w-full max-w-5xl relative">
+            <button onclick="cerrarModal()"
+                class="absolute -top-12 right-0 text-white text-5xl hover:text-adventist-gold transition-colors">&times;</button>
+            <div class="aspect-video rounded-[3rem] overflow-hidden border-4 border-white/20 shadow-2xl bg-black">
+                <iframe id="iframeModal" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
-        /* Cambiar video */
-        function cargarVideo(url) {
-            document.getElementById("videoFrame").src = url;
+        // BASE DE DATOS COMPLETA: VERSÍCULOS 1T 2026
+        const sabados2026 = [
+            { fecha: "2026-01-03", texto: "Yo estaré contigo; no te dejaré ni te desampararé.", cita: "Josué 1:5" },
+            { fecha: "2026-01-10", texto: "Tu palabra es una lámpara a mis pies y una luz en mi camino.", cita: "Salmos 119:105" },
+            { fecha: "2026-01-17", texto: "El ángel de Jehová acampa alrededor de los que le temen.", cita: "Salmos 34:7" },
+            { fecha: "2026-01-24", texto: "Crea en mí, oh Dios, un corazón limpio.", cita: "Salmos 51:10" },
+            { fecha: "2026-01-31", texto: "Clama a mí, y yo te responderé.", cita: "Jeremías 33:3" },
+            { fecha: "2026-02-07", texto: "Jehová es mi luz y mi salvación; ¿de quién temeré?", cita: "Salmos 27:1" },
+            { fecha: "2026-02-14", texto: "El amor nunca deja de ser.", cita: "1 Corintios 13:8" },
+            { fecha: "2026-02-21", texto: "Buscad a Jehová mientras puede ser hallado.", cita: "Isaías 55:6" },
+            { fecha: "2026-02-28", texto: "Hijo mío, dame hoy tu corazón.", cita: "Proverbios 23:26" },
+            { fecha: "2026-03-07", texto: "Todo lo puedo en Cristo que me fortalece.", cita: "Filipenses 4:13" },
+            { fecha: "2026-03-14", texto: "Jehová es mi pastor; nada me faltará.", cita: "Salmos 23:1" },
+            { fecha: "2026-03-21", texto: "Mirad cuál amor nos ha dado el Padre.", cita: "1 Juan 3:1" },
+            { fecha: "2026-03-28", texto: "He aquí, yo vengo pronto.", cita: "Apocalipsis 22:12" }
+        ];
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('playerFondo', {
+                videoId: 'I0bUOXMePhc',
+                playerVars: { 'autoplay': 1, 'mute': 1, 'loop': 1, 'playlist': 'I0bUOXMePhc', 'controls': 0, 'rel': 0, 'modestbranding': 1 },
+                events: { 'onReady': function (e) { e.target.playVideo(); } }
+            });
         }
 
-        /* Botón volver arriba */
-        const btnTop = document.getElementById("btnTop");
+        function activarTodo() {
+            if (player) { player.unMute(); player.setVolume(100); }
+            document.getElementById('modalSonido').classList.add('hidden');
+            verificarSabado();
+        }
 
-        window.addEventListener("scroll", () => {
-            btnTop.classList.toggle("hidden", window.scrollY < 300);
-        });
+        function verificarSabado() {
+            const hoy = new Date();
+            const fechaISO = hoy.toISOString().split('T')[0];
+            const v = sabados2026.find(x => x.fecha === fechaISO) || sabados2026[0];
 
-        btnTop.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
+            // Actualizar textos en la página y en el modal
+            const textoDisplay = `"${v.texto}" ${v.cita}`;
+            document.getElementById('textoVersiculo').innerText = textoDisplay;
+            document.getElementById('textoFlotante').innerText = `"${v.texto}"`;
+            document.getElementById('citaFlotante').innerText = v.cita;
+            document.getElementById('fechaSabado').innerText = "Sábado " + hoy.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
+
+            // Solo mostrar el flotante si es sábado (comentado para que veas el efecto siempre al probar)
+            // if (hoy.getDay() === 6) {
+            setTimeout(() => document.getElementById('modalVersiculoSabado').classList.remove('hidden'), 1500);
+            // }
+        }
+
+        function cerrarVersiculoFlotante() { document.getElementById('modalVersiculoSabado').classList.add('hidden'); }
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.getElementsByTagName('script')[0].parentNode.insertBefore(tag, document.getElementsByTagName('script')[0]);
+
+        let estrellas = localStorage.getItem('estrellasInfantil') ? parseInt(localStorage.getItem('estrellasInfantil')) : 0;
+        document.getElementById('contadorEstrellas').innerText = estrellas;
+
+        const thumb = document.getElementById('thumb');
+        const track = document.getElementById('sliderTrack');
+        let isDragging = false;
+
+        function iniciarReto() {
+            let t = 15;
+            document.getElementById('btnStart').classList.add('hidden');
+            document.getElementById('contenedorSlider').classList.remove('hidden');
+            document.getElementById('textoVersiculo').classList.remove('blur-lg');
+            window.currentTimer = setInterval(() => {
+                t--; document.getElementById('timer').innerText = t;
+                if (t <= 0) {
+                    clearInterval(window.currentTimer);
+                    document.getElementById('textoVersiculo').classList.add('blur-lg');
+                    document.getElementById('contenedorSlider').classList.add('hidden');
+                    document.getElementById('btnStart').classList.remove('hidden');
+                    document.getElementById('btnStart').innerText = "REINTENTAR";
+                }
+            }, 1000);
+        }
+
+        const startDrag = (e) => { e.preventDefault(); isDragging = true; };
+        const stopDrag = () => { isDragging = false; thumb.style.transform = `translateX(0px)`; };
+        const doDrag = (e) => {
+            if (!isDragging) return;
+            let pageX = e.pageX || e.touches[0].pageX;
+            let x = pageX - track.getBoundingClientRect().left - 30;
+            let limit = track.offsetWidth - 80;
+            if (x < 0) x = 0;
+            if (x > limit) {
+                x = limit; ganarEstrella(); stopDrag();
+            }
+            thumb.style.transform = `translateX(${x}px)`;
+        };
+
+        thumb.addEventListener('mousedown', startDrag); window.addEventListener('mouseup', stopDrag); window.addEventListener('mousemove', doDrag);
+        thumb.addEventListener('touchstart', startDrag); window.addEventListener('touchend', stopDrag); window.addEventListener('touchmove', doDrag);
+
+        function ganarEstrella() {
+            clearInterval(window.currentTimer);
+            estrellas++; localStorage.setItem('estrellasInfantil', estrellas);
+            document.getElementById('contadorEstrellas').innerText = estrellas;
+            document.getElementById('contenedorSlider').classList.add('hidden');
+            document.getElementById('btnStart').classList.remove('hidden');
+            alert("¡MARAVILLOSO! ¡GANASTE UNA ESTRELLA! ⭐");
+        }
+
+        function abrirModal(id) {
+            document.getElementById('iframeModal').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+            document.getElementById('videoModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarModal() {
+            document.getElementById('videoModal').classList.add('hidden');
+            document.getElementById('iframeModal').src = "";
+            document.body.style.overflow = 'auto';
+        }
     </script>
-
-
 </body>
 
 </html>
