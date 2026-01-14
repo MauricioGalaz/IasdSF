@@ -12,9 +12,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png
     <meta name=" theme-color content="#00305e">
@@ -416,7 +413,7 @@
             animation: pulse-soft 6s infinite;
         }
 
-        /* Marquesina Deslizante Moderna */
+
         /* Marquesina Deslizante Moderna */
         .marquee-wrapper {
             background: #00305e;
@@ -434,7 +431,7 @@
             animation: scroll-text 36s linear infinite;
             /* AQUÍ AJUSTAS LA VELOCIDAD */
             font-family: 'Montserrat';
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 3px;
         }
@@ -514,9 +511,24 @@
         #banner-cumple-hoy {
             height: auto !important;
         }
+
+        /* Elimina el espacio blanco global */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Sella la unión entre el Nav y el Hero */
+        .hero-pattern {
+            margin-top: -1px;
+            background-attachment: fixed;
+            /* Opcional: para un efecto más elegante */
+        }
     </style>
 
-    </style>
+
 </head>
 
 <body class="font-sans text-gray-700">
@@ -659,96 +671,75 @@
                 </div>
             </div>
 
-            <!-- NAVBAR -->
-            <nav class="bg-adventist-blue text-white shadow-lg w-full">
+            <nav class="bg-adventist-blue text-white shadow-lg w-full sticky top-0 z-[300]">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
 
-                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-
-                    <!-- LOGO -->
-                    <a href="index.html" class="flex items-center space-x-4 group">
-                        <div
-                            class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
-                            <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
-                        </div>
-
-                        <span
-                            class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white">
-                            IASD San Francisco<br>
-                            <span class="text-[#fec325]">de Limache</span>
-                        </span>
-                    </a>
-
-                    <!-- MENU DESKTOP -->
-                    <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
-                        <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
-                        <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
-                        <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
-                        <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-                        <a href="avisos.html"
-                            class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shimmer-effect">
-                            <i class="fas fa-bell"></i> Avisos
-                        </a>
-                    </div>
-
-                    <!-- BOTONES -->
-                    <div class="flex items-center gap-2">
-                        <button onclick="abrirModalApp()"
-                            class="text-[10px] font-bold bg-white/10 px-3 py-1 rounded-lg border border-white/20 shimmer-effect">
-                            📱 INSTALAR APP
-                        </button>
-                        <button id="menu-button" class="lg:hidden p-2 text-xl">
-                            <i class="fas fa-bars"></i>
-                        </button>
-                    </div>
-
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
                 </div>
+                <span class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325]">de Limache</span>
+                </span>
+            </a>
+            
+            <a href="transmisiones.html" class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
+                <i class="fas fa-circle text-[6px]"></i> En Vivo
+            </a>
+        </div>
 
-                <!-- MENU MOVIL -->
-                <div id="mobile-menu"
-                    class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
-                    <a href="#inicio">Inicio</a>
-                    <a href="contactoaviso.html">Nosotros</a>
-                    <a href="#horarios">Actividades</a>
-                    <a href="#ministerios">Ministerios</a>
-                    <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
-                </div>
+        <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
+            <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+            <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
+            <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
+            <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+            <a href="avisos.html" class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                <i class="fas fa-bell"></i> Avisos
+            </a>
+        </div>
 
+        <div class="flex items-center gap-2">
+            <button onclick="abrirModalApp()" class="text-[10px] font-bold bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition">
+                📱 INSTALAR APP
+            </button>
+            <button id="menu-button" class="lg:hidden p-2 text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
 
+    <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
+        <a href="#inicio">Inicio</a>
+        <a href="transmisiones.html" class="text-red-500">En Vivo Ahora</a>
+        <a href="contactoaviso.html">Nosotros</a>
+        <a href="#horarios">Actividades</a>
+        <a href="#ministerios">Ministerios</a>
+        <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
+    </div>
+</nav>
 
-            </nav>
-            <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
-                <div class="bg-[#fec325] p-[2px] shadow-lg">
-                    <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="text-2xl animate-bounce">🎂</div>
-                            <div>
-                                <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!
-                                </p>
-                                <p id="nombre-cumple"
-                                    class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">...
-                                </p>
-                            </div>
-                        </div>
-                        <button onclick="abrirModalMensaje()"
-                            class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-3 py-2 rounded shadow-lg hover:bg-white transition-colors">
-                            FELICITAR ✨
-                        </button>
-                        <a href="#" onclick="document.getElementById('banner-cumple-hoy').classList.add('hidden')"
-                            class="text-white text-xl ml-2">&times;</a>
-                    </div>
-
-                    <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
-                        <div id="contenedor-mensajes-slide"
-                            class="w-full text-center transition-all duration-800 opacity-00">
-                            <p class="text-[#00305e] text-[9px] font-bold italic">Cargando bendiciones...</p>
-                        </div>
-                    </div>
+<div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
+    <div class="bg-[#fec325] p-[2px] shadow-lg">
+        <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="text-2xl animate-bounce">🎂</div>
+                <div>
+                    <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!</p>
+                    <p id="nombre-cumple" class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">...</p>
                 </div>
             </div>
+            <button onclick="abrirModalMensaje()" class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-3 py-2 rounded shadow-lg">FELICITAR ✨</button>
+            <button onclick="document.getElementById('banner-cumple-hoy').classList.add('hidden')" class="text-white text-xl ml-2">&times;</button>
+        </div>
+        <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
+            <div id="contenedor-mensajes-slide" class="w-full text-center">
+                <p class="text-[#00305e] text-[9px] font-bold italic">Cargando bendiciones...</p>
+            </div>
+        </div>
     </div>
-    <div id="fixed-header"></div>
-
-    <main class="pt-[132px]">
+</div>
 
 
         <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
@@ -1076,7 +1067,7 @@
                 width: 100%;
                 background: #b45309;
                 border-radius: 9999px;
-                animation: countdown-jesus 25s linear forwards;
+                animation: countdown-jesus 20s linear forwards;
             }
 
             @keyframes countdown-jesus {
@@ -1163,7 +1154,7 @@
                 width: 100%;
                 background: #b45309;
                 border-radius: 9999px;
-                animation: countdown-jesus 25s linear forwards;
+                animation: countdown-jesus 12s linear forwards;
             }
 
             @keyframes countdown-jesus {
@@ -1980,6 +1971,9 @@
             document.getElementById('modalMensaje').classList.add('hidden');
         }
     </script>
+
+
+
 </body>
 
 </html>
