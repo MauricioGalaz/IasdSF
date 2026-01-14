@@ -29,7 +29,7 @@
     </script>
     <style>
         .hero-gradient {
-            background: linear-gradient(135deg, rgba(0, 48, 94, 0.7) 0%, rgba(0, 78, 146, 0.8) 100%);
+            background: linear-gradient(135deg, rgba(0, 48, 94, 0.75) 0%, rgba(0, 78, 146, 0.85) 100%);
         }
         .video-background {
             position: absolute;
@@ -68,14 +68,12 @@
 
     <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
         <div class="video-background">
-            <iframe id="bg-video" 
-                src="https://www.youtube.com/embed/EcZKKW6q8Q0?autoplay=1&mute=1&loop=1&playlist=EcZKKW6q8Q0&controls=0&showinfo=0&rel=0&enablejsapi=1" 
-                frameborder="0" allow="autoplay; encrypted-media"></iframe>
+            <div id="player-fondo"></div>
         </div>
         <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
             <span class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold mb-6 tracking-widest uppercase animate-pulse">
-                Generación de Esperanza 2026
+                Maranatha: Adoración Culto Joven 2025
             </span>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
                 PASIÓN POR <br><span class="text-adventist-gold italic">SERVIR.</span>
@@ -83,17 +81,16 @@
             <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed drop-shadow-md">
                 Un espacio para conectar, crecer y transformar San Francisco de Limache con el amor de Jesús.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="#noticias" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
                     Únete a la próxima actividad
                 </a>
+                <button onclick="toggleMute(); event.stopPropagation();" id="mute-btn" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
+                    <i id="mute-icon" class="fas fa-volume-mute"></i> <span>Activar Sonido</span>
+                </button>
             </div>
         </div>
     </header>
-
-    <button onclick="toggleMute(); event.stopPropagation();" id="mute-btn" class="fixed bottom-24 left-6 z-[60] bg-adventist-gold text-adventist-blue w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all border-2 border-white/20">
-        <i id="mute-icon" class="fas fa-volume-mute text-xl"></i>
-    </button>
 
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
@@ -140,16 +137,11 @@
         </div>
     </section>
 
-    <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold">
-        <div class="container mx-auto px-6 text-center">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
+        <div class="container mx-auto px-6">
             <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6 grayscale hover:grayscale-0 transition duration-700">
             <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
-            <div class="flex justify-center space-x-8 my-8">
-                <a href="https://www.facebook.com/profile.php?id=61586113753680" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-youtube"></i></a>
-            </div>
-            <p class="text-slate-500 text-[10px] uppercase tracking-widest">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest italic mt-4">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
         </div>
     </footer>
 
@@ -163,43 +155,53 @@
         var audioHabilitado = false;
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('bg-video', {
+            player = new YT.Player('player-fondo', {
+                videoId: 'EcZKKW6q8Q0',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'EcZKKW6q8Q0',
+                    'rel': 0,
+                    'enablejsapi': 1,
+                    'origin': window.location.origin // ESTO EVITA EL ERROR DE OTRA UBICACIÓN
+                },
                 events: {
                     'onReady': (event) => {
                         event.target.playVideo();
+                        // Forzar reproducción si se detiene
+                        setInterval(() => {
+                            if (player.getPlayerState() !== 1) {
+                                player.playVideo();
+                            }
+                        }, 5000);
                     }
                 }
             });
         }
 
-        // Activa el sonido al primer clic del usuario en la página
         function activarSonidoAlEntrar() {
-            if (!audioHabilitado && player && player.isMuted()) {
+            if (!audioHabilitado && player) {
                 player.unMute();
                 player.setVolume(50);
-                document.getElementById('mute-icon').className = 'fas fa-volume-up text-xl';
+                document.getElementById('mute-icon').className = 'fas fa-volume-up';
+                document.querySelector('#mute-btn span').innerText = "Silenciar";
                 audioHabilitado = true;
             }
         }
 
         function toggleMute() {
-            const icon = document.getElementById('mute-icon');
             if (player.isMuted()) {
                 player.unMute();
-                player.setVolume(50);
-                icon.className = 'fas fa-volume-up text-xl';
+                document.getElementById('mute-icon').className = 'fas fa-volume-up';
+                document.querySelector('#mute-btn span').innerText = "Silenciar";
             } else {
                 player.mute();
-                icon.className = 'fas fa-volume-mute text-xl';
+                document.getElementById('mute-icon').className = 'fas fa-volume-mute';
+                document.querySelector('#mute-btn span').innerText = "Activar Sonido";
             }
         }
-
-        const btnTop = document.getElementById("btnTop");
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 400) btnTop.classList.replace("hidden", "flex");
-            else btnTop.classList.replace("flex", "hidden");
-        });
-        btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
 </body>
 </html>
