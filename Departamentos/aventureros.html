@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Aventureros – IASD Limache</title>
+    <title>Aventureros Gedeones – IASD Limache</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -19,7 +21,8 @@
                             blue: '#00305e',
                             gold: '#fec325',
                             orange: '#f57c00',
-                            green: '#2e7d32'
+                            green: '#2e7d32',
+                            dark: '#0a192f'
                         }
                     },
                     fontFamily: {
@@ -32,12 +35,33 @@
     </script>
     <style>
         .hero-gradient {
-            background: linear-gradient(rgba(0,48,94,0.7), rgba(46,125,50,0.6)), url('img/aven1.jpg');
-            background-size: cover; background-position: center;
+            background: linear-gradient(rgba(0, 48, 94, 0.6), rgba(46, 125, 50, 0.4)),
+                url('img/jes.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
+
         .wood-texture {
             background-color: #efebe9;
             background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+        }
+
+        /* Estilo para el contenedor de video responsivo */
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -46,68 +70,78 @@
 
     <nav class="bg-adventist-blue text-white shadow-2xl fixed w-full z-50 border-b-4 border-adventist-gold">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="../index.html" class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition-all">
+            <a href="../index.html"
+                class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition-all">
                 <i class="fas fa-arrow-left"></i>
                 <span class="font-bold text-sm">INICIO</span>
             </a>
-            <div class="flex items-center space-x-3">
-                <img src="../imagenes/logo.jpg" class="h-10 rounded-full border-2 border-white">
+            <div class="flex items-center space-x-3 text-right">
                 <div class="hidden md:block">
-                    <p class="font-heading font-black text-xs leading-none uppercase">Club de Aventureros</p>
-                    <p class="font-heading font-black text-xs leading-none uppercase">SAN FRANCISCO DE LIMACHE</p>
+                    <p class="font-heading font-black text-xs leading-none uppercase">Club de Aventureros</p><br>
+                    <p class="font-heading font-black text-[10px] leading-none uppercase text-adventist-gold">San
+                        Francisco de Limache</p>
                 </div>
+                <img src="../imagenes/logo.jpg" class="h-10 rounded-full border-2 border-white">
             </div>
         </div>
     </nav>
 
-    <style>
-    /* Actualización del fondo con la imagen jes.png */
-    .hero-gradient {
-        background: linear-gradient(rgba(0, 48, 94, 0.6), rgba(46, 125, 50, 0.4)), 
-                    url('img/jes.png'); /* Ruta a tu imagen */
-        background-size: cover; 
-        background-position: center;
-        background-attachment: fixed; /* Esto le da un efecto de movimiento elegante al hacer scroll */
-    }
-</style>
+    <header class="hero-gradient pt-40 pb-24 text-center text-white px-6">
+        <div class="max-w-4xl mx-auto">
+            <span
+                class="bg-adventist-gold text-adventist-blue px-6 py-1 rounded-full font-black text-sm uppercase tracking-widest">
+                Club de Aventureros
+            </span>
+            <h1 class="font-heading text-5xl md:text-7xl font-black mt-4 mb-6 drop-shadow-lg uppercase">
+                Gedeones
+            </h1>
+            <p class="text-xl md:text-2xl font-semibold opacity-90 italic">
+                "PreAventureros, Abejitas Laboriosas, Rayitos de Sol, <br class="hidden md:block"> Constructores y Manos
+                Ayudadoras"
+            </p>
+        </div>
+    </header>
 
-<header class="hero-gradient pt-40 pb-32 text-center text-white px-6">
-    <div class="max-w-4xl mx-auto">
-        <span class="bg-adventist-gold text-adventist-blue px-6 py-1 rounded-full font-black text-sm uppercase tracking-widest">
-            ¡Bienvenidos al Club!
-        </span>
-        <h1 class="font-heading text-5xl md:text-7xl font-black mt-4 mb-6 drop-shadow-lg">
-            CRECIENDO CON JESÚS
-        </h1>
-        <p class="text-xl md:text-2xl font-semibold opacity-90 italic">
-            "PreAventureros, Abejitas Laboriosas, Rayitos de Sol, Constructores  <br>y Manos Ayudadoras"
-        </p>
-    </div>
-</header>
+    <section class="py-12 bg-white border-b-8 border-adventist-gold">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto shadow-2xl rounded-[2rem] overflow-hidden border-4 border-adventist-blue">
+                <div class="video-responsive rounded-2xl">
+                    <div id="playerHimno"></div>
+                </div>
+            </div>
+            <div id="avisoAudio" class="mt-4 hidden animate-bounce">
+                <p class="text-adventist-blue font-bold text-sm uppercase">
+                    <i class="fas fa-volume-up mr-2"></i> Haz clic en la página para activar el sonido
+                </p>
+            </div>
+        </div>
+    </section>
 
     <section class="py-16 wood-texture">
         <div class="container mx-auto px-6">
-            <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border-8 border-white">
+            <div
+                class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border-8 border-white">
                 <div class="md:w-1/2 bg-adventist-green p-12 text-white flex flex-col justify-center">
                     <div class="flex items-center space-x-4 mb-6">
                         <i class="fas fa-campground text-5xl text-adventist-gold"></i>
-                        <h2 class="font-heading text-3xl font-black uppercase italic leading-none">Campamento<br>Aventuri 2025</h2>
+                        <h2 class="font-heading text-3xl font-black uppercase italic leading-none text-white">
+                            Campamento<br>Aventuri 2025</h2>
                     </div>
-                    <p class="text-lg mb-8 opacity-90">Disfrutamos de  una aventura inolvidable en <strong>Los Maitenes, Limache</strong>. Un tiempo para conectar con la naturaleza y fortalecer nuestra amistad con Dios.</p>
+                    <p class="text-lg mb-8 opacity-90">Disfrutamos de una aventura inolvidable en <strong>Los Maitenes,
+                            Limache</strong>. Un tiempo para conectar con la naturaleza y fortalecer nuestra amistad con
+                        Dios.</p>
                     <div class="space-y-4">
-                        <div class="flex items-center space-x-3 bg-black/20 p-4 rounded-2xl">
+                        <div
+                            class="flex items-center space-x-3 bg-black/20 p-4 rounded-2xl border-l-4 border-adventist-gold">
                             <i class="fas fa-map-marker-alt text-adventist-gold"></i>
-                            <span class="font-bold">Ubicación: Los Maitenes, Limache</span>
-                        </div>
-                        <div class="flex items-center space-x-3 bg-black/20 p-4 rounded-2xl">
-                            <i class="fas fa-calendar-star text-adventist-gold"></i>
-                            <span class="font-bold">este año 2025</span>
+                            <span class="font-bold uppercase text-sm">Ubicación: Los Maitenes, Limache</span>
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 relative min-h-[300px]">
-                    <img src="img/aven 2.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="Los Maitenes">
-                    <div class="absolute inset-0 bg-gradient-to-t from-adventist-green/60 to-transparent"></div>
+                <div class="md:w-1/2 relative min-h-[350px]">
+                    <img src="img/aven 2.jpeg" class="absolute inset-0 w-full h-full object-cover"
+                        alt="Aventuri Limache">
+                    <div class="absolute inset-0 bg-gradient-to-t from-adventist-green/40 to-transparent"></div>
                 </div>
             </div>
         </div>
@@ -116,60 +150,73 @@
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="font-heading text-4xl font-black text-adventist-blue uppercase tracking-tighter">Nuestra Galería</h2>
-                <p class="text-gray-500 font-bold italic">Momentos Bellos del Club</p>
+                <h2 class="font-heading text-4xl font-black text-adventist-blue uppercase tracking-tighter">Galería
+                    Gedeones</h2>
+                <p class="text-gray-500 font-bold italic uppercase text-sm tracking-widest mt-2">Nuestras Aventuras</p>
                 <div class="w-24 h-2 bg-adventist-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 1.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 1.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 3.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 3.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 4.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 4.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform border-4 border-adventist-gold">
-                    <img src="img/aven 5.jpeg" class="w-full h-auto">
+                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg border-4 border-adventist-gold">
+                    <img src="img/aven 5.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 6.jpg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 6.jpg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 7.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 7.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 8.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 8.jpeg" class="w-full">
                 </div>
-                <div class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                    <img src="img/aven 9.jpeg" class="w-full h-auto">
+                <div
+                    class="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                    <img src="img/aven 9.jpeg" class="w-full">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-adventist-blue text-white overflow-hidden relative">
+    <section class="py-20 bg-adventist-dark text-white relative">
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/3 text-center lg:text-left">
-                    <h2 class="font-heading text-4xl font-black mb-6 uppercase">Cine<br><span class="text-adventist-gold">Aventurero</span></h2>
-                    <p class="mb-8 text-gray-300">Mira nuestras actividades en video. Haz clic en los botones para cambiar de contenido.</p>
+                    <h2 class="font-heading text-4xl font-black mb-6 uppercase tracking-tighter">Cine<br><span
+                            class="text-adventist-gold">Gedeones</span></h2>
+                    <p class="mb-8 text-slate-400">Haz clic para ver nuestros momentos especiales.</p>
                     <div class="grid grid-cols-1 gap-4">
-                        <button onclick="cargarVideo('img/video/avenvideo.mp4')" class="bg-white/10 hover:bg-adventist-gold hover:text-adventist-blue p-4 rounded-2xl font-bold flex items-center justify-between group transition-all">
-                            <span>📽️ Actividad en el Aventuri</span>
+                        <button onclick="cargarVideo('img/video/avenvideo.mp4', true)"
+                            class="bg-white/10 hover:bg-adventist-gold hover:text-adventist-blue p-5 rounded-2xl font-bold flex items-center justify-between group transition-all border border-white/5">
+                            <span>📽️ Resumen Aventuri</span>
                             <i class="fas fa-play-circle group-hover:scale-125 transition"></i>
                         </button>
-                        <button onclick="cargarVideo('https://www.youtube.com/embed/nsgSPG6EGvE?si=xglKNSsYyqRO5f5G')" class="bg-white/10 hover:bg-red-600 p-4 rounded-2xl font-bold flex items-center justify-between group transition-all">
-                            <span>🎬 Himno de Aventureros</span>
+                        <button
+                            onclick="cargarVideo('https://www.youtube.com/embed/4UF0feQ2rTA?si=N33rzETMgTUGoqB0', false)"
+                            class="bg-white/10 hover:bg-red-600 p-5 rounded-2xl font-bold flex items-center justify-between group transition-all border border-white/5">
+                            <span>🎬 Qué es ser Aventurero</span>
                             <i class="fab fa-youtube group-hover:scale-125 transition"></i>
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="lg:w-2/3 w-full">
-                    <div class="bg-black rounded-[2rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border-8 border-white/5 aspect-video relative">
+                    <div
+                        class="bg-black rounded-[2rem] overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] border-4 border-white/10 aspect-video relative">
                         <div id="videoContainer" class="w-full h-full">
                             <video id="localVideo" class="w-full h-full object-cover" controls autoplay muted loop>
                                 <source src="img/video/avenvideo.mp4" type="video/mp4">
@@ -181,43 +228,36 @@
         </div>
     </section>
 
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="../imagenes/logo.jpg"
-                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
+    <footer class="bg-adventist-blue text-white pt-16 pb-8 border-t-8 border-adventist-gold">
+        < class="container mx-auto px-6 text-center">
+            <img src="../imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-2 border-white shadow-lg">
+            <h2 class="text-adventist-gold font-bold text-xl uppercase tracking-widest">Iglesia Adventista del Séptimo
+                Día</h2>
+            <p class="text-sm opacity-60 mt-1">San Francisco de Limache</p>
 
-                <div class="flex justify-center space-x-8 mb-8">
-                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-facebook-f fa-2xl"></i></a>
-                    <a href="#"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-instagram fa-2xl"></i></a>
-                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-youtube fa-2xl"></i></a>
-                </div>
-
-                <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Ministerio de Aventureros - IASD - Todos los derechos reservados.</p>
-                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                    </p>
-                </div>
+            <div class="flex justify-center space-x-6 my-10">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680"
+                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
+                        class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#"
+                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
+                        class="fab fa-instagram text-xl"></i></a>
+                <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
+                        class="fab fa-youtube text-xl"></i></a>
             </div>
-        </div>
 
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-
+            <div class="w-full border-t border-white/10 pt-8">
+                <p class="text-slate-400 text-[10px] uppercase tracking-[0.3em]">Ministerio de Aventureros - Club
+                    Gedeones</p>
+                <p class="mt-4 text-slate-500 text-xs italic">Creado por <span
+                        class="text-adventist-gold font-bold not-italic">Mauricio Galaz Estay</span></p>
+            </div>
+        
     </footer>
 
-    <button id="btnTop" class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-[100] flex items-center justify-center text-xl">
+    <button id="btnTop"
+        class="hidden fixed bottom-8 right-8 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-[100] flex items-center justify-center text-xl">
         <i class="fas fa-chevron-up"></i>
     </button>
 
@@ -227,7 +267,7 @@
             if (isLocal) {
                 container.innerHTML = `<video class="w-full h-full object-cover" controls autoplay><source src="${url}" type="video/mp4"></video>`;
             } else {
-                container.innerHTML = `<iframe class="w-full h-full" src="${url}" frameborder="0" allowfullscreen></iframe>`;
+                container.innerHTML = `<iframe class="w-full h-full" src="${url}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             }
         }
 
@@ -237,5 +277,60 @@
         };
         btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
     </script>
+
+    <script>
+        // 1. Cargar API de YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+
+        // 2. Inicializar el reproductor (Planear)
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('playerHimno', {
+                height: '100%',
+                width: '100%',
+                videoId: 'nsgSPG6EGvE',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1, // Obligatorio para que inicie solo
+                    'controls': 1,
+                    'rel': 0,
+                    'enablejsapi': 1
+                },
+                events: {
+                    'onReady': prepararActivacion
+                }
+            });
+        }
+
+        // 3. Ejecutar el plan de activación
+        function prepararActivacion(event) {
+            // Intento automático a los 2 segundos (Secuencial)
+            setTimeout(activarSonido, 2000);
+
+            // Interactividad: Captura clics en TODA la página
+            // Esto desbloquea el audio en el 100% de los casos al primer toque
+            document.addEventListener('click', function () {
+                activarSonido();
+            }, { once: true }); // Solo se ejecuta la primera vez que pinchas
+
+            document.addEventListener('touchstart', function () {
+                activarSonido();
+            }, { once: true }); // Para celulares
+        }
+
+        function activarSonido() {
+            if (player && typeof player.unMute === 'function') {
+                player.unMute();
+                player.setVolume(100);
+                player.playVideo();
+                console.log("Algoritmo de audio: Ejecutado con éxito");
+            }
+        }
+    </script>
 </body>
+
 </html>
