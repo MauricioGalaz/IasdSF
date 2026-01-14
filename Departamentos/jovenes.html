@@ -37,10 +37,9 @@
             z-index: 0; pointer-events: none; overflow: hidden;
             background-color: #00305e;
         }
-        /* El video se escala un poco más para asegurar que no se vean bordes */
         .video-background iframe {
-            width: 115vw; height: 64.68vw;
-            min-height: 120vh; min-width: 213.33vh;
+            width: 130vw; height: 73.12vw;
+            min-height: 130vh; min-width: 231.11vh;
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -49,7 +48,7 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans" onclick="activarSonidoAlEntrar()">
+<body class="bg-slate-50 text-slate-900 font-sans" onclick="forzarInicioAudio()">
 
     <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
@@ -69,7 +68,7 @@
 
     <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
         <div class="video-background">
-            <div id="player-fondo"></div>
+            <div id="video-api-element"></div>
         </div>
         <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
@@ -84,10 +83,10 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="#noticias" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
-                    Únete a la próxima actividad
+                    Ver Actividades
                 </a>
-                <button onclick="toggleMute(); event.stopPropagation();" id="mute-btn" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
-                    <i id="mute-icon" class="fas fa-volume-mute"></i> <span>Activar Sonido</span>
+                <button onclick="alternarMute(event)" id="audio-control-btn" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
+                    <i id="audio-icon" class="fas fa-volume-mute"></i> <span id="audio-text">Activar Sonido</span>
                 </button>
             </div>
         </div>
@@ -115,22 +114,22 @@
     <section id="noticias" class="py-20 bg-slate-100">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-extrabold text-center text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8">¿QUÉ ESTÁ PASANDO?</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover font-sans">
                     <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6"><i class="fas fa-calendar-star"></i></div>
                     <h3 class="text-xl font-bold mb-3">Próximo GP</h3>
-                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Este viernes nos reunimos para compartir pizza y un mensaje que cambiará tu semana.</p>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed italic">Este viernes nos reunimos para compartir pizza y un mensaje que cambiará tu semana.</p>
                     <a href="#" class="text-adventist-blue font-bold flex items-center gap-2">Ver detalles <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white card-hover text-left">
+                <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white card-hover font-sans">
                     <div class="w-14 h-14 bg-adventist-gold rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6"><i class="fas fa-heart"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-adventist-gold">Misión Caleb</h3>
+                    <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase">Misión Caleb</h3>
                     <p class="text-blue-100 text-sm mb-6 leading-relaxed">¡Inscripciones abiertas! Prepárate para servir a la comunidad en estas vacaciones.</p>
                     <a href="#" class="bg-white/10 hover:bg-white/20 py-2 px-4 rounded-lg text-sm inline-block">Inscribirme ahora</a>
                 </div>
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover font-sans">
                     <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-adventist-gold text-2xl mb-6"><i class="fas fa-lightbulb"></i></div>
-                    <h3 class="text-xl font-bold mb-3">Tips de Salud</h3>
+                    <h3 class="text-xl font-bold mb-3 font-sans">Tips de Salud</h3>
                     <p class="text-slate-500 text-sm mb-6 leading-relaxed">Reflexión semanal: ¿Cómo mantener la paz mental en medio de los exámenes?</p>
                     <span class="text-xs font-bold text-slate-400 uppercase italic">#VidaJoven</span>
                 </div>
@@ -144,16 +143,11 @@
             <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
             <div class="flex justify-center space-x-8 my-8">
                 <a href="https://www.facebook.com/profile.php?id=61586113753680" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-youtube"></i></a>
             </div>
-            <p class="text-slate-500 text-[10px] uppercase tracking-widest italic mt-4">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest italic mt-4 font-sans">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
         </div>
     </footer>
-
-    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue w-12 h-12 rounded-2xl shadow-2xl items-center justify-center transition-all hover:-translate-y-2 z-50">
-        <i class="fas fa-chevron-up"></i>
-    </button>
 
     <script>
         var tag = document.createElement('script');
@@ -161,11 +155,11 @@
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        var player;
-        var audioIniciado = false;
+        var gPlayer;
+        var gAudioIniciado = false;
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player-fondo', {
+            gPlayer = new YT.Player('video-api-element', {
                 videoId: 'EcZKKW6q8Q0',
                 playerVars: {
                     'autoplay': 1,
@@ -174,64 +168,53 @@
                     'loop': 1,
                     'playlist': 'EcZKKW6q8Q0',
                     'rel': 0,
-                    'showinfo': 0,
                     'modestbranding': 1,
                     'iv_load_policy': 3,
                     'enablejsapi': 1,
                     'origin': window.location.origin
                 },
                 events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onReady': function(e) {
+                        e.target.playVideo();
+                        // Lógica de perro guardián: Reinicia cada 3 segundos si el video no está en ejecución
+                        setInterval(function() {
+                            if (gPlayer && gPlayer.getPlayerState() !== 1) {
+                                gPlayer.playVideo();
+                            }
+                        }, 3000);
+                    },
+                    'onStateChange': function(e) {
+                        if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                            gPlayer.playVideo();
+                        }
+                    }
                 }
             });
         }
 
-        function onPlayerReady(event) {
-            event.target.playVideo();
-            // Comprobación de seguridad cada 5 segundos para asegurar que el video no se detenga
-            setInterval(() => {
-                if (player && player.getPlayerState() !== 1) { // 1 = Jugando
-                    player.playVideo();
-                }
-            }, 5000);
-        }
-
-        function onPlayerStateChange(event) {
-            // Reiniciar si se detiene por error o termina
-            if (event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.PAUSED) {
-                player.playVideo();
+        function forzarInicioAudio() {
+            if (!gAudioIniciado && gPlayer && gPlayer.isMuted()) {
+                gPlayer.unMute();
+                gPlayer.setVolume(50);
+                document.getElementById('audio-icon').className = 'fas fa-volume-up';
+                document.getElementById('audio-text').innerText = 'Silenciar';
+                gAudioIniciado = true;
             }
         }
 
-        function activarSonidoAlEntrar() {
-            if (!audioIniciado && player && player.isMuted()) {
-                player.unMute();
-                player.setVolume(50);
-                document.getElementById('mute-icon').className = 'fas fa-volume-up';
-                document.querySelector('#mute-btn span').innerText = "Silenciar";
-                audioIniciado = true;
-            }
-        }
-
-        function toggleMute() {
-            if (player.isMuted()) {
-                player.unMute();
-                document.getElementById('mute-icon').className = 'fas fa-volume-up';
-                document.querySelector('#mute-btn span').innerText = "Silenciar";
+        function alternarMute(event) {
+            event.stopPropagation();
+            if (gPlayer.isMuted()) {
+                gPlayer.unMute();
+                document.getElementById('audio-icon').className = 'fas fa-volume-up';
+                document.getElementById('audio-text').innerText = 'Silenciar';
+                gAudioIniciado = true;
             } else {
-                player.mute();
-                document.getElementById('mute-icon').className = 'fas fa-volume-mute';
-                document.querySelector('#mute-btn span').innerText = "Activar Sonido";
+                gPlayer.mute();
+                document.getElementById('audio-icon').className = 'fas fa-volume-mute';
+                document.getElementById('audio-text').innerText = 'Activar Sonido';
             }
         }
-
-        const btnTop = document.getElementById("btnTop");
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 400) btnTop.classList.replace("hidden", "flex");
-            else btnTop.classList.replace("flex", "hidden");
-        });
-        btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
 </body>
 </html>
