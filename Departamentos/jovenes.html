@@ -29,7 +29,7 @@
     </script>
     <style>
         .hero-gradient {
-            background: linear-gradient(135deg, rgba(0, 48, 94, 0.75) 0%, rgba(0, 78, 146, 0.85) 100%);
+            background: linear-gradient(135deg, rgba(0, 48, 94, 0.7) 0%, rgba(0, 78, 146, 0.8) 100%);
         }
         .video-background {
             position: absolute;
@@ -68,7 +68,9 @@
 
     <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
         <div class="video-background">
-            <div id="player-fondo"></div>
+            <iframe id="bg-video" 
+                src="https://www.youtube.com/embed/EcZKKW6q8Q0?autoplay=1&mute=1&loop=1&playlist=EcZKKW6q8Q0&controls=0&showinfo=0&rel=0&enablejsapi=1" 
+                frameborder="0" allow="autoplay; encrypted-media"></iframe>
         </div>
         <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
@@ -100,7 +102,6 @@
                     <h2 class="text-3xl font-extrabold text-adventist-blue italic uppercase">Mira el Movimiento</h2>
                     <div class="h-1.5 w-20 bg-adventist-gold rounded-full mt-2"></div>
                 </div>
-                <span class="text-slate-400 font-bold hidden sm:block">RECIENTES</span>
             </div>
             <div class="grid lg:grid-cols-2 gap-8">
                 <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
@@ -140,23 +141,17 @@
     </section>
 
     <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold">
-        <div class="container mx-auto px-6 flex flex-col items-center text-center">
-            <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-            <h2 class="text-adventist-gold font-bold uppercase tracking-widest mb-2">Iglesia Adventista del Séptimo Día</h2>
+        <div class="container mx-auto px-6 text-center">
+            <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6 grayscale hover:grayscale-0 transition duration-700">
+            <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
             <div class="flex justify-center space-x-8 my-8">
                 <a href="https://www.facebook.com/profile.php?id=61586113753680" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-instagram"></i></a>
                 <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-youtube"></i></a>
             </div>
-            <div class="w-full border-t border-white/5 pt-8">
-                <p class="text-slate-500 text-[10px] uppercase tracking-widest italic">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
-            </div>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
         </div>
     </footer>
-
-    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue w-12 h-12 rounded-2xl shadow-2xl items-center justify-center transition-all hover:-translate-y-2 z-50">
-        <i class="fas fa-chevron-up"></i>
-    </button>
 
     <script>
         var tag = document.createElement('script');
@@ -168,34 +163,18 @@
         var audioHabilitado = false;
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player-fondo', {
-                videoId: 'EcZKKW6q8Q0',
-                playerVars: {
-                    'autoplay': 1,
-                    'mute': 1,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': 'EcZKKW6q8Q0',
-                    'rel': 0,
-                    'enablejsapi': 1
-                },
+            player = new YT.Player('bg-video', {
                 events: {
                     'onReady': (event) => {
                         event.target.playVideo();
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) player.playVideo();
-                                else player.pauseVideo();
-                            });
-                        }, { threshold: 0.1 });
-                        observer.observe(document.getElementById('hero-header'));
                     }
                 }
             });
         }
 
+        // Activa el sonido al primer clic del usuario en la página
         function activarSonidoAlEntrar() {
-            if (!audioHabilitado && player) {
+            if (!audioHabilitado && player && player.isMuted()) {
                 player.unMute();
                 player.setVolume(50);
                 document.getElementById('mute-icon').className = 'fas fa-volume-up text-xl';
@@ -209,7 +188,6 @@
                 player.unMute();
                 player.setVolume(50);
                 icon.className = 'fas fa-volume-up text-xl';
-                audioHabilitado = true;
             } else {
                 player.mute();
                 icon.className = 'fas fa-volume-mute text-xl';
