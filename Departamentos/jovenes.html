@@ -37,7 +37,7 @@
             z-index: 0; pointer-events: none; overflow: hidden;
             background-color: #00305e;
         }
-        /* Zoom técnico para evitar que el navegador móvil pause el video al detectar bordes */
+        /* Zoom técnico para eliminar interferencias de UI de YouTube */
         .video-background iframe {
             width: 150vw; height: 84.37vw;
             min-height: 150vh; min-width: 266.66vh;
@@ -47,7 +47,7 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans" onclick="forzarReproduccionConAudio()">
+<body class="bg-slate-50 text-slate-900 font-sans" onclick="activarAudioVozAlta()">
 
     <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
@@ -67,7 +67,7 @@
 
     <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center bg-adventist-blue">
         <div class="video-background">
-            <div id="reproductor-persistente"></div>
+            <div id="player-profesional"></div>
         </div>
         <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
@@ -77,15 +77,15 @@
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
                 PASIÓN POR <br><span class="text-adventist-gold italic">SERVIR.</span>
             </h1>
-            <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed font-medium">
+            <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed drop-shadow-md">
                 Un espacio para conectar, crecer y transformar San Francisco de Limache con el amor de Jesús.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="#noticias" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
                     Ver Actividades
                 </a>
-                <button onclick="alternarAudio(event)" id="btn-audio-control" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
-                    <i id="icono-audio" class="fas fa-volume-mute"></i> <span id="texto-audio">Activar Sonido</span>
+                <button onclick="alternarMute(event)" id="audio-btn" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
+                    <i id="audio-icon" class="fas fa-volume-mute"></i> <span id="audio-text">Activar Sonido</span>
                 </button>
             </div>
         </div>
@@ -95,10 +95,10 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-extrabold text-adventist-blue italic uppercase mb-12">Mira el Movimiento</h2>
             <div class="grid lg:grid-cols-2 gap-8">
-                <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
+                <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video text-left font-sans italic">
                     <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube-nocookie.com/embed/7-4fhrpfuP0" allowfullscreen></iframe>
                 </div>
-                <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
+                <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video text-left font-sans italic">
                     <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube-nocookie.com/embed/6e_4vHLZ7Ss" allowfullscreen></iframe>
                 </div>
             </div>
@@ -110,16 +110,16 @@
             <h2 class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8">¿QUÉ ESTÁ PASANDO?</h2>
             <div class="grid md:grid-cols-3 gap-8 text-left">
                 <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
-                    <h3 class="text-xl font-bold mb-3 italic text-adventist-blue">Próximo GP</h3>
-                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Este viernes nos reunimos para compartir pizza y un mensaje que cambiará tu semana.</p>
+                    <h3 class="text-xl font-bold mb-3 italic">Próximo GP</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Este viernes compartiremos pizza y un mensaje que cambiará tu semana.</p>
                 </div>
                 <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white">
-                    <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase">Misión Caleb</h3>
-                    <p class="text-blue-100 text-sm mb-6 leading-relaxed">¡Inscripciones abiertas! Prepárate para servir a Limache en estas vacaciones.</p>
+                    <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase tracking-widest">Misión Caleb</h3>
+                    <p class="text-blue-100 text-sm mb-6 leading-relaxed">¡Inscripciones abiertas! Prepárate para servir a Limache.</p>
                 </div>
                 <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
-                    <h3 class="text-xl font-bold mb-3 text-adventist-blue">Tips de Salud</h3>
-                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Reflexión semanal sobre bienestar integral y paz mental.</p>
+                    <h3 class="text-xl font-bold mb-3 text-adventist-blue uppercase">Tips de Salud</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed italic">Reflexión semanal sobre el bienestar integral.</p>
                 </div>
             </div>
         </div>
@@ -127,9 +127,9 @@
 
     <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
         <div class="container mx-auto px-6">
-            <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6">
+            <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6 grayscale hover:grayscale-0 transition duration-700">
             <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
-            <p class="text-slate-500 text-[10px] uppercase mt-8 italic">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
+            <p class="text-slate-500 text-[10px] uppercase tracking-[0.3em] mt-8 italic">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
         </div>
     </footer>
 
@@ -140,11 +140,12 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        var audioActivado = false;
+        var sonidoHabilitado = false;
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('reproductor-persistente', {
+            player = new YT.Player('player-profesional', {
                 videoId: 'EcZKKW6q8Q0',
+                host: 'https://www.youtube-nocookie.com', // DOMINIO DE PRIVACIDAD PARA BYPASS DE CUENTA
                 playerVars: {
                     'autoplay': 1,
                     'mute': 1,
@@ -152,55 +153,50 @@
                     'loop': 1,
                     'playlist': 'EcZKKW6q8Q0',
                     'rel': 0,
-                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'iv_load_policy': 3,
                     'enablejsapi': 1,
-                    'origin': window.location.origin,
-                    'widget_referrer': window.location.origin
+                    'origin': window.location.origin
                 },
                 events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onReady': function(e) {
+                        e.target.playVideo();
+                        // REVISIÓN INFORMÁTICA: Si el video se para, el watchdog lo levanta en 1 segundo
+                        setInterval(function() {
+                            if (player && player.getPlayerState() !== 1) {
+                                player.playVideo();
+                            }
+                        }, 1000);
+                    },
+                    'onStateChange': function(e) {
+                        if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                            player.playVideo();
+                        }
+                    }
                 }
             });
         }
 
-        function onPlayerReady(event) {
-            event.target.playVideo();
-            // Lógica Informática: Watchdog que intenta reactivar el video cada 1.5 segundos
-            setInterval(function() {
-                if (player && player.getPlayerState() !== 1) { 
-                    player.playVideo();
-                }
-            }, 1500);
-        }
-
-        function onPlayerStateChange(event) {
-            // Reiniciar si se detiene o pausa por sistema
-            if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                player.playVideo();
-            }
-        }
-
-        function forzarReproduccionConAudio() {
-            if (!audioActivado && player) {
+        function activarAudioVozAlta() {
+            if (!sonidoHabilitado && player && player.isMuted()) {
                 player.unMute();
                 player.setVolume(50);
-                document.getElementById('icono-audio').className = 'fas fa-volume-up';
-                document.getElementById('texto-audio').innerText = 'Silenciar';
-                audioActivado = true;
+                document.getElementById('audio-icon').className = 'fas fa-volume-up';
+                document.getElementById('audio-text').innerText = 'Silenciar';
+                sonidoHabilitado = true;
             }
         }
 
-        function alternarAudio(e) {
-            e.stopPropagation();
+        function alternarMute(event) {
+            event.stopPropagation();
             if (player.isMuted()) {
                 player.unMute();
-                document.getElementById('icono-audio').className = 'fas fa-volume-up';
-                document.getElementById('texto-audio').innerText = 'Silenciar';
+                document.getElementById('audio-icon').className = 'fas fa-volume-up';
+                document.getElementById('audio-text').innerText = 'Silenciar';
             } else {
                 player.mute();
-                document.getElementById('icono-audio').className = 'fas fa-volume-mute';
-                document.getElementById('texto-audio').innerText = 'Activar Sonido';
+                document.getElementById('audio-icon').className = 'fas fa-volume-mute';
+                document.getElementById('audio-text').innerText = 'Activar Sonido';
             }
         }
     </script>
