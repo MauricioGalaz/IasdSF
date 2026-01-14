@@ -28,211 +28,212 @@
         }
     </script>
     <style>
-        .glass {
-            background: rgba(0, 48, 94, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .hero-gradient {
-            background: linear-gradient(135deg, #00305e 0%, #004e92 100%);
+            background: linear-gradient(135deg, rgba(0, 48, 94, 0.8) 0%, rgba(0, 78, 146, 0.8) 100%);
         }
-
-        .card-hover {
-            transition: all 0.3s ease;
+        .video-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none; overflow: hidden;
         }
-
-        .card-hover:hover {
-            transform: translateY(-8px);
+        .video-background iframe {
+            width: 100vw; height: 56.25vw;
+            min-height: 100vh; min-width: 177.77vh;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
         }
-
-        /* Espaciado para que el hero no quede oculto bajo el nav fijo */
-        .content-wrapper {
-            padding-top: 100px;
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); }
+        
+        /* Animación para el mensaje de bienvenida */
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
+        .welcome-msg { animation: slideInUp 0.8s ease-out forwards; }
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans">
+<body class="bg-slate-50 text-slate-900 font-sans" onclick="activarSonidoAlEntrar()">
 
     <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
-            <a href="../index.html"
-                class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
-                <i
-                    class="fas fa-arrow-left bg-white/10 p-2 rounded-full group-hover:bg-adventist-gold group-hover:text-adventist-blue transition"></i>
+            <a href="../index.html" class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
+                <i class="fas fa-arrow-left bg-white/10 p-2 rounded-full group-hover:bg-adventist-gold transition"></i>
                 <span class="hidden sm:inline">Volver al Inicio</span>
             </a>
-
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-[20px] text-adventist-gold leading-none font-bold uppercase tracking-widest">
-                        Ministerio Jóvenes</p>
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio Jóvenes</p>
                     <p class="text-[20px] text-white font-bold leading-tight">IASD - San Francisco de Limache</p>
                 </div>
                 <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
-    <header class="relative pt-32 pb-20 hero-gradient text-white overflow-hidden">
-        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-adventist-gold/10 rounded-full blur-3xl"></div>
 
+    <header id="hero-header" class="relative pt-32 pb-20 text-white overflow-hidden min-h-[85vh] flex items-center">
+        <div class="video-background">
+            <iframe id="bg-video" 
+                src="https://www.youtube.com/embed/EcZKKW6q8Q0?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=EcZKKW6q8Q0&controls=0&showinfo=0&rel=0" 
+                frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        </div>
+        <div class="absolute inset-0 hero-gradient z-[1]"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <span
-                class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold mb-6 tracking-widest uppercase">
-                Somos una Generación de Esperanza
+            <span class="inline-block px-4 py-1 bg-adventist-gold text-adventist-blue rounded-full text-xs font-bold mb-6 tracking-widest uppercase animate-pulse">
+                Generación de Esperanza 2026
             </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
-                PASIÓN POR <br><span class="text-adventist-gold">SERVIR.</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
+                PASIÓN POR <br><span class="text-adventist-gold italic">SERVIR.</span>
             </h1>
-            <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed">
+            <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed drop-shadow-md">
                 Un espacio para conectar, crecer y transformar San Francisco de Limache con el amor de Jesús.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#noticias"
-                    class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl">
+                <a href="#noticias" class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
                     Únete a la próxima actividad
                 </a>
             </div>
         </div>
     </header>
 
-    <section class="py-20">
+    <div id="welcome-alert" class="hidden fixed bottom-24 right-6 left-6 sm:left-auto sm:right-24 z-[100] max-w-sm">
+        <div class="bg-adventist-blue border-l-4 border-adventist-gold p-4 shadow-2xl rounded-r-xl flex items-center gap-4 welcome-msg">
+            <div class="text-adventist-gold text-2xl"><i class="fas fa-music"></i></div>
+            <div class="text-white">
+                <p class="text-[10px] font-bold uppercase text-adventist-gold">Bienvenido</p>
+                <p class="text-xs font-medium">Estás escuchando el himno de los Jóvenes Adventistas.</p>
+            </div>
+            <button onclick="document.getElementById('welcome-alert').remove()" class="text-white/50 hover:text-white">&times;</button>
+        </div>
+    </div>
+
+    <button onclick="toggleMute(); event.stopPropagation();" id="mute-btn" class="fixed bottom-24 left-6 z-[60] bg-adventist-gold text-adventist-blue w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all border-2 border-white/20">
+        <i id="mute-icon" class="fas fa-volume-mute text-xl"></i>
+    </button>
+
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="flex items-end justify-between mb-12">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-adventist-blue italic">MIRA EL MOVIMIENTO</h2>
+                    <h2 class="text-3xl font-extrabold text-adventist-blue italic uppercase">Mira el Movimiento</h2>
                     <div class="h-1.5 w-20 bg-adventist-gold rounded-full mt-2"></div>
                 </div>
-                <span class="text-slate-400 font-bold hidden sm:block">RECIENTES</span>
             </div>
-
             <div class="grid lg:grid-cols-2 gap-8">
                 <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
-                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition"
-                        src="https://www.youtube.com/embed/7-4fhrpfuP0?si=hH8laHCUAKzgGak"
-                        title="Vídeo promocional | Tema JA 2026 | Mi lugar en el mundo" allowfullscreen></iframe>
-
+                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube.com/embed/7-4fhrpfuP0" allowfullscreen></iframe>
                 </div>
                 <div class="group relative overflow-hidden rounded-3xl shadow-2xl bg-black aspect-video">
-                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition"
-                        src="https://www.youtube.com/embed/6e_4vHLZ7Ss?si=JnDjrtyap0qZ5KHS"
-                        title="Misión Caleb 2026 | Video Promocional" allowfullscreen></iframe>
+                    <iframe class="w-full h-full opacity-90 group-hover:opacity-100 transition" src="https://www.youtube.com/embed/6e_4vHLZ7Ss" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="noticias" class="py-20 bg-slate-100">
-        <div class="container mx-auto px-6">
-            <h2
-                class="text-3xl font-extrabold text-center text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8">
-                ¿QUÉ ESTÁ PASANDO?
-            </h2>
-
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8">¿QUÉ ESTÁ PASANDO?</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover">
-                    <div
-                        class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6">
-                        <i class="fas fa-calendar-star"></i>
-                    </div>
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6"><i class="fas fa-calendar-star"></i></div>
                     <h3 class="text-xl font-bold mb-3">Próximo GP</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                        Este viernes nos reunimos para compartir pizza, juegos y un mensaje que cambiará tu semana.
-                    </p>
-                    <a href="#"
-                        class="text-adventist-blue font-bold flex items-center gap-2 hover:gap-4 transition-all">
-                        Ver detalles <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Este viernes nos reunimos para compartir pizza y un mensaje que cambiará tu semana.</p>
+                    <a href="#" class="text-adventist-blue font-bold flex items-center gap-2">Ver detalles <i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white card-hover">
-                    <div
-                        class="w-14 h-14 bg-adventist-gold rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6">
-                        <i class="fas fa-heart"></i>
-                    </div>
+                <div class="bg-adventist-blue rounded-3xl p-8 shadow-xl text-white card-hover text-left">
+                    <div class="w-14 h-14 bg-adventist-gold rounded-2xl flex items-center justify-center text-adventist-blue text-2xl mb-6"><i class="fas fa-heart"></i></div>
                     <h3 class="text-xl font-bold mb-3 text-adventist-gold">Misión Caleb</h3>
-                    <p class="text-blue-100 text-sm leading-relaxed mb-6">
-                        ¡Inscripciones abiertas! Prepárate para servir a la comunidad de Limache en estas vacaciones.
-                    </p>
-                    <a href="#"
-                        class="bg-white/10 hover:bg-white/20 py-2 px-4 rounded-lg text-sm inline-block transition">
-                        Inscribirme ahora
-                    </a>
+                    <p class="text-blue-100 text-sm mb-6 leading-relaxed">¡Inscripciones abiertas! Prepárate para servir a la comunidad en estas vacaciones.</p>
+                    <a href="#" class="bg-white/10 hover:bg-white/20 py-2 px-4 rounded-lg text-sm inline-block">Inscribirme ahora</a>
                 </div>
-
-                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover">
-                    <div
-                        class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-adventist-gold text-2xl mb-6">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 card-hover text-left">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-adventist-gold text-2xl mb-6"><i class="fas fa-lightbulb"></i></div>
                     <h3 class="text-xl font-bold mb-3">Tips de Salud</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                        Reflexión semanal: ¿Cómo mantener la paz mental en medio de los exámenes?
-                    </p>
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest italic">#VidaJoven</span>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Reflexión semanal: ¿Cómo mantener la paz mental en medio de los exámenes?</p>
+                    <span class="text-xs font-bold text-slate-400 uppercase italic">#VidaJoven</span>
                 </div>
             </div>
         </div>
     </section>
 
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="../imagenes/logo.jpg"
-                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
-
-                <div class="flex justify-center space-x-8 mb-8">
-                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-facebook-f fa-2xl"></i></a>
-                    <a href="#"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-instagram fa-2xl"></i></a>
-                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-youtube fa-2xl"></i></a>
-                </div>
-
-                <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Ministerio de Jóvenes - IASD - Todos los derechos reservados.</p>
-                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                    </p>
-                </div>
+            <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6 grayscale hover:grayscale-0 transition duration-700">
+            <h2 class="text-adventist-gold font-bold uppercase tracking-widest">Iglesia Adventista del Séptimo Día</h2>
+            <div class="flex justify-center space-x-8 my-8">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-white hover:text-adventist-gold text-2xl transition"><i class="fab fa-youtube"></i></a>
             </div>
+            <p class="text-slate-500 text-[10px] uppercase tracking-widest italic">© 2026 Ministerio de Jóvenes - Creado por Mauricio Galaz Estay</p>
         </div>
-
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-
     </footer>
 
-    <button id="btnTop"
-        class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue w-12 h-12 rounded-2xl shadow-2xl items-center justify-center transition-all hover:-translate-y-2 z-50">
+    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue w-12 h-12 rounded-2xl shadow-2xl items-center justify-center transition-all hover:-translate-y-2 z-50">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var audioIniciado = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('bg-video', {
+                events: {
+                    'onReady': (event) => {
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) player.playVideo();
+                                else player.pauseVideo();
+                            });
+                        }, { threshold: 0.1 });
+                        observer.observe(document.getElementById('hero-header'));
+                    }
+                }
+            });
+        }
+
+        function activarSonidoAlEntrar() {
+            if (!audioIniciado && player && player.isMuted()) {
+                player.unMute();
+                player.setVolume(50);
+                document.getElementById('mute-icon').className = 'fas fa-volume-up text-xl';
+                document.getElementById('welcome-alert').classList.remove('hidden');
+                audioIniciado = true;
+                
+                // Ocultar mensaje automáticamente después de 6 segundos
+                setTimeout(() => {
+                    const alert = document.getElementById('welcome-alert');
+                    if(alert) alert.classList.add('opacity-0');
+                }, 6000);
+            }
+        }
+
+        function toggleMute() {
+            const icon = document.getElementById('mute-icon');
+            if (player.isMuted()) {
+                player.unMute();
+                player.setVolume(50);
+                icon.className = 'fas fa-volume-up text-xl';
+                audioIniciado = true;
+            } else {
+                player.mute();
+                icon.className = 'fas fa-volume-mute text-xl';
+            }
+        }
+
         const btnTop = document.getElementById("btnTop");
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 400) {
-                btnTop.classList.remove("hidden");
-                btnTop.classList.add("flex");
-            } else {
-                btnTop.classList.add("hidden");
-                btnTop.classList.remove("flex");
-            }
+            if (window.scrollY > 400) btnTop.classList.replace("hidden", "flex");
+            else btnTop.classList.replace("flex", "hidden");
         });
-        btnTop.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
+        btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
-
 </body>
-
 </html>
