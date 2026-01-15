@@ -29,16 +29,22 @@
 <body class="bg-gray-50 text-gray-700 scroll-smooth">
 
     <!-- NAV -->
-    <nav class="bg-adventist-blue text-white fixed w-full z-50 shadow">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../index.html" class="flex items-center space-x-2 hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left text-lg"></i>
-                <span class="font-semibold text-sm">Inicio</span>
+    <!-- NAV MINISTERIOS -->
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-
-            <div class="flex items-center space-x-3">
-                <img src="../imagenes/logo.jpg" class="h-8 rounded-full">
-                <span class="font-bold text-xs">IASD Limache</span>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Prototipo
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache
+                    </p>
+                </div>
+                <img src="imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
@@ -104,7 +110,7 @@
     <footer class="bg-gray-900 text-white py-6 text-center text-sm">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="flex space-x-6 mb-6 md:mb-0">
+                <div class="flex space-x-6 mb-6 md:mb-0">
                     <a href="#" class="text-gray-400 hover:text-white transition">
                         <i class="fab fa-facebook-f fa-lg"></i>
                     </a>
@@ -132,7 +138,7 @@
         </button>
 
     </footer>
-    
+
     <script>
         /* Cambiar video */
         function cargarVideo(url) {

@@ -50,23 +50,20 @@
 
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <nav class="bg-adventist-blue text-white shadow-2xl fixed w-full z-50 transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
-                <span>Volver al Inicio</span>
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-[15px] uppercase tracking-widest text-adventist-gold font-bold">Iglesia Adventista
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Escuela Sabática
                     </p>
-                    <p class="text-[15px] uppercase tracking-widest text-adventist-gold font-bold">San Francisco de
-                        Limache</p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
                 </div>
-                <img src="../imagenes/logo.jpg" alt="Logo"
-                    class="h-10 w-10 rounded-full border-2 border-adventist-gold object-cover shadow-lg">
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
@@ -119,108 +116,122 @@
     </div>
 
     <section class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-            <div>
-                <h2 class="text-3xl font-heading italic text-adventist-blue">Recursos Multimedia</h2>
-                <div class="h-1 w-20 bg-adventist-gold mt-2"></div>
-            </div>
-            <p class="text-gray-500 mt-4 md:mt-0 italic text-sm">Repasa el comentario de la semana en video.</p>
-        </div>
-
-        <div class="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl ring-8 ring-gray-100">
-            <div class="grid md:grid-cols-4">
-                <div class="bg-adventist-blue p-6 flex flex-col justify-center space-y-4">
-                    <p class="text-adventist-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-center">
-                        Selecciona un video:
-                    </p>
-
-                    <button onclick="cargarVideo('https://www.youtube.com/embed/TFtX2wZbSsI?si=EM7jGmQ6QUUsOqZ8', this)"
-                        class="video-btn active bg-white/20 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-adventist-gold">
-                        <i class="fas fa-play-circle text-adventist-gold"></i>
-                        <span class="text-sm font-semibold">Lección de Adultos</span>
-                    </button>
-
-                    <button onclick="cargarVideo('https://www.youtube.com/embed/xWvLG8Wyo20?si=W8CDXDhz62y2OJWv', this)"
-                        class="video-btn bg-white/5 hover:bg-white/10 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-transparent">
-                        <i class="fas fa-play-circle text-gray-400"></i>
-                        <span class="text-xs font-semibold leading-tight tracking-tight">
-                            PELÍCULA ESCUELA SABÁTICA<br>
-                            <span class="text-[10px] font-light text-gray-300 italic">Lección 03 - 1er Trim. 2026</span>
-                        </span>
-                    </button>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-heading italic text-adventist-blue">Recursos Multimedia</h2>
+                    <div class="h-1 w-20 bg-adventist-gold mt-2"></div>
                 </div>
+                <p class="text-gray-500 mt-4 md:mt-0 italic text-sm">Repasa el comentario de la semana en video.</p>
+            </div>
 
-                <div class="md:col-span-3 aspect-video">
-                    <iframe id="videoFrame" 
-                            class="w-full h-full" 
-                            src="https://www.youtube.com/embed/TFtX2wZbSsI?si=EM7jGmQ6QUUsOqZ8"
-                            frameborder="0"
+            <div class="bg-gray-900 rounded-3xl overflow-hidden shadow-2xl ring-8 ring-gray-100">
+                <div class="grid md:grid-cols-4">
+                    <div class="bg-adventist-blue p-6 flex flex-col justify-center space-y-4">
+                        <p
+                            class="text-adventist-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-center">
+                            Selecciona un video:
+                        </p>
+
+                        <button
+                            onclick="cargarVideo('https://www.youtube.com/embed/TFtX2wZbSsI?si=EM7jGmQ6QUUsOqZ8', this)"
+                            class="video-btn active bg-white/20 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-adventist-gold">
+                            <i class="fas fa-play-circle text-adventist-gold"></i>
+                            <span class="text-sm font-semibold">Lección de Adultos</span>
+                        </button>
+
+                        <button
+                            onclick="cargarVideo('https://www.youtube.com/embed/xWvLG8Wyo20?si=W8CDXDhz62y2OJWv', this)"
+                            class="video-btn bg-white/5 hover:bg-white/10 text-white text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3 border-l-4 border-transparent">
+                            <i class="fas fa-play-circle text-gray-400"></i>
+                            <span class="text-xs font-semibold leading-tight tracking-tight">
+                                PELÍCULA ESCUELA SABÁTICA<br>
+                                <span class="text-[10px] font-light text-gray-300 italic">Lección 03 - 1er Trim.
+                                    2026</span>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="md:col-span-3 aspect-video">
+                        <iframe id="videoFrame" class="w-full h-full"
+                            src="https://www.youtube.com/embed/TFtX2wZbSsI?si=EM7jGmQ6QUUsOqZ8" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
-                    </iframe>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="py-16 bg-white">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-heading italic text-adventist-blue">Material de Estudio</h2>
-            <p class="text-gray-500 italic">Descarga los folletos del trimestre en formato PDF</p>
-            <div class="h-1 w-24 bg-adventist-gold mx-auto mt-4"></div>
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading italic text-adventist-blue">Material de Estudio</h2>
+                <p class="text-gray-500 italic">Descarga los folletos del trimestre en formato PDF</p>
+                <div class="h-1 w-24 bg-adventist-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="bg-blue-50 p-3 rounded-lg text-adventist-blue group-hover:bg-adventist-blue group-hover:text-white transition">
+                            <i class="fas fa-file-pdf text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Resumen de la Lección</h4>
+                            <p class="text-[10px] text-gray-400 uppercase">1er Trimestre 2026</p>
+                        </div>
+                    </div>
+                    <a href="https://www.fustero.es/2026t102.pdf"
+                        class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition"
+                        title="Descargar">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+
+                <div
+                    class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="bg-yellow-50 p-3 rounded-lg text-adventist-gold group-hover:bg-adventist-gold group-hover:text-adventist-blue transition">
+                            <i class="fas fa-chalkboard-teacher text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Guía de Maestros</h4>
+                            <p class="text-[10px] text-gray-400 uppercase">Material Auxiliar</p>
+                        </div>
+                    </div>
+                    <a href="https://escuelasabaticamaestros.com/wp-content/uploads/2025/12/Leccion-2-PDF-RAZONES-PARA-AGRADECER-Y-ORAR-Para-el-10-de-enero-de-2026.pdf"
+                        class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition"
+                        title="Descargar">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+
+                <div
+                    class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="bg-green-50 p-3 rounded-lg text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
+                            <i class="fas fa-child text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Folleto Infantil y otros Materiales</h4>
+                            <p class="text-[10px] text-gray-400 uppercase">Primarios / Infantes</p>
+                        </div>
+                    </div>
+                    <a href="https://vivosenjesus.com/infantes-2026-1t"
+                        class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition"
+                        title="Descargar">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-blue-50 p-3 rounded-lg text-adventist-blue group-hover:bg-adventist-blue group-hover:text-white transition">
-                        <i class="fas fa-file-pdf text-2xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">Resumen de la Lección</h4>
-                        <p class="text-[10px] text-gray-400 uppercase">1er Trimestre 2026</p>
-                    </div>
-                </div>
-                <a href="https://www.fustero.es/2026t102.pdf" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
-                    <i class="fas fa-download"></i>
-                </a>
-            </div>
-
-            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-yellow-50 p-3 rounded-lg text-adventist-gold group-hover:bg-adventist-gold group-hover:text-adventist-blue transition">
-                        <i class="fas fa-chalkboard-teacher text-2xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">Guía de Maestros</h4>
-                        <p class="text-[10px] text-gray-400 uppercase">Material Auxiliar</p>
-                    </div>
-                </div>
-                <a href="https://escuelasabaticamaestros.com/wp-content/uploads/2025/12/Leccion-2-PDF-RAZONES-PARA-AGRADECER-Y-ORAR-Para-el-10-de-enero-de-2026.pdf" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
-                    <i class="fas fa-download"></i>
-                </a>
-            </div>
-
-            <div class="border-2 border-gray-100 rounded-2xl p-6 flex items-center justify-between hover:border-adventist-gold transition-all group">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-green-50 p-3 rounded-lg text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
-                        <i class="fas fa-child text-2xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">Folleto Infantil y otros Materiales</h4>
-                        <p class="text-[10px] text-gray-400 uppercase">Primarios / Infantes</p>
-                    </div>
-                </div>
-                <a href="https://vivosenjesus.com/infantes-2026-1t" class="bg-gray-100 p-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition" title="Descargar">
-                    <i class="fas fa-download"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <section class="py-20 bg-adventist-light">
         <div class="container mx-auto px-6">
@@ -278,12 +289,12 @@
             </div>
         </div>
     </section>
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center">
                 <img src="../imagenes/logo.jpg"
                     class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
+                <h2 class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
 
                 <div class="flex justify-center space-x-8 mb-8">
                     <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
@@ -298,7 +309,8 @@
                 </div>
 
                 <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Escuela Sabática - IASD - Todos los derechos reservados.</p>
+                    <p class="text-slate-500 text-xs">© 2026 Escuela Sabática - IASD - Todos los derechos reservados.
+                    </p>
                     <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
                         Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
                     </p>
@@ -314,63 +326,63 @@
 
     </footer>
 
-<script>
-    function cargarVideo(url, elemento) {
-        // 1. Cambia el video en el iframe
-        const frame = document.getElementById('videoFrame');
-        if (frame) {
-            frame.src = url;
+    <script>
+        function cargarVideo(url, elemento) {
+            // 1. Cambia el video en el iframe
+            const frame = document.getElementById('videoFrame');
+            if (frame) {
+                frame.src = url;
+            }
+
+            // 2. Limpia los estilos de todos los botones
+            const botones = document.querySelectorAll('.video-btn');
+            botones.forEach(btn => {
+                btn.classList.remove('bg-white/20', 'border-adventist-gold');
+                btn.classList.add('bg-white/5', 'border-transparent');
+
+                // Cambia el color del icono a gris
+                const icono = btn.querySelector('i');
+                if (icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
+            });
+
+            // 3. Aplica estilo activo al botón presionado
+            elemento.classList.add('bg-white/20', 'border-adventist-gold');
+            elemento.classList.remove('bg-white/5', 'border-transparent');
+
+            // Cambia el color del icono a dorado
+            const iconoActivo = elemento.querySelector('i');
+            if (iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
         }
+    </script>
 
-        // 2. Limpia los estilos de todos los botones
-        const botones = document.querySelectorAll('.video-btn');
-        botones.forEach(btn => {
-            btn.classList.remove('bg-white/20', 'border-adventist-gold');
-            btn.classList.add('bg-white/5', 'border-transparent');
-            
-            // Cambia el color del icono a gris
-            const icono = btn.querySelector('i');
-            if (icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
-        });
+    <script>
+        function actualizarPlayer(videoId, elemento) {
+            // 1. Construir la URL limpia
+            const nuevaUrl = "https://www.youtube.com/embed/" + videoId;
 
-        // 3. Aplica estilo activo al botón presionado
-        elemento.classList.add('bg-white/20', 'border-adventist-gold');
-        elemento.classList.remove('bg-white/5', 'border-transparent');
-        
-        // Cambia el color del icono a dorado
-        const iconoActivo = elemento.querySelector('i');
-        if (iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
-    }
-</script>
+            // 2. Cambiar el SRC del iframe
+            const player = document.getElementById("mainVideoPlayer");
+            if (player) {
+                player.src = nuevaUrl;
+            }
 
-<script>
-    function actualizarPlayer(videoId, elemento) {
-        // 1. Construir la URL limpia
-        const nuevaUrl = "https://www.youtube.com/embed/" + videoId;
-        
-        // 2. Cambiar el SRC del iframe
-        const player = document.getElementById("mainVideoPlayer");
-        if(player) {
-            player.src = nuevaUrl;
+            // 3. Gestionar clases visuales de los botones
+            const botones = document.querySelectorAll('.video-btn');
+            botones.forEach(btn => {
+                // Resetear todos los botones
+                btn.classList.remove('bg-white/20', 'border-adventist-gold');
+                btn.classList.add('bg-white/5', 'border-transparent');
+                const icono = btn.querySelector('i');
+                if (icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
+            });
+
+            // Activar el botón clickeado
+            elemento.classList.add('bg-white/20', 'border-adventist-gold');
+            elemento.classList.remove('bg-white/5', 'border-transparent');
+            const iconoActivo = elemento.querySelector('i');
+            if (iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
         }
-
-        // 3. Gestionar clases visuales de los botones
-        const botones = document.querySelectorAll('.video-btn');
-        botones.forEach(btn => {
-            // Resetear todos los botones
-            btn.classList.remove('bg-white/20', 'border-adventist-gold');
-            btn.classList.add('bg-white/5', 'border-transparent');
-            const icono = btn.querySelector('i');
-            if(icono) icono.classList.replace('text-adventist-gold', 'text-gray-400');
-        });
-
-        // Activar el botón clickeado
-        elemento.classList.add('bg-white/20', 'border-adventist-gold');
-        elemento.classList.remove('bg-white/5', 'border-transparent');
-        const iconoActivo = elemento.querySelector('i');
-        if(iconoActivo) iconoActivo.classList.replace('text-gray-400', 'text-adventist-gold');
-    }
-</script>
+    </script>
 
     <script>
         /* Cambiar video con estilo de botones */

@@ -101,15 +101,15 @@
     <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
         <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="group flex items-center space-x-2 text-sm font-medium hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left bg-white/10 p-2 rounded-full group-hover:bg-adventist-gold transition"></i>
-                <span class="hidden sm:inline">Volver al Inicio</span>
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
                     <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio Jóvenes
                     </p>
-                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - Limache</p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
                 </div>
                 <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
@@ -190,76 +190,109 @@
         </div>
     </section>
 
-<section id="noticias" class="py-20 bg-slate-100 font-sans">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8 uppercase tracking-tight">
-            ¿Qué está pasando?
-        </h2>
-        
-        <div class="grid md:grid-cols-3 gap-8 items-stretch">
+    <section id="noticias" class="py-20 bg-slate-100 font-sans">
+        <div class="container mx-auto px-6 text-center">
+            <h2
+                class="text-3xl font-extrabold text-adventist-blue mb-16 underline decoration-adventist-gold decoration-4 underline-offset-8 uppercase tracking-tight">
+                ¿Qué está pasando?
+            </h2>
 
-            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
-                <a href="../imagenes/gp.jpg" target="_blank" class="block flex-grow">
-                    <div class="w-full h-56 overflow-hidden bg-adventist-blue">
-                        <img src="../imagenes/gp.jpg" alt="Infografía GP" class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
-                    </div>
-                    <div class="p-6 text-left">
-                        <div class="flex items-center gap-2 mb-3">
-                            <i class="fas fa-users text-adventist-blue"></i>
-                            <h3 class="text-xl font-bold italic text-adventist-blue uppercase">Próximo GP</h3>
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+
+                <div
+                    class="bg-white rounded-3xl shadow-xl border border-slate-200 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
+                    <a href="../imagenes/gp.jpg" target="_blank" class="block flex-grow">
+                        <div class="w-full h-56 overflow-hidden bg-adventist-blue">
+                            <img src="../imagenes/gp.jpg" alt="Infografía GP"
+                                class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105">
                         </div>
-                        <p class="text-slate-700 text-sm mb-6 leading-relaxed">
-                            ¡No te quedes fuera! Nos reuniremos para compartir momentos de amistad, música y algo rico para comer.
-                        </p>
-                        <div class="bg-adventist-gold/20 p-3 rounded-xl border-l-4 border-adventist-gold mb-4 font-bold text-adventist-blue">
-                            <p class="text-[11px] uppercase">📍 Te esperamos este viernes</p>
-                        </div>
-                        <span class="text-adventist-blue font-bold flex items-center gap-2 group">
-                            Quiero participar <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
-                        </span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="bg-adventist-blue rounded-3xl shadow-xl text-white transition-all duration-300 hover:ring-4 hover:ring-adventist-gold card-hover shine-effect overflow-hidden flex flex-col">
-                <a href="../imagenes/caleb.jpg" target="_blank" class="block flex-grow">
-                    <div class="w-full h-56 overflow-hidden">
-                        <img src="../imagenes/caleb.jpg" alt="Misión Caleb" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col h-full">
-                        <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase tracking-widest">Misión Caleb Limache</h3>
-                        <p class="text-blue-50 text-sm mb-6 leading-relaxed">
-                            ¡Misión confirmada! Este verano junto a la Escuela Cristiana de Vacaciones. Deja tu huella sirviendo con alegría.
-                        </p>
-                        <span class="w-full text-center bg-white text-adventist-blue py-3 px-6 rounded-xl text-xs font-bold inline-block uppercase shadow-lg">
-                            Inscribirme al equipo
-                        </span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="bg-white rounded-3xl shadow-xl border border-slate-300 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
-                <a href="../imagenes/tips salud.jpg" target="_blank" class="block flex-grow">
-                    <div class="w-full h-56 overflow-hidden bg-slate-900">
-                        <img src="../imagenes/tips salud.jpg" alt="Salud Integral" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                    </div>
-                    <div class="p-6 text-left">
-                        <h3 class="text-xl font-bold mb-3 text-adventist-blue uppercase tracking-widest">Salud Integral</h3>
-                        <p class="text-slate-600 text-sm mb-6 leading-relaxed">
-                            Consejos prácticos para cuidar tu cuerpo y mente. Una reflexión semanal para tu bienestar físico y espiritual.
-                        </p>
-                        <div class="pt-4 border-t border-slate-100">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
-                                Generación de Esperanza 2026
+                        <div class="p-6 text-left">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fas fa-users text-adventist-blue"></i>
+                                <h3 class="text-xl font-bold italic text-adventist-blue uppercase">Próximo GP</h3>
+                            </div>
+                            <p class="text-slate-700 text-sm mb-6 leading-relaxed">
+                                ¡No te quedes fuera! Nos reuniremos para compartir momentos de amistad, música y algo
+                                rico para comer.
+                            </p>
+                            <div
+                                class="bg-adventist-gold/20 p-3 rounded-xl border-l-4 border-adventist-gold mb-4 font-bold text-adventist-blue">
+                                <p class="text-[11px] uppercase">📍 Te esperamos este viernes</p>
+                            </div>
+                            <span class="text-adventist-blue font-bold flex items-center gap-2 group">
+                                Quiero participar <i
+                                    class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
                             </span>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
+                <div
+                    class="bg-adventist-blue rounded-3xl shadow-xl text-white transition-all duration-300 hover:ring-4 hover:ring-adventist-gold card-hover shine-effect overflow-hidden flex flex-col">
+                    <a href="../imagenes/caleb.jpg" target="_blank" class="block flex-grow">
+                        <div class="w-full h-56 overflow-hidden">
+                            <img src="../imagenes/caleb.jpg" alt="Misión Caleb" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col h-full">
+                            <h3 class="text-xl font-bold mb-3 text-adventist-gold uppercase tracking-widest">Misión
+                                Caleb Limache</h3>
+                            <p class="text-blue-50 text-sm mb-6 leading-relaxed">
+                                ¡Misión confirmada! Este verano junto a la Escuela Cristiana de Vacaciones. Deja tu
+                                huella sirviendo con alegría.
+                            </p>
+                            <span
+                                class="w-full text-center bg-white text-adventist-blue py-3 px-6 rounded-xl text-xs font-bold inline-block uppercase shadow-lg">
+                                Inscribirme al equipo
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <div
+                    class="bg-white rounded-3xl shadow-xl border border-slate-300 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
+                    <a href="../imagenes/tips salud.jpg" target="_blank" class="block flex-grow">
+                        <div class="w-full h-56 overflow-hidden bg-slate-900">
+                            <img src="../imagenes/tips salud.jpg" alt="Salud Integral"
+                                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="p-6 text-left">
+                            <h3 class="text-xl font-bold mb-3 text-adventist-blue uppercase tracking-widest">Salud
+                                Integral</h3>
+                            <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                                Consejos prácticos para cuidar tu cuerpo y mente. Una reflexión semanal para tu
+                                bienestar físico y espiritual.
+                            </p>
+                            <div class="pt-4 border-t border-slate-100">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
+                                    Generación de Esperanza 2026
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+
+        <div
+            class="glass p-6 md:p-10 border-l-8 border-green-500 bg-gradient-to-r from-green-900/20 to-transparent my-8 animate-pop">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <span
+                        class="bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        Desafío Juvenil
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mt-2 uppercase italic">BiblioPlayLim</h2>
+                    <p class="text-slate-400 font-bold mt-1">¿Cuánto sabes de las historias de la Biblia? ¡Entra y
+                        juega!</p>
+                </div>
+                <button onclick="window.location.href='../BiblioPlayLim.html'"
+                    class="card-btn bg-green-500 hover:bg-green-400 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-green-900/40 uppercase tracking-widest text-lg btn-shine">
+                    ¡JUGAR AHORA!
+                </button>
+            </div>
+        </div>
+    </section>
     <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
         <div class="container mx-auto px-6">
             <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6">

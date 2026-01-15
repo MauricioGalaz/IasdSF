@@ -67,21 +67,20 @@
 </head>
 
 <body class="font-body bg-gray-50 text-gray-800">
-
-    <nav class="bg-adventist-blue text-white shadow-2xl fixed w-full z-50 border-b-4 border-adventist-gold">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-full hover:bg-adventist-gold hover:text-adventist-blue transition-all">
-                <i class="fas fa-arrow-left"></i>
-                <span class="font-bold text-sm">INICIO</span>
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-            <div class="flex items-center space-x-3 text-right">
-                <div class="hidden md:block">
-                    <p class="font-heading font-black text-xs leading-none uppercase">Club de Aventureros</p>
-                    <p class="font-heading font-black text-[13px] leading-none uppercase text-adventist-gold">San
-                        Francisco de Limache</p>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio de Aventureros
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
                 </div>
-                <img src="../imagenes/logo.jpg" class="h-10 rounded-full border-2 border-white">
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
@@ -226,34 +225,64 @@
                 </div>
             </div>
         </div>
+
+
+        <div
+            class="glass p-6 md:p-10 border-l-8 border-green-500 bg-gradient-to-r from-green-900/20 to-transparent my-8 animate-pop">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <span
+                        class="bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        Desafío Infantil
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mt-2 uppercase italic">BiblioPlayLim </h2>
+                    <p class="text-slate-400 font-bold mt-1">¿Cuánto sabes de las historias de la Biblia? ¡Entra y
+                        juega!</p>
+                </div>
+                <button onclick="window.location.href='../BiblioPlayLim.html'"
+                    class="card-btn bg-green-500 hover:bg-green-400 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-green-900/40 uppercase tracking-widest text-lg btn-shine">
+                    ¡JUGAR AHORA! 👶
+                </button>
+            </div>
+        </div>
     </section>
 
-    <footer class="bg-adventist-blue text-white pt-16 pb-8 border-t-8 border-adventist-gold">
-        < class="container mx-auto px-6 text-center">
-            <img src="../imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-2 border-white shadow-lg">
-            <h2 class="text-adventist-gold font-bold text-xl uppercase tracking-widest">Iglesia Adventista del Séptimo
-                Día</h2>
-            <p class="text-sm opacity-60 mt-1">San Francisco de Limache</p>
+    <!-- FOOTER -->
+    <footer class="bg-adventist-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center">
+                <img src="../imagenes/logo.jpg"
+                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                <h2 class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
 
-            <div class="flex justify-center space-x-6 my-10">
-                <a href="https://www.facebook.com/profile.php?id=61586113753680"
-                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
-                        class="fab fa-facebook-f text-xl"></i></a>
-                <a href="#"
-                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
-                        class="fab fa-instagram text-xl"></i></a>
-                <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                    class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-adventist-gold hover:text-adventist-blue transition-all"><i
-                        class="fab fa-youtube text-xl"></i></a>
-            </div>
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f fa-2xl"></i></a>
+                    <a href="#"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-instagram fa-2xl"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-youtube fa-2xl"></i></a>
+                </div>
 
-            <div class="w-full border-t border-white/10 pt-8">
-                <p class="text-slate-400 text-[10px] uppercase tracking-[0.3em]">Ministerio de Aventureros - Club
-                    Gedeones</p>
-                <p class="mt-4 text-slate-500 text-xs italic">Creado por <span
-                        class="text-adventist-gold font-bold not-italic">Mauricio Galaz Estay</span></p>
+                <div class="w-full border-t border-white/5 pt-8 text-center">
+                    <p class="text-slate-500 text-xs">© 2026 Diáconos y Diaconisas - IASD - Todos los derechos
+                        reservados.</p>
+                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                    </p>
+                </div>
             </div>
-        
+        </div>
+
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
     </footer>
 
     <button id="btnTop"

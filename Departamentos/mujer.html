@@ -28,23 +28,23 @@
 
 <body class="bg-gray-50 text-gray-700">
 
-        <!-- NAV MINISTERIOS -->
-    <nav class="bg-adventist-blue text-white shadow fixed w-full z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-
-            <!-- VOLVER -->
+    <!-- NAV MINISTERIOS -->
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
-                class="flex items-center space-x-2 text-sm font-semibold hover:text-adventist-gold transition">
-                <i class="fas fa-arrow-left text-lg"></i>
-                <span>Inicio</span>
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-
-            <!-- LOGO -->
-            <div class="flex items-center space-x-3">
-                <img src="../imagenes/logo.jpg" class="h-8 rounded-full">
-                <span class="font-heading font-bold text-xs leading-tight">
-                    IASD<br>San Francisco de Limache
-                </span>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio de
+                        la Mujer
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache
+                    </p>
+                </div>
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
@@ -52,7 +52,7 @@
     <!-- HERO -->
     <section class="py-20 bg-adventist-light text-center">
         <h1 class="text-4xl font-bold text-adventist-blue mb-4">
-            MINISTERIO  DE LA MUJER
+            MINISTERIO DE LA MUJER
         </h1>
         <p class="max-w-3xl mx-auto text-gray-600">
             Fortaleciendo la fe y liderazgo femenino.
@@ -100,12 +100,12 @@
     </section>
 
     <!-- FOOTER -->
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center">
                 <img src="../imagenes/logo.jpg"
                     class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
+                <h2 class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
 
                 <div class="flex justify-center space-x-8 mb-8">
                     <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
@@ -120,7 +120,8 @@
                 </div>
 
                 <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Ministerio de la Mujer - IASD - Todos los derechos reservados.</p>
+                    <p class="text-slate-500 text-xs">© 2026 Ministerio de la Mujer - IASD - Todos los derechos
+                        reservados.</p>
                     <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
                         Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
                     </p>
@@ -135,7 +136,7 @@
         </button>
 
     </footer>
-    
+
     <script>
         /* Cambiar video */
         function cargarVideo(url) {

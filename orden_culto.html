@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,44 +25,81 @@
     </script>
 
     <style>
-    body { font-family: 'Outfit', sans-serif; }
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
 
-    /* .input-pauta convertido a CSS puro */
-    .input-pauta { 
-        width: 100%;
-        padding: 0.75rem; /* p-3 */
-        background-color: #f1f5f9; /* bg-slate-100 */
-        border: 2px solid transparent;
-        border-radius: 0.75rem; /* rounded-xl */
-        font-weight: 700;
-        outline: none;
-        transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
+        /* .input-pauta convertido a CSS puro */
+        .input-pauta {
+            width: 100%;
+            padding: 0.75rem;
+            /* p-3 */
+            background-color: #f1f5f9;
+            /* bg-slate-100 */
+            border: 2px solid transparent;
+            border-radius: 0.75rem;
+            /* rounded-xl */
+            font-weight: 700;
+            outline: none;
+            transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    .input-pauta:focus {
-        border-color: #fec325; /* focus:border-adventist-gold */
-        background-color: white; /* focus:bg-white */
-    }
+        .input-pauta:focus {
+            border-color: #fec325;
+            /* focus:border-adventist-gold */
+            background-color: white;
+            /* focus:bg-white */
+        }
 
-    /* .step-box convertido a CSS puro */
-    .step-box { 
-        border-left-width: 4px;
-        border-left-style: solid;
-        border-left-color: #00305e; /* border-adventist-blue */
-        background-color: white;
-        padding: 1rem; /* p-4 */
-        border-top-right-radius: 0.75rem;
-        border-bottom-right-radius: 0.75rem;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-        margin-bottom: 1rem;
-    }
+        /* .step-box convertido a CSS puro */
+        .step-box {
+            border-left-width: 4px;
+            border-left-style: solid;
+            border-left-color: #00305e;
+            /* border-adventist-blue */
+            background-color: white;
+            padding: 1rem;
+            /* p-4 */
+            border-top-right-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            /* shadow-sm */
+            margin-bottom: 1rem;
+        }
 
-    #export-area { position: absolute; left: -9999px; top: 0; width: 800px; background: white; }
-    .pdf-header { border-bottom: 4px solid #fec325; padding-bottom: 20px; margin-bottom: 20px; }
-    .pdf-section-title { background: #00305e; color: white; padding: 8px 15px; border-radius: 8px; font-weight: 900; text-transform: uppercase; margin: 20px 0 10px 0; }
-</style>
+        #export-area {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 800px;
+            background: white;
+        }
+
+        .pdf-header {
+            border-bottom: 4px solid #fec325;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pdf-section-title {
+            background: #00305e;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 20px 0 10px 0;
+        }
+    </style>
 </head>
+
 <body class="bg-adventist-bg pb-28">
+
+    <a href="index.html"
+        class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+        <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+        <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
+    </a>
 
     <div class="max-w-4xl mx-auto p-4 md:p-8">
         <header class="text-center mb-8 no-print">
@@ -70,7 +108,7 @@
         </header>
 
         <main id="form-ui" class="bg-white rounded-[2.5rem] shadow-xl p-6 md:p-10 border border-slate-200">
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-400 mb-1 block ml-2">Sábado Fecha</label>
@@ -95,21 +133,28 @@
 
                 <div class="space-y-3">
                     <div class="step-box">
-                        <p class="text-xs font-black text-adventist-blue uppercase opacity-50">Momento 1: Himnos Previos</p>
+                        <p class="text-xs font-black text-adventist-blue uppercase opacity-50">Momento 1: Himnos Previos
+                        </p>
                         <div class="flex gap-2 mt-2">
-                            <input type="text" id="hp1" placeholder="H1" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
-                            <input type="text" id="hp2" placeholder="H2" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
-                            <input type="text" id="hp3" placeholder="H3" class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
+                            <input type="text" id="hp1" placeholder="H1"
+                                class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
+                            <input type="text" id="hp2" placeholder="H2"
+                                class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
+                            <input type="text" id="hp3" placeholder="H3"
+                                class="w-20 p-2 bg-slate-100 rounded-lg text-center font-bold">
                         </div>
                     </div>
 
                     <div class="step-box">
-                        <p class="font-bold">🚶 Ingreso: <span class="text-slate-500">Himno 32 "Nos reunimos en tu santuario"</span></p>
-                        <p class="font-bold">🛐 Plataforma: <span class="text-slate-500">Himno 135 "Cristo, nombre sublime"</span></p>
+                        <p class="font-bold">🚶 Ingreso: <span class="text-slate-500">Himno 32 "Nos reunimos en tu
+                                santuario"</span></p>
+                        <p class="font-bold">🛐 Plataforma: <span class="text-slate-500">Himno 135 "Cristo, nombre
+                                sublime"</span></p>
                     </div>
 
                     <div class="step-box bg-slate-50 border-adventist-gold">
-                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para Acompañante 1:</p>
+                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para
+                            Acompañante 1:</p>
                         <ul class="text-sm space-y-2 font-medium">
                             <li>✨ Saludo oficial y bienvenida a la congregación.</li>
                             <li>📽️ Presentación e invitación a ver video misionero "Probad y Ved".</li>
@@ -119,8 +164,10 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                        <input type="text" id="diacono" placeholder="Diácono de oración" class="input-pauta border-l-4 border-adventist-gold">
-                        <input type="text" id="himno_i" placeholder="Himno Inicial del Culto" class="input-pauta border-l-4 border-adventist-gold">
+                        <input type="text" id="diacono" placeholder="Diácono de oración"
+                            class="input-pauta border-l-4 border-adventist-gold">
+                        <input type="text" id="himno_i" placeholder="Himno Inicial del Culto"
+                            class="input-pauta border-l-4 border-adventist-gold">
                     </div>
                 </div>
             </section>
@@ -138,7 +185,8 @@
 
                 <div class="space-y-3">
                     <div class="step-box">
-                        <p class="font-bold">📖 Lectura: <span class="text-slate-400 font-normal italic">(El acompañante 2 lee el texto bíblico)</span></p>
+                        <p class="font-bold">📖 Lectura: <span class="text-slate-400 font-normal italic">(El acompañante
+                                2 lee el texto bíblico)</span></p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -147,7 +195,8 @@
                     </div>
 
                     <div class="step-box bg-slate-50 border-adventist-gold">
-                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para Acompañante 2:</p>
+                        <p class="font-black text-adventist-blue text-sm mb-2 uppercase italic underline">Guion para
+                            Acompañante 2:</p>
                         <ul class="text-sm space-y-2 font-medium">
                             <li>🎤 Presentación del Predicador(a) del día.</li>
                             <li>🙏 Al finalizar el sermón, dirigir el Himno Final.</li>
@@ -157,8 +206,10 @@
 
                     <div class="step-box">
                         <input type="text" id="himno_f" placeholder="Himno Final" class="input-pauta mb-4">
-                        <p class="font-bold text-sm">🎵 Salida Plataforma: <span class="text-slate-500">Himno 41</span></p>
-                        <p class="font-bold text-sm">🎵 Salida Miembros: <span class="text-slate-500">Himno 37</span></p>
+                        <p class="font-bold text-sm">🎵 Salida Plataforma: <span class="text-slate-500">Himno 41</span>
+                        </p>
+                        <p class="font-bold text-sm">🎵 Salida Miembros: <span class="text-slate-500">Himno 37</span>
+                        </p>
                     </div>
                 </div>
             </section>
@@ -166,7 +217,8 @@
 
         <div class="fixed bottom-6 left-0 right-0 z-50 px-6 no-print">
             <div class="max-w-md mx-auto">
-                <button onclick="descargarPauta()" class="w-full bg-adventist-blue text-white py-5 rounded-2xl font-black uppercase shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-all">
+                <button onclick="descargarPauta()"
+                    class="w-full bg-adventist-blue text-white py-5 rounded-2xl font-black uppercase shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-all">
                     <i class="fas fa-file-pdf text-adventist-gold"></i> Descargar Pauta Completa PDF
                 </button>
             </div>
@@ -179,7 +231,7 @@
         async function descargarPauta() {
             const area = document.getElementById('export-area');
             const fechaVal = document.getElementById('fecha').value || 'Sábado';
-            
+
             // Construcción del documento paso a paso para el PDF
             area.innerHTML = `
                 <div style="padding: 40px;">
@@ -239,4 +291,5 @@
         }
     </script>
 </body>
+
 </html>

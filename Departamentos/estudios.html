@@ -65,15 +65,20 @@
 </head>
 <body class="bg-[#0f172a] text-slate-200 custom-scrollbar">
 
-    <nav class="fixed w-full z-50 glass-header border-b border-white/10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="personal.html" class="flex items-center text-adventist-gold hover:text-white transition font-bold tracking-tight">
-                <i class="fas fa-chevron-left mr-2"></i> Volver
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="../index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-            <div class="flex items-center space-x-3">
-                <span class="text-[10px] font-black tracking-[0.3em] hidden sm:block opacity-70">CURSO BÍBLICO LSE</span>
-                <div class="h-6 w-[1px] bg-white/20"></div>
-                <img src="../imagenes/logo.jpg" class="h-8 w-8 rounded-full border border-adventist-gold shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Estudios Bíblicos</p>
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
+                </div>
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
         </div>
     </nav>
