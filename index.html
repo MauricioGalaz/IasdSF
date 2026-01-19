@@ -672,601 +672,612 @@
             </div>
 
             <nav class="bg-adventist-blue text-white shadow-lg w-full sticky top-0 z-[300]">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
 
-        <div class="flex items-center gap-4">
-            <a href="index.html" class="flex items-center space-x-4 group">
-                <div class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
-                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    <div class="flex items-center gap-4">
+                        <a href="index.html" class="flex items-center space-x-4 group">
+                            <div
+                                class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                                <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                            </div>
+                            <span
+                                class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white">
+                                IASD San Francisco<br>
+                                <span class="text-[#fec325]">de Limache</span>
+                            </span>
+                        </a>
+
+                        <a href="transmisiones.html"
+                            class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
+                            <i class="fas fa-circle text-[6px]"></i> En Vivo
+                        </a>
+                    </div>
+
+                    <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
+                        <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+                        <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
+                        <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
+                        <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+                        <a href="avisos.html"
+                            class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                            <i class="fas fa-bell"></i> Avisos
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="abrirModalApp()"
+                            class="text-[10px] font-bold bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition">
+                            📱 INSTALAR APP
+                        </button>
+                        <button id="menu-button" class="lg:hidden p-2 text-xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-                <span class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white">
-                    IASD San Francisco<br>
-                    <span class="text-[#fec325]">de Limache</span>
-                </span>
-            </a>
-            
-            <a href="transmisiones.html" class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
-                <i class="fas fa-circle text-[6px]"></i> En Vivo
-            </a>
-        </div>
 
-        <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
-            <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
-            <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
-            <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
-            <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-            <a href="avisos.html" class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                <i class="fas fa-bell"></i> Avisos
-            </a>
-        </div>
-
-        <div class="flex items-center gap-2">
-            <button onclick="abrirModalApp()" class="text-[10px] font-bold bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition">
-                📱 INSTALAR APP
-            </button>
-            <button id="menu-button" class="lg:hidden p-2 text-xl">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </div>
-
-    <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
-        <a href="#inicio">Inicio</a>
-        <a href="transmisiones.html" class="text-red-500">En Vivo Ahora</a>
-        <a href="contactoaviso.html">Nosotros</a>
-        <a href="#horarios">Actividades</a>
-        <a href="#ministerios">Ministerios</a>
-        <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
-    </div>
-</nav>
-
-<div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
-    <div class="bg-[#fec325] p-[2px] shadow-lg">
-        <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="text-2xl animate-bounce">🎂</div>
-                <div>
-                    <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!</p>
-                    <p id="nombre-cumple" class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">...</p>
+                <div id="mobile-menu"
+                    class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
+                    <a href="#inicio">Inicio</a>
+                    <a href="transmisiones.html" class="text-red-500">En Vivo Ahora</a>
+                    <a href="contactoaviso.html">Nosotros</a>
+                    <a href="#horarios">Actividades</a>
+                    <a href="#ministerios">Ministerios</a>
+                    <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
                 </div>
-            </div>
-            <button onclick="abrirModalMensaje()" class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-3 py-2 rounded shadow-lg">FELICITAR ✨</button>
-            <button onclick="document.getElementById('banner-cumple-hoy').classList.add('hidden')" class="text-white text-xl ml-2">&times;</button>
-        </div>
-        <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
-            <div id="contenedor-mensajes-slide" class="w-full text-center">
-                <p class="text-[#00305e] text-[9px] font-bold italic">Cargando bendiciones...</p>
-            </div>
-        </div>
-    </div>
-</div>
+            </nav>
 
-
-        <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
-            <div class="max-w-4xl text-white">
-                <h1
-                    class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
-                    UNA FAMILIA DE ESPERANZA
-                </h1>
-
-                <div class="max-w-2xl mx-auto px-6">
-
-                    <div class="flex justify-center w-full mb-8">
-                        <a href="registro.html" target="_blank"
-                            class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
-
-                            <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
-
-                            <div class="text-left">
-                                <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro
-                                    de
+            <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
+                <div class="bg-[#fec325] p-[2px] shadow-lg">
+                    <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-2xl animate-bounce">🎂</div>
+                            <div>
+                                <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!
                                 </p>
-                                <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
+                                <p id="nombre-cumple"
+                                    class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none">...
+                                </p>
                             </div>
-
-                            <i
-                                class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
-
-                            <div class="absolute inset-0 rounded-full overflow-hidden">
-                                <div class="shine-effect"></div>
-                            </div>
-                        </a>
+                        </div>
+                        <button onclick="abrirModalMensaje()"
+                            class="bg-[#fec325] text-[#00305e] font-black text-[10px] px-3 py-2 rounded shadow-lg">FELICITAR
+                            ✨</button>
+                        <button onclick="document.getElementById('banner-cumple-hoy').classList.add('hidden')"
+                            class="text-white text-xl ml-2">&times;</button>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="ORACION/index.html"
-                            class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
-                        </a>
-                        <a href="estudio-biblico.html"
-                            class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
-                        </a>
+                    <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
+                        <div id="contenedor-mensajes-slide" class="w-full text-center">
+                            <p class="text-[#00305e] text-[9px] font-bold italic">Cargando bendiciones...</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
+
+
+            <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
+                <div class="max-w-4xl text-white">
+                    <h1
+                        class="font-heading text-3xl md:text-7xl font-black mb-10 leading-tight animate__animated animate__fadeIn">
+                        UNA FAMILIA DE ESPERANZA
+                    </h1>
+
+                    <div class="max-w-2xl mx-auto px-6">
+
+                        <div class="flex justify-center w-full mb-8">
+                            <a href="registro.html" target="_blank"
+                                class="btn-cumpleaños group relative flex items-center justify-center px-8 py-4 bg-gradient-to-r from-adventist-oro to-yellow-500 text-white rounded-full shadow-xl hover:shadow-yellow-500/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+
+                                <i class="fas fa-birthday-cake mr-3 text-xl group-hover:animate-bounce"></i>
+
+                                <div class="text-left">
+                                    <p class="text-[10px] font-black uppercase leading-none opacity-80">Registro
+                                        de
+                                    </p>
+                                    <p class="text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
+                                </div>
+
+                                <i
+                                    class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
+
+                                <div class="absolute inset-0 rounded-full overflow-hidden">
+                                    <div class="shine-effect"></div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <a href="ORACION/index.html"
+                                class="shimmer-effect bg-white text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                                <i class="fas fa-praying-hands text-xl"></i> Oración Intercesora
+                            </a>
+                            <a href="estudio-biblico.html"
+                                class="shimmer-effect bg-adventist-gold text-adventist-blue px-8 py-5 rounded-[2.5rem] font-black text-xs uppercase shadow-2xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                                <i class="fas fa-book-open text-xl"></i> Estudios Bíblicos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
 
 
 
+    </div>
+
+    </div>
+    </section>
+
+
+
+    </div>
+    </div>
+
+    <section class="py-12 bg-white reveal">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
+                <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
+                    Sábado</h2>
+                <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
+                    agobiados..."</p>
+                <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
+                    <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios" class="py-12 bg-adventist-light reveal">
+        <div class="container mx-auto px-4">
+            <div
+                class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
+                <img id="carousel" src="imagenes/foto1.jpg"
+                    class="w-full aspect-video object-cover transition-opacity duration-1000">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                    <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
+                    <p class="font-bold">09:30 AM — Escuela Sabática</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
+                    <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
+                    <p class="font-bold">17:30 PM — Oración Intercesora</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                    <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
+                    <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
+                    <p class="font-bold">19:00 PM — Culto de Oración</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 mb-10 text-center">
+            <h2
+                class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
+                Nuestros Ministerios
+            </h2>
         </div>
 
-        </div>
-        </section>
+        <div class="relative group max-w-[98%] mx-auto">
+            <button onclick="scrollMinisterios(-350)"
+                class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                <i class="fas fa-chevron-left text-xl"></i>
+            </button>
 
-
-
-        </div>
-        </div>
-
-        <section class="py-12 bg-white reveal">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <div class="bg-adventist-blue rounded-[3rem] p-8 text-center text-white shadow-2xl shimmer-effect">
-                    <h2 class="font-heading font-black text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada
-                        Sábado</h2>
-                    <p class="text-lg italic text-blue-100 mb-6">"Vengan a mí todos ustedes que están cansados y
-                        agobiados..."</p>
-                    <div class="bg-white/10 p-5 rounded-2xl border border-white/20 inline-block">
-                        <p class="font-black text-adventist-gold text-xl tracking-widest leading-none">SÁBADOS 09:30 AM
-                        </p>
+            <div id="scrollContainer" class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
+                <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/ja.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Jóvenes</h3>
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="horarios" class="py-12 bg-adventist-light reveal">
-            <div class="container mx-auto px-4">
-                <div
-                    class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
-                    <img id="carousel" src="imagenes/foto1.jpg"
-                        class="w-full aspect-video object-cover transition-opacity duration-1000">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                        <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
-                        <p class="font-bold">09:30 AM — Escuela Sabática</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
-                        <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
-                        <p class="font-bold">17:30 PM — Oración Intercesora</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                        <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
-                        <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
-                        <p class="font-bold">19:00 PM — Culto de Oración</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
-            <div class="container mx-auto px-4 mb-10 text-center">
-                <h2
-                    class="text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight">
-                    Nuestros Ministerios
-                </h2>
-            </div>
-
-            <div class="relative group max-w-[98%] mx-auto">
-                <button onclick="scrollMinisterios(-350)"
-                    class="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                    <i class="fas fa-chevron-left text-xl"></i>
-                </button>
-
-                <div id="scrollContainer"
-                    class="flex overflow-x-auto gap-5 px-6 md:px-12 pb-12 no-scrollbar scroll-smooth">
-                    <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/ja.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Jóvenes</h3>
-                            <div class="card-icon"><i class="fas fa-users"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/mujer.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Ministerio Mujer</h3>
-                            <div class="card-icon"><i class="fas fa-female"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/salud.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Salud</h3>
-                            <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/infantil.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Infantil</h3>
-                            <div class="card-icon"><i class="fas fa-child"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/avent.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Aventureros</h3>
-                            <div class="card-icon"><i class="fas fa-hiking"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/mayor.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Mayordomía</h3>
-                            <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/diacono.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Diáconos</h3>
-                            <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/sabatica.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Escuela Sabática</h3>
-                            <div class="card-icon"><i class="fas fa-book-open"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/personal.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Personal</h3>
-                            <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/asa.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">ASA</h3>
-                            <div class="card-icon"><i class="fas fa-box-open"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/publicaciones.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Publicaciones</h3>
-                            <div class="card-icon"><i class="fas fa-atlas"></i></div>
-                        </div>
-                    </a>
-                    <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
-                        <img src="imagenes/dorcas.jpg">
-                        <div class="card-overlay">
-                            <h3 class="card-title">Dorcas</h3>
-                            <div class="card-icon"><i class="fas fa-mitten"></i></div>
-                        </div>
-                    </a>
-                </div>
-
-                <button onclick="scrollMinisterios(350)"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
-                    <i class="fas fa-chevron-right text-xl"></i>
-                </button>
-            </div>
-        </section>
-
-        <style>
-            /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
-            .ministerio-card {
-                flex: 0 0 auto;
-                width: 190px;
-                height: 300px;
-                position: relative;
-                border-radius: 20px;
-                overflow: hidden;
-                background: #001529;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-                transition: all 0.5s ease;
-            }
-
-            .ministerio-card:hover {
-                transform: translateY(-10px) scale(1.03);
-                box-shadow: 0 20px 40px rgba(0, 48, 94, 0.3);
-            }
-
-            .ministerio-card img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0.7;
-                transition: all 0.8s ease;
-            }
-
-            .ministerio-card:hover img {
-                opacity: 1;
-                transform: scale(1.1);
-            }
-
-            /* EFECTO DE LUCES AUTOMÁTICAS (SHIMMER) */
-            .shimmer-auto::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -150%;
-                width: 60%;
-                height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-                transform: skewX(-25deg);
-                animation: shine-auto 4s infinite ease-in-out;
-            }
-
-            .ministerio-card:nth-child(2n)::after {
-                animation-delay: 1s;
-            }
-
-            .ministerio-card:nth-child(3n)::after {
-                animation-delay: 2s;
-            }
-
-            @keyframes shine-auto {
-                0% {
-                    left: -150%;
-                }
-
-                20% {
-                    left: 150%;
-                }
-
-                100% {
-                    left: 150%;
-                }
-            }
-
-            .card-overlay {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%);
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                align-items: center;
-                padding: 20px;
-                text-align: center;
-            }
-
-            .card-title {
-                color: white;
-                font-size: 11px;
-                font-weight: 900;
-                text-transform: uppercase;
-                margin-bottom: 12px;
-                letter-spacing: 1px;
-            }
-
-            .card-icon {
-                width: 44px;
-                height: 44px;
-                background: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(4px);
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 18px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                transition: all 0.3s;
-            }
-
-            .ministerio-card:hover .card-icon {
-                background: #fec325;
-                color: #00305e;
-                border-color: #fec325;
-                transform: rotate(360deg);
-            }
-
-            /* TUS ANIMACIONES DE BARRA Y SHIMMER ORIGINALES */
-            .progress-fill-jesus {
-                height: 100%;
-                width: 100%;
-                background: #b45309;
-                border-radius: 9999px;
-                animation: countdown-jesus 20s linear forwards;
-            }
-
-            @keyframes countdown-jesus {
-                from {
-                    width: 100%;
-                }
-
-                to {
-                    width: 0%;
-                }
-            }
-
-            .shimmer-effect::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -150%;
-                width: 50%;
-                height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transform: skewX(-25deg);
-                animation: shine-slow 10s infinite;
-            }
-
-            @keyframes shine-slow {
-                0% {
-                    left: -150%;
-                }
-
-                15% {
-                    left: 250%;
-                }
-
-                100% {
-                    left: 250%;
-                }
-            }
-
-            .shine-effect {
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 50%;
-                height: 100%;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
-                transform: skewX(-25deg);
-                animation: shine 12s infinite;
-            }
-
-            @keyframes shine {
-                0% {
-                    left: -100%;
-                }
-
-                20% {
-                    left: 150%;
-                }
-
-                100% {
-                    left: 150%;
-                }
-            }
-
-            /* Ocultar barra de scroll estética */
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
-
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-
-            /* Asegurar que las imágenes no se deformen */
-            #scrollContainer img {
-                min-width: 112px;
-                /* h-28 */
-                min-height: 112px;
-            }
-
-            /* Barra de progreso suave para el mensaje de Jesús */
-            .progress-fill-jesus {
-                height: 100%;
-                width: 100%;
-                background: #b45309;
-                border-radius: 9999px;
-                animation: countdown-jesus 12s linear forwards;
-            }
-
-            @keyframes countdown-jesus {
-                from {
-                    width: 100%;
-                }
-
-                to {
-                    width: 0%;
-                }
-            }
-
-            /* Shimmer solo para botones, muy lento y sutil */
-            .shimmer-effect::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -150%;
-                width: 50%;
-                height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transform: skewX(-25deg);
-                animation: shine-slow 10s infinite;
-            }
-
-            @keyframes shine-slow {
-                0% {
-                    left: -150%;
-                }
-
-                15% {
-                    left: 250%;
-                }
-
-                100% {
-                    left: 250%;
-                }
-            }
-
-
-
-
-            /* Estilo adicional para que el modal se vea tipo cristal */
-
-            .glass-modal {
-                background: rgba(255, 255, 255, 0.9);
-                backdrop-filter: blur(10px);
-            }
-        </style>
-
-        <section id="accion-gracias" class="py-16 bg-white reveal">
-            <div class="container mx-auto px-4 max-w-5xl">
-                <div
-                    class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
-
-                    <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
-                        <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
-                            class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
-                        </div>
-                    </div>
-
-                    <div
-                        class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
-                        <span
-                            class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
-                            <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
-                        </span>
-
-                        <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
-                            Acción de <br><span class="text-[#fec325]">Gracias</span>
-                        </h3>
-
-                        <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
-                            Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
-                            este año.
-                        </p>
-
-                        <div>
-                            <button onclick="playFullVideo()"
-                                class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
-                                <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
-
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
-            <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
-            <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
-
-            <div class="mt-10">
-                <a href="Anuncios 2026.html"
-                    class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
-                    <i class="fas fa-bullhorn animate-bounce"></i>
-                    MURO DE ANUNCIOS LÍDERES
                 </a>
-                <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
+                <a href="Departamentos/mujer.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/mujer.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Ministerio Mujer</h3>
+                        <div class="card-icon"><i class="fas fa-female"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/salud.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/salud.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Salud</h3>
+                        <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/infantil.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/infantil.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Infantil</h3>
+                        <div class="card-icon"><i class="fas fa-child"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/aventureros.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/avent.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Aventureros</h3>
+                        <div class="card-icon"><i class="fas fa-hiking"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Mayordomia.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/mayor.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Mayordomía</h3>
+                        <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Diaconos.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/diacono.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Diáconos</h3>
+                        <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/escuela-sabatica.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/sabatica.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Escuela Sabática</h3>
+                        <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/personal.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/personal.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Personal</h3>
+                        <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/asa.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/asa.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">ASA</h3>
+                        <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/publicaciones.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/publicaciones.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Publicaciones</h3>
+                        <div class="card-icon"><i class="fas fa-atlas"></i></div>
+                    </div>
+                </a>
+                <a href="Departamentos/Dorcas.html" class="ministerio-card shimmer-auto">
+                    <img src="imagenes/dorcas.jpg">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Dorcas</h3>
+                        <div class="card-icon"><i class="fas fa-mitten"></i></div>
+                    </div>
+                </a>
             </div>
-        </header>
 
-        <div class="py-12 flex justify-center px-4">
-            <button onclick="abrirModalAncianos()"
-                class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
-                <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
-                    class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
+            <button onclick="scrollMinisterios(350)"
+                class="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white/90 text-adventist-blue p-4 rounded-full shadow-2xl hover:bg-adventist-gold hover:scale-110 transition-all opacity-0 group-hover:opacity-100 hidden md:flex items-center justify-center border border-gray-100">
+                <i class="fas fa-chevron-right text-xl"></i>
             </button>
         </div>
+    </section>
+
+    <style>
+        /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA) */
+        .ministerio-card {
+            flex: 0 0 auto;
+            width: 190px;
+            height: 300px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #001529;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .ministerio-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 48, 94, 0.3);
+        }
+
+        .ministerio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: all 0.8s ease;
+        }
+
+        .ministerio-card:hover img {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* EFECTO DE LUCES AUTOMÁTICAS (SHIMMER) */
+        .shimmer-auto::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            animation: shine-auto 4s infinite ease-in-out;
+        }
+
+        .ministerio-card:nth-child(2n)::after {
+            animation-delay: 1s;
+        }
+
+        .ministerio-card:nth-child(3n)::after {
+            animation-delay: 2s;
+        }
+
+        @keyframes shine-auto {
+            0% {
+                left: -150%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 48, 94, 0.95) 15%, transparent 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .ministerio-card:hover .card-icon {
+            background: #fec325;
+            color: #00305e;
+            border-color: #fec325;
+            transform: rotate(360deg);
+        }
+
+        /* TUS ANIMACIONES DE BARRA Y SHIMMER ORIGINALES */
+        .progress-fill-jesus {
+            height: 100%;
+            width: 100%;
+            background: #b45309;
+            border-radius: 9999px;
+            animation: countdown-jesus 20s linear forwards;
+        }
+
+        @keyframes countdown-jesus {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            animation: shine-slow 10s infinite;
+        }
+
+        @keyframes shine-slow {
+            0% {
+                left: -150%;
+            }
+
+            15% {
+                left: 250%;
+            }
+
+            100% {
+                left: 250%;
+            }
+        }
+
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 12s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Ocultar barra de scroll estética */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Asegurar que las imágenes no se deformen */
+        #scrollContainer img {
+            min-width: 112px;
+            /* h-28 */
+            min-height: 112px;
+        }
+
+        /* Barra de progreso suave para el mensaje de Jesús */
+        .progress-fill-jesus {
+            height: 100%;
+            width: 100%;
+            background: #b45309;
+            border-radius: 9999px;
+            animation: countdown-jesus 12s linear forwards;
+        }
+
+        @keyframes countdown-jesus {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Shimmer solo para botones, muy lento y sutil */
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            animation: shine-slow 10s infinite;
+        }
+
+        @keyframes shine-slow {
+            0% {
+                left: -150%;
+            }
+
+            15% {
+                left: 250%;
+            }
+
+            100% {
+                left: 250%;
+            }
+        }
+
+
+
+
+        /* Estilo adicional para que el modal se vea tipo cristal */
+
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+
+    <section id="accion-gracias" class="py-16 bg-white reveal">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div
+                class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
+
+                <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
+                    <img id="carrusel-accion" src="imagenes/accion/acc1.jpg"
+                        class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
+                    </div>
+                </div>
+
+                <div
+                    class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
+                    <span
+                        class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
+                        <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span> Testimonio Especial
+                    </span>
+
+                    <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
+                        Acción de <br><span class="text-[#fec325]">Gracias</span>
+                    </h3>
+
+                    <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
+                        Revive los momentos más emotivos y las bendiciones que Dios ha derramado en nuestra iglesia
+                        este año.
+                    </p>
+
+                    <div>
+                        <button onclick="playFullVideo()"
+                            class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
+                            <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO TRÍO SALEM
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
+        <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
+        <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
+
+        <div class="mt-10">
+            <a href="Anuncios 2026.html"
+                class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-4 px-8 rounded-full text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center gap-3">
+                <i class="fas fa-bullhorn animate-bounce"></i>
+                MURO DE ANUNCIOS LÍDERES
+            </a>
+            <p class="text-xs mt-3 text-blue-300 italic">Acceso exclusivo para directores de departamentos</p>
+        </div>
+    </header>
+
+    <div class="py-12 flex justify-center px-4">
+        <button onclick="abrirModalAncianos()"
+            class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+            <i class="fas fa-user-shield text-adventist-gold text-2xl"></i><span
+                class="font-black uppercase text-xs tracking-widest italic leading-none">Acceso Ancianos</span>
+        </button>
+    </div>
     </main>
 
     <footer class="bg-adventist-dark text-white pt-16 pb-8">
@@ -1423,11 +1434,34 @@
             else alert("Abre en tu celular para descargar.");
         }
 
-        function validarYEnviarAviso() {
-            if (document.getElementById('passLider').value === document.getElementById('departamento').value) {
-                alert("✅ Publicado."); document.getElementById('formAvisosLideres').reset();
-            } else alert("❌ Error Clave.");
-        }
+        window.validarYEnviarAviso = async function () {
+            const depto = document.getElementById('departamento').value;
+            const pass = document.getElementById('passLider').value;
+            const mensaje = document.getElementById('mensajeAviso').value; // Asegúrate de que el textarea tenga este ID
+            const lider = document.getElementById('nombreLider').value; // Asegúrate de que el input tenga este ID
+
+            // Validación de seguridad simple: La clave debe ser igual al nombre del departamento (según tu lógica previa)
+            if (pass === depto) {
+                try {
+                    await addDoc(collection(db, "avisos"), {
+                        departamento: depto,
+                        mensaje: mensaje,
+                        lider: lider,
+                        fecha: new Date().toLocaleDateString('es-CL'), // Fecha legible
+                        timestamp: serverTimestamp(), // Para ordenar por tiempo real
+                        expira: null // Opcional: podrías calcular una fecha de expiración
+                    });
+
+                    alert("✅ Aviso publicado exitosamente en el muro.");
+                    document.getElementById('formAvisosLideres').reset();
+                } catch (error) {
+                    console.error("Error al publicar:", error);
+                    alert("❌ Error de conexión con la base de datos.");
+                }
+            } else {
+                alert("❌ Clave de departamento incorrecta.");
+            }
+        };
 
 
 
@@ -1791,7 +1825,7 @@
             try {
                 const metricaRef = collection(db, "asistencia_sabados");
                 // Ahora 'limit' funcionará correctamente
-                const q = query(metricaRef, orderBy("fecha", "desc"), limit(1));
+                const q = query(metricaRef, collection(db, "avisos"), orderBy("fecha", "desc"), limit(1));
 
                 onSnapshot(q, (snapshot) => {
                     if (!snapshot.empty) {
