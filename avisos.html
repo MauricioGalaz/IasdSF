@@ -39,6 +39,8 @@
             max-width: 100%;
             overflow-x: hidden;
             width: 100%;
+            background-color: #fcfcfc;
+            /* Un blanco roto muy elegante */
         }
 
         .hover-card {
@@ -80,6 +82,113 @@
             border: 3px solid white !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
             cursor: pointer;
+        }
+
+        #contenedor-avisos-dinamicos section {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        /* Efecto de degradado en el texto para que brille */
+        .bg-clip-text {
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Tipografía moderna: Usaremos un interlineado amplio */
+        h2 {
+            font-family: 'Open Sans', sans-serif;
+            word-spacing: 0.1em;
+        }
+
+        /* El texto en minúsculas (lowercase) con la primera letra en mayúscula 
+   es una tendencia de diseño minimalista actual que facilita la lectura rápida. */
+        h2::first-letter {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: #00305e;
+            /* Color adventista */
+        }
+
+        /* Efecto de cristal para el fondo */
+        body {
+            background: radial-gradient(circle at top right, #f8fafc, #eff6ff);
+            min-height: 100vh;
+        }
+
+        /* Animación de entrada suave */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #contenedor-avisos-dinamicos section {
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        body {
+            background-color: #fcfcfc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animación de entrada suave y profesional */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Ajuste de lectura */
+        h2 {
+            color: #475569;
+            /* Un gris azulado suave que no cansa la vista */
+            letter-spacing: -0.01em;
         }
     </style>
 </head>
@@ -360,41 +469,42 @@
 
         </main>
 
-            <footer class="bg-adventist-dark text-white pt-16 pb-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="imagenes/logo.jpg"
-                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2  class="text-adventist-gold font-bold">Igesia Adeventista del Septimo día</h2><br>
+        <footer class="bg-adventist-dark text-white pt-16 pb-8">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col items-center">
+                    <img src="imagenes/logo.jpg"
+                        class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                    <h2 class="text-adventist-gold font-bold">Igesia Adeventista del Septimo día</h2><br>
 
-                <div class="flex justify-center space-x-8 mb-8">
-                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-facebook-f fa-2xl"></i></a>
-                    <a href="#"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-instagram fa-2xl"></i></a>
-                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-youtube fa-2xl"></i></a>
-                </div>
+                    <div class="flex justify-center space-x-8 mb-8">
+                        <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-facebook-f fa-2xl"></i></a>
+                        <a href="#"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-instagram fa-2xl"></i></a>
+                        <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-youtube fa-2xl"></i></a>
+                    </div>
 
-                <div class="w-full border-t border-white/5 pt-8 text-center">
-                    <p class="text-slate-500 text-xs">© 2026 Aviso de iglesia - IASD - Todos los derechos reservados.</p>
-                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                    </p>
+                    <div class="w-full border-t border-white/5 pt-8 text-center">
+                        <p class="text-slate-500 text-xs">© 2026 Aviso de iglesia - IASD - Todos los derechos
+                            reservados.</p>
+                        <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                            Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
+            <!-- BOTÓN VOLVER ARRIBA -->
+            <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
         p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-            <i class="fas fa-chevron-up"></i>
-        </button>
+                <i class="fas fa-chevron-up"></i>
+            </button>
 
-    </footer>
+        </footer>
 
         <button id="btnTop"
             class="hidden fixed bottom-6 right-6 bg-adventist-blue text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl shadow-2xl z-[100] items-center justify-center">
@@ -495,7 +605,7 @@
             });
 
             /* ================= CONFIG ================= */
-            const ADMIN_PASS = "iasd26";
+            const ADMIN_PASS = "iasdsf"; // Cambiado según tu instrucción guardada
             let modoEdicionActivo = true; // Modo edición activado por defecto para pruebas
 
 
@@ -563,70 +673,68 @@
             onSnapshot(q, (snapshot) => {
                 contenedor.innerHTML = "";
 
-                if (snapshot.empty) {
-                    contenedor.innerHTML = `
-        <div class="text-center p-10 bg-white/50 rounded-3xl border-2 border-dashed border-slate-300">
-        <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">
-            No hay avisos nuevos de los líderes todavía
-        </p>
-        </div>`;
-                    return;
-                }
-
-                const fragment = document.createDocumentFragment();
-
                 snapshot.forEach((docSnap) => {
                     const a = docSnap.data();
                     if (estaExpirado(a)) return;
 
                     const section = document.createElement("section");
-                    section.className =
-                        "relative bg-white border-t-[12px] md:border-t-[16px] border-adventist-blue rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl transition-all hover:scale-[1.01]";
+                    section.className = "relative mb-8 group animate-fade-in";
 
                     section.innerHTML = `
-        ${modoEdicionActivo ? `
-        <button onclick="eliminarAviso('${docSnap.id}')" class="btn-eliminar-aviso">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-        <button onclick="editarAviso('${docSnap.id}', '${escapeHTML(a.mensaje)}')"
-            class="absolute top-4 left-4 bg-adventist-gold text-adventist-blue w-10 h-10 rounded-full flex items-center justify-center shadow-xl border-4 border-white z-50">
-            <i class="fas fa-pen"></i>
-        </button>
-        ` : ""}
+            <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-[0_15px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.07)] hover:-translate-y-1">
+                
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-1.5 h-6 bg-adventist-gold rounded-full"></div>
+                        <span class="text-[10px] font-black uppercase tracking-[0.4em] text-adventist-blue">
+                            ${escapeHTML(a.departamento)}
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <span class="text-[8px] font-bold text-slate-300 uppercase tracking-widest">${a.fecha || ''}</span>
+                        ${modoEdicionActivo ? `
+                            <button onclick="eliminarAviso('${docSnap.id}')" class="text-slate-200 hover:text-red-400 transition-colors text-xs">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        ` : ""}
+                    </div>
+                </div>
 
-        <div class="flex justify-between mb-6">
-        <span class="bg-adventist-blue text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">
-            ${escapeHTML(a.departamento)}
-        </span>
-        <span class="text-[10px] font-black text-slate-300 uppercase">
-            ${a.fecha || ""}
-        </span>
-        </div>
+                <div class="px-4 mb-10">
+                    <h2 class="text-lg md:text-xl font-medium text-slate-600 leading-[1.8] tracking-normal text-pretty">
+                        ${escapeHTML(a.mensaje)}
+                    </h2>
+                </div>
 
-        <div class="text-center">
-        <h2 class="text-2xl md:text-5xl font-heading font-black text-slate-800 leading-tight mb-8 uppercase italic">
-            "${escapeHTML(a.mensaje)}"
-        </h2>
+                <div class="flex items-center justify-between pt-6 border-t border-slate-50">
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100">
+                            <i class="fas fa-user text-[10px]"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[7px] font-black text-slate-300 uppercase tracking-[0.2em]">Responsable</span>
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-tight">${escapeHTML(a.lider)}</span>
+                        </div>
+                    </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-center gap-6 border-t border-slate-100 pt-8">
-            <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">
-            <i class="fas fa-user-circle mr-1 text-adventist-blue"></i>
-            LÍDER: ${escapeHTML(a.lider)}
-            </p>
+                    <button onclick="compartirWhatsApp('${escapeHTML(a.mensaje)}','${escapeHTML(a.departamento)}')" 
+                        class="group/btn flex items-center gap-3 px-6 py-3 bg-slate-50 hover:bg-adventist-blue rounded-xl transition-all duration-300 border border-slate-100">
+                        <span class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover/btn:text-white transition-colors">Compartir</span>
+                        <i class="fab fa-whatsapp text-slate-300 group-hover/btn:text-adventist-gold transition-colors"></i>
+                    </button>
+                </div>
 
-            <button onclick="compartirWhatsApp('${escapeHTML(a.mensaje)}','${escapeHTML(a.departamento)}')"
-            class="bg-[#25d366] text-white px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-lg flex items-center gap-2">
-            <i class="fab fa-whatsapp"></i> COMPARTIR
-            </button>
-        </div>
-        </div>
-    `;
-
-                    fragment.appendChild(section);
+            </div>
+        `;
+                    contenedor.appendChild(section);
                 });
-
-                contenedor.appendChild(fragment);
             });
+
+
+            contenedor.appendChild(fragment);
+            
 
             /* ================= WHATSAPP ================= */
             window.compartirWhatsApp = (mensaje, depto) => {

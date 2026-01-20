@@ -86,22 +86,22 @@
                 <select id="departamento" required
                     class="w-full bg-slate-900/60 border border-white/10 p-4 rounded-2xl">
                     <option value="">Seleccione Departamento...</option>
-                        <option value="SEC26">SECRETARÍA</option>
-                        <option value="JA26">MINISTERIO JOVEN</option>
-                        <option value="PUB26">PUBLICACIONES</option>
-                        <option value="SALUD26">SALUD</option>
-                        <option value="MUJER26">MINISTERIO DE LA MUJER</option>
-                        <option value="MUSICA26">MINISTERIO DE MUSICA</option>
-                        <option value="TESOR26">TESORERIA</option>
-                        <option value="ESCUELA26">ESCUELA SABATICA</option>
-                        <option value="INF26">MINISTERIO INFANTIL</option>
-                        <option value="MIP26">MIPES</option>
-                        <option value="DIAC26">DIACONOS</option>
-                        <option value="MID26">MIDEA</option>
-                        <option value="AVENT26">AVENTUREROS</option>
-                        <option value="VOLUN26">VOLUNTARIADO</option>
-                        <option value="ASA26">ASA</option>
-                        <option value="MAYOR26">MAYORDOMIA</option>
+                    <option value="SEC26">SECRETARÍA</option>
+                    <option value="JA26">MINISTERIO JOVEN</option>
+                    <option value="PUB26">PUBLICACIONES</option>
+                    <option value="SALUD26">SALUD</option>
+                    <option value="MUJER26">MINISTERIO DE LA MUJER</option>
+                    <option value="MUSICA26">MINISTERIO DE MUSICA</option>
+                    <option value="TESOR26">TESORERIA</option>
+                    <option value="ESCUELA26">ESCUELA SABATICA</option>
+                    <option value="INF26">MINISTERIO INFANTIL</option>
+                    <option value="MIP26">MIPES</option>
+                    <option value="DIAC26">DIACONOS</option>
+                    <option value="MID26">MIDEA</option>
+                    <option value="AVENT26">AVENTUREROS</option>
+                    <option value="VOLUN26">VOLUNTARIADO</option>
+                    <option value="ASA26">ASA</option>
+                    <option value="MAYOR26">MAYORDOMIA</option>
                 </select>
 
                 <div class="grid md:grid-cols-2 gap-4">
@@ -111,8 +111,13 @@
                         class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
 
-                <textarea id="mensaje" rows="4" required placeholder="Detalle del aviso…"
-                    class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none"></textarea>
+                <div>
+                    <textarea id="mensaje" rows="4" required maxlength="250"
+                        placeholder="Detalle del aviso (máx. 250 caracteres)..."
+                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none"
+                        oninput="document.getElementById('count').innerText = this.value.length + '/250'"></textarea>
+                    <p id="count" class="text-[10px] text-right text-gray-500 mt-1">0/250</p>
+                </div>
 
                 <!-- FECHA DE EXPIRACIÓN -->
                 <div>
@@ -194,9 +199,10 @@
         });
     </script>
 
-                <center p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS
-                    RESERVADOS - Diseñado para IASD San Francisco de Limache by <i class="fas fa-heart text-red-500 animate-pulse"></i> Mauricio Galaz Estay
-                <center p/>
+    <center p class="text-[10px] text-slate-400 mt-4 uppercase tracking-[0.2em] font-bold">© 2025 DERECHOS
+        RESERVADOS - Diseñado para IASD San Francisco de Limache by <i
+            class="fas fa-heart text-red-500 animate-pulse"></i> Mauricio Galaz Estay
+        <center p />
 
 </body>
 
