@@ -118,6 +118,24 @@
         .animate-pop {
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        #btnMusica.playing {
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 0 0 0 rgba(254, 195, 37, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(254, 195, 37, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(254, 195, 37, 0);
+            }
+        }
     </style>
 </head>
 
@@ -159,23 +177,37 @@
             </button>
         </div>
     </div>
+    <nav
+        class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg border-b-2 border-adventist-gold">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
 
-    <nav class="bg-adventist-blue/90 backdrop-blur-md text-white fixed w-full z-50 border-b-2 border-adventist-gold">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="../index.html"
                 class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
                 <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
                 <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
             </a>
-            <div class="text-center hidden md:block">
-                <p class="font-heading font-black text-xs leading-none uppercase text-adventist-gold">Departamento de
-                    Niños</p>
-                <p class="font-heading font-black text-[10px] leading-none uppercase">IASD - San Francisco de Limache</p>
+
+            <div class="text-center hidden lg:block">
+                <p class="text-[12px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio Infantil</p>
+                <p class="text-[10px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
             </div>
-            <div
-                class="bg-adventist-gold text-adventist-blue px-4 py-1 rounded-full font-black text-xs shadow-lg flex items-center">
-                ⭐ <span id="contadorEstrellas" class="ml-1">0</span> - LOGROS
+
+            <div class="flex items-center gap-2 md:gap-4">
+
+                <button id="btnMusica" onclick="toggleMusica()"
+                    class="bg-white/10 hover:bg-adventist-gold hover:text-adventist-blue text-white w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg border border-white/20">
+                    <i id="iconoMusica" class="fas fa-volume-up"></i>
+                </button>
+
+                <div
+                    class="bg-adventist-gold text-adventist-blue px-3 py-1.5 rounded-full font-black text-[10px] md:text-xs shadow-lg flex items-center">
+                    ⭐ <span id="contadorEstrellas" class="mx-1">0</span> <span class="hidden xs:block">LOGROS</span>
+                </div>
+
+                <img src="../imagenes/logo.jpg"
+                    class="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 border-adventist-gold shadow-md">
             </div>
+
         </div>
     </nav>
 
@@ -408,6 +440,32 @@
             document.getElementById('videoModal').classList.add('hidden');
             document.getElementById('iframeModal').src = "";
             document.body.style.overflow = 'auto';
+        }
+    </script>
+    <script>
+
+        // Variable para rastrear el estado
+        let musicaActiva = true;
+
+        function toggleMusica() {
+            const icono = document.getElementById('iconoMusica');
+
+            if (player && typeof player.getPlayerState === "function") {
+                const estado = player.getPlayerState();
+
+                // 1 es "reproduciendo", 2 es "pausado"
+                if (estado === 1) {
+                    player.pauseVideo();
+                    icono.classList.remove('fa-volume-up');
+                    icono.classList.add('fa-volume-mute');
+                    musicaActiva = false;
+                } else {
+                    player.playVideo();
+                    icono.classList.remove('fa-volume-mute');
+                    icono.classList.add('fa-volume-up');
+                    musicaActiva = true;
+                }
+            }
         }
     </script>
 </body>
