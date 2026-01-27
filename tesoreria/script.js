@@ -1,5 +1,31 @@
-// 1. CONFIGURACIÓN Y BASE DE DATOS
+const CACHE_NAME = 'iasd-limache-v2.1'; // Incrementado para forzar actualización
+const urlsToCache = ['./', './index.html'];
+
+// --- SERVICE WORKER ---
+self.addEventListener('install', e => {
+    self.skipWaiting(); 
+    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+});
+
+self.addEventListener('activate', e => {
+    e.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cache => {
+                    if (cache !== CACHE_NAME) return caches.delete(cache);
+                })
+            );
+        })
+    );
+});
+
+self.addEventListener('fetch', e => {
+    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+});
+
+// --- LÓGICA DE NEGOCIO ---
 const DEPT_NAMES = ["MIDEA", "DEPARTAMENTO NIÑOS", "DEPARTAMENTOS AVENTUREROS", "JOVENES ADVENTISTAS", "ASA", "PUBLICACIONES", "ESCUELA SABATICA", "MIPES", "MINISTERIO DE LA MUJER", "SALUD", "GASTOS DE IGLESIA", "FONDO SOLIDARIO"];
+const MASTER_PASS = "iasdsf"; // Contraseña de limpieza/eliminación según instrucciones
 
 let db = {};
 try {
@@ -12,18 +38,145 @@ try {
 
 let miGrafico = null;
 
-// 2. SISTEMA DE SEGURIDAD
+// 2. SISTEMA DE SEGURIDAD (ACCESO)
 window.validarAcceso = function() {
     const pass = document.getElementById('input-pass').value;
     if (pass === "tesoriasd") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-app').style.display = 'block';
         inicializarDB();
-        mostrarAviso("Sistema Desbloqueado Correctamente.", "success");
+        mostrarAviso("Sistema Desbloqueado.", "success");
     } else {
         Swal.fire({ title: 'Contraseña Incorrecta', icon: 'error', confirmButtonColor: '#0a192f' });
     }
 };
+
+// 3. INICIALIZACIÓN
+function inicializarDB() {
+    if (!db.bancos) db.bancos = { estado: 0, chile: 0 };
+    if (!db.saldos) db.saldos = {};
+    if (!db.porcentajes) db.porcentajes = {};
+    if (!db.gastosReales) db.gastosReales = {}; 
+    if (!db.historial_movimientos) db.historial_movimientos = [];
+    if (!db.proyectos) db.proyectos = { "Equipos Sonido y Butacas": 0 };
+
+    DEPT_NAMES.forEach(n => {
+        if (db.porcentajes[n] === undefined) db.porcentajes[n] = 8.33;
+        if (db.gastosReales[n] === undefined) db.gastosReales[n] = 0;
+    });
+
+    recalcularSaldosPorcentuales();
+    updateUI();
+}
+
+// 5. LÓGICA DE DISTRIBUCIÓN (Bancos - Proyectos = Deptos)
+function recalcularSaldosPorcentuales() {
+    const totalBancos = (db.bancos.estado || 0) + (db.bancos.chile || 0);
+    const totalEnProyectos = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
+    const patrimonioNeto = Math.max(0, totalBancos - totalEnProyectos);
+
+    DEPT_NAMES.forEach(n => {
+        const asignacionIdeal = (patrimonioNeto * (db.porcentajes[n] / 100));
+        db.saldos[n] = asignacionIdeal - (db.gastosReales[n] || 0);
+    });
+}
+
+// 6. REGISTRO DE GASTOS CON ALERTAS
+window.registrarGasto = function() {
+    const selectElem = document.getElementById('gasto-dep');
+    if(!selectElem || !selectElem.value) return mostrarAviso("Seleccione origen", "error");
+    
+    const [tipo, nombre] = selectElem.value.split(':');
+    const monto = parseFloat(document.getElementById('gasto-monto').value);
+    const banco = document.getElementById('gasto-banco').value;
+    const prop = document.getElementById('gasto-proposito').value || "Gasto";
+
+    if(!monto || monto <= 0) return mostrarAviso("Monto inválido", "error");
+
+    db.bancos[banco] -= monto;
+    if(tipo === 'PROJ') {
+        db.proyectos[nombre] -= monto;
+    } else {
+        db.gastosReales[nombre] += monto;
+    }
+    
+    db.historial_movimientos.push({ 
+        fecha: new Date().toLocaleDateString(), 
+        detalle: `Gasto: ${prop} (${nombre})`, 
+        monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } 
+    });
+
+    recalcularSaldosPorcentuales();
+    updateUI();
+
+    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
+
+    Swal.fire({
+        title: '¡Gasto Procesado!',
+        html: `<p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en <b>${nombre}</b>: <br><span style="color:green; font-size:1.2em;">${clp.format(saldoFinal)}</span></p>`,
+        icon: 'success',
+        confirmButtonColor: '#0a192f'
+    });
+
+    document.getElementById('gasto-monto').value = "";
+    document.getElementById('gasto-proposito').value = "";
+};
+
+// 9. FUNCIONES DE LIMPIEZA CON CONTRASEÑA "iasdsf"
+window.anularRegistro = async function(index) {
+    const { value: password } = await Swal.fire({
+        title: 'Confirmar Anulación',
+        input: 'password',
+        inputLabel: 'Ingrese contraseña para eliminar',
+        inputPlaceholder: 'Contraseña...',
+        showCancelButton: true
+    });
+
+    if (password === MASTER_PASS) {
+        const mov = db.historial_movimientos[index];
+        db.bancos[mov.banco] -= mov.monto;
+        if(mov.tipo === 'egreso' && mov.meta) {
+            if(mov.meta.tipo === 'PROJ') db.proyectos[mov.meta.nombre] -= mov.monto;
+            else db.gastosReales[mov.meta.nombre] += mov.monto;
+        } else if(mov.tipo === 'proyecto' && mov.meta) {
+            db.proyectos[mov.meta.nombre] -= mov.monto;
+        }
+        db.historial_movimientos.splice(index, 1);
+        recalcularSaldosPorcentuales(); 
+        updateUI(); 
+        renderHistorial();
+        mostrarAviso("Registro eliminado", "success");
+    } else if (password) {
+        mostrarAviso("Contraseña incorrecta", "error");
+    }
+};
+
+window.limpiarRegistros = async function() {
+    const { value: password } = await Swal.fire({
+        title: '¿REINICIAR TODO EL SISTEMA?',
+        text: "Esta acción borrará bancos e historial.",
+        icon: 'warning',
+        input: 'password',
+        inputLabel: 'Ingrese contraseña maestra',
+        showCancelButton: true,
+        confirmButtonColor: '#d33'
+    });
+
+    if (password === MASTER_PASS) {
+        db.bancos = { estado: 0, chile: 0 }; 
+        db.historial_movimientos = [];
+        Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
+        DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
+        recalcularSaldosPorcentuales(); 
+        updateUI();
+        Swal.fire('Reiniciado', 'La base de datos está en cero.', 'success');
+    } else if (password) {
+        Swal.fire('Error', 'Contraseña incorrecta', 'error');
+    }
+};
+
+// ... (Resto de funciones: showTab, updateUI, generarReportePDF, etc., se mantienen igual)
 
 // 3. INICIALIZACIÓN
 function inicializarDB() {
