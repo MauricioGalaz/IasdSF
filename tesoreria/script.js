@@ -1,7 +1,15 @@
 // 1. CONFIGURACIÓN Y BASE DE DATOS
 const DEPT_NAMES = ["MIDEA", "DEPARTAMENTO NIÑOS", "DEPARTAMENTOS AVENTUREROS", "JOVENES ADVENTISTAS", "ASA", "PUBLICACIONES", "ESCUELA SABATICA", "MIPES", "MINISTERIO DE LA MUJER", "SALUD", "GASTOS DE IGLESIA", "FONDO SOLIDARIO"];
 
-let db = JSON.parse(localStorage.getItem('iasd_limache_FINAL')) || {};
+let db = {};
+try {
+    const storedData = localStorage.getItem('iasd_limache_FINAL');
+    db = storedData ? JSON.parse(storedData) : {};
+} catch (e) {
+    console.error("Error cargando datos:", e);
+    db = {};
+}
+
 let miGrafico = null;
 
 // 2. SISTEMA DE SEGURIDAD
@@ -192,7 +200,12 @@ window.updateUI = function() {
         selectGasto.innerHTML = opt + '</optgroup>';
     }
 
-    localStorage.setItem('iasd_limache_FINAL', JSON.stringify(db));
+    // Guardado robusto con detección de errores
+    try {
+        localStorage.setItem('iasd_limache_FINAL', JSON.stringify(db));
+    } catch (e) {
+        mostrarAviso("¡Error! No se pudo guardar automáticamente. Use 'Guardar Copia'.", "error");
+    }
 };
 
 // 8. REPORTE PDF COMPLETO PARA JUNTA
@@ -325,6 +338,42 @@ window.toggleSidebar = function() {
     sb.classList.toggle('active-mobile');
     const overlay = document.getElementById('sidebar-overlay');
     if(overlay) overlay.style.display = sb.classList.contains('active-mobile') ? 'block' : 'none';
+};
+
+// 10. SISTEMA DE RESPALDO (BACKUP)
+window.descargarCopia = function() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "Respaldo_Tesoreria_" + new Date().toISOString().slice(0,10) + ".json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+    mostrarAviso("Copia de seguridad descargada", "success");
+};
+
+window.restaurarCopia = function(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const json = JSON.parse(e.target.result);
+            if (json.bancos && json.saldos) {
+                db = json;
+                recalcularSaldosPorcentuales(); // Asegurar consistencia
+                updateUI();
+                mostrarAviso("Datos restaurados correctamente", "success");
+            } else {
+                mostrarAviso("El archivo no es válido", "error");
+            }
+        } catch (err) {
+            mostrarAviso("Error al leer el archivo", "error");
+        }
+    };
+    reader.readAsText(file);
+    // Limpiar input para permitir cargar el mismo archivo de nuevo si es necesario
+    input.value = '';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
