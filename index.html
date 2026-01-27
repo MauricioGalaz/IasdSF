@@ -13,8 +13,8 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"
-    <meta name=" theme-color content="#00305e">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" <meta name=" theme-color content="
+        #00305e">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2060,7 +2060,41 @@
         }
     </script>
 
+    <script>
+        let eventoInstalacion;
+        const btnInstalar = document.querySelector('button[onclick="abrirModalApp()"]');
 
+        // 1. Registrar el Service Worker (el archivo que me acabas de mostrar)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log("Service Worker listo"))
+                .catch(err => console.log("Error en SW:", err));
+        }
+
+        // 2. Capturar el evento de instalación de Android/Chrome
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            eventoInstalacion = e;
+            console.log("Listo para instalar");
+        });
+
+        // 3. Modificar tu función existente
+        function abrirModalApp() {
+            if (eventoInstalacion) {
+                // Si el navegador está listo, lanza la ventana de instalación
+                eventoInstalacion.prompt();
+                eventoInstalacion.userChoice.then((choice) => {
+                    if (choice.outcome === 'accepted') {
+                        console.log('El hermano instaló la app');
+                    }
+                    eventoInstalacion = null;
+                });
+            } else {
+                // Si es iPhone o no ha cargado el evento todavía
+                alert("Para instalar:\n\n📱 Android: Espera 5 segundos y vuelve a intentar.\n\n🍎 iPhone: Toca el botón 'Compartir' (cuadrado con flecha) y elige 'Añadir a pantalla de inicio'.");
+            }
+        }
+    </script>
 
 </body>
 
