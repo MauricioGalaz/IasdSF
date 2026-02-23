@@ -727,9 +727,10 @@
                     <a href="#horarios">Actividades</a>
                     <a href="#ministerios">Ministerios</a>
                     <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
-                    <a href="https://doxologia.netlify.app/"
+                    <button onclick="abrirModalDoxo()"
                         class="hidden sm:flex items-center gap-2 bg-[#004a87] hover:bg-adventist-blue text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
                         <i class="fas fa-music text-[8px]"></i> Doxología
+                    </button>
                     </a>
                 </div>
             </nav>
@@ -2103,7 +2104,55 @@
             }
         }
     </script>
+    
+    <script>
+    function abrirModalDoxo() {
+    document.getElementById('modalDoxo').classList.remove('hidden');
+    document.getElementById('modalDoxo').classList.add('flex');
+    document.getElementById('claveDoxo').focus();
+}
 
+function cerrarModalDoxo() {
+    document.getElementById('modalDoxo').classList.add('hidden');
+    document.getElementById('modalDoxo').classList.remove('flex');
+    document.getElementById('claveDoxo').value = "";
+    document.getElementById('errorDoxo').classList.add('hidden');
+}
+
+function validarDoxo() {
+    const clave = document.getElementById('claveDoxo').value;
+    if (clave.toLowerCase() === "doxo") {
+        window.location.href = "https://doxologia.netlify.app/";
+    } else {
+        document.getElementById('errorDoxo').classList.remove('hidden');
+        // Limpiar input si falla
+        document.getElementById('claveDoxo').value = "";
+    }
+}
+</script>
+
+    <div id="modalDoxo"
+        class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-6 backdrop-blur-sm">
+        <div
+            class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
+            <div class="bg-blue-600 w-16 h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+                <i class="fas fa-music text-white text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter">Acceso Doxología
+            </h2>
+            <input id="claveDoxo" type="password"
+                class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-xl"
+                placeholder="Ingrese Clave">
+
+            <div class="flex flex-col gap-2">
+                <button onclick="validarDoxo()"
+                    class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Entrar</button>
+                <button onclick="cerrarModalDoxo()"
+                    class="text-gray-400 font-bold text-[9px] uppercase mt-4 underline">Cancelar</button>
+            </div>
+            <p id="errorDoxo" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
+        </div>
+    </div>
 </body>
 
 </html>
