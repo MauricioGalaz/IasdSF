@@ -687,14 +687,17 @@
                             </span>
                         </a>
 
-                        <a href="transmisiones.html"
-                            class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
-                            <i class="fas fa-circle text-[6px]"></i> En Vivo
-                        </a>
-                        <a href="https://doxologia.netlify.app/"
-                            class="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
-                            <i class="fas fa-music text-[8px]"></i> Doxología
-                        </a>
+                        <div class="flex items-center gap-2">
+                            <a href="transmisiones.html"
+                                class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
+                                <i class="fas fa-circle text-[6px]"></i> En Vivo
+                            </a>
+
+                            <button onclick="abrirModalDoxo()"
+                                class="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
+                                <i class="fas fa-music text-[8px]"></i> Doxología
+                            </button>
+                        </div>
                     </div>
 
                     <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
@@ -727,15 +730,11 @@
                     <a href="#horarios">Actividades</a>
                     <a href="#ministerios">Ministerios</a>
                     <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
-
-                    </a>
-                    <button onclick="abrirModalDoxo()"
-                        class="hidden sm:flex items-center gap-2 bg-[#004a87] hover:bg-adventist-blue text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
-                        <i class="fas fa-music text-[8px]"></i> Doxología
+                    <button onclick="abrirModalDoxo()" class="text-left text-blue-400 flex items-center gap-2">
+                        <i class="fas fa-music"></i> Doxología (Con Clave)
                     </button>
                 </div>
             </nav>
-
             <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[200]">
                 <div class="bg-[#fec325] p-[2px] shadow-lg">
                     <div class="bg-[#00305e] py-4 px-6 flex items-center justify-between">
