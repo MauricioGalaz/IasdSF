@@ -2108,14 +2108,16 @@
 
     <script>
         function abrirModalDoxo() {
-            document.getElementById('modalDoxo').classList.remove('hidden');
-            document.getElementById('modalDoxo').classList.add('flex');
+            const modal = document.getElementById('modalDoxo');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             document.getElementById('claveDoxo').focus();
         }
 
         function cerrarModalDoxo() {
-            document.getElementById('modalDoxo').classList.add('hidden');
-            document.getElementById('modalDoxo').classList.remove('flex');
+            const modal = document.getElementById('modalDoxo');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
             document.getElementById('claveDoxo').value = "";
             document.getElementById('errorDoxo').classList.add('hidden');
         }
@@ -2126,7 +2128,6 @@
                 window.location.href = "https://doxologia.netlify.app/";
             } else {
                 document.getElementById('errorDoxo').classList.remove('hidden');
-                // Limpiar input si falla
                 document.getElementById('claveDoxo').value = "";
             }
         }
@@ -2134,8 +2135,7 @@
 
     <div id="modalDoxo"
         class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-6 backdrop-blur-sm">
-        <div
-            class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
+        <div class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center shadow-2xl bg-white">
             <div class="bg-blue-600 w-16 h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <i class="fas fa-music text-white text-2xl"></i>
             </div>
@@ -2153,6 +2153,7 @@
             </div>
             <p id="errorDoxo" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
         </div>
+    </div>
     </div>
 </body>
 
