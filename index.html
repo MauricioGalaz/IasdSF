@@ -727,11 +727,12 @@
                     <a href="#horarios">Actividades</a>
                     <a href="#ministerios">Ministerios</a>
                     <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
+
+                    </a>
                     <button onclick="abrirModalDoxo()"
                         class="hidden sm:flex items-center gap-2 bg-[#004a87] hover:bg-adventist-blue text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
                         <i class="fas fa-music text-[8px]"></i> Doxología
                     </button>
-                    </a>
                 </div>
             </nav>
 
@@ -2104,32 +2105,32 @@
             }
         }
     </script>
-    
+
     <script>
-    function abrirModalDoxo() {
-    document.getElementById('modalDoxo').classList.remove('hidden');
-    document.getElementById('modalDoxo').classList.add('flex');
-    document.getElementById('claveDoxo').focus();
-}
+        function abrirModalDoxo() {
+            document.getElementById('modalDoxo').classList.remove('hidden');
+            document.getElementById('modalDoxo').classList.add('flex');
+            document.getElementById('claveDoxo').focus();
+        }
 
-function cerrarModalDoxo() {
-    document.getElementById('modalDoxo').classList.add('hidden');
-    document.getElementById('modalDoxo').classList.remove('flex');
-    document.getElementById('claveDoxo').value = "";
-    document.getElementById('errorDoxo').classList.add('hidden');
-}
+        function cerrarModalDoxo() {
+            document.getElementById('modalDoxo').classList.add('hidden');
+            document.getElementById('modalDoxo').classList.remove('flex');
+            document.getElementById('claveDoxo').value = "";
+            document.getElementById('errorDoxo').classList.add('hidden');
+        }
 
-function validarDoxo() {
-    const clave = document.getElementById('claveDoxo').value;
-    if (clave.toLowerCase() === "doxo") {
-        window.location.href = "https://doxologia.netlify.app/";
-    } else {
-        document.getElementById('errorDoxo').classList.remove('hidden');
-        // Limpiar input si falla
-        document.getElementById('claveDoxo').value = "";
-    }
-}
-</script>
+        function validarDoxo() {
+            const clave = document.getElementById('claveDoxo').value;
+            if (clave.toLowerCase() === "doxo") {
+                window.location.href = "https://doxologia.netlify.app/";
+            } else {
+                document.getElementById('errorDoxo').classList.remove('hidden');
+                // Limpiar input si falla
+                document.getElementById('claveDoxo').value = "";
+            }
+        }
+    </script>
 
     <div id="modalDoxo"
         class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-6 backdrop-blur-sm">
