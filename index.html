@@ -664,9 +664,9 @@
                 <div class="marquee-text whitespace-nowrap px-4">
                     ¡ Bienvenidos a la IASD San Francisco de Limache ! • Próximo Sábado: Escuela Sabática 09:30 hrs. -
                     Culto de Adoración 11:00 hrs.•
-                    "Lámpara es a mis pies tu palabra" • Paseo de Iglesia el 22 de febrero "Solo 80 CUPOS" contactar con hna Hilda Sandoval •
+                    "Lámpara es a mis pies tu palabra" 
                     • Al terminar Culto de Adoración, !! Madres de
-                    Rodillas Hijos de pie !!  •  
+                    Rodillas Hijos de pie !! •
                 </div>
             </div>
 
@@ -690,6 +690,10 @@
                             class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
                             <i class="fas fa-circle text-[6px]"></i> En Vivo
                         </a>
+                        <a href="https://doxologia.netlify.app/"
+                            class="hidden sm:flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-white/20">
+                            <i class="fas fa-circle text-[6px]"></i> Doxologia
+                        </a>
                     </div>
 
                     <div class="hidden lg:flex items-center space-x-6 font-bold text-[11px] uppercase tracking-wide">
@@ -697,6 +701,9 @@
                         <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
                         <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
                         <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
+                        <button onclick="abrirModalMidea()" class="hover:text-adventist-gold flex items-center gap-2">
+                            <i class="fas fa-clapperboard"></i> Midea
+                        </button>
                         <a href="avisos.html"
                             class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
                             <i class="fas fa-bell"></i> Avisos
@@ -721,7 +728,9 @@
                     <a href="contactoaviso.html">Nosotros</a>
                     <a href="#horarios">Actividades</a>
                     <a href="#ministerios">Ministerios</a>
-                    <a href="avisos.html" class="text-adventist-gold italic">Avisos Importantes</a>
+                    <a href="avisos.html" class="text-adventist-gold italic">Avisos
+                        <a href="javascript:void(0)" onclick="abrirModalMidea()"
+                            class="text-white border-b border-white/10 pb-2">Midea Directo</a>Importantes</a>
                 </div>
             </nav>
 
@@ -830,7 +839,7 @@
         <div class="container mx-auto px-4">
             <div
                 class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
-                <img id="carousel" src="imagenes/foto1.jpg"
+                <img id="carousel" src="imagenes/foto1.jpg,"
                     class="w-full aspect-video object-cover transition-opacity duration-1000">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -2094,6 +2103,8 @@
             }
         }
     </script>
+
+
 
 </body>
 
