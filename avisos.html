@@ -7,9 +7,7 @@
     <title>Avisos - IASD Limache</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -20,13 +18,12 @@
                             blue: '#00305e',
                             gold: '#fec325',
                             light: '#f8fafc',
-                            green: '#1b5e20',
                             red: '#b71c1c',
-                            orange: '#e65100'
+                            dark: '#0f172a'
                         }
                     },
                     fontFamily: {
-                        sans: ['Open Sans', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                         heading: ['Montserrat', 'sans-serif'],
                     }
                 }
@@ -34,665 +31,275 @@
         }
     </script>
     <style>
-        html,
-        body {
-            max-width: 100%;
-            overflow-x: hidden;
-            width: 100%;
-            background-color: #fcfcfc;
-            /* Un blanco roto muy elegante */
-        }
+        :root { scroll-behavior: smooth; }
+        body { background: radial-gradient(circle at top right, #f8fafc, #eff6ff); overflow-x: hidden; }
 
-        .hover-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @media (min-width: 768px) {
-            .hover-card:hover {
-                transform: translateY(-8px);
-            }
-        }
-
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            max-height: 0;
-            overflow: hidden;
-        }
-
-        #mobile-menu.open {
-            max-height: 300px;
-            padding: 1rem 0;
-        }
-
-        /* Esto asegura que el botón de eliminar resalte sobre cualquier fondo */
-        .btn-eliminar-aviso {
-            position: absolute !important;
-            top: 10px !important;
-            right: 10px !important;
-            background-color: #ff0000 !important;
-            /* Rojo puro */
-            color: white !important;
-            width: 45px !important;
-            height: 45px !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 999 !important;
-            border: 3px solid white !important;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
-            cursor: pointer;
-        }
-
-        #contenedor-avisos-dinamicos section {
-            animation: slideUp 0.6s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        /* Efecto de degradado en el texto para que brille */
-        .bg-clip-text {
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        /* Tipografía moderna: Usaremos un interlineado amplio */
-        h2 {
-            font-family: 'Open Sans', sans-serif;
-            word-spacing: 0.1em;
-        }
-
-        /* El texto en minúsculas (lowercase) con la primera letra en mayúscula 
-   es una tendencia de diseño minimalista actual que facilita la lectura rápida. */
-        h2::first-letter {
-            font-size: 1.5em;
-            font-weight: 900;
-            color: #00305e;
-            /* Color adventista */
-        }
-
-        /* Efecto de cristal para el fondo */
-        body {
-            background: radial-gradient(circle at top right, #f8fafc, #eff6ff);
-            min-height: 100vh;
-        }
-
-        /* Animación de entrada suave */
+        /* Animaciones */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Efecto de Brillo (Shimmer) */
+        .shimmer {
+            position: relative; overflow: hidden;
+        }
+        .shimmer::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: skewX(-25deg); animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            from { left: -150%; }
+            to { left: 250%; }
         }
 
-        #contenedor-avisos-dinamicos section {
-            animation: fadeInUp 0.7s ease-out forwards;
-        }
+        .hover-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-
-        body {
-            background-color: #fcfcfc;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Animación de entrada suave y profesional */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        /* Ajuste de lectura */
-        h2 {
-            color: #475569;
-            /* Un gris azulado suave que no cansa la vista */
-            letter-spacing: -0.01em;
-        }
+        /* Estilo de Muro de Cristal */
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        
+        #mobile-menu { transition: max-height 0.3s ease-in-out; max-height: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 300px; }
     </style>
 </head>
 
-<body class="bg-slate-100 font-sans text-slate-900">
+<body class="text-slate-900">
 
-    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-xl border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-4 group">
-                <div class="relative">
-                    <div
-                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
-                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
-                    </div>
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="h-14 w-14 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg transition-transform group-hover:scale-110">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo">
                 </div>
-
-                <span
-                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
-                    IASD San Francisco<br>
-                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
-                </span>
+                <div class="flex flex-col">
+                    <span class="font-heading font-black text-[10px] sm:text-xs tracking-[0.2em] uppercase">IASD San Francisco</span>
+                    <span class="text-adventist-gold font-bold text-[12px] sm:text-sm uppercase tracking-widest">de Limache</span>
+                </div>
             </a>
-
-            <button id="menu-btn" class="md:hidden text-2xl p-2">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <div class="hidden md:flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
+            <button id="menu-btn" class="md:hidden text-2xl p-2 focus:outline-none"><i class="fas fa-bars"></i></button>
+            <div class="hidden md:flex items-center gap-8 font-bold text-xs uppercase tracking-widest">
                 <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
                 <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
-                <a href="contactoaviso.html"
-                    class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full hover:bg-white transition">Contacto</a>
+                <a href="contactoaviso.html" class="bg-adventist-gold text-adventist-blue px-6 py-2 rounded-full hover:bg-white transition shadow-lg">Contacto</a>
             </div>
         </div>
-
-        <div id="mobile-menu"
-            class="md:hidden bg-adventist-blue px-4 flex flex-col gap-4 font-bold text-center border-t border-white/10">
-            <a href="index.html" class="py-2 border-b border-white/5">Inicio</a>
-            <a href="cronograma.html" class="py-2 border-b border-white/5">Cronograma</a>
-            <a href="contactoaviso.html" class="py-2 text-adventist-gold">Contacto</a>
+        <div id="mobile-menu" class="md:hidden bg-adventist-blue px-6 flex flex-col gap-4 font-bold text-center">
+            <a href="index.html" class="py-3 border-b border-white/10">Inicio</a>
+            <a href="cronograma.html" class="py-3 border-b border-white/10">Cronograma</a>
+            <a href="contactoaviso.html" class="py-3 text-adventist-gold">Contacto</a>
         </div>
     </nav>
 
-    <header
-        class="w-full bg-adventist-blue text-white pt-10 pb-20 px-4 text-center rounded-b-[3rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+    <header class="w-full bg-adventist-blue text-white pt-12 pb-28 px-4 text-center rounded-b-[3rem] md:rounded-b-[6rem] shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <i class="fas fa-church text-[20rem] absolute -bottom-10 -left-10 rotate-12"></i>
+        </div>
         <div class="relative z-10">
-            <span
-                class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
-                BIENVENIDOS
-            </span>
-            <h1 class="text-4xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
+            <span class="inline-block bg-white/10 backdrop-blur-md text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] uppercase tracking-[0.3em] mb-6 border border-white/20">Panel Oficial de Información</span>
+            <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-6 uppercase drop-shadow-lg">
                 AVISOS DE <br> <span class="text-adventist-gold">IGLESIA</span>
             </h1>
-            <p
-                class="text-sm md:text-3xl font-bold opacity-90 tracking-widest uppercase italic border-t border-white/20 inline-block pt-4 mt-2">
-                Sábado 28 de Febrero 2026
+            <p class="text-sm md:text-2xl font-bold opacity-80 tracking-widest uppercase italic border-t border-white/20 inline-block pt-4 mt-2">
+                Sábado 07 de Marzo 2026
             </p>
         </div>
     </header>
 
-    <div class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
-        <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
-            <div id="contenedor-avisos-dinamicos" class="space-y-8 md:space-y-12">
+    <main class="container mx-auto px-4 -mt-16 pb-20 max-w-4xl space-y-10">
+        
+        <div id="contenedor-avisos-dinamicos" class="space-y-8">
             </div>
 
+        <section class="hover-card glass border-t-[12px] border-adventist-gold rounded-[2.5rem] p-8 md:p-14 shadow-2xl text-center">
+            <div class="w-24 h-24 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-hands-praying text-5xl md:text-7xl text-adventist-gold animate-pulse"></i>
+            </div>
+            <h2 class="text-4xl md:text-7xl font-heading font-black text-slate-800 leading-none mb-6 uppercase tracking-tighter">
+                ORACIÓN<br>INTERCESORA
+            </h2>
+            <div class="inline-block bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xl md:text-3xl shadow-xl shimmer">
+                HOY SÁBADO <br> 16:00 HRS
+            </div>
+            <p class="mt-8 text-slate-500 text-sm md:text-xl font-bold italic uppercase tracking-widest">
+                "Donde dos o tres se reúnen en mi nombre..."
+            </p>
+        </section>
 
-
-            <style>
-                @keyframes shimmer {
-                    100% {
-                        transform: translateX(100%);
-                    }
-                }
-            </style>
-            </section>
-
-
-            <section
-                class="hover-card bg-white border-t-[12px] md:border-t-[16px] border-adventist-gold rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-12 shadow-2xl text-center">
-                <i class="fas fa-hands-praying text-6xl md:text-9xl text-adventist-gold mb-6 animate-pulse"></i>
-                <h2 class="text-3xl md:text-8xl font-heading font-black text-slate-800 leading-none mb-6 uppercase">
-                    ORACIÓN<br>INTERCESORA
-                </h2>
-                <div
-                    class="inline-block bg-adventist-gold text-adventist-blue px-8 py-3 md:px-10 md:py-4 rounded-2xl md:rounded-3xl font-black text-xl md:text-4xl shadow-xl">
-                    SÁBADO 28 DE FEBRERO 2026 <br> 16:00 HRS
+        <section class="hover-card bg-adventist-red rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
+            <div class="bg-white rounded-[2.9rem] p-8 md:p-12 text-center relative overflow-hidden h-full">
+                <div class="absolute -right-10 -top-10 opacity-5 group-hover:rotate-45 transition-transform duration-700">
+                    <i class="fas fa-table-tennis-paddle-ball text-[15rem]"></i>
                 </div>
-                <p class="mt-6 md:mt-8 text-slate-500 text-sm md:text-2xl font-bold italic uppercase tracking-wide">
-                    !!NO FALTES A ESTA CITA CON DIOS !!
-
-
-
-
-            </section>
-
-            <style>
-                /* Efecto Shimmer más agresivo y rápido */
-                .shimmer-effect {
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .shimmer-effect::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: -150%;
-                    width: 60%;
-                    height: 100%;
-                    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
-                    transform: skewX(-25deg);
-                    animation: shine 2.2s infinite;
-                }
-
-                @keyframes shine {
-                    from {
-                        left: -150%;
-                    }
-
-                    to {
-                        left: 250%;
-                    }
-                }
-
-                .glass-modal {
-                    background: rgba(255, 255, 255, 0.98);
-                    backdrop-filter: blur(20px);
-                }
-            </style>
-
-
-
-            <section
-                class="hover-card bg-red-50 border-t-[12px] border-adventist-red rounded-[3rem] p-10 shadow-xl text-center relative overflow-hidden">
-                <div class="absolute top-5 left-5 opacity-10 text-adventist-red text-8xl -rotate-12">
-                    <i class="fas fa-calendar-times"></i>
-                </div>
-                <h2 class="text-4xl md:text-7xl font-heading font-black text-adventist-red leading-none mb-4 uppercase">
-                    CULTO JA</h2>
-
-                <div class="bg-adventist-red text-white py-6 rounded-[2rem] shadow-2xl transform -rotate-1">
-                    <p class="text-3xl md:text-6xl font-black uppercase tracking-tighter">PROXIMO SÁBADO 28 DE FEBRERO
-                        2026<br> RETOMAREMOS
-                        NUESTRO CULTO JA <br>SECCIÓN DE SALUD
+                
+                <h2 class="text-5xl md:text-8xl font-heading font-black text-adventist-red leading-none mb-4 uppercase italic">CULTO JA</h2>
+                
+                <div class="bg-adventist-red text-white py-8 px-4 rounded-[2rem] shadow-xl mb-8 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                    <p class="text-2xl md:text-4xl font-black uppercase leading-tight">
+                        HOY 18:00 HRS <br>
+                        <span class="text-adventist-gold">ENCUENTRO DE JÓVENES</span>
                     </p>
                 </div>
-            </section>
 
-            <section
-                class="hover-card bg-white border-t-[12px] md:border-t-[16px] border-adventist-blue rounded-[2.5rem] p-6 md:p-10 shadow-xl text-center">
-                <i class="fas fa-hands-praying text-5xl md:text-6xl text-adventist-blue mb-6"></i>
-
-                <h2 class="text-2xl md:text-7xl font-heading font-black text-slate-800 leading-none mb-4 uppercase">
-                    JUNTA ADMINISTRATIVA
-                    <br class="md:hidden">
-                </h2>
-
-                <p
-                    class="bg-adventist-blue text-adventist-gold inline-block px-6 py-2 rounded-xl md:rounded-2xl font-black text-lg md:text-3xl italic shadow-md mb-8">
-                    DÍA DOMINGO 1 DE MARZO DE 2026 - <br>09:30 HRS.
-                </p>
-
-                <div class="mt-6 animate-pulse">
-                    <div
-                        class="bg-red-600 text-white p-4 md:p-6 rounded-[1.5rem] border-4 border-yellow-400 shadow-2xl">
-                        <h3 class="text-xl md:text-4xl font-black uppercase mb-2">
-                            ⚠️ ¡AVISO IMPORTANTE! ⚠️
-                        </h3>
-                        <p class="text-lg md:text-2xl font-bold leading-tight">
-                            HASTA ESTE <span class="underline decoration-yellow-400 decoration-4">JUEVES 26</span> SE
-                            RECIBEN PUNTOS.
-                            <br class="hidden md:block">
-                            FAVOR ENVIAR POR INTERNO A SECRETARÍA DE LA IGLESIA:
-                        </p>
-                        <p class="text-2xl md:text-5xl font-black mt-2 text-yellow-300 drop-shadow-lg">
-                            HNA. HILDA SANDOVAL
-                        </p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 bg-slate-50 p-6 rounded-2xl border-2 border-dashed border-adventist-red/30">
+                    <div class="flex -space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-adventist-gold flex items-center justify-center shadow-lg"><i class="fas fa-trophy text-white"></i></div>
+                        <div class="w-12 h-12 rounded-full bg-adventist-blue flex items-center justify-center shadow-lg"><i class="fas fa-star text-white"></i></div>
                     </div>
-                </div>
-            </section>
-
-            <section
-                class="hover-card bg-white border-t-[12px] md:border-t-[16px] border-adventist-blue rounded-[2.5rem] p-6 md:p-10 shadow-xl text-center max-w-4xl mx-auto">
-                <i class="fas fa-broadcast-tower text-5xl md:text-6xl text-adventist-blue mb-6"></i>
-
-                <h2 class="text-3xl md:text-7xl font-heading font-black text-slate-800 leading-none mb-4 uppercase">
-                    ENTRENAMIENTO <br>
-                    <span class="text-adventist-blue">DISTRITAL DE LIDERES</span>
-                </h2>
-
-                <p
-                    class="bg-adventist-blue text-adventist-gold inline-block px-6 py-2 rounded-xl md:rounded-2xl font-black text-lg md:text-3xl italic shadow-md mb-8">
-                    14 DE MARZO 2026 - 16:00 HRS.<br>
-                    Dirección - El Boldo 995, Limache
-                </p>
-
-                <div class="mt-6">
-                    <div
-                        class="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-6 md:p-8 rounded-[1.5rem] border-4 border-adventist-gold shadow-2xl">
-                        <h3
-                            class="text-xl md:text-4xl font-black uppercase mb-4 flex items-center justify-center gap-3">
-                            <i class="fas fa-video"></i> ¡TE ESPERAMOS!
-                        </h3>
-
-            
-
-                        <hr class="my-4 border-adventist-gold/30">
-
-                        <p class="text-lg md:text-2xl font-black uppercase italic animate-bounce">
-                            Capacitaciones para líderes de iglesia distrito limache <br>
-                        </p>
-                    </div>
-                </div>
-
-                <p class="mt-6 text-slate-500 font-bold uppercase tracking-widest text-sm md:text-base">
-                    Iglesia Adventista de Limache
-                </p>
-            </section>
-
-            <section
-                class="hover-card bg-slate-900 rounded-[2.5rem] p-8 md:p-10 shadow-4xl text-center text-white border-b-[10px] md:border-b-[12px] border-adventist-gold">
-                <p class="text-lg md:text-3xl font-heading font-black uppercase mb-6 leading-tight">Anciano de Turno -
-                    Febrero</p>
-                <h2
-                    class="text-3xl md:text-7xl font-heading font-black uppercase italic tracking-tighter leading-tight">
-                    HNO <br> GUILLERMO VERA
-                </h2>
-            </section>
-
-        </main>
-
-        <footer class="bg-adventist-dark text-white pt-16 pb-8">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col items-center">
-                    <img src="imagenes/logo.jpg"
-                        class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                    <h2 class="text-adventist-gold font-bold">Iglesia Adventista del Séptimo día</h2><br>
-
-                    <div class="flex justify-center space-x-8 mb-8">
-                        <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                                class="fab fa-facebook-f fa-2xl"></i></a>
-                        <a href="#"
-                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                                class="fab fa-instagram fa-2xl"></i></a>
-                        <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                                class="fab fa-youtube fa-2xl"></i></a>
-                    </div>
-
-                    <div class="w-full border-t border-white/5 pt-8 text-center">
-                        <p class="text-slate-500 text-xs">© 2026 Aviso de iglesia - IASD - Todos los derechos
-                            reservados.
-                        </p>
-                        <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                            Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                        </p>
-                    </div>
+                    <p class="font-black text-slate-700 uppercase tracking-tighter text-lg md:text-2xl">
+                        PRÓXIMAMENTE: <span class="text-adventist-red">CAMPEONATO DE PING-PONG</span>
+                    </p>
                 </div>
             </div>
+        </section>
 
-            <!-- BOTÓN VOLVER ARRIBA -->
-            <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
-                <i class="fas fa-chevron-up"></i>
+        <section class="hover-card glass border-t-[12px] border-adventist-blue rounded-[3rem] p-10 shadow-xl text-center">
+            <i class="fas fa-users-gear text-6xl text-adventist-blue mb-6"></i>
+            <h2 class="text-3xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-6 uppercase">
+                ENTRENAMIENTO <br> <span class="text-adventist-blue">DISTRITAL DE LÍDERES</span>
+            </h2>
+            <div class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-xl md:text-3xl font-black text-adventist-gold mb-2 uppercase italic">14 DE MARZO - 16:00 HRS</p>
+                    <p class="text-sm md:text-lg font-medium opacity-90 uppercase tracking-widest">📍 El Boldo 995, Limache</p>
+                    <hr class="my-6 border-white/10">
+                    <p class="text-lg md:text-2xl font-bold uppercase">¡Te esperamos para crecer juntos!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hover-card bg-adventist-dark rounded-[2.5rem] p-10 shadow-4xl text-center text-white border-b-[12px] border-adventist-gold relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-user-tie text-9xl"></i></div>
+            <p class="text-adventist-gold text-xs font-black uppercase tracking-[0.5em] mb-4">Anciano de Turno</p>
+            <h2 class="text-4xl md:text-7xl font-heading font-black uppercase italic tracking-tighter leading-tight">
+                HNO. VICTOR <br> RECABARREN
+            </h2>
+        </section>
+
+        <section class="mt-20 flex flex-col items-center">
+            <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-adventist-blue text-[10px] font-black uppercase tracking-[0.4em] transition-all py-4">
+                <i class="fas fa-shield-halved mr-2"></i> Gestión de Muro
             </button>
-
-        </footer>
-
-        <button id="btnTop"
-            class="hidden fixed bottom-6 right-6 bg-adventist-blue text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl shadow-2xl z-[100] items-center justify-center">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-
-        <script>
-            // Lógica del Menú Móvil
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('open');
-                const icon = menuBtn.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            });
-
-            // Lógica Botón Volver Arriba
-            const btnTop = document.getElementById("btnTop");
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 500) {
-                    btnTop.classList.remove("hidden");
-                    btnTop.classList.add("flex");
-                } else {
-                    btnTop.classList.add("hidden");
-                    btnTop.classList.remove("flex");
-                }
-            });
-            btnTop.addEventListener("click", () => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            });
-        </script>
-
-        <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-8 md:space-y-12">
-
-            <div id="contenedor-avisos-dinamicos" class="space-y-8 md:space-y-12">
-            </div>
-
-            <section class="mt-20 pt-10 border-t border-slate-200">
-                <div class="flex flex-col items-center gap-4">
-                    <button onclick="toggleAdminPanel()"
-                        class="text-slate-300 hover:text-adventist-blue text-[10px] font-black uppercase tracking-[0.4em] transition-all">
-                        <i class="fas fa-lock-open mr-2"></i> Gestión de Muro
-                    </button>
-
-                    <div id="admin-panel"
-                        class="hidden flex flex-col items-center gap-3 bg-white p-8 rounded-[2.5rem] shadow-2xl border border-slate-100 max-w-sm w-full">
-                        <p class="text-[9px] font-black text-adventist-blue uppercase tracking-widest mb-2">Clave
-                            Maestra para Editar</p>
-                        <input type="password" id="admin-pass" placeholder="contraseña"
-                            class="bg-slate-50 px-6 py-3 rounded-2xl text-center focus:ring-2 focus:ring-adventist-gold outline-none w-full shadow-inner font-bold">
-                        <div class="flex gap-2 w-full">
-                            <button onclick="activarEdicion()"
-                                class="flex-1 bg-adventist-blue text-white py-3 rounded-xl font-black text-[10px] uppercase shadow-lg">Activar</button>
-                            <button onclick="borrarTodoMuro()"
-                                class="flex-1 bg-red-600 text-white py-3 rounded-xl font-black text-[10px] uppercase shadow-lg">Limpiar</button>
-                        </div>
-                    </div>
+            <div id="admin-panel" class="hidden glass p-8 rounded-[2rem] shadow-2xl max-w-sm w-full animate-fade-in">
+                <input type="password" id="admin-pass" placeholder="Contraseña Maestra" class="w-full bg-slate-100 px-6 py-4 rounded-xl text-center focus:ring-2 focus:ring-adventist-gold outline-none font-bold mb-4">
+                <div class="flex gap-2">
+                    <button onclick="activarEdicion()" class="flex-1 bg-adventist-blue text-white py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition">Entrar</button>
+                    <button onclick="location.reload()" class="flex-1 bg-slate-200 text-slate-600 py-3 rounded-xl font-black text-xs uppercase shadow-lg">Salir</button>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import {
-                getFirestore,
-                collection,
-                query,
-                orderBy,
-                onSnapshot,
-                deleteDoc,
-                updateDoc,
-                doc
-            } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <footer class="bg-adventist-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6 text-center">
+            <img src="imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-2 border-adventist-gold p-1 shadow-2xl">
+            <h3 class="text-adventist-gold font-black uppercase tracking-widest text-lg mb-8">Iglesia Adventista del Séptimo Día</h3>
+            <div class="flex justify-center space-x-10 mb-12">
+                <a href="#" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-2"><i class="fab fa-facebook-f fa-2x"></i></a>
+                <a href="#" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-2"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-2"><i class="fab fa-youtube fa-2x"></i></a>
+            </div>
+            <p class="text-slate-500 text-[10px] uppercase tracking-[0.2em]">© 2026 iasd limache | diseñado por mauricio galaz estay</p>
+        </div>
+    </footer>
 
-            /* ================= FIREBASE ================= */
-            const firebaseConfig = {
-                apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-                authDomain: "iasd-limache-muro.firebaseapp.com",
-                projectId: "iasd-limache-muro",
-                messagingSenderId: "277039117234",
-                appId: "1:277039117234:web:65f4e76064935cadabaaab"
-            };
+    <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue w-14 h-14 rounded-2xl shadow-2xl z-[100] items-center justify-center hover:scale-110 transition-all">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-            navigator.serviceWorker.register("/firebase-messaging-sw.js");
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.appspot.com",
+            messagingSenderId: "277039117234",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
 
-            Notification.requestPermission().then(async permission => {
-                if (permission === "granted") {
-                    const token = await getToken(messaging, {
-                        vapidKey: "TU_VAPID_KEY_AQUI"
-                    });
-                    console.log("🔔 Token push:", token);
-                }
-            });
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-            /* ================= CONFIG ================= */
-            const ADMIN_PASS = "iasdsf"; // Cambiado según tu instrucción guardada
-            let modoEdicionActivo = true; // Modo edición activado por defecto para pruebas
+        let modoEdicionActivo = false;
+        const ADMIN_PASS = "iasdsf";
 
+        // UI Helpers
+        window.toggleAdminPanel = () => document.getElementById("admin-panel").classList.toggle("hidden");
+        
+        window.activarEdicion = () => {
+            const pass = document.getElementById("admin-pass").value;
+            if(pass === ADMIN_PASS) {
+                modoEdicionActivo = true;
+                alert("✅ Modo edición activado");
+                document.getElementById("admin-panel").classList.add("hidden");
+                renderAvisos(); // Refrescar para mostrar botones de borrar
+            } else {
+                alert("❌ Clave incorrecta");
+            }
+        };
 
-            /* ================= HELPERS ================= */
-            const $ = (id) => document.getElementById(id);
+        window.eliminarAviso = async (id) => {
+            if(confirm("¿Seguro que deseas eliminar este aviso?")) {
+                await deleteDoc(doc(db, "avisos", id));
+            }
+        };
 
-            const escapeHTML = (str = "") =>
-                str.replace(/[&<>"']/g, m =>
-                    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])
-                );
+        window.compartirWhatsApp = (mensaje, depto) => {
+            const texto = `📢 *AVISO DE ${depto.toUpperCase()}*:\n\n"${mensaje}"\n\n_IASD San Francisco de Limache_`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`, "_blank");
+        };
 
-            const estaExpirado = (aviso) =>
-                aviso.expira && aviso.expira.toDate().getTime() < Date.now();
-
-            /* ================= ADMIN ================= */
-            window.toggleAdminPanel = () => $("admin-panel")?.classList.toggle("hidden");
-
-            window.activarEdicion = () => {
-                const pass = $("admin-pass").value.trim();
-                if (pass === ADMIN_PASS) {
-                    modoEdicionActivo = true;
-                    $("admin-panel").classList.add("hidden");
-                    alert("✅ Modo administrador activado");
-                } else {
-                    alert("❌ Clave incorrecta");
-                }
-            };
-
-            /* ================= CRUD ================= */
-            window.eliminarAviso = async (id) => {
-                if (!modoEdicionActivo) {
-                    alert("❌ Modo administrador no activo");
-                    return;
-                }
-
-                if (!confirm("¿Eliminar este aviso permanentemente?")) return;
-
-                try {
-                    await deleteDoc(doc(db, "avisos", id));
-                    console.log("Aviso eliminado:", id);
-                } catch (error) {
-                    console.error("ERROR DELETE:", error);
-                    alert("❌ Firestore bloqueó la eliminación (reglas)");
-                }
-            };
-
-
-            window.editarAviso = async (id, textoActual) => {
-                if (!modoEdicionActivo) return;
-
-                const nuevo = prompt("✏️ Editar aviso:", textoActual);
-                if (nuevo && nuevo.trim().length > 3) {
-                    await updateDoc(doc(db, "avisos", id), {
-                        mensaje: nuevo.trim()
-                    });
-                }
-            };
-
-            /* ================= RENDER ================= */
-            const contenedor = $("contenedor-avisos-dinamicos");
-
+        // Renderizado de Avisos
+        function renderAvisos() {
             const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
-
-
             onSnapshot(q, (snapshot) => {
+                const contenedor = document.getElementById("contenedor-avisos-dinamicos");
                 contenedor.innerHTML = "";
-
                 snapshot.forEach((docSnap) => {
-                    const a = docSnap.data();
-                    if (estaExpirado(a)) return;
-
-                    const section = document.createElement("section");
-                    section.className = "relative mb-8 group animate-fade-in";
-
-                    section.innerHTML = `
-            <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-[0_15px_40px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.07)] hover:-translate-y-1">
-                
-                <div class="flex justify-between items-center mb-8">
-                    <div class="flex items-center gap-3">
-                        <div class="w-1.5 h-6 bg-adventist-gold rounded-full"></div>
-                        <span class="text-[10px] font-black uppercase tracking-[0.4em] text-adventist-blue">
-                            ${escapeHTML(a.departamento)}
-                        </span>
-                    </div>
-                    
-                    <div class="flex items-center gap-4">
-                        <span class="text-[8px] font-bold text-slate-300 uppercase tracking-widest">${a.fecha || ''}</span>
-                        ${modoEdicionActivo ? `
-                            <button onclick="eliminarAviso('${docSnap.id}')" class="text-slate-200 hover:text-red-400 transition-colors text-xs">
-                                <i class="fas fa-trash-alt"></i>
+                    const data = docSnap.data();
+                    const card = document.createElement("div");
+                    card.className = "animate-fade-in glass rounded-[2.5rem] p-8 shadow-xl border-l-[8px] border-adventist-gold relative group";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-adventist-blue text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest">${data.departamento}</span>
+                            ${modoEdicionActivo ? `<button onclick="eliminarAviso('${docSnap.id}')" class="text-red-500 hover:scale-125 transition"><i class="fas fa-trash-alt"></i></button>` : ''}
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-slate-700 leading-relaxed mb-6 italic">"${data.mensaje}"</h3>
+                        <div class="flex flex-col md:flex-row justify-between items-center border-t border-slate-100 pt-6 gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-400"><i class="fas fa-user-circle"></i></div>
+                                <div>
+                                    <p class="text-[8px] font-black text-slate-400 uppercase">Responsable</p>
+                                    <p class="text-sm font-bold text-slate-600 uppercase">${data.lider}</p>
+                                </div>
+                            </div>
+                            <button onclick="compartirWhatsApp('${data.mensaje.replace(/'/g, "\\'")}','${data.departamento}')" class="w-full md:w-auto flex items-center justify-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase hover:bg-green-600 transition shadow-lg">
+                                Compartir <i class="fab fa-whatsapp text-lg"></i>
                             </button>
-                        ` : ""}
-                    </div>
-                </div>
-
-                <div class="px-4 mb-10">
-                    <h2 class="text-lg md:text-xl font-medium text-slate-600 leading-[1.8] tracking-normal text-pretty">
-                        ${escapeHTML(a.mensaje)}
-                    </h2>
-                </div>
-
-                <div class="flex items-center justify-between pt-6 border-t border-slate-50">
-                    
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100">
-                            <i class="fas fa-user text-[10px]"></i>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-[7px] font-black text-slate-300 uppercase tracking-[0.2em]">Responsable</span>
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-tight">${escapeHTML(a.lider)}</span>
-                        </div>
-                    </div>
-
-                    <button onclick="compartirWhatsApp('${escapeHTML(a.mensaje)}','${escapeHTML(a.departamento)}')" 
-                        class="group/btn flex items-center gap-3 px-6 py-3 bg-slate-50 hover:bg-adventist-blue rounded-xl transition-all duration-300 border border-slate-100">
-                        <span class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover/btn:text-white transition-colors">Compartir</span>
-                        <i class="fab fa-whatsapp text-slate-300 group-hover/btn:text-adventist-gold transition-colors"></i>
-                    </button>
-                </div>
-
-            </div>
-        `;
-                    contenedor.appendChild(section);
+                    `;
+                    contenedor.appendChild(card);
                 });
             });
+        }
 
+        renderAvisos();
 
-            contenedor.appendChild(fragment);
+        // Botón Top y Menú
+        const btnTop = document.getElementById("btnTop");
+        window.onscroll = () => {
+            btnTop.style.display = window.scrollY > 400 ? "flex" : "none";
+        };
+        btnTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-
-            /* ================= WHATSAPP ================= */
-            window.compartirWhatsApp = (mensaje, depto) => {
-                const texto = `📢 Aviso de ${depto}:\n\n"${mensaje}"\n\nIASD San Francisco de Limache`;
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`, "_blank");
-            };
-        </script>
-
+        document.getElementById("menu-btn").onclick = () => {
+            document.getElementById("mobile-menu").classList.toggle("open");
+        };
+    </script>
+</body>
 </html>
