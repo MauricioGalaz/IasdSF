@@ -2207,6 +2207,22 @@
         </div>
     </div>
     </div>
+
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+    reg.addEventListener('updatefound', () => {
+    const newWorker = reg.installing;
+    newWorker.addEventListener('statechange', () => {
+    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+    // Avisar al usuario o recargar automáticamente
+    if (confirm("Hay una nueva actualización disponible. ¿Deseas cargarla ahora?")) {
+    window.location.reload();
+    }
+    }
+    });
+    });
+    });
+    }
 </body>
 
 </html>
