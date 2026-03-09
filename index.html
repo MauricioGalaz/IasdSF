@@ -848,21 +848,24 @@
             </div>
 
             <div class="relative max-w-5xl mx-auto mb-12 group">
-                <div class="relative overflow-hidden rounded-[3rem] shadow-2xl border-8 border-white shimmer-effect cursor-zoom-in" 
+                <div class="relative overflow-hidden rounded-[3rem] shadow-2xl border-8 border-white shimmer-effect cursor-zoom-in"
                     onclick="ampliarImagen()">
                     <img id="carousel" src="imagenes/fotos/foto1.jpg"
                         class="w-full aspect-video object-cover transition-all duration-700 ease-in-out"
                         style="opacity: 1; transform: scale(1);">
-                    
-                    <div class="absolute bottom-4 right-6 bg-black/40 backdrop-blur-sm text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+
+                    <div
+                        class="absolute bottom-4 right-6 bg-black/40 backdrop-blur-sm text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
                         <i class="fas fa-search-plus mr-1"></i> Click para ampliar
                     </div>
                 </div>
 
-                <button onclick="pasarFoto(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
+                <button onclick="pasarFoto(-1)"
+                    class="absolute left-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button onclick="pasarFoto(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
+                <button onclick="pasarFoto(1)"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -877,13 +880,18 @@
         </button>
     </div>
 
-    <div id="modalAncianos" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6 backdrop-blur-sm">
-        <div class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
+    <div id="modalAncianos"
+        class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6 backdrop-blur-sm">
+        <div
+            class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
             <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase">Liderazgo</h2>
-            <input id="claveAncianos" type="password" class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold" placeholder="Clave">
-            <button onclick="validarAncianos()" class="w-full bg-adventist-blue text-white py-4 rounded-2xl font-black uppercase text-xs">Entrar</button>
+            <input id="claveAncianos" type="password"
+                class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold" placeholder="Clave">
+            <button onclick="validarAncianos()"
+                class="w-full bg-adventist-blue text-white py-4 rounded-2xl font-black uppercase text-xs">Entrar</button>
             <p id="errorAncianos" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
-            <button onclick="cerrarModalAncianos()" class="text-gray-400 font-bold text-[9px] uppercase mt-4 underline">Cancelar</button>
+            <button onclick="cerrarModalAncianos()"
+                class="text-gray-400 font-bold text-[9px] uppercase mt-4 underline">Cancelar</button>
         </div>
     </div>
     </section>
@@ -1297,45 +1305,50 @@
     </style>
 
     <section id="escuela-vacaciones" class="py-16 bg-white reveal">
-        <div class="container mx-auto px-4 max-w-5xl">
-            <div
-                class="bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch border border-slate-800">
-
-                <div class="lg:w-1/2 relative overflow-hidden bg-black h-[350px] lg:h-auto">
-                    <img id="carrusel-accion" src="imagenes/accion/ecv1.jpeg"
-                        class="w-full h-full object-cover ken-burns" style="transition: opacity 1s ease-in-out;">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
-                    </div>
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="bg-gray-100 p-4 md:p-8 rounded-[3.5rem] shadow-xl border border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+                
+                <div class="hidden lg:block relative overflow-hidden rounded-[2.5rem] shadow-lg group h-[400px]">
+                    <img src="imagenes/accion/ecv1.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
 
-                <div
-                    class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center text-center lg:text-left bg-slate-900 text-white">
-                    <span
-                        class="text-yellow-500 font-black text-[10px] uppercase mb-4 tracking-[0.3em] flex items-center justify-center lg:justify-start">
-                        <span class="w-8 h-[1px] bg-yellow-500 mr-2"></span>Aventuras en el Desierto
+                <div class="relative overflow-hidden rounded-[2.5rem] shadow-lg group h-[300px] md:h-auto lg:h-[400px]">
+                    <img src="imagenes/accion/ecv2.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent"></div>
+                </div>
+
+                <div class="lg:col-span-1 bg-slate-900 rounded-[2.5rem] p-8 flex flex-col justify-center text-center text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#fec325]/10 rounded-full blur-3xl"></div>
+                    
+                    <span class="text-[#fec325] font-black text-[9px] uppercase mb-3 tracking-[0.3em] block">
+                        Aventuras en el Desierto
                     </span>
 
-                    <h3 class="text-4xl font-black mb-6 uppercase italic leading-none">
-                        Escuela Cristana <br><span class="text-[#fec325]">de Vacaciones 2026</span>
+                    <h3 class="text-3xl font-black mb-4 uppercase italic leading-tight">
+                        Escuela Cristiana <br><span class="text-[#fec325]">de Vacaciones 2026</span>
                     </h3>
 
-                    <p class="text-slate-400 mb-8 italic text-sm leading-relaxed">
-                        Revive los momentos de nuestra escuela cristiana de vacaciones 2026, en nuestra iglesia.
+                    <p class="text-slate-400 mb-6 italic text-xs leading-relaxed">
+                        Revive los momentos de nuestra escuela cristiana de vacaciones 2026, compartiendo la fe con alegría.
                     </p>
 
-                    <div>
-                        <button onclick="playFullVideo()"
-                            class="bg-[#fec325] text-[#00305e] px-10 py-5 rounded-full font-black text-[11px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center">
-                            <i class="fas fa-play-circle text-xl mr-3"></i> REPRODUCIR VIDEO CANTO LEMA ECV 2026
-
-                        </button>
-                    </div>
+                    <button onclick="playFullVideo()" 
+                            class="bg-[#fec325] text-[#00305e] px-6 py-4 rounded-full font-black text-[10px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-play-circle text-lg"></i> REPRODUCIR VIDEO LEMA
+                    </button>
                 </div>
+
+                <div class="relative overflow-hidden rounded-[2.5rem] shadow-lg group h-[300px] md:h-auto lg:h-[400px]">
+                    <img src="imagenes/accion/ecv3.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 3">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent"></div>
+                </div>
+
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <header class="bg-blue-900 text-white py-20 text-center shadow-lg">
         <h1 class="text-4xl font-bold">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
         <p class="mt-4 text-xl text-blue-200">Sirviendo con amor en este nuevo año 2026</p>
