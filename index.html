@@ -765,6 +765,7 @@
             </div>
 
 
+
             <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4">
                 <div class="max-w-4xl text-white">
                     <h1
@@ -838,55 +839,98 @@
         </div>
     </section>
 
-    <section id="horarios" class="py-12 bg-adventist-light reveal">
+    <section id="horarios" class="py-12 bg-gray-50 reveal">
         <div class="container mx-auto px-4">
-            <div
-                class="relative max-w-5xl mx-auto overflow-hidden rounded-[3rem] shadow-2xl mb-12 border-8 border-white shimmer-effect">
-                <img id="carousel" src="imagenes/foto1.jpg"
-                    class="w-full aspect-video object-cover transition-opacity duration-1000">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-black text-adventist-blue uppercase italic tracking-tighter">
+                    Nuestra <span class="text-adventist-gold">Iglesia</span>
+                </h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                    <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
-                    <p class="font-bold">09:30 AM — Escuela Sabática</p>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
-                    <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
-                    <p class="font-bold">17:30 PM — Oración Intercesora</p>
-                </div>
-                <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
-                    <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
-                    <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
-                    <p class="font-bold">19:00 PM — Culto de Oración</p>
-                </div>
-            </div>
-        </div>
 
-        <section class="py-12 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-black text-adventist-blue uppercase italic">
-                        Muro de <span class="text-adventist-gold">Anuncios</span>
-                    </h2>
-                    <div class="h-1 flex-grow mx-4 bg-gradient-to-r from-adventist-gold to-transparent rounded-full">
+            <div class="relative max-w-5xl mx-auto mb-12 group">
+                <div class="relative overflow-hidden rounded-[3rem] shadow-2xl border-8 border-white shimmer-effect cursor-zoom-in" 
+                    onclick="ampliarImagen()">
+                    <img id="carousel" src="imagenes/fotos/foto1.jpg"
+                        class="w-full aspect-video object-cover transition-all duration-700 ease-in-out"
+                        style="opacity: 1; transform: scale(1);">
+                    
+                    <div class="absolute bottom-4 right-6 bg-black/40 backdrop-blur-sm text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-search-plus mr-1"></i> Click para ampliar
                     </div>
                 </div>
 
-                <div id="contenedor-avisos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="animate-pulse flex space-x-4 p-6 glass-modal rounded-3xl">
-                        <div class="rounded-full bg-slate-200 h-10 w-10"></div>
-                        <div class="flex-1 space-y-4 py-1">
+                <button onclick="pasarFoto(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="pasarFoto(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-adventist-blue/40 hover:bg-adventist-blue text-white w-12 h-12 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 flex items-center justify-center z-10">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="py-12 flex justify-center px-4">
+        <button onclick="abrirModalAncianos()"
+            class="w-full max-w-sm bg-slate-950 text-white py-6 rounded-[2.5rem] flex items-center justify-center gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+            <i class="fas fa-user-shield text-adventist-gold text-2xl"></i>
+            <span class="font-black uppercase text-xs tracking-widest italic">Acceso Ancianos</span>
+        </button>
+    </div>
+
+    <div id="modalAncianos" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-6 backdrop-blur-sm">
+        <div class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center animate__animated animate__zoomIn shadow-2xl">
+            <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase">Liderazgo</h2>
+            <input id="claveAncianos" type="password" class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold" placeholder="Clave">
+            <button onclick="validarAncianos()" class="w-full bg-adventist-blue text-white py-4 rounded-2xl font-black uppercase text-xs">Entrar</button>
+            <p id="errorAncianos" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
+            <button onclick="cerrarModalAncianos()" class="text-gray-400 font-bold text-[9px] uppercase mt-4 underline">Cancelar</button>
+        </div>
+    </div>
+    </section>
+    <section>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                <i class="fas fa-sun text-adventist-gold text-4xl mb-4"></i>
+                <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Mañana</h3>
+                <p class="font-bold">09:30 AM — Escuela Sabática</p>
+            </div>
+            <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-sm">
+                <i class="fas fa-users text-adventist-blue text-4xl mb-4"></i>
+                <h3 class="font-black uppercase text-sm mb-2 italic">Sábado Tarde</h3>
+                <p class="font-bold">17:30 PM — Oración Intercesora</p>
+            </div>
+            <div class="bg-white p-8 rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-sm">
+                <i class="fas fa-moon text-adventist-gold text-4xl mb-4"></i>
+                <h3 class="font-black uppercase text-sm mb-2 italic">Miércoles</h3>
+                <p class="font-bold">19:00 PM — Culto de Oración</p>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-black text-adventist-blue uppercase italic">
+                    Muro de <span class="text-adventist-gold">Anuncios</span>
+                </h2>
+                <div class="h-1 flex-grow mx-4 bg-gradient-to-r from-adventist-gold to-transparent rounded-full">
+                </div>
+            </div>
+
+            <div id="contenedor-avisos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="animate-pulse flex space-x-4 p-6 glass-modal rounded-3xl">
+                    <div class="rounded-full bg-slate-200 h-10 w-10"></div>
+                    <div class="flex-1 space-y-4 py-1">
+                        <div class="h-2 bg-slate-200 rounded"></div>
+                        <div class="space-y-3">
                             <div class="h-2 bg-slate-200 rounded"></div>
-                            <div class="space-y-3">
-                                <div class="h-2 bg-slate-200 rounded"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     </section>
 
@@ -1748,112 +1792,94 @@
 
 
     <script>
-        // --- CONSTANTES Y VARIABLES ---
-        const fotosCarousel = ["imagenes/foto1.jpg", "imagenes/foto2.jpg", "imagenes/foto3.jpg", "imagenes/foto4.jpg"];
-        const imagenesAccion = [
-            "imagenes/accion/ecv1.jpeg", "imagenes/accion/ecv2.jpeg", "imagenes/accion/ecv3.jpeg",
+        // --- CONSTANTES Y FOTOS CORREGIDAS ---
+        const fotosCarousel = [
+            "imagenes/10dias.jpeg", "imagenes/fotos/foto1.jpg", "imagenes/fotos/foto2.jpg", "imagenes/fotos/foto3.jpg",
+            "imagenes/fotos/foto4.jpg", "imagenes/fotos/foto5.jpg", "imagenes/fotos/foto6.jpg",
+            "imagenes/fotos/foto7.jpg", "imagenes/fotos/foto8.jpg", "imagenes/fotos/foto9.jpg"
         ];
+
         let idxCarousel = 0;
-        let idxAccion = 0;
-        let deferredPrompt = null;
+        let autoPlayInterval;
 
-        // --- FUNCIONES GLOBALES (Modales y PWA) ---
-        window.cerrarInvitacion = () => document.getElementById('invitacion-central')?.classList.remove('active');
-        window.cerrarBannerCumple = () => document.getElementById('banner-cumple-hoy')?.classList.add('hidden');
+        // --- LÓGICA DE CARRUSEL CON PRECARGA ---
+        function cambiarImagen(idElemento, lista, nuevoIndex) {
+            const img = document.getElementById(idElemento);
+            if (!img) return;
 
-        window.cerrarMensaje = () => {
-            const modal = document.getElementById('modal-esperanza');
-            if (modal) {
-                modal.classList.replace('animate__fadeIn', 'animate__fadeOut');
-                setTimeout(() => modal.classList.add('hidden'), 500);
-            }
-        };
+            img.style.opacity = "0.3";
+            img.style.transform = "scale(0.98)";
 
-        window.abrirModalAncianos = () => document.getElementById('modalAncianos')?.classList.remove('hidden');
-        window.cerrarModalAncianos = () => document.getElementById('modalAncianos')?.classList.add('hidden');
-        window.validarAncianos = () => {
-            if (document.getElementById('claveAncianos').value === "iasd") window.location.href = "orden_culto.html";
-            else document.getElementById('errorAncianos')?.classList.remove('hidden');
-        };
+            const precarga = new Image();
+            precarga.src = lista[nuevoIndex];
 
-        window.instalarApp = () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt = null;
-            } else alert("Usa el menú de tu navegador para instalar la App.");
-        };
-
-        // --- EVENTOS AL CARGAR LA PÁGINA ---
-        document.addEventListener("DOMContentLoaded", () => {
-            // Menú Móvil
-            const menuBtn = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            menuBtn?.addEventListener('click', () => mobileMenu?.classList.toggle('hidden'));
-
-            // Control de Mensajes (Solo una vez por sesión)
-            if (!sessionStorage.getItem('mensajeVisto')) {
-                const invitacion = document.getElementById('invitacion-central');
-                const modalEsp = document.getElementById('modal-esperanza');
-                const barra = document.getElementById('progress-timer');
-
+            precarga.onload = () => {
                 setTimeout(() => {
-                    invitacion?.classList.add('show');
-                    setTimeout(() => {
-                        invitacion?.classList.remove('show');
-                        modalEsp?.classList.remove('hidden');
-                        modalEsp?.classList.add('animate__fadeIn');
-                        sessionStorage.setItem('mensajeVisto', 'true');
-
-                        // Cierre automático por barra de progreso
-                        barra?.addEventListener('animationend', () => setTimeout(window.cerrarMensaje, 300));
-                    }, 10000);
-                }, 2000);
-            }
-
-            // Carrusel Principal
-            setInterval(() => {
-                const img = document.getElementById("carousel");
-                if (img) {
-                    img.style.opacity = "0.3";
-                    setTimeout(() => {
-                        idxCarousel = (idxCarousel + 1) % fotosCarousel.length;
-                        img.src = fotosCarousel[idxCarousel];
-                        img.style.opacity = "1";
-                    }, 500);
-                }
-            }, 5000);
-
-            // Carrusel Acción
-            setInterval(() => {
-                const imgAcc = document.getElementById('carrusel-accion');
-                if (imgAcc) {
-                    imgAcc.style.opacity = "0";
-                    setTimeout(() => {
-                        idxAccion = (idxAccion + 1) % imagenesAccion.length;
-                        imgAcc.src = imagenesAccion[idxAccion];
-                        imgAcc.style.opacity = "1";
-                    }, 1000);
-                }
-            }, 4000);
-
-            // Revelado de Banners
-            const banners = document.querySelectorAll('.reveal');
-            banners.forEach((el, index) => {
-                setTimeout(() => el.classList.add('active'), index * 200);
-            });
-        });
-
-        // Eventos de PWA
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js").catch(err => console.log("SW error:", err));
+                    img.src = lista[nuevoIndex];
+                    img.style.opacity = "1";
+                    img.style.transform = "scale(1)";
+                }, 150);
+            };
         }
+
+        window.pasarFoto = (direccion) => {
+            clearInterval(autoPlayInterval);
+            idxCarousel = (idxCarousel + direccion + fotosCarousel.length) % fotosCarousel.length;
+            cambiarImagen("carousel", fotosCarousel, idxCarousel);
+            iniciarAutoPlay();
+        };
+
+        window.ampliarImagen = () => {
+            const img = document.getElementById("carousel");
+            if (img.requestFullscreen) img.requestFullscreen();
+            else if (img.webkitRequestFullscreen) img.webkitRequestFullscreen();
+        };
+
+        // --- VALIDACIÓN DE ANCIANOS ---
+        window.validarAncianos = () => {
+            const clave = document.getElementById('claveAncianos').value;
+            if (clave.toLowerCase() === "iasd") {
+                window.location.href = "orden_culto.html";
+            } else {
+                document.getElementById('errorAncianos').classList.remove('hidden');
+            }
+        };
+
+        window.abrirModalAncianos = () => document.getElementById('modalAncianos').classList.remove('hidden');
+        window.cerrarModalAncianos = () => document.getElementById('modalAncianos').classList.add('hidden');
+
+        function iniciarAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                idxCarousel = (idxCarousel + 1) % fotosCarousel.length;
+                cambiarImagen("carousel", fotosCarousel, idxCarousel);
+            }, 5000);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Animación de banners al entrar
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Menú móvil
+            document.getElementById('menu-button').onclick = () => document.getElementById('mobile-menu')?.classList.toggle('hidden');
+
+            iniciarAutoPlay();
+        });
     </script>
 
+    <style>
+        @keyframes scroll-text {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
     <script type="module">
         // SE AGREGÓ 'limit' A LA IMPORTACIÓN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -2103,6 +2129,7 @@
             }
         }
     </script>
+
 
     <script>
         function abrirModalDoxo() {
