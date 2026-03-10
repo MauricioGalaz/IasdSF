@@ -2184,7 +2184,7 @@
             }
         }
     </script>
-
+<script>
     <div id="modalDoxo"
         class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-6 backdrop-blur-sm">
         <div class="glass-modal rounded-[3rem] w-full max-w-sm p-12 text-center shadow-2xl bg-white">
@@ -2195,7 +2195,7 @@
             </h2>
             <input id="claveDoxo" type="password"
                 class="w-full p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-xl"
-                placeholder="Ingrese Clave">
+                placeholder="Ingrese Clave" />
 
             <div class="flex flex-col gap-2">
                 <button onclick="validarDoxo()"
@@ -2206,8 +2206,10 @@
             <p id="errorDoxo" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
         </div>
     </div>
-    </div>
+    
+</script>
 
+    <script>
     if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(reg => {
     reg.addEventListener('updatefound', () => {
@@ -2223,6 +2225,8 @@
     });
     });
     }
+    </script>
 </body>
+
 
 </html>
