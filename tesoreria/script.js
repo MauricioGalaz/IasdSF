@@ -44,10 +44,11 @@ window.validarAcceso = function() {
     if (pass === "tesoriasd") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-app').style.display = 'block';
-        inicializarDB();
-        mostrarAviso("Sistema Desbloqueado.", "success");
+        
+        // ESTO ES LO QUE CARGA LOS DATOS EN EL CELULAR
+        conectarNube(); 
     } else {
-        Swal.fire({ title: 'Contraseña Incorrecta', icon: 'error', confirmButtonColor: '#0a192f' });
+        Swal.fire("Error", "Clave Incorrecta", "error");
     }
 };
 
