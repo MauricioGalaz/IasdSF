@@ -1,208 +1,452 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesoreria Pro | IASD Limache</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0a192f">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SAGE Pro | CAPA Limache</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
     <div id="toast-container"></div>
 
-    <div id="login-screen"
-        style="height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a192f; color: white;">
-        <div class="glass-form"
-            style="text-align: center; max-width: 400px; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px;">
-            <i class="fas fa-church" style="font-size: 3rem; color: #c5a059; margin-bottom: 20px;"></i>
-            <h2>Acceso Tesorería</h2>
-            <p>IASD San Francisco de Limache</p>
-            <input type="password" id="input-pass" placeholder="Contraseña"
-                style="margin-top: 20px; text-align: center; padding: 12px; width: 100%; border-radius: 8px;">
-            <button class="btn-action" onclick="validarAcceso()" style="width: 100%; margin-top: 20px;">Entrar al
-                Sistema</button>
-            <a href="https://iasdsflim.netlify.app/" style="display:block; margin-top:20px; color:#c5a059; text-decoration:none; font-size:0.9rem;">
-                <i class="fas fa-arrow-left"></i> Volver al Sitio de la Iglesia
-            </a>
+    <div id="login-screen">
+        <div class="login-glass-card">
+            <div class="login-header">
+                <div class="logo-premium">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="logo-glow"></div>
+                </div>
+                <h1>SAGE PRO</h1>
+                <p class="subtitle">CAPA Limache - Gestión Académica Inteligente</p>
+            </div>
+            
+            <form onsubmit="event.preventDefault(); handleLogin();">
+                <div class="input-group-premium">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="l-user" placeholder=" " required autocomplete="username">
+                    <label>Usuario</label>
+                </div>
+                
+                <div class="input-group-premium">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="l-pass" placeholder=" " required autocomplete="current-password">
+                    <label>Contraseña</label>
+                    <button type="button" class="toggle-password" onclick="togglePassword('l-pass')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="login-options">
+                    <label class="checkbox-premium">
+                        <input type="checkbox" id="remember-me">
+                        <span class="checkmark"></span>
+                        Recordar sesión
+                    </label>
+                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <button type="submit" id="btn-login" class="btn-premium btn-login">
+                    <span class="btn-text">Iniciar Sesión</span>
+                    <i class="fas fa-arrow-right btn-icon"></i>
+                    <div class="btn-shine"></div>
+                </button>
+            </form>
         </div>
     </div>
 
-    <div id="main-app" style="display: none;">
-        <div class="app-layout" style="display: flex; height: 100vh;">
-            <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
-            <aside class="sidebar"
-                style="width: 260px; background: #0a192f; color: white; padding: 20px; display: flex; flex-direction: column;">
-                <div class="brand-box" style="margin-bottom: 30px; font-weight: bold; color: #c5a059;">
-                    <i class="fas fa-church"></i> <span>IASD San Francisco de Limache</span>
+    <div id="app" style="display:none">
+        <header class="glass-header">
+            <div class="header-left">
+                <div class="logo-square">
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
-                <nav class="main-nav" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
-                    <button class="nav-btn active" onclick="showTab('dashboard')"><i class="fas fa-chart-pie"></i>
-                        Dashboard</button>
-                    <button class="nav-btn" onclick="showTab('ingresos')"><i class="fas fa-plus-circle"></i>
-                        Ingresos</button>
-                    <button class="nav-btn" onclick="showTab('egresos')"><i class="fas fa-receipt"></i>
-                        Gastos/Rendición</button>
-                    <button class="nav-btn" onclick="showTab('historial')"><i class="fas fa-history"></i>
-                        Historial</button>
-                    <button class="nav-btn" onclick="showTab('config')"><i class="fas fa-gears"></i> Ajustes %</button>
-                </nav>
-                <button class="btn-report" onclick="generarReportePDF()"
-                    style="background: #c5a059; color: #0a192f; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                    <i class="fas fa-file-pdf"></i> Generar Reporte PDF
+                <div class="header-info">
+                    <h2>CAPA LIMACHE</h2>
+                    <span id="u-role-label" class="role-badge">CARGANDO...</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-profile">
+                    <div class="avatar-circle">
+                        <span id="user-initial">U</span>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="u-name-display">Cargando...</span>
+                        <span class="user-role-text">Usuario</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="auth.signOut()" title="Cerrar Sesión">
+                    <i class="fas fa-power-off"></i>
                 </button>
-                
-                <!-- BOTONES DE RESPALDO DE SEGURIDAD -->
-                <input type="file" id="file-input" style="display: none;" onchange="restaurarCopia(this)">
-                <button class="btn-backup" onclick="descargarCopia()" style="background: #2980b9; margin-top: 10px;">
-                    <i class="fas fa-download"></i> Guardar Copia Seguridad
-                </button>
-                <button class="btn-backup" onclick="document.getElementById('file-input').click()" style="background: #8e44ad; margin-top: 5px;">
-                    <i class="fas fa-upload"></i> Restaurar Copia
-                </button>
+            </div>
+        </header>
 
-                <button class="btn-backup" onclick="limpiarRegistros()" style="background: #e74c3c; margin-top: 10px;">
-                    <i class="fas fa-trash-alt"></i> Limpiar Registros
-                </button>
+        <main class="main-container">
+            <aside class="sidebar-glass">
+                <nav class="nav-menu">
+                    <a href="#" class="nav-item active" data-page="p-home" onclick="nav('p-home', this)">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="p-obs" onclick="nav('p-obs', this)">
+                        <i class="fas fa-comments"></i>
+                        <span>Comunicaciones</span>
+                        <span class="nav-badge" id="msg-badge">0</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="p-asist" onclick="nav('p-asist', this)">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Asistencia</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="p-notas" onclick="nav('p-notas', this)">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Notas</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="p-materia" onclick="nav('p-materia', this)">
+                        <i class="fas fa-book-open"></i>
+                        <span>Bitácora</span>
+                    </a>
+                    <a href="#" class="nav-item admin-only" data-page="p-admin" onclick="nav('p-admin', this)" style="display:none">
+                        <i class="fas fa-crown"></i>
+                        <span>Administración</span>
+                    </a>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
             </aside>
 
-            <main class="main-content" style="flex: 1; padding: 30px; overflow-y: auto; background: #f4f7f6;">
-                <button id="menu-toggle" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <header class="bank-summary" style="display: flex; gap: 20px; margin-bottom: 30px;">
-                    <div class="bank-card"
-                        style="background: #3498db; color: white; padding: 20px; border-radius: 15px; flex: 1;">
-                        <p>BancoEstado</p>
-                        <h2 id="total-estado">$0</h2>
+            <div class="page-content-wrapper">
+                
+                <section id="p-home" class="page active">
+                    <div class="page-header">
+                        <h1><i class="fas fa-chart-pie"></i> Dashboard Académico</h1>
+                        <p>Bienvenido al sistema de gestión inteligente</p>
                     </div>
-                    <div class="bank-card"
-                        style="background: #c5a059; color: white; padding: 20px; border-radius: 15px; flex: 1;">
-                        <p>Banco Chile</p>
-                        <h2 id="total-chile">$0</h2>
-                    </div>
-                    <div class="bank-card"
-                        style="background: #2ecc71; color: white; padding: 20px; border-radius: 15px; flex: 1; cursor: pointer;"
-                        onclick="verTotalGeneral()">
-                        <p>Patrimonio Total</p>
-                        <h2 id="total-iglesia">Ver Total</h2>
-                    </div>
-                </header>
-
-                <section id="tab-dashboard" class="tab-view active">
-                    <div
-                        style="background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; height: 300px;">
-                        <canvas id="chartPresupuesto"></canvas>
-                    </div>
-                    <div id="grid-departamentos" class="smart-grid"></div>
-                    <h3 style="margin: 20px 0;">Ofrendas Dirigidas (Fondos Exclusivos)</h3>
-                    <div id="grid-proyectos-reunido" class="smart-grid"></div>
-                </section>
-
-                <section id="tab-ingresos" class="tab-view" style="display:none;">
-                    <div class="glass-form"
-                        style="background: white; padding: 30px; border-radius: 20px; max-width: 800px; margin: auto;">
-                        <h3 style="color: #0a192f; margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> Registrar
-                            Entrada de Fondos</h3>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <div class="form-group">
-                                <label>Monto $</label>
-                                <input type="number" id="monto-in" placeholder="0">
+                    
+                    <div class="stats-grid-premium">
+                        <div class="stat-card-glass">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-users"></i>
                             </div>
-                            <div class="form-group">
-                                <label>N° Remesa</label>
-                                <input type="text" id="remesa-num" placeholder="Ej: 001-2026">
+                            <div class="stat-content">
+                                <h3 id="stat-total-alumnos">0</h3>
+                                <p>Total Alumnos</p>
                             </div>
-                            <div class="form-group">
-                                <label>Fecha de Ingreso</label>
-                                <input type="date" id="fecha-in">
-                            </div>
-                            <div class="form-group">
-                                <label>Cuenta Destino</label>
-                                <select id="cuenta-in">
-                                    <option value="estado">BancoEstado</option>
-                                    <option value="chile">Banco Chile</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tipo de Fondo</label>
-                                <select id="tipo-in" onchange="toggleInputs()">
-                                    <option value="distribucion">Distribución % (Departamentos)</option>
-                                    <option value="proyecto">Ofrenda Dirigida (Proyectos)</option>
-                                </select>
-                            </div>
-
-                            <div id="wrapper-proyecto" style="display:none; grid-column: span 1;">
-                                <label>Seleccionar Proyecto</label>
-                                <select id="proj-select" onchange="checkNuevoConcepto()"></select>
-                                <input type="text" id="nuevo-concepto-nombre" placeholder="Nombre del nuevo proyecto..."
-                                    style="display:none; margin-top:15px; border: 2px solid #c5a059;">
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> 12%
                             </div>
                         </div>
+                        
+                        <div class="stat-card-glass">
+                            <div class="stat-icon green">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="stat-total-cursos">0</h3>
+                                <p>Cursos Activos</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> 5%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card-glass">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="stat-promedio-general">0.0</h3>
+                                <p>Promedio General</p>
+                            </div>
+                            <div class="stat-trend negative">
+                                <i class="fas fa-arrow-down"></i> 2%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card-glass">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="stat-asistencia-hoy">0%</h3>
+                                <p>Asistencia Hoy</p>
+                            </div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> 8%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header">
+                        <h2><i class="fas fa-graduation-cap"></i> Mis Cursos</h2>
+                        <button class="btn-primary-sm">Ver Todos</button>
+                    </div>
+                    <div id="global-dashboard" class="courses-grid-premium"></div>
+                </section>
 
-                        <button class="btn-action" onclick="procesarIngreso()"
-                            style="margin-top: 30px; width: 100%; font-size: 1.1rem;">
-                            <i class="fas fa-check-double"></i> Integrar a Contabilidad
-                        </button>
+                <section id="p-obs" class="page">
+                    <div class="page-header">
+                        <h1><i class="fas fa-comments"></i> Centro de Comunicaciones</h1>
+                        <p>Gestiona avisos y mensajes institucionales</p>
+                    </div>
+                    
+                    <div class="comms-grid">
+                        <div class="glass-card">
+                            <h3><i class="fas fa-paper-plane"></i> Nuevo Mensaje</h3>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-users input-icon"></i>
+                                <select id="obs-destinatario" required>
+                                    <option value="">Seleccionar destinatario...</option>
+                                </select>
+                                <label>Para:</label>
+                            </div>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-tag input-icon"></i>
+                                <select id="obs-tipo" required>
+                                    <option value="Informativo">📢 Informativo</option>
+                                    <option value="Urgente">🚨 Urgente</option>
+                                    <option value="Reunión">👥 Reunión / Citación</option>
+                                    <option value="Licencia">📄 Licencia / Ausencia</option>
+                                    <option value="Felicitación">🎉 Felicitación</option>
+                                </select>
+                                <label>Tipo de Aviso:</label>
+                            </div>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-comment input-icon"></i>
+                                <textarea id="obs-texto" rows="4" placeholder=" " required></textarea>
+                                <label>Mensaje:</label>
+                            </div>
+                            
+                            <button class="btn-premium" onclick="sendObservation()">
+                                <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                            </button>
+                        </div>
+                        
+                        <div class="glass-card messages-panel">
+                            <h3><i class="fas fa-inbox"></i> Buzón de Mensajes</h3>
+                            <div class="messages-filters">
+                                <button class="filter-btn active" onclick="filterMessages('todos')">Todos</button>
+                                <button class="filter-btn" onclick="filterMessages('urgentes')">Urgentes</button>
+                                <button class="filter-btn" onclick="filterMessages('leidos')">Leídos</button>
+                            </div>
+                            <div id="messages-list" class="messages-list-premium"></div>
+                        </div>
                     </div>
                 </section>
 
-                <section id="tab-egresos" class="tab-view" style="display:none;">
-                    <div class="glass-form" style="background: white; padding: 30px; border-radius: 20px;">
-                        <h3>Registrar Egreso / Rendición</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-                            <select id="gasto-dep"></select>
-                            <select id="gasto-banco">
-                                <option value="estado">BancoEstado</option>
-                                <option value="chile">Banco Chile</option>
+                <section id="p-asist" class="page">
+                    <div class="page-header">
+                        <h1><i class="fas fa-calendar-check"></i> Control de Asistencia</h1>
+                        <p>Registro diario de asistencia de alumnos</p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="attendance-controls">
+                            <div class="input-group-premium">
+                                <i class="fas fa-calendar input-icon"></i>
+                                <input type="date" id="asist-fecha" required onchange="renderAttendanceList()">
+                                <label>Fecha:</label>
+                            </div>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-graduation-cap input-icon"></i>
+                                <select id="as-curso-dinamico" required onchange="renderAttendanceList()">
+                                    <option value="">Seleccionar curso...</option>
+                                </select>
+                                <label>Curso:</label>
+                            </div>
+                            
+                            <button class="btn-premium" onclick="exportAttendance()">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                        
+                        <div class="attendance-stats">
+                            <div class="attendance-stat">
+                                <span class="stat-label">Presentes</span>
+                                <span class="stat-value present" id="count-presentes">0</span>
+                            </div>
+                            <div class="attendance-stat">
+                                <span class="stat-label">Ausentes</span>
+                                <span class="stat-value absent" id="count-ausentes">0</span>
+                            </div>
+                            <div class="attendance-stat">
+                                <span class="stat-label">Justificados</span>
+                                <span class="stat-value justified" id="count-justificados">0</span>
+                            </div>
+                            <div class="attendance-stat">
+                                <span class="stat-label">Porcentaje</span>
+                                <span class="stat-value percentage" id="count-porcentaje">0%</span>
+                            </div>
+                        </div>
+                        
+                        <div id="asist-list-container" class="attendance-list-premium"></div>
+                    </div>
+                </section>
+
+                <section id="p-notas" class="page">
+                    <div class="page-header">
+                        <h1><i class="fas fa-chart-line"></i> Gestión de Calificaciones</h1>
+                        <p>Registro y seguimiento del rendimiento académico</p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="notes-controls">
+                            <div class="input-group-premium">
+                                <i class="fas fa-graduation-cap input-icon"></i>
+                                <select id="nota-curso-dinamico" required onchange="renderNotesList()">
+                                    <option value="">Seleccionar curso...</option>
+                                </select>
+                                <label>Seleccione Curso:</label>
+                            </div>
+                            
+                            <div id="admin-notas-info" class="info-badge hidden">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Modo Consulta - Administrador</span>
+                            </div>
+                        </div>
+                        
+                        <div id="notes-table-container" class="notes-container-premium"></div>
+                    </div>
+                </section>
+
+                <section id="p-materia" class="page">
+                    <div id="form-bitacora-container">
+                        <div class="glass-card">
+                            <h3><i class="fas fa-plus-circle"></i> Nuevo Registro</h3>
+                            
+                            <div class="form-grid">
+                                <div class="input-group-premium">
+                                    <i class="fas fa-calendar input-icon"></i>
+                                    <input type="date" id="mat-fecha" required>
+                                    <label>Fecha:</label>
+                                </div>
+                                
+                                <div class="input-group-premium">
+                                    <i class="fas fa-graduation-cap input-icon"></i>
+                                    <select id="mat-curso-dinamico" required>
+                                        <option value="">Seleccionar curso...</option>
+                                    </select>
+                                    <label>Curso:</label>
+                                </div>
+                                
+                                <div class="input-group-premium">
+                                    <i class="fas fa-tag input-icon"></i>
+                                    <select id="mat-tipo" required>
+                                        <option value="Materia Cursada">📖 Materia Cursada</option>
+                                        <option value="Examen">📝 Examen</option>
+                                        <option value="Ejercicio">✏️ Ejercicio</option>
+                                        <option value="Tarea">🏠 Tarea</option>
+                                        <option value="Proyecto">🎯 Proyecto</option>
+                                        <option value="Evaluación">📊 Evaluación</option>
+                                    </select>
+                                    <label>Tipo de Registro:</label>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-align-left input-icon"></i>
+                                <textarea id="mat-contenido" rows="5" placeholder=" " required></textarea>
+                                <label>Detalle de la Clase / Actividad:</label>
+                            </div>
+                            
+                            <button class="btn-premium" onclick="saveBitacora()">
+                                <i class="fas fa-save"></i> Guardar en Bitácora
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3><i class="fas fa-history"></i> Historial de Bitácora</h3>
+                        <div class="bitacora-filters">
+                            <input type="text" placeholder="Buscar en bitácora..." class="search-input">
+                            <select class="filter-select">
+                                <option value="">Todos los tipos</option>
+                                <option value="Materia Cursada">Materia Cursada</option>
+                                <option value="Examen">Examen</option>
+                                <option value="Tarea">Tarea</option>
                             </select>
-                            <input type="text" id="gasto-director" placeholder="Director Responsable">
-                            <input type="number" id="gasto-monto" placeholder="Monto $">
-                            <input type="text" id="gasto-proposito" placeholder="¿En qué se ocupará?"
-                                style="grid-column: span 2;">
                         </div>
-                        <button class="btn-action" onclick="registrarGasto()"
-                            style="margin-top: 20px; width: 100%;">Procesar Gasto</button>
+                        <div id="bitacora-list-filtro" class="bitacora-list-premium"></div>
                     </div>
                 </section>
 
-                <section id="tab-historial" class="tab-view" style="display:none;">
-                    <div style="background: white; padding: 30px; border-radius: 20px;">
-                        <h3>Historial de Movimientos Bancarios</h3>
-                        <div id="lista-movimientos" style="margin-top: 20px;"></div>
+                <section id="p-admin" class="page">
+                    <div class="page-header">
+                        <h1><i class="fas fa-crown"></i> Panel de Administración</h1>
+                        <p>Gestión avanzada del sistema</p>
                     </div>
-                </section>
-
-                <section id="tab-config" class="tab-view" style="display:none;">
-                    <div class="glass-form" style="background: white; padding: 30px; border-radius: 20px;">
-                        <h3>Configurar % de Departamentos</h3>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">La suma debe ser exactamente
-                            100%.</p>
-                        <div id="inputs-porcentajes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    
+                    <div class="admin-grid">
+                        <div class="glass-card">
+                            <h3><i class="fas fa-file-import"></i> Carga Masiva de Alumnos</h3>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-graduation-cap input-icon"></i>
+                                <select id="adm-bulk-curso" required>
+                                    <option value="">Seleccionar curso...</option>
+                                </select>
+                                <label>Curso Destino:</label>
+                            </div>
+                            
+                            <div class="input-group-premium">
+                                <i class="fas fa-list input-icon"></i>
+                                <textarea id="bulk-list" rows="6" placeholder=" " required></textarea>
+                                <label>Lista de Nombres (uno por línea):</label>
+                            </div>
+                            
+                            <button class="btn-premium" onclick="bulkUpload()">
+                                <i class="fas fa-upload"></i> Importar Alumnos
+                            </button>
                         </div>
-                        <div id="check-total"
-                            style="margin-top: 20px; font-weight: bold; text-align: right; padding: 10px; background: #eee; border-radius: 8px;">
-                            Suma: 0%</div>
-                        <button class="btn-save" id="btn-guardar-config" onclick="guardarConfig()" disabled
-                            style="margin-top: 20px; width: 100%;">Guardar Cambios</button>
+                        
+                        <div class="glass-card">
+                            <h3><i class="fas fa-users-cog"></i> Gestión de Docentes</h3>
+                            <div id="admin-docentes-list"></div>
+                            
+                            <hr style="opacity:0.1; margin: 2rem 0;">
+                            
+                            <h4 style="margin-bottom:1rem; color:var(--text-primary);">Registrar Nuevo Docente</h4>
+                            
+                            <input type="text" id="adm-prof-name" placeholder="Nombre completo" class="input-premium">
+                            <input type="text" id="adm-prof-user" placeholder="Nombre de usuario" class="input-premium">
+                            <input type="password" id="adm-prof-pass" placeholder="Contraseña" class="input-premium">
+                            
+                            <div class="form-row">
+                                <select id="adm-prof-curso" class="input-premium">
+                                    <option value="">Curso existente...</option>
+                                </select>
+                                <input type="text" id="adm-prof-nuevo-curso" placeholder="O crear nuevo curso" class="input-premium">
+                            </div>
+                            
+                            <button class="btn-premium" onclick="registerTeacher()">
+                                <i class="fas fa-user-plus"></i> Crear Cuenta Docente
+                            </button>
+                        </div>
                     </div>
                 </section>
-
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
-    <script src="script.js"></script>
-</body>
 
+    <script src="app.js"></script>
+</body>
 </html>
