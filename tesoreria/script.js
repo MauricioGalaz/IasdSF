@@ -44,18 +44,41 @@ window.validarAcceso = function() {
 };
 
 // 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
+// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
 window.guardarEnFirebase = async function() {
     try {
         const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
-        // ESTO LIMPIA TU COPIA DE SEGURIDAD ANTIGUA PARA QUE FIREBASE NO LA RECHACE
-        const dbLimpia = JSON.parse(JSON.stringify(db)); 
+        
+        // Función recursiva para limpiar datos que Firebase odia (undefined, null, NaN)
+        const limpiarParaFirestore = (obj) => {
+            if (obj === null || obj === undefined || Number.isNaN(obj)) return 0; // Si hay error, fuerza un 0
+            if (Array.isArray(obj)) return obj.map(limpiarParaFirestore).filter(e => e !== undefined && e !== null);
+            if (typeof obj === 'object') {
+                const nuevoObj = {};
+                for (let key in obj) {
+                    const val = limpiarParaFirestore(obj[key]);
+                    if (val !== undefined && val !== null) {
+                        nuevoObj[key] = val;
+                    }
+                }
+                return nuevoObj;
+            }
+            return obj;
+        };
+
+        const dbLimpia = limpiarParaFirestore(db);
+        
+        // Aseguramos estructura básica si algo se borró en el respaldo
+        if (!dbLimpia.bancos) dbLimpia.bancos = { estado: 0, chile: 0 };
+        if (!dbLimpia.historial_movimientos) dbLimpia.historial_movimientos = [];
+        
         await setDoc(docRef, dbLimpia);
+        
     } catch (e) {
         console.error("Error crítico guardando en Firestore:", e);
-        mostrarAviso("Error al guardar en la nube. Revisa la consola.", "error");
+        mostrarAviso("Error de sincronización.", "error");
     }
 };
-
 // 3. RESTAURAR COPIA DEFINITIVO
 window.restaurarCopia = function(input) {
     const file = input.files[0]; 
