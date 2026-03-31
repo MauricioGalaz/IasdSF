@@ -55,7 +55,14 @@ window.guardarEnFirebase = async function() {
             if (typeof obj === 'object') {
                 const nuevoObj = {};
                 for (let key in obj) {
-                    let cleanKey = String(key).replace(/[\.\/\[\]~]/g, '-'); // Cambia símbolos prohibidos por guiones
+                    // Limpiamos los espacios en blanco de los extremos y los símbolos ilegales
+                    let cleanKey = String(key).replace(/[\.\/\[\]~]/g, '-').trim(); 
+                    
+                    // ¡EL SALVAVIDAS! Si el nombre está vacío, le ponemos un nombre por defecto
+                    if (cleanKey === "") {
+                        cleanKey = "Proyecto_Sin_Nombre";
+                    }
+
                     const val = limpiarParaFirestore(obj[key]);
                     if (val !== undefined && val !== null) nuevoObj[cleanKey] = val;
                 }
@@ -72,8 +79,8 @@ window.guardarEnFirebase = async function() {
         await setDoc(docRef, dbLimpia);
     } catch (e) {
         console.error("Error crítico guardando:", e);
-        alert("Atención: El servidor rechazó los datos. Error: " + e.message); // Esto nos dirá exactamente el problema si vuelve a fallar
-        throw e; // Lanza el error para frenar el mensaje de éxito
+        alert("Atención: El servidor rechazó los datos. Error: " + e.message); 
+        throw e; 
     }
 };
 
