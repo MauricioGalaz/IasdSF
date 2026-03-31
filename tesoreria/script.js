@@ -1,184 +1,95 @@
-const CACHE_NAME = 'iasd-limache-v2.1'; // Incrementado para forzar actualización
-const urlsToCache = ['./', './index.html'];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// --- SERVICE WORKER ---
-self.addEventListener('install', e => {
-    self.skipWaiting(); 
-    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
-});
+const firebaseConfig = {
+    apiKey: "AIzaSyDREJZZPPPTvoxlcYGf5btgNuNGvCs0esg",
+    authDomain: "tesoreriasf-6c473.firebaseapp.com",
+    projectId: "tesoreriasf-6c473",
+    storageBucket: "tesoreriasf-6c473.firebasestorage.app",
+    messagingSenderId: "1094427807269",
+    appId: "1:1094427807269:web:e414419c2128153a23f9cc"
+};
 
-self.addEventListener('activate', e => {
-    e.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cache => {
-                    if (cache !== CACHE_NAME) return caches.delete(cache);
-                })
-            );
-        })
-    );
-});
+const app = initializeApp(firebaseConfig);
+const dbFirestore = getFirestore(app);
 
-self.addEventListener('fetch', e => {
-    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
-});
-
-// --- LÓGICA DE NEGOCIO ---
 const DEPT_NAMES = ["MIDEA", "DEPARTAMENTO NIÑOS", "DEPARTAMENTOS AVENTUREROS", "JOVENES ADVENTISTAS", "ASA", "PUBLICACIONES", "ESCUELA SABATICA", "MIPES", "MINISTERIO DE LA MUJER", "SALUD", "GASTOS DE IGLESIA", "FONDO SOLIDARIO"];
-const MASTER_PASS = "iasdsf"; // Contraseña de limpieza/eliminación según instrucciones
+const MASTER_PASS = "iasdsf";
 
-let db = {};
-try {
-    const storedData = localStorage.getItem('iasd_limache_FINAL');
-    db = storedData ? JSON.parse(storedData) : {};
-} catch (e) {
-    console.error("Error cargando datos:", e);
-    db = {};
-}
-
+let db = { bancos: { estado: 0, chile: 0 }, saldos: {}, porcentajes: {}, gastosReales: {}, historial_movimientos: [], proyectos: { "Equipos Sonido y Butacas": 0 } };
 let miGrafico = null;
 
-// 2. SISTEMA DE SEGURIDAD (ACCESO)
+// 1. CONEXIÓN A LA NUBE
 window.validarAcceso = function() {
     const pass = document.getElementById('input-pass').value;
     if (pass === "tesoriasd") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-app').style.display = 'block';
-        inicializarDB();
-        mostrarAviso("Sistema Desbloqueado.", "success");
+        mostrarAviso("Sincronizando con la nube...", "info");
+
+        const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
+        
+        onSnapshot(docRef, (docSnap) => {
+            if (docSnap.exists()) {
+                db = docSnap.data();
+            }
+            inicializarDB();
+        }, (error) => {
+            console.error("Error leyendo BD:", error);
+            Swal.fire('Error de Permisos', 'Firestore bloqueó la lectura. Asegúrate de que las reglas estén en Cloud Firestore y no en Realtime DB.', 'error');
+        });
     } else {
-        Swal.fire({ title: 'Contraseña Incorrecta', icon: 'error', confirmButtonColor: '#0a192f' });
+        Swal.fire({ title: 'Contraseña Incorrecta', icon: 'error' });
     }
 };
 
-// 3. INICIALIZACIÓN
-function inicializarDB() {
-    if (!db.bancos) db.bancos = { estado: 0, chile: 0 };
-    if (!db.saldos) db.saldos = {};
-    if (!db.porcentajes) db.porcentajes = {};
-    if (!db.gastosReales) db.gastosReales = {}; 
-    if (!db.historial_movimientos) db.historial_movimientos = [];
-    if (!db.proyectos) db.proyectos = { "Equipos Sonido y Butacas": 0 };
-
-    DEPT_NAMES.forEach(n => {
-        if (db.porcentajes[n] === undefined) db.porcentajes[n] = 8.33;
-        if (db.gastosReales[n] === undefined) db.gastosReales[n] = 0;
-    });
-
-    recalcularSaldosPorcentuales();
-    updateUI();
-}
-
-// 5. LÓGICA DE DISTRIBUCIÓN (Bancos - Proyectos = Deptos)
-function recalcularSaldosPorcentuales() {
-    const totalBancos = (db.bancos.estado || 0) + (db.bancos.chile || 0);
-    const totalEnProyectos = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
-    const patrimonioNeto = Math.max(0, totalBancos - totalEnProyectos);
-
-    DEPT_NAMES.forEach(n => {
-        const asignacionIdeal = (patrimonioNeto * (db.porcentajes[n] / 100));
-        db.saldos[n] = asignacionIdeal - (db.gastosReales[n] || 0);
-    });
-}
-
-// 6. REGISTRO DE GASTOS CON ALERTAS
-window.registrarGasto = function() {
-    const selectElem = document.getElementById('gasto-dep');
-    if(!selectElem || !selectElem.value) return mostrarAviso("Seleccione origen", "error");
-    
-    const [tipo, nombre] = selectElem.value.split(':');
-    const monto = parseFloat(document.getElementById('gasto-monto').value);
-    const banco = document.getElementById('gasto-banco').value;
-    const prop = document.getElementById('gasto-proposito').value || "Gasto";
-
-    if(!monto || monto <= 0) return mostrarAviso("Monto inválido", "error");
-
-    db.bancos[banco] -= monto;
-    if(tipo === 'PROJ') {
-        db.proyectos[nombre] -= monto;
-    } else {
-        db.gastosReales[nombre] += monto;
+// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
+window.guardarEnFirebase = async function() {
+    try {
+        const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
+        // ESTO LIMPIA TU COPIA DE SEGURIDAD ANTIGUA PARA QUE FIREBASE NO LA RECHACE
+        const dbLimpia = JSON.parse(JSON.stringify(db)); 
+        await setDoc(docRef, dbLimpia);
+    } catch (e) {
+        console.error("Error crítico guardando en Firestore:", e);
+        mostrarAviso("Error al guardar en la nube. Revisa la consola.", "error");
     }
-    
-    db.historial_movimientos.push({ 
-        fecha: new Date().toLocaleDateString(), 
-        detalle: `Gasto: ${prop} (${nombre})`, 
-        monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } 
-    });
-
-    recalcularSaldosPorcentuales();
-    updateUI();
-
-    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
-
-    Swal.fire({
-        title: '¡Gasto Procesado!',
-        html: `<p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en <b>${nombre}</b>: <br><span style="color:green; font-size:1.2em;">${clp.format(saldoFinal)}</span></p>`,
-        icon: 'success',
-        confirmButtonColor: '#0a192f'
-    });
-
-    document.getElementById('gasto-monto').value = "";
-    document.getElementById('gasto-proposito').value = "";
 };
 
-// 9. FUNCIONES DE LIMPIEZA CON CONTRASEÑA "iasdsf"
-window.anularRegistro = async function(index) {
-    const { value: password } = await Swal.fire({
-        title: 'Confirmar Anulación',
-        input: 'password',
-        inputLabel: 'Ingrese contraseña para eliminar',
-        inputPlaceholder: 'Contraseña...',
-        showCancelButton: true
-    });
-
-    if (password === MASTER_PASS) {
-        const mov = db.historial_movimientos[index];
-        db.bancos[mov.banco] -= mov.monto;
-        if(mov.tipo === 'egreso' && mov.meta) {
-            if(mov.meta.tipo === 'PROJ') db.proyectos[mov.meta.nombre] -= mov.monto;
-            else db.gastosReales[mov.meta.nombre] += mov.monto;
-        } else if(mov.tipo === 'proyecto' && mov.meta) {
-            db.proyectos[mov.meta.nombre] -= mov.monto;
+// 3. RESTAURAR COPIA DEFINITIVO
+window.restaurarCopia = function(input) {
+    const file = input.files[0]; 
+    if (!file) return;
+    const reader = new FileReader();
+    
+    reader.onload = async function(e) {
+        try {
+            const backup = JSON.parse(e.target.result);
+            if (backup.bancos || backup.historial_movimientos) {
+                db = backup; 
+                inicializarDB(); 
+                
+                // Forzamos el guardado en la nube con la base de datos limpia
+                await window.guardarEnFirebase(); 
+                
+                Swal.fire({
+                    title: '¡Restauración Exitosa!',
+                    text: 'Los datos oficiales de la iglesia han sido actualizados en la nube.',
+                    icon: 'success',
+                    confirmButtonColor: '#2ecc71'
+                });
+            } else {
+                mostrarAviso("El archivo no es válido", "error");
+            }
+        } catch (err) { 
+            console.error("Error procesando archivo:", err);
+            mostrarAviso("El archivo está corrupto o tiene un formato no válido.", "error"); 
         }
-        db.historial_movimientos.splice(index, 1);
-        recalcularSaldosPorcentuales(); 
-        updateUI(); 
-        renderHistorial();
-        mostrarAviso("Registro eliminado", "success");
-    } else if (password) {
-        mostrarAviso("Contraseña incorrecta", "error");
-    }
+    };
+    reader.readAsText(file); 
+    input.value = '';
 };
 
-window.limpiarRegistros = async function() {
-    const { value: password } = await Swal.fire({
-        title: '¿REINICIAR TODO EL SISTEMA?',
-        text: "Esta acción borrará bancos e historial.",
-        icon: 'warning',
-        input: 'password',
-        inputLabel: 'Ingrese contraseña maestra',
-        showCancelButton: true,
-        confirmButtonColor: '#d33'
-    });
-
-    if (password === MASTER_PASS) {
-        db.bancos = { estado: 0, chile: 0 }; 
-        db.historial_movimientos = [];
-        Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
-        DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
-        recalcularSaldosPorcentuales(); 
-        updateUI();
-        Swal.fire('Reiniciado', 'La base de datos está en cero.', 'success');
-    } else if (password) {
-        Swal.fire('Error', 'Contraseña incorrecta', 'error');
-    }
-};
-
-// ... (Resto de funciones: showTab, updateUI, generarReportePDF, etc., se mantienen igual)
-
-// 3. INICIALIZACIÓN
 function inicializarDB() {
     if (!db.bancos) db.bancos = { estado: 0, chile: 0 };
     if (!db.saldos) db.saldos = {};
@@ -196,40 +107,6 @@ function inicializarDB() {
     updateUI();
 }
 
-// 4. NAVEGACIÓN BLINDADA (EFECTO PÁGINAS DISTINTAS)
-window.showTab = function(id) {
-    // Ocultar todas las vistas
-    document.querySelectorAll('.tab-view').forEach(v => {
-        v.style.display = 'none';
-        v.classList.remove('active');
-    });
-
-    // Mostrar la vista seleccionada
-    const target = document.getElementById('tab-' + id);
-    if(target) {
-        target.style.display = 'block';
-        target.classList.add('active');
-    }
-
-    // Actualizar botones menú lateral
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    if(event && event.currentTarget && event.currentTarget.classList) {
-        event.currentTarget.classList.add('active');
-    }
-
-    // Disparar funciones de carga según la pestaña
-    if(id === 'config') renderConfig();
-    if(id === 'historial') renderHistorial();
-    if(id === 'dashboard') if(typeof actualizarGrafico === 'function') actualizarGrafico();
-
-    // Cerrar menú en móvil automáticamente al seleccionar opción
-    if (window.innerWidth <= 768) {
-        document.querySelector('.sidebar').classList.remove('active-mobile');
-        if(document.getElementById('sidebar-overlay')) document.getElementById('sidebar-overlay').style.display = 'none';
-    }
-};
-
-// 5. LÓGICA DE DISTRIBUCIÓN (Bancos - Proyectos = Deptos)
 function recalcularSaldosPorcentuales() {
     const totalBancos = (db.bancos.estado || 0) + (db.bancos.chile || 0);
     const totalEnProyectos = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
@@ -241,7 +118,7 @@ function recalcularSaldosPorcentuales() {
     });
 }
 
-// 6. INGRESOS Y EGRESOS
+// 4. MOVIMIENTOS Y REGISTROS
 window.procesarIngreso = function() {
     const monto = parseFloat(document.getElementById('monto-in').value);
     const cuenta = document.getElementById('cuenta-in').value;
@@ -257,7 +134,7 @@ window.procesarIngreso = function() {
         let pName = document.getElementById('proj-select').value;
         if(pName === 'NUEVO_CONCEPTO') {
             pName = document.getElementById('nuevo-concepto-nombre').value.trim();
-            if(!pName) return mostrarAviso("Indique nombre del proyecto", "error");
+            if(!pName) return mostrarAviso("Indique nombre", "error");
             if(!db.proyectos[pName]) db.proyectos[pName] = 0;
         }
         db.proyectos[pName] += monto;
@@ -265,8 +142,9 @@ window.procesarIngreso = function() {
     }
 
     db.historial_movimientos.push({ fecha, detalle: tipo === 'proyecto' ? `Proyecto: ${meta.nombre}` : `Remesa ${remesa}`, monto, tipo, banco: cuenta, meta });
-    recalcularSaldosPorcentuales();
-    updateUI();
+    window.guardarEnFirebase();
+    
+    document.getElementById('monto-in').value = ""; document.getElementById('remesa-num').value = "";
     mostrarAviso("Fondo integrado exitosamente.", "success");
 };
 
@@ -281,49 +159,48 @@ window.registrarGasto = function() {
 
     if(!monto || monto <= 0) return mostrarAviso("Monto inválido", "error");
 
-    // 1. Ejecutar rebaja en banco y acumuladores
     db.bancos[banco] -= monto;
-    if(tipo === 'PROJ') {
-        db.proyectos[nombre] -= monto;
-    } else {
-        db.gastosReales[nombre] += monto;
-    }
+    if(tipo === 'PROJ') { db.proyectos[nombre] -= monto; } else { db.gastosReales[nombre] += monto; }
     
-    // 2. Registro en historial
-    db.historial_movimientos.push({ 
-        fecha: new Date().toLocaleDateString(), 
-        detalle: `Gasto: ${prop} (${nombre})`, 
-        monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } 
-    });
+    db.historial_movimientos.push({ fecha: new Date().toLocaleDateString(), detalle: `Gasto: ${prop} (${nombre})`, monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } });
+    window.guardarEnFirebase();
 
-    // 3. Recalcular presupuestos antes de mostrar el mensaje
-    recalcularSaldosPorcentuales();
-    updateUI();
-
-    // 4. ALERTA DE CONFIRMACIÓN CON SALDO RESTANTE
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    recalcularSaldosPorcentuales();
     const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
 
-    Swal.fire({
-        title: '¡Gasto Procesado!',
-        html: `
-            <div style="text-align: left; font-size: 0.95rem;">
-                <p>Monto rebajado: <b>${clp.format(monto)}</b></p>
-                <p>Origen: <b>${nombre}</b></p>
-                <p>Caja: <b>${banco === 'estado' ? 'BancoEstado' : 'Banco Chile'}</b></p>
-                <hr>
-                <p style="color: #2ecc71; font-weight: bold;">Saldo actual disponible: ${clp.format(saldoFinal)}</p>
-            </div>`,
-        icon: 'success',
-        confirmButtonColor: '#0a192f'
-    });
-
-    // Limpiar formulario
-    document.getElementById('gasto-monto').value = "";
-    document.getElementById('gasto-proposito').value = "";
+    Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
+    document.getElementById('gasto-monto').value = ""; document.getElementById('gasto-proposito').value = "";
 };
 
-// 7. ACTUALIZACIÓN UI Y SELECTORES
+window.anularRegistro = async function(index) {
+    const { value: pass } = await Swal.fire({ title: 'Anular Registro', input: 'password', showCancelButton: true });
+    if (pass === MASTER_PASS) {
+        const mov = db.historial_movimientos[index];
+        db.bancos[mov.banco] -= mov.monto;
+        if(mov.tipo === 'egreso' && mov.meta) {
+            if(mov.meta.tipo === 'PROJ') db.proyectos[mov.meta.nombre] -= mov.monto;
+            else db.gastosReales[mov.meta.nombre] += mov.monto;
+        } else if(mov.tipo === 'proyecto' && mov.meta) { db.proyectos[mov.meta.nombre] -= mov.monto; }
+        
+        db.historial_movimientos.splice(index, 1);
+        window.guardarEnFirebase();
+        mostrarAviso("Registro eliminado", "success");
+    }
+};
+
+window.limpiarRegistros = async function() {
+    const { value: pass } = await Swal.fire({ title: '¿REINICIAR TODO?', icon: 'warning', input: 'password', showCancelButton: true });
+    if (pass === MASTER_PASS) {
+        db.bancos = { estado: 0, chile: 0 }; db.historial_movimientos = [];
+        Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
+        DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
+        window.guardarEnFirebase();
+        Swal.fire('Reiniciado', 'Datos en cero.', 'success');
+    }
+};
+
+// 5. RENDERIZADO VISUAL UI
 window.updateUI = function() {
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
     document.getElementById('total-estado').innerText = clp.format(db.bancos.estado || 0);
@@ -353,69 +230,22 @@ window.updateUI = function() {
         selectGasto.innerHTML = opt + '</optgroup>';
     }
 
-    // Guardado robusto con detección de errores
-    try {
-        localStorage.setItem('iasd_limache_FINAL', JSON.stringify(db));
-    } catch (e) {
-        mostrarAviso("¡Error! No se pudo guardar automáticamente. Use 'Guardar Copia'.", "error");
+    if(document.getElementById('tab-historial').classList.contains('active')) renderHistorial();
+    if(document.getElementById('tab-config').classList.contains('active')) renderConfig();
+    if(document.getElementById('tab-dashboard').classList.contains('active')) actualizarGrafico();
+};
+
+window.showTab = function(id) {
+    document.querySelectorAll('.tab-view').forEach(v => { v.style.display = 'none'; v.classList.remove('active'); });
+    const target = document.getElementById('tab-' + id);
+    if(target) { target.style.display = 'block'; target.classList.add('active'); }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    if(event && event.currentTarget) event.currentTarget.classList.add('active');
+    updateUI();
+    if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.remove('active-mobile');
+        if(document.getElementById('sidebar-overlay')) document.getElementById('sidebar-overlay').style.display = 'none';
     }
-};
-
-// 8. REPORTE PDF COMPLETO PARA JUNTA
-window.generarReportePDF = function() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-
-    doc.setFontSize(18);
-    doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 15, { align: "center" });
-    doc.setFontSize(12);
-    doc.text("San Francisco de Limache - Reporte para Junta Administrativa", 105, 22, { align: "center" });
-
-    const totalB = db.bancos.estado + db.bancos.chile;
-    const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
-
-    doc.autoTable({
-        startY: 30,
-        head: [['Resumen Consolidado', 'Monto']],
-        body: [['Saldo Total en Bancos', clp.format(totalB)], ['Fondo Reservado Proyectos', clp.format(totalP)], ['Neto Disponible Deptos', clp.format(totalB - totalP)]],
-        theme: 'striped', headStyles: { fillColor: [197, 160, 89] }
-    });
-
-    doc.text("Saldos por Departamento", 20, doc.lastAutoTable.finalY + 15);
-    doc.autoTable({
-        startY: doc.lastAutoTable.finalY + 20,
-        head: [['Departamento', '% Asig.', 'Gastado', 'Disponible']],
-        body: DEPT_NAMES.map(n => [n, db.porcentajes[n]+'%', clp.format(db.gastosReales[n]), clp.format(db.saldos[n])]),
-        styles: { fontSize: 8 }
-    });
-
-    doc.save(`Reporte_Junta_Limache_${new Date().toLocaleDateString()}.pdf`);
-};
-
-// 9. FUNCIONES AUXILIARES
-window.verTotalGeneral = function() {
-    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0);
-    const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
-    Swal.fire({ title: 'Estado Real de la Iglesia', html: `Bancos: ${clp.format(totalB)}<br>Proyectos: ${clp.format(totalP)}<hr><p style="color: green;">Neto Disponible: <b>${clp.format(totalB - totalP)}</b></p>`, icon: 'info' });
-};
-
-window.anularRegistro = function(index) {
-    Swal.fire({ title: '¿Anular registro?', icon: 'warning', showCancelButton: true }).then((r) => {
-        if (r.isConfirmed) {
-            const mov = db.historial_movimientos[index];
-            db.bancos[mov.banco] -= mov.monto;
-            if(mov.tipo === 'egreso' && mov.meta) {
-                if(mov.meta.tipo === 'PROJ') db.proyectos[mov.meta.nombre] -= mov.monto;
-                else db.gastosReales[mov.meta.nombre] += mov.monto;
-            } else if(mov.tipo === 'proyecto' && mov.meta) {
-                db.proyectos[mov.meta.nombre] -= mov.monto;
-            }
-            db.historial_movimientos.splice(index, 1);
-            recalcularSaldosPorcentuales(); updateUI(); renderHistorial();
-        }
-    });
 };
 
 function renderHistorial() {
@@ -424,7 +254,7 @@ function renderHistorial() {
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
     container.innerHTML = db.historial_movimientos.slice().reverse().map((m, i) => {
         const realIdx = db.historial_movimientos.length - 1 - i;
-        return `<div class="rendicion-item" style="display:flex; justify-content:space-between; align-items:center;"><span><strong>${m.fecha}</strong> - ${m.detalle}</span><div><strong style="color:${m.monto > 0 ? 'green' : 'red'}">${clp.format(m.monto)}</strong><button onclick="anularRegistro(${realIdx})" style="background:none; border:none; color:red; cursor:pointer; margin-left:10px;"><i class="fas fa-trash"></i></button></div></div>`;
+        return `<div class="rendicion-item"><span><strong>${m.fecha}</strong> - ${m.detalle}</span><div><strong style="color:${m.monto > 0 ? 'green' : 'red'}">${clp.format(m.monto)}</strong><button onclick="anularRegistro(${realIdx})" style="background:none; border:none; color:red; cursor:pointer; margin-left:10px;"><i class="fas fa-trash"></i></button></div></div>`;
     }).join("");
 }
 
@@ -436,32 +266,15 @@ window.renderConfig = function() {
 };
 
 window.validarSuma = function() {
-    let suma = 0;
-    document.querySelectorAll('.in-porc').forEach(i => suma += parseFloat(i.value) || 0);
+    let suma = 0; document.querySelectorAll('.in-porc').forEach(i => suma += parseFloat(i.value) || 0);
     const bar = document.getElementById('check-total');
-    if(bar) {
-        bar.innerText = `Suma Total: ${suma.toFixed(2)}%`;
-        const ok = Math.abs(suma - 100) < 0.1;
-        bar.style.color = ok ? "green" : "red";
-        document.getElementById('btn-guardar-config').disabled = !ok;
-    }
+    if(bar) { bar.innerText = `Suma Total: ${suma.toFixed(2)}%`; const ok = Math.abs(suma - 100) < 0.1; bar.style.color = ok ? "green" : "red"; document.getElementById('btn-guardar-config').disabled = !ok; }
 };
 
 window.guardarConfig = function() {
     document.querySelectorAll('.in-porc').forEach(i => db.porcentajes[i.dataset.dep] = parseFloat(i.value));
-    recalcularSaldosPorcentuales();
-    updateUI();
-};
-
-window.limpiarRegistros = function() {
-    Swal.fire({ title: '¿Reiniciar?', icon: 'warning', showCancelButton: true }).then((r) => {
-        if (r.isConfirmed) {
-            db.bancos = { estado: 0, chile: 0 }; db.historial_movimientos = [];
-            Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
-            DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
-            recalcularSaldosPorcentuales(); updateUI();
-        }
-    });
+    window.guardarEnFirebase();
+    mostrarAviso("Configuración guardada", "success");
 };
 
 function actualizarGrafico() {
@@ -469,67 +282,42 @@ function actualizarGrafico() {
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
     if(miGrafico) miGrafico.destroy();
-    miGrafico = new Chart(ctx, { type: 'doughnut', data: { labels: DEPT_NAMES, datasets: [{ data: DEPT_NAMES.map(n => Math.max(0, db.saldos[n])), backgroundColor: ['#2ecc71', '#3498db', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c', '#1abc9c', '#34495e', '#d35400', '#c0392b', '#16a085', '#27ae60'] }] }, options: { responsive: true, maintainAspectRatio: false } });
+    miGrafico = new Chart(ctx, { type: 'doughnut', data: { labels: DEPT_NAMES, datasets: [{ data: DEPT_NAMES.map(n => Math.max(0, db.saldos[n] || 0)), backgroundColor: ['#2ecc71', '#3498db', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c', '#1abc9c', '#34495e', '#d35400', '#c0392b', '#16a085', '#27ae60'] }] }, options: { responsive: true, maintainAspectRatio: false } });
 }
 
 window.mostrarAviso = function(m, t) {
-    const toast = document.createElement('div');
-    toast.className = `toast ${t}`;
-    toast.innerText = m;
-    document.getElementById('toast-container').appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+    const toast = document.createElement('div'); toast.className = `toast ${t}`; toast.innerText = m;
+    document.getElementById('toast-container').appendChild(toast); setTimeout(() => toast.remove(), 3000);
 };
 
+window.verTotalGeneral = function() {
+    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0);
+    const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
+    Swal.fire({ title: 'Estado Real de la Iglesia', html: `Bancos: ${clp.format(totalB)}<br>Proyectos: ${clp.format(totalP)}<hr><p style="color: green;">Neto Disponible: <b>${clp.format(totalB - totalP)}</b></p>`, icon: 'info' });
+};
+
+window.descargarCopia = function() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+    const d = document.createElement('a'); d.setAttribute("href", dataStr); d.setAttribute("download", "Respaldo.json"); document.body.appendChild(d); d.click(); d.remove();
+};
 window.toggleInputs = function() { document.getElementById('wrapper-proyecto').style.display = (document.getElementById('tipo-in').value === 'proyecto') ? 'block' : 'none'; };
-window.checkNuevoConcepto = function() {
-    const select = document.getElementById('proj-select');
-    document.getElementById('container-nuevo-nombre').style.display = (select.value === 'NUEVO_CONCEPTO') ? 'block' : 'none';
-};
-
+window.checkNuevoConcepto = function() { document.getElementById('nuevo-concepto-nombre').style.display = (document.getElementById('proj-select').value === 'NUEVO_CONCEPTO') ? 'block' : 'none'; };
 window.toggleSidebar = function() {
-    const sb = document.querySelector('.sidebar');
-    sb.classList.toggle('active-mobile');
+    const sb = document.querySelector('.sidebar'); sb.classList.toggle('active-mobile');
     const overlay = document.getElementById('sidebar-overlay');
     if(overlay) overlay.style.display = sb.classList.contains('active-mobile') ? 'block' : 'none';
 };
 
-// 10. SISTEMA DE RESPALDO (BACKUP)
-window.descargarCopia = function() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "Respaldo_Tesoreria_" + new Date().toISOString().slice(0,10) + ".json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-    mostrarAviso("Copia de seguridad descargada", "success");
+window.generarReportePDF = function() {
+    const { jsPDF } = window.jspdf; const doc = new jsPDF();
+    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    doc.setFontSize(18); doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 15, { align: "center" });
+    doc.setFontSize(12); doc.text("San Francisco de Limache - Reporte", 105, 22, { align: "center" });
+    const totalB = db.bancos.estado + db.bancos.chile; const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
+    doc.autoTable({ startY: 30, head: [['Resumen Consolidado', 'Monto']], body: [['Saldo Total', clp.format(totalB)], ['Fondo Proyectos', clp.format(totalP)], ['Neto Deptos', clp.format(totalB - totalP)]] });
+    doc.autoTable({ startY: doc.lastAutoTable.finalY + 15, head: [['Departamento', '%', 'Gastado', 'Disponible']], body: DEPT_NAMES.map(n => [n, db.porcentajes[n]+'%', clp.format(db.gastosReales[n]), clp.format(db.saldos[n])]) });
+    doc.save(`Reporte_Limache_${new Date().toLocaleDateString()}.pdf`);
 };
 
-window.restaurarCopia = function(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const json = JSON.parse(e.target.result);
-            if (json.bancos && json.saldos) {
-                db = json;
-                recalcularSaldosPorcentuales(); // Asegurar consistencia
-                updateUI();
-                mostrarAviso("Datos restaurados correctamente", "success");
-            } else {
-                mostrarAviso("El archivo no es válido", "error");
-            }
-        } catch (err) {
-            mostrarAviso("Error al leer el archivo", "error");
-        }
-    };
-    reader.readAsText(file);
-    // Limpiar input para permitir cargar el mismo archivo de nuevo si es necesario
-    input.value = '';
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('main-app').style.display = 'none';
-});
+document.addEventListener('DOMContentLoaded', () => { document.getElementById('login-screen').style.display = 'flex'; });
