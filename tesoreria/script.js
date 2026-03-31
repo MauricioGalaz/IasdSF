@@ -345,23 +345,24 @@ function renderHistorial() {
     container.innerHTML = db.historial_movimientos.slice().reverse().map((m, i) => {
         const realIdx = db.historial_movimientos.length - 1 - i;
         
-        // Creamos un selector interactivo si es un egreso
         let controlEstado = "";
         if (m.tipo === 'egreso') {
-            let estadoActual = m.estado_gasto || "Ingresado al sistema"; // Por si hay gastos viejos sin estado
+            let estadoActual = m.estado_gasto || "Ingresado al sistema";
             
-            // Asignamos el color dependiendo del estado actual
+            // Lógica de colores dinámica
             let colorFondo = "#f39c12"; // Naranja (Pendiente)
             if (estadoActual.includes("Rendido")) colorFondo = "#3498db"; // Azul (Boleta)
             if (estadoActual.includes("Reembolsado")) colorFondo = "#2ecc71"; // Verde (Pagado)
+            if (estadoActual.includes("ACMS")) colorFondo = "#16a085"; // Verde Esmeralda (Contabilizado ACMS)
             
-            // El selector dinámico
             controlEstado = `
                 <div style="margin-top: 8px;">
-                    <select onchange="actualizarEstadoGasto(${realIdx}, this.value)" style="background:${colorFondo}; color:white; border:none; padding:5px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; cursor:pointer; outline:none; -webkit-appearance:none; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                    <select onchange="actualizarEstadoGasto(${realIdx}, this.value)" 
+                        style="background:${colorFondo}; color:white; border:none; padding:5px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; cursor:pointer; outline:none; -webkit-appearance:none; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
                         <option value="Ingresado al sistema" style="background:white; color:black;" ${estadoActual === 'Ingresado al sistema' ? 'selected' : ''}>⏳ Ingresado (Pendiente)</option>
                         <option value="Rendido con boleta" style="background:white; color:black;" ${estadoActual === 'Rendido con boleta' ? 'selected' : ''}>🧾 Rendido con boleta</option>
                         <option value="Reembolsado" style="background:white; color:black;" ${estadoActual === 'Reembolsado' ? 'selected' : ''}>✅ Reembolsado</option>
+                        <option value="OK ingresado a remesas(ACMS)" style="background:white; color:black;" ${estadoActual === 'OK ingresado a remesas(ACMS)' ? 'selected' : ''}>✔️ OK ingresado a remesas(ACMS)</option>
                     </select>
                 </div>`;
         }
