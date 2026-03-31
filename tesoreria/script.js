@@ -187,13 +187,25 @@ window.registrarGasto = async function() {
     const monto = parseFloat(document.getElementById('gasto-monto').value);
     const banco = document.getElementById('gasto-banco').value;
     const prop = document.getElementById('gasto-proposito').value || "Gasto";
+    
+    // Capturamos el nuevo estado
+    const estadoGasto = document.getElementById('gasto-estado').value;
 
     if(!monto || monto <= 0) return mostrarAviso("Monto inválido", "error");
 
     db.bancos[banco] -= monto;
     if(tipo === 'PROJ') { db.proyectos[nombre] -= monto; } else { db.gastosReales[nombre] += monto; }
     
-    db.historial_movimientos.push({ fecha: new Date().toLocaleDateString(), detalle: `Gasto: ${prop} (${nombre})`, monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } });
+    // Agregamos "estado_gasto" al registro
+    db.historial_movimientos.push({ 
+        fecha: new Date().toLocaleDateString(), 
+        detalle: `Gasto: ${prop} (${nombre})`, 
+        monto: -monto, 
+        tipo: 'egreso', 
+        banco, 
+        meta: { tipo, nombre },
+        estado_gasto: estadoGasto // ¡Aquí se guarda el estado!
+    });
     
     try {
         await window.guardarEnFirebase();
@@ -201,8 +213,12 @@ window.registrarGasto = async function() {
         recalcularSaldosPorcentuales();
         const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
 
-        Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
-        document.getElementById('gasto-monto').value = ""; document.getElementById('gasto-proposito').value = "";
+        Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Estado: <b>${estadoGasto}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
+        
+        // Limpiamos formulario
+        document.getElementById('gasto-monto').value = ""; 
+        document.getElementById('gasto-proposito').value = "";
+        document.getElementById('gasto-estado').value = "Ingresado al sistema";
     } catch(e){}
 };
 
@@ -325,9 +341,32 @@ function renderHistorial() {
     const container = document.getElementById('lista-movimientos');
     if(!container) return;
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    
     container.innerHTML = db.historial_movimientos.slice().reverse().map((m, i) => {
         const realIdx = db.historial_movimientos.length - 1 - i;
-        return `<div class="rendicion-item"><span><strong>${m.fecha}</strong> - ${m.detalle}</span><div><strong style="color:${m.monto > 0 ? 'green' : 'red'}">${clp.format(m.monto)}</strong><button onclick="anularRegistro(${realIdx})" style="background:none; border:none; color:red; cursor:pointer; margin-left:10px;"><i class="fas fa-trash"></i></button></div></div>`;
+        
+        // Creamos la etiqueta de estado visual si es un egreso
+        let etiquetaEstado = "";
+        if (m.tipo === 'egreso' && m.estado_gasto) {
+            let colorFondo = "#f39c12"; // Naranja para "Ingresado"
+            if (m.estado_gasto.includes("Rendido")) colorFondo = "#3498db"; // Azul para "Rendido"
+            if (m.estado_gasto.includes("Reembolsado")) colorFondo = "#2ecc71"; // Verde para "Reembolsado"
+            
+            etiquetaEstado = `<br><span style="background:${colorFondo}; color:white; padding:3px 8px; border-radius:12px; font-size:0.75rem; display:inline-block; margin-top:5px; font-weight:bold;"><i class="fas fa-tag"></i> ${m.estado_gasto}</span>`;
+        }
+
+        return `<div class="rendicion-item" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <span><strong>${m.fecha}</strong> - ${m.detalle}</span>
+                        ${etiquetaEstado}
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <strong style="color:${m.monto > 0 ? 'green' : 'red'}; font-size:1.1rem;">${clp.format(m.monto)}</strong>
+                        <button onclick="anularRegistro(${realIdx})" style="background:none; border:none; color:red; cursor:pointer; margin-left:15px; font-size:1.2rem;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>`;
     }).join("");
 }
 
