@@ -4,6 +4,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
 const firebaseConfig = {
     apiKey: "AIzaSyDREJZZPPPTvoxlcYGf5btgNuNGvCs0esg",
     authDomain: "tesoreriasf-6c473.firebaseapp.com",
+    databaseURL: "https://tesoreriasf-6c473-default-rtdb.firebaseio.com",
     projectId: "tesoreriasf-6c473",
     storageBucket: "tesoreriasf-6c473.firebasestorage.app",
     messagingSenderId: "1094427807269",
@@ -25,7 +26,6 @@ window.validarAcceso = function() {
     if (pass === "tesoriasd") {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('main-app').style.display = 'block';
-        mostrarAviso("Sincronizando con la nube...", "info");
 
         const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
         
@@ -36,30 +36,28 @@ window.validarAcceso = function() {
             inicializarDB();
         }, (error) => {
             console.error("Error leyendo BD:", error);
-            Swal.fire('Error de Permisos', 'Firestore bloqueó la lectura. Asegúrate de que las reglas estén en Cloud Firestore y no en Realtime DB.', 'error');
+            alert("Error de permisos en Firebase. Revisa las reglas.");
         });
     } else {
         Swal.fire({ title: 'Contraseña Incorrecta', icon: 'error' });
     }
 };
 
-// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
-// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
+// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA (Filtro de limpieza)
 window.guardarEnFirebase = async function() {
     try {
         const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
         
-        // Función recursiva para limpiar datos que Firebase odia (undefined, null, NaN)
+        // Filtro que limpia datos antiguos o caracteres ilegales
         const limpiarParaFirestore = (obj) => {
-            if (obj === null || obj === undefined || Number.isNaN(obj)) return 0; // Si hay error, fuerza un 0
+            if (obj === null || obj === undefined || Number.isNaN(obj)) return 0;
             if (Array.isArray(obj)) return obj.map(limpiarParaFirestore).filter(e => e !== undefined && e !== null);
             if (typeof obj === 'object') {
                 const nuevoObj = {};
                 for (let key in obj) {
+                    let cleanKey = String(key).replace(/[\.\/\[\]~]/g, '-'); // Cambia símbolos prohibidos por guiones
                     const val = limpiarParaFirestore(obj[key]);
-                    if (val !== undefined && val !== null) {
-                        nuevoObj[key] = val;
-                    }
+                    if (val !== undefined && val !== null) nuevoObj[cleanKey] = val;
                 }
                 return nuevoObj;
             }
@@ -68,18 +66,18 @@ window.guardarEnFirebase = async function() {
 
         const dbLimpia = limpiarParaFirestore(db);
         
-        // Aseguramos estructura básica si algo se borró en el respaldo
         if (!dbLimpia.bancos) dbLimpia.bancos = { estado: 0, chile: 0 };
         if (!dbLimpia.historial_movimientos) dbLimpia.historial_movimientos = [];
         
         await setDoc(docRef, dbLimpia);
-        
     } catch (e) {
-        console.error("Error crítico guardando en Firestore:", e);
-        mostrarAviso("Error de sincronización.", "error");
+        console.error("Error crítico guardando:", e);
+        alert("Atención: El servidor rechazó los datos. Error: " + e.message); // Esto nos dirá exactamente el problema si vuelve a fallar
+        throw e; // Lanza el error para frenar el mensaje de éxito
     }
 };
-// 3. RESTAURAR COPIA DEFINITIVO
+
+// 3. RESTAURAR COPIA
 window.restaurarCopia = function(input) {
     const file = input.files[0]; 
     if (!file) return;
@@ -92,27 +90,28 @@ window.restaurarCopia = function(input) {
                 db = backup; 
                 inicializarDB(); 
                 
-                // Forzamos el guardado en la nube con la base de datos limpia
+                // Forzamos el guardado y si hay error, detiene la alerta verde
                 await window.guardarEnFirebase(); 
                 
                 Swal.fire({
                     title: '¡Restauración Exitosa!',
-                    text: 'Los datos oficiales de la iglesia han sido actualizados en la nube.',
+                    text: 'Los datos de la iglesia han sido actualizados en la nube.',
                     icon: 'success',
                     confirmButtonColor: '#2ecc71'
                 });
             } else {
-                mostrarAviso("El archivo no es válido", "error");
+                mostrarAviso("El archivo no tiene el formato correcto", "error");
             }
         } catch (err) { 
-            console.error("Error procesando archivo:", err);
-            mostrarAviso("El archivo está corrupto o tiene un formato no válido.", "error"); 
+            console.error("Proceso detenido:", err);
+            // El mensaje de error lo muestra la alerta nativa de guardarEnFirebase
         }
     };
     reader.readAsText(file); 
     input.value = '';
 };
 
+// 4. LÓGICA DE DISTRIBUCIÓN
 function inicializarDB() {
     if (!db.bancos) db.bancos = { estado: 0, chile: 0 };
     if (!db.saldos) db.saldos = {};
@@ -141,8 +140,8 @@ function recalcularSaldosPorcentuales() {
     });
 }
 
-// 4. MOVIMIENTOS Y REGISTROS
-window.procesarIngreso = function() {
+// 5. MOVIMIENTOS Y REGISTROS
+window.procesarIngreso = async function() {
     const monto = parseFloat(document.getElementById('monto-in').value);
     const cuenta = document.getElementById('cuenta-in').value;
     const tipo = document.getElementById('tipo-in').value;
@@ -165,13 +164,15 @@ window.procesarIngreso = function() {
     }
 
     db.historial_movimientos.push({ fecha, detalle: tipo === 'proyecto' ? `Proyecto: ${meta.nombre}` : `Remesa ${remesa}`, monto, tipo, banco: cuenta, meta });
-    window.guardarEnFirebase();
     
-    document.getElementById('monto-in').value = ""; document.getElementById('remesa-num').value = "";
-    mostrarAviso("Fondo integrado exitosamente.", "success");
+    try {
+        await window.guardarEnFirebase();
+        document.getElementById('monto-in').value = ""; document.getElementById('remesa-num').value = "";
+        mostrarAviso("Fondo integrado exitosamente.", "success");
+    } catch(e){}
 };
 
-window.registrarGasto = function() {
+window.registrarGasto = async function() {
     const selectElem = document.getElementById('gasto-dep');
     if(!selectElem || !selectElem.value) return mostrarAviso("Seleccione origen", "error");
     
@@ -186,14 +187,16 @@ window.registrarGasto = function() {
     if(tipo === 'PROJ') { db.proyectos[nombre] -= monto; } else { db.gastosReales[nombre] += monto; }
     
     db.historial_movimientos.push({ fecha: new Date().toLocaleDateString(), detalle: `Gasto: ${prop} (${nombre})`, monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre } });
-    window.guardarEnFirebase();
+    
+    try {
+        await window.guardarEnFirebase();
+        const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+        recalcularSaldosPorcentuales();
+        const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
 
-    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    recalcularSaldosPorcentuales();
-    const saldoFinal = tipo === 'PROJ' ? db.proyectos[nombre] : db.saldos[nombre];
-
-    Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
-    document.getElementById('gasto-monto').value = ""; document.getElementById('gasto-proposito').value = "";
+        Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
+        document.getElementById('gasto-monto').value = ""; document.getElementById('gasto-proposito').value = "";
+    } catch(e){}
 };
 
 window.anularRegistro = async function(index) {
@@ -207,8 +210,10 @@ window.anularRegistro = async function(index) {
         } else if(mov.tipo === 'proyecto' && mov.meta) { db.proyectos[mov.meta.nombre] -= mov.monto; }
         
         db.historial_movimientos.splice(index, 1);
-        window.guardarEnFirebase();
-        mostrarAviso("Registro eliminado", "success");
+        try {
+            await window.guardarEnFirebase();
+            mostrarAviso("Registro eliminado", "success");
+        } catch(e){}
     }
 };
 
@@ -218,12 +223,22 @@ window.limpiarRegistros = async function() {
         db.bancos = { estado: 0, chile: 0 }; db.historial_movimientos = [];
         Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
         DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
-        window.guardarEnFirebase();
-        Swal.fire('Reiniciado', 'Datos en cero.', 'success');
+        try {
+            await window.guardarEnFirebase();
+            Swal.fire('Reiniciado', 'Datos en cero.', 'success');
+        } catch(e){}
     }
 };
 
-// 5. RENDERIZADO VISUAL UI
+window.guardarConfig = async function() {
+    document.querySelectorAll('.in-porc').forEach(i => db.porcentajes[i.dataset.dep] = parseFloat(i.value));
+    try {
+        await window.guardarEnFirebase();
+        mostrarAviso("Configuración guardada", "success");
+    } catch(e){}
+};
+
+// 6. RENDERIZADO VISUAL UI
 window.updateUI = function() {
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
     document.getElementById('total-estado').innerText = clp.format(db.bancos.estado || 0);
@@ -292,12 +307,6 @@ window.validarSuma = function() {
     let suma = 0; document.querySelectorAll('.in-porc').forEach(i => suma += parseFloat(i.value) || 0);
     const bar = document.getElementById('check-total');
     if(bar) { bar.innerText = `Suma Total: ${suma.toFixed(2)}%`; const ok = Math.abs(suma - 100) < 0.1; bar.style.color = ok ? "green" : "red"; document.getElementById('btn-guardar-config').disabled = !ok; }
-};
-
-window.guardarConfig = function() {
-    document.querySelectorAll('.in-porc').forEach(i => db.porcentajes[i.dataset.dep] = parseFloat(i.value));
-    window.guardarEnFirebase();
-    mostrarAviso("Configuración guardada", "success");
 };
 
 function actualizarGrafico() {
