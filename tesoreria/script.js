@@ -207,20 +207,48 @@ window.registrarGasto = async function() {
 };
 
 window.anularRegistro = async function(index) {
-    const { value: pass } = await Swal.fire({ title: 'Anular Registro', input: 'password', showCancelButton: true });
+    const { value: pass } = await Swal.fire({ 
+        title: 'Anular Registro', 
+        input: 'password', 
+        inputPlaceholder: 'Ingrese contraseña (iasdsf)',
+        showCancelButton: true 
+    });
+    
+    // Recuerda: la contraseña es iasdsf
     if (pass === MASTER_PASS) {
-        const mov = db.historial_movimientos[index];
-        db.bancos[mov.banco] -= mov.monto;
-        if(mov.tipo === 'egreso' && mov.meta) {
-            if(mov.meta.tipo === 'PROJ') db.proyectos[mov.meta.nombre] -= mov.monto;
-            else db.gastosReales[mov.meta.nombre] += mov.monto;
-        } else if(mov.tipo === 'proyecto' && mov.meta) { db.proyectos[mov.meta.nombre] -= mov.monto; }
-        
-        db.historial_movimientos.splice(index, 1);
         try {
+            const mov = db.historial_movimientos[index];
+            
+            // 1. Devolvemos el dinero al banco
+            if (mov.banco && db.bancos[mov.banco] !== undefined) {
+                db.bancos[mov.banco] -= mov.monto;
+            }
+
+            // 2. Ajustamos la cuenta del departamento o proyecto
+            if (mov.tipo === 'egreso' && mov.meta) {
+                if (mov.meta.tipo === 'PROJ' && db.proyectos[mov.meta.nombre] !== undefined) {
+                    db.proyectos[mov.meta.nombre] -= mov.monto;
+                } else if (db.gastosReales[mov.meta.nombre] !== undefined) {
+                    db.gastosReales[mov.meta.nombre] += mov.monto;
+                }
+            } else if (mov.tipo === 'proyecto' && mov.meta && db.proyectos[mov.meta.nombre] !== undefined) { 
+                db.proyectos[mov.meta.nombre] -= mov.monto; 
+            }
+            
+            // 3. Eliminamos el registro de la lista
+            db.historial_movimientos.splice(index, 1);
+            
+            // 4. Guardamos en la nube y FORZAMOS actualizar la pantalla
             await window.guardarEnFirebase();
-            mostrarAviso("Registro eliminado", "success");
-        } catch(e){}
+            updateUI(); 
+            
+            Swal.fire('¡Eliminado!', 'El registro fue anulado y el dinero devuelto.', 'success');
+        } catch(e) {
+            console.error("Error al anular:", e);
+            Swal.fire('Error', 'No se pudo eliminar el registro.', 'error');
+        }
+    } else if (pass) {
+        Swal.fire('Error', 'Contraseña incorrecta', 'error');
     }
 };
 
