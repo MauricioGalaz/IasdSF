@@ -376,15 +376,107 @@ window.toggleSidebar = function() {
     if(overlay) overlay.style.display = sb.classList.contains('active-mobile') ? 'block' : 'none';
 };
 
-window.generarReportePDF = function() {
-    const { jsPDF } = window.jspdf; const doc = new jsPDF();
+window.generarReportePDF = async function() {
+    // Mostramos un aviso mientras se genera (el logo puede tardar milisegundos en cargar)
+    mostrarAviso("Generando documento oficial...", "info");
+
+    const { jsPDF } = window.jspdf; 
+    const doc = new jsPDF();
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    doc.setFontSize(18); doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 15, { align: "center" });
-    doc.setFontSize(12); doc.text("San Francisco de Limache - Reporte", 105, 22, { align: "center" });
-    const totalB = db.bancos.estado + db.bancos.chile; const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
-    doc.autoTable({ startY: 30, head: [['Resumen Consolidado', 'Monto']], body: [['Saldo Total', clp.format(totalB)], ['Fondo Proyectos', clp.format(totalP)], ['Neto Deptos', clp.format(totalB - totalP)]] });
-    doc.autoTable({ startY: doc.lastAutoTable.finalY + 15, head: [['Departamento', '%', 'Gastado', 'Disponible']], body: DEPT_NAMES.map(n => [n, db.porcentajes[n]+'%', clp.format(db.gastosReales[n]), clp.format(db.saldos[n])]) });
-    doc.save(`Reporte_Limache_${new Date().toLocaleDateString()}.pdf`);
+    
+    // Obtener la fecha actual formateada (Ej: "martes, 31 de marzo de 2026")
+    const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const fechaActual = new Date().toLocaleDateString('es-CL', opcionesFecha);
+
+    // Intentar cargar el logo
+    try {
+        const logoUrl = 'logo.jpg'; 
+        const img = new Image();
+        img.src = logoUrl;
+        
+        // Esperamos a que la imagen cargue
+        await new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve; // Continúa aunque no encuentre el logo
+        });
+
+        // Si la imagen cargó bien, la dibujamos (X: 15, Y: 12, Ancho: 25, Alto: 25)
+        if (img.complete && img.naturalHeight !== 0) {
+            doc.addImage(img, 'JPEG', 15, 12, 25, 25);
+        }
+    } catch(e) {
+        console.log("No se pudo cargar el logo", e);
+    }
+
+    // Cabecera Principal
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 20, { align: "center" });
+    
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("San Francisco de Limache", 105, 27, { align: "center" });
+    doc.text("Reporte de Tesorería para Junta Administrativa", 105, 33, { align: "center" });
+    
+    // Fecha de emisión
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "italic");
+    doc.text(`Fecha de emisión: ${fechaActual}`, 105, 42, { align: "center" });
+
+    // Cálculos
+    const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0); 
+    const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
+
+    // Tabla 1: Resumen General (Más abajo para hacer espacio a la cabecera)
+    doc.autoTable({ 
+        startY: 50, 
+        head: [['Resumen Consolidado', 'Monto']], 
+        body: [
+            ['Saldo Total en Bancos', clp.format(totalB)], 
+            ['Fondo Reservado Proyectos', clp.format(totalP)], 
+            ['Neto Disponible Departamentos', clp.format(totalB - totalP)]
+        ],
+        theme: 'striped',
+        headStyles: { fillColor: [197, 160, 89] } // Color dorado
+    });
+
+    // Tabla 2: Detalle por Departamentos
+    doc.autoTable({ 
+        startY: doc.lastAutoTable.finalY + 15, 
+        head: [['Departamento', '% Asignado', 'Gastado', 'Saldo Disponible']], 
+        body: DEPT_NAMES.map(n => [
+            n, 
+            (db.porcentajes[n] || 0) + '%', 
+            clp.format(db.gastosReales[n] || 0), 
+            clp.format(db.saldos[n] || 0)
+        ]),
+        headStyles: { fillColor: [10, 25, 47] } // Color azul oscuro marino
+    });
+
+    // Pie de página con espacio para firmas
+    const finalY = doc.lastAutoTable.finalY;
+    if (finalY < 250) { // Verifica que haya espacio en la hoja
+        doc.setLineWidth(0.5);
+        doc.line(40, finalY + 30, 90, finalY + 30); // Línea firma 1
+        doc.line(120, finalY + 30, 170, finalY + 30); // Línea firma 2
+        
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.text("Firma Tesorería", 65, finalY + 35, { align: "center" });
+        doc.text("Firma Pastor / Anciano", 145, finalY + 35, { align: "center" });
+    }
+
+    // Guardar el documento
+    const fechaArchivo = new Date().toLocaleDateString('es-CL').replace(/\//g, '-');
+    doc.save(`Reporte_Junta_Limache_${fechaArchivo}.pdf`);
+    
+    // Alerta de éxito
+    Swal.fire({
+        title: 'Reporte Generado',
+        text: 'El documento PDF oficial ha sido descargado.',
+        icon: 'success',
+        confirmButtonColor: '#c5a059'
+    });
 };
 
 document.addEventListener('DOMContentLoaded', () => { document.getElementById('login-screen').style.display = 'flex'; });
