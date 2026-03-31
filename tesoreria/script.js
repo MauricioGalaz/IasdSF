@@ -345,28 +345,40 @@ function renderHistorial() {
     container.innerHTML = db.historial_movimientos.slice().reverse().map((m, i) => {
         const realIdx = db.historial_movimientos.length - 1 - i;
         
-        // Creamos la etiqueta de estado visual si es un egreso
-        let etiquetaEstado = "";
-        if (m.tipo === 'egreso' && m.estado_gasto) {
-            let colorFondo = "#f39c12"; // Naranja para "Ingresado"
-            if (m.estado_gasto.includes("Rendido")) colorFondo = "#3498db"; // Azul para "Rendido"
-            if (m.estado_gasto.includes("Reembolsado")) colorFondo = "#2ecc71"; // Verde para "Reembolsado"
+        // Creamos un selector interactivo si es un egreso
+        let controlEstado = "";
+        if (m.tipo === 'egreso') {
+            let estadoActual = m.estado_gasto || "Ingresado al sistema"; // Por si hay gastos viejos sin estado
             
-            etiquetaEstado = `<br><span style="background:${colorFondo}; color:white; padding:3px 8px; border-radius:12px; font-size:0.75rem; display:inline-block; margin-top:5px; font-weight:bold;"><i class="fas fa-tag"></i> ${m.estado_gasto}</span>`;
+            // Asignamos el color dependiendo del estado actual
+            let colorFondo = "#f39c12"; // Naranja (Pendiente)
+            if (estadoActual.includes("Rendido")) colorFondo = "#3498db"; // Azul (Boleta)
+            if (estadoActual.includes("Reembolsado")) colorFondo = "#2ecc71"; // Verde (Pagado)
+            
+            // El selector dinámico
+            controlEstado = `
+                <div style="margin-top: 8px;">
+                    <select onchange="actualizarEstadoGasto(${realIdx}, this.value)" style="background:${colorFondo}; color:white; border:none; padding:5px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; cursor:pointer; outline:none; -webkit-appearance:none; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                        <option value="Ingresado al sistema" style="background:white; color:black;" ${estadoActual === 'Ingresado al sistema' ? 'selected' : ''}>⏳ Ingresado (Pendiente)</option>
+                        <option value="Rendido con boleta" style="background:white; color:black;" ${estadoActual === 'Rendido con boleta' ? 'selected' : ''}>🧾 Rendido con boleta</option>
+                        <option value="Reembolsado" style="background:white; color:black;" ${estadoActual === 'Reembolsado' ? 'selected' : ''}>✅ Reembolsado</option>
+                    </select>
+                </div>`;
         }
 
-        return `<div class="rendicion-item" style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <span><strong>${m.fecha}</strong> - ${m.detalle}</span>
-                        ${etiquetaEstado}
-                    </div>
-                    <div style="display:flex; align-items:center;">
-                        <strong style="color:${m.monto > 0 ? 'green' : 'red'}; font-size:1.1rem;">${clp.format(m.monto)}</strong>
-                        <button onclick="anularRegistro(${realIdx})" style="background:none; border:none; color:red; cursor:pointer; margin-left:15px; font-size:1.2rem;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>`;
+        return `
+        <div class="rendicion-item" style="display:flex; justify-content:space-between; align-items:center; border-left: 5px solid ${m.monto > 0 ? '#2ecc71' : '#e74c3c'}; padding:15px; margin-bottom:10px; background:white; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+            <div style="flex: 1; min-width: 200px;">
+                <span style="font-size: 0.95rem;"><strong>${m.fecha}</strong> - ${m.detalle}</span>
+                ${controlEstado}
+            </div>
+            <div style="display:flex; align-items:center; padding-left: 15px;">
+                <strong style="color:${m.monto > 0 ? '#2ecc71' : '#e74c3c'}; font-size:1.1rem;">${clp.format(m.monto)}</strong>
+                <button onclick="anularRegistro(${realIdx})" style="background:rgba(231, 76, 60, 0.1); border:none; color:#e74c3c; cursor:pointer; margin-left:15px; width:35px; height:35px; border-radius:8px; display:flex; align-items:center; justify-content:center; transition:0.3s;" title="Anular Registro">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>`;
     }).join("");
 }
 
@@ -516,6 +528,26 @@ window.generarReportePDF = async function() {
         icon: 'success',
         confirmButtonColor: '#c5a059'
     });
+};
+
+window.actualizarEstadoGasto = async function(index, nuevoEstado) {
+    if(db.historial_movimientos[index]) {
+        // Cambiamos el estado en la memoria
+        db.historial_movimientos[index].estado_gasto = nuevoEstado;
+        
+        try {
+            // Guardamos inmediatamente en Firebase
+            await window.guardarEnFirebase();
+            
+            // Refrescamos solo el historial para que cambie el color
+            renderHistorial();
+            
+            mostrarAviso("Estado actualizado", "success");
+        } catch(e) {
+            console.error(e);
+            mostrarAviso("Error al actualizar estado", "error");
+        }
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => { document.getElementById('login-screen').style.display = 'flex'; });
