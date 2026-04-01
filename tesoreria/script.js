@@ -361,7 +361,7 @@ function renderHistorial() {
                         style="background:${colorFondo}; color:white; border:none; padding:5px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; cursor:pointer; outline:none; -webkit-appearance:none; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
                         <option value="Ingresado al sistema" style="background:white; color:black;" ${estadoActual === 'Ingresado al sistema' ? 'selected' : ''}>⏳ Ingresado (Pendiente Status)</option>
                         <option value="Rendido con boleta" style="background:white; color:black;" ${estadoActual === 'Rendido con boleta' ? 'selected' : ''}>🧾 Rendido con Boleta</option>
-                        <option value="Reembolsado" style="background:white; color:black;" ${estadoActual === 'Reembolsado' ? 'selected' : ''}>✅ Reembolsado</option>
+                        <option value="Reembolsado" style="background:white; color:black;" ${estadoActual === 'Reembolsado' ? 'selected' : ''}>✅ Reembolsado (X Rendir Boleta)</option>
                         <option value="OK ingresado a remesas(ACMS)" style="background:white; color:black;" ${estadoActual === 'OK ingresado a remesas(ACMS)' ? 'selected' : ''}>✔️ OK Ingresado a Remesas(ACMS)</option>
                     </select>
                 </div>`;
