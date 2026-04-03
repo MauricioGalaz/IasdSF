@@ -17,7 +17,8 @@ const dbFirestore = getFirestore(app);
 const DEPT_NAMES = ["MIDEA", "DEPARTAMENTO NIÑOS", "DEPARTAMENTOS AVENTUREROS", "JOVENES ADVENTISTAS", "ASA", "PUBLICACIONES", "ESCUELA SABATICA", "MIPES", "MINISTERIO DE LA MUJER", "SALUD", "GASTOS DE IGLESIA", "FONDO SOLIDARIO"];
 const MASTER_PASS = "iasdsf";
 
-let db = { bancos: { estado: 0, chile: 0 }, saldos: {}, porcentajes: {}, gastosReales: {}, historial_movimientos: [], proyectos: { "Equipos Sonido y Butacas": 0 } };
+// Agregado .votos a la base
+let db = { bancos: { estado: 0, chile: 0 }, saldos: {}, porcentajes: {}, gastosReales: {}, historial_movimientos: [], proyectos: { "Equipos Sonido y Butacas": 0 }, votos: {} };
 let miGrafico = null;
 
 // 1. CONEXIÓN A LA NUBE
@@ -43,26 +44,19 @@ window.validarAcceso = function() {
     }
 };
 
-// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA (Filtro de limpieza)
+// 2. FUNCIÓN MAESTRA PARA GUARDAR BLINDADA
 window.guardarEnFirebase = async function() {
     try {
         const docRef = doc(dbFirestore, "tesoreria", "limache_actual");
         
-        // Filtro que limpia datos antiguos o caracteres ilegales
         const limpiarParaFirestore = (obj) => {
             if (obj === null || obj === undefined || Number.isNaN(obj)) return 0;
             if (Array.isArray(obj)) return obj.map(limpiarParaFirestore).filter(e => e !== undefined && e !== null);
             if (typeof obj === 'object') {
                 const nuevoObj = {};
                 for (let key in obj) {
-                    // Limpiamos los espacios en blanco de los extremos y los símbolos ilegales
                     let cleanKey = String(key).replace(/[\.\/\[\]~]/g, '-').trim(); 
-                    
-                    // ¡EL SALVAVIDAS! Si el nombre está vacío, le ponemos un nombre por defecto
-                    if (cleanKey === "") {
-                        cleanKey = "Proyecto_Sin_Nombre";
-                    }
-
+                    if (cleanKey === "") { cleanKey = "Proyecto_Sin_Nombre"; }
                     const val = limpiarParaFirestore(obj[key]);
                     if (val !== undefined && val !== null) nuevoObj[cleanKey] = val;
                 }
@@ -72,9 +66,9 @@ window.guardarEnFirebase = async function() {
         };
 
         const dbLimpia = limpiarParaFirestore(db);
-        
         if (!dbLimpia.bancos) dbLimpia.bancos = { estado: 0, chile: 0 };
         if (!dbLimpia.historial_movimientos) dbLimpia.historial_movimientos = [];
+        if (!dbLimpia.votos) dbLimpia.votos = {};
         
         await setDoc(docRef, dbLimpia);
     } catch (e) {
@@ -96,29 +90,18 @@ window.restaurarCopia = function(input) {
             if (backup.bancos || backup.historial_movimientos) {
                 db = backup; 
                 inicializarDB(); 
-                
-                // Forzamos el guardado y si hay error, detiene la alerta verde
                 await window.guardarEnFirebase(); 
-                
-                Swal.fire({
-                    title: '¡Restauración Exitosa!',
-                    text: 'Los datos de la iglesia han sido actualizados en la nube.',
-                    icon: 'success',
-                    confirmButtonColor: '#2ecc71'
-                });
+                Swal.fire({ title: '¡Restauración Exitosa!', icon: 'success', confirmButtonColor: '#2ecc71' });
             } else {
                 mostrarAviso("El archivo no tiene el formato correcto", "error");
             }
-        } catch (err) { 
-            console.error("Proceso detenido:", err);
-            // El mensaje de error lo muestra la alerta nativa de guardarEnFirebase
-        }
+        } catch (err) {}
     };
     reader.readAsText(file); 
     input.value = '';
 };
 
-// 4. LÓGICA DE DISTRIBUCIÓN
+// 4. LÓGICA DE DISTRIBUCIÓN E INICIALIZACIÓN
 function inicializarDB() {
     if (!db.bancos) db.bancos = { estado: 0, chile: 0 };
     if (!db.saldos) db.saldos = {};
@@ -126,6 +109,7 @@ function inicializarDB() {
     if (!db.gastosReales) db.gastosReales = {}; 
     if (!db.historial_movimientos) db.historial_movimientos = [];
     if (!db.proyectos) db.proyectos = { "Equipos Sonido y Butacas": 0 };
+    if (!db.votos) db.votos = {}; // Inicializamos estructura de votos
 
     DEPT_NAMES.forEach(n => {
         if (db.porcentajes[n] === undefined) db.porcentajes[n] = 8.33;
@@ -179,6 +163,35 @@ window.procesarIngreso = async function() {
     } catch(e){}
 };
 
+// --- LOGICA DE VOTOS DE JUNTA ---
+window.crearVoto = async function() {
+    const nombre = document.getElementById('voto-nombre').value.trim();
+    const monto = parseFloat(document.getElementById('voto-monto').value);
+
+    if (!nombre || !monto || monto <= 0) return mostrarAviso("Ingrese un nombre y un monto total válido", "error");
+
+    const idVoto = "VOTO_" + Date.now();
+    db.votos[idVoto] = { nombre: nombre, total: monto, rendido: 0, activo: true };
+
+    try {
+        await window.guardarEnFirebase();
+        document.getElementById('voto-nombre').value = "";
+        document.getElementById('voto-monto').value = "";
+        mostrarAviso("Voto de Junta Aprobado registrado", "success");
+        updateUI();
+    } catch(e){}
+};
+
+window.cerrarVoto = async function(id) {
+    if (db.votos[id]) {
+        db.votos[id].activo = false;
+        await window.guardarEnFirebase();
+        mostrarAviso("Voto cerrado manualmente", "success");
+        updateUI();
+    }
+};
+// --------------------------------
+
 window.registrarGasto = async function() {
     const selectElem = document.getElementById('gasto-dep');
     if(!selectElem || !selectElem.value) return mostrarAviso("Seleccione origen", "error");
@@ -187,24 +200,34 @@ window.registrarGasto = async function() {
     const monto = parseFloat(document.getElementById('gasto-monto').value);
     const banco = document.getElementById('gasto-banco').value;
     const prop = document.getElementById('gasto-proposito').value || "Gasto";
-    
-    // Capturamos el nuevo estado
     const estadoGasto = document.getElementById('gasto-estado').value;
+
+    // Detectar si el gasto pertenece a un voto
+    const idVoto = document.getElementById('gasto-voto-asociado')?.value || null;
 
     if(!monto || monto <= 0) return mostrarAviso("Monto inválido", "error");
 
     db.bancos[banco] -= monto;
     if(tipo === 'PROJ') { db.proyectos[nombre] -= monto; } else { db.gastosReales[nombre] += monto; }
     
-    // Agregamos "estado_gasto" al registro
+    let textoVoto = "";
+    if (idVoto && db.votos[idVoto]) {
+        db.votos[idVoto].rendido += monto;
+        textoVoto = ` [Aplicado a Voto: ${db.votos[idVoto].nombre}]`;
+        if (db.votos[idVoto].rendido >= db.votos[idVoto].total) {
+            db.votos[idVoto].activo = false; // Cierra automáticamente si se completó
+            setTimeout(() => Swal.fire('¡Voto Completado!', `El Voto de Junta '${db.votos[idVoto].nombre}' ha cubierto el total de su costo.`, 'success'), 1000);
+        }
+    }
+
     db.historial_movimientos.push({ 
         fecha: new Date().toLocaleDateString(), 
-        detalle: `Gasto: ${prop} (${nombre})`, 
+        detalle: `Gasto: ${prop} (${nombre})${textoVoto}`, 
         monto: -monto, 
         tipo: 'egreso', 
         banco, 
-        meta: { tipo, nombre },
-        estado_gasto: estadoGasto // ¡Aquí se guarda el estado!
+        meta: { tipo, nombre, id_voto: idVoto }, // Guardamos el ID del voto para futuras anulaciones
+        estado_gasto: estadoGasto
     });
     
     try {
@@ -215,10 +238,10 @@ window.registrarGasto = async function() {
 
         Swal.fire({ title: '¡Gasto Procesado!', html: `<div style="text-align: left;"><p>Monto: <b>${clp.format(monto)}</b></p><p>Estado: <b>${estadoGasto}</b></p><p>Saldo disponible en ${nombre}: <br><span style="color:green; font-weight:bold;">${clp.format(saldoFinal)}</span></p></div>`, icon: 'success' });
         
-        // Limpiamos formulario
         document.getElementById('gasto-monto').value = ""; 
         document.getElementById('gasto-proposito').value = "";
         document.getElementById('gasto-estado').value = "Ingresado al sistema";
+        updateUI();
     } catch(e){}
 };
 
@@ -230,37 +253,38 @@ window.anularRegistro = async function(index) {
         showCancelButton: true 
     });
     
-    // Recuerda: la contraseña es iasdsf
     if (pass === MASTER_PASS) {
         try {
             const mov = db.historial_movimientos[index];
             
-            // 1. Devolvemos el dinero al banco
             if (mov.banco && db.bancos[mov.banco] !== undefined) {
                 db.bancos[mov.banco] -= mov.monto;
             }
 
-            // 2. Ajustamos la cuenta del departamento o proyecto
             if (mov.tipo === 'egreso' && mov.meta) {
                 if (mov.meta.tipo === 'PROJ' && db.proyectos[mov.meta.nombre] !== undefined) {
                     db.proyectos[mov.meta.nombre] -= mov.monto;
                 } else if (db.gastosReales[mov.meta.nombre] !== undefined) {
-                    db.gastosReales[mov.meta.nombre] += mov.monto;
+                    db.gastosReales[mov.meta.nombre] += mov.monto; // += monto negativo = devuelve el gasto
+                }
+
+                // SI EL GASTO ESTABA ASOCIADO A UN VOTO, DEVOLVEMOS ESA RENDICION
+                if (mov.meta.id_voto && db.votos && db.votos[mov.meta.id_voto]) {
+                    db.votos[mov.meta.id_voto].rendido += mov.monto; // Resta el monto rendido
+                    // Si el voto estaba cerrado y ahora vuelve a faltar dinero, lo reactivamos
+                    if (db.votos[mov.meta.id_voto].rendido < db.votos[mov.meta.id_voto].total) {
+                        db.votos[mov.meta.id_voto].activo = true;
+                    }
                 }
             } else if (mov.tipo === 'proyecto' && mov.meta && db.proyectos[mov.meta.nombre] !== undefined) { 
                 db.proyectos[mov.meta.nombre] -= mov.monto; 
             }
             
-            // 3. Eliminamos el registro de la lista
             db.historial_movimientos.splice(index, 1);
-            
-            // 4. Guardamos en la nube y FORZAMOS actualizar la pantalla
             await window.guardarEnFirebase();
             updateUI(); 
-            
             Swal.fire('¡Eliminado!', 'El registro fue anulado y el dinero devuelto.', 'success');
         } catch(e) {
-            console.error("Error al anular:", e);
             Swal.fire('Error', 'No se pudo eliminar el registro.', 'error');
         }
     } else if (pass) {
@@ -271,12 +295,13 @@ window.anularRegistro = async function(index) {
 window.limpiarRegistros = async function() {
     const { value: pass } = await Swal.fire({ title: '¿REINICIAR TODO?', icon: 'warning', input: 'password', showCancelButton: true });
     if (pass === MASTER_PASS) {
-        db.bancos = { estado: 0, chile: 0 }; db.historial_movimientos = [];
+        db.bancos = { estado: 0, chile: 0 }; db.historial_movimientos = []; db.votos = {};
         Object.keys(db.proyectos).forEach(p => db.proyectos[p] = 0);
         DEPT_NAMES.forEach(n => db.gastosReales[n] = 0);
         try {
             await window.guardarEnFirebase();
             Swal.fire('Reiniciado', 'Datos en cero.', 'success');
+            updateUI();
         } catch(e){}
     }
 };
@@ -322,6 +347,50 @@ window.updateUI = function() {
     if(document.getElementById('tab-historial').classList.contains('active')) renderHistorial();
     if(document.getElementById('tab-config').classList.contains('active')) renderConfig();
     if(document.getElementById('tab-dashboard').classList.contains('active')) actualizarGrafico();
+    
+    // Siempre renderizar los votos pendientes para tenerlos al día
+    renderVotos();
+};
+
+window.renderVotos = function() {
+    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
+    const container = document.getElementById('lista-votos-pendientes');
+    const select = document.getElementById('gasto-voto-asociado');
+    if (!container || !select) return;
+
+    let htmlVotos = "";
+    let htmlSelect = '<option value="">-- Gasto Directo Normal (No Asociado a Voto) --</option>';
+
+    Object.keys(db.votos || {}).forEach(id => {
+        const v = db.votos[id];
+        if (v.activo) {
+            const faltante = v.total - v.rendido;
+            const porcentaje = Math.min(100, (v.rendido / v.total) * 100).toFixed(1);
+            
+            htmlVotos += `
+            <div style="background:#f8fafc; border-left: 5px solid ${faltante <= 0 ? '#2ecc71' : '#c5a059'}; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div style="display:flex; justify-content: space-between; align-items: center;">
+                    <strong>${v.nombre}</strong>
+                    <button onclick="cerrarVoto('${id}')" style="background:rgba(231, 76, 60, 0.1); color:#e74c3c; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:0.8rem; font-weight:bold;">Forzar Cierre</button>
+                </div>
+                <div style="font-size: 0.9rem; margin-top: 8px;">
+                    Total Aprobado: <b>${clp.format(v.total)}</b> | Se ha rendido: <b style="color:#3498db">${clp.format(v.rendido)}</b> | Faltan por rendir: <b style="color:#e74c3c">${clp.format(Math.max(0, faltante))}</b>
+                </div>
+                <div style="width: 100%; background: #e2e8f0; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden;">
+                    <div style="width: ${porcentaje}%; background: ${faltante <= 0 ? '#2ecc71' : '#c5a059'}; height: 100%; transition: width 0.3s ease;"></div>
+                </div>
+            </div>`;
+
+            htmlSelect += `<option value="${id}">Asociar a Voto: ${v.nombre} (Falta registrar: ${clp.format(Math.max(0, faltante))})</option>`;
+        }
+    });
+
+    if (htmlVotos === "") {
+        htmlVotos = "<p style='color:#94a3b8; font-size:0.9rem; font-style:italic; text-align:center; padding: 10px;'>No hay votos de junta pendientes de rendición.</p>";
+    }
+
+    container.innerHTML = htmlVotos;
+    select.innerHTML = htmlSelect;
 };
 
 window.showTab = function(id) {
@@ -349,11 +418,10 @@ function renderHistorial() {
         if (m.tipo === 'egreso') {
             let estadoActual = m.estado_gasto || "Ingresado al sistema";
             
-            // Lógica de colores dinámica
-            let colorFondo = "#f39c12"; // Naranja (Pendiente)
-            if (estadoActual.includes("Rendido")) colorFondo = "#3498db"; // Azul (Boleta)
-            if (estadoActual.includes("Reembolsado")) colorFondo = "#2ecc71"; // Verde (Pagado)
-            if (estadoActual.includes("ACMS")) colorFondo = "#16a085"; // Verde Esmeralda (Contabilizado ACMS)
+            let colorFondo = "#f39c12"; 
+            if (estadoActual.includes("Rendido")) colorFondo = "#3498db"; 
+            if (estadoActual.includes("Reembolsado")) colorFondo = "#2ecc71"; 
+            if (estadoActual.includes("ACMS")) colorFondo = "#16a085"; 
             
             controlEstado = `
                 <div style="margin-top: 8px;">
@@ -429,125 +497,51 @@ window.toggleSidebar = function() {
 };
 
 window.generarReportePDF = async function() {
-    // Mostramos un aviso mientras se genera (el logo puede tardar milisegundos en cargar)
     mostrarAviso("Generando documento oficial...", "info");
-
     const { jsPDF } = window.jspdf; 
     const doc = new jsPDF();
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    
-    // Obtener la fecha actual formateada (Ej: "martes, 31 de marzo de 2026")
     const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const fechaActual = new Date().toLocaleDateString('es-CL', opcionesFecha);
 
-    // Intentar cargar el logo
     try {
         const logoUrl = 'logo.jpg'; 
         const img = new Image();
         img.src = logoUrl;
-        
-        // Esperamos a que la imagen cargue
-        await new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve; // Continúa aunque no encuentre el logo
-        });
+        await new Promise((resolve) => { img.onload = resolve; img.onerror = resolve; });
+        if (img.complete && img.naturalHeight !== 0) doc.addImage(img, 'JPEG', 15, 12, 25, 25);
+    } catch(e) { console.log("No se pudo cargar el logo", e); }
 
-        // Si la imagen cargó bien, la dibujamos (X: 15, Y: 12, Ancho: 25, Alto: 25)
-        if (img.complete && img.naturalHeight !== 0) {
-            doc.addImage(img, 'JPEG', 15, 12, 25, 25);
-        }
-    } catch(e) {
-        console.log("No se pudo cargar el logo", e);
-    }
-
-    // Cabecera Principal
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 20, { align: "center" });
-    
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    doc.text("San Francisco de Limache", 105, 27, { align: "center" });
+    doc.setFontSize(16); doc.setFont("helvetica", "bold"); doc.text("IGLESIA ADVENTISTA DEL SÉPTIMO DÍA", 105, 20, { align: "center" });
+    doc.setFontSize(12); doc.setFont("helvetica", "normal"); doc.text("San Francisco de Limache", 105, 27, { align: "center" });
     doc.text("Reporte de Tesorería para Junta Administrativa", 105, 33, { align: "center" });
-    
-    // Fecha de emisión
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "italic");
-    doc.text(`Fecha de emisión: ${fechaActual}`, 105, 42, { align: "center" });
+    doc.setFontSize(10); doc.setFont("helvetica", "italic"); doc.text(`Fecha de emisión: ${fechaActual}`, 105, 42, { align: "center" });
 
-    // Cálculos
     const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0); 
     const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
 
-    // Tabla 1: Resumen General (Más abajo para hacer espacio a la cabecera)
-    doc.autoTable({ 
-        startY: 50, 
-        head: [['Resumen Consolidado', 'Monto']], 
-        body: [
-            ['Saldo Total en Bancos', clp.format(totalB)], 
-            ['Fondo Reservado Proyectos', clp.format(totalP)], 
-            ['Neto Disponible Departamentos', clp.format(totalB - totalP)]
-        ],
-        theme: 'striped',
-        headStyles: { fillColor: [197, 160, 89] } // Color dorado
-    });
+    doc.autoTable({ startY: 50, head: [['Resumen Consolidado', 'Monto']], body: [ ['Saldo Total en Bancos', clp.format(totalB)], ['Fondo Reservado Proyectos', clp.format(totalP)], ['Neto Disponible Departamentos', clp.format(totalB - totalP)] ], theme: 'striped', headStyles: { fillColor: [197, 160, 89] } });
+    doc.autoTable({ startY: doc.lastAutoTable.finalY + 15, head: [['Departamento', '% Asignado', 'Gastado', 'Saldo Disponible']], body: DEPT_NAMES.map(n => [ n, (db.porcentajes[n] || 0) + '%', clp.format(db.gastosReales[n] || 0), clp.format(db.saldos[n] || 0) ]), headStyles: { fillColor: [10, 25, 47] } });
 
-    // Tabla 2: Detalle por Departamentos
-    doc.autoTable({ 
-        startY: doc.lastAutoTable.finalY + 15, 
-        head: [['Departamento', '% Asignado', 'Gastado', 'Saldo Disponible']], 
-        body: DEPT_NAMES.map(n => [
-            n, 
-            (db.porcentajes[n] || 0) + '%', 
-            clp.format(db.gastosReales[n] || 0), 
-            clp.format(db.saldos[n] || 0)
-        ]),
-        headStyles: { fillColor: [10, 25, 47] } // Color azul oscuro marino
-    });
-
-    // Pie de página con espacio para firmas
     const finalY = doc.lastAutoTable.finalY;
-    if (finalY < 250) { // Verifica que haya espacio en la hoja
-        doc.setLineWidth(0.5);
-        doc.line(40, finalY + 30, 90, finalY + 30); // Línea firma 1
-        doc.line(120, finalY + 30, 170, finalY + 30); // Línea firma 2
-        
-        doc.setFontSize(10);
-        doc.setFont("helvetica", "normal");
-        doc.text("Firma Tesorería", 65, finalY + 35, { align: "center" });
-        doc.text("Firma Pastor / Anciano", 145, finalY + 35, { align: "center" });
+    if (finalY < 250) { 
+        doc.setLineWidth(0.5); doc.line(40, finalY + 30, 90, finalY + 30); doc.line(120, finalY + 30, 170, finalY + 30); 
+        doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.text("Firma Tesorería", 65, finalY + 35, { align: "center" }); doc.text("Firma Pastor / Anciano", 145, finalY + 35, { align: "center" });
     }
 
-    // Guardar el documento
     const fechaArchivo = new Date().toLocaleDateString('es-CL').replace(/\//g, '-');
     doc.save(`Reporte_Junta_Limache_${fechaArchivo}.pdf`);
-    
-    // Alerta de éxito
-    Swal.fire({
-        title: 'Reporte Generado',
-        text: 'El documento PDF oficial ha sido descargado.',
-        icon: 'success',
-        confirmButtonColor: '#c5a059'
-    });
+    Swal.fire({ title: 'Reporte Generado', text: 'El documento PDF oficial ha sido descargado.', icon: 'success', confirmButtonColor: '#c5a059' });
 };
 
 window.actualizarEstadoGasto = async function(index, nuevoEstado) {
     if(db.historial_movimientos[index]) {
-        // Cambiamos el estado en la memoria
         db.historial_movimientos[index].estado_gasto = nuevoEstado;
-        
         try {
-            // Guardamos inmediatamente en Firebase
             await window.guardarEnFirebase();
-            
-            // Refrescamos solo el historial para que cambie el color
             renderHistorial();
-            
             mostrarAviso("Estado actualizado", "success");
-        } catch(e) {
-            console.error(e);
-            mostrarAviso("Error al actualizar estado", "error");
-        }
+        } catch(e) { mostrarAviso("Error al actualizar estado", "error"); }
     }
 };
 

@@ -129,9 +129,25 @@
                 </section>
 
                 <section id="tab-egresos" class="tab-view" style="display:none;">
+                    <div class="glass-form" style="background: white; padding: 30px; border-radius: 20px; margin-bottom: 20px;">
+                        <h3><i class="fas fa-users" style="color:var(--gold);"></i> Votos de Junta (Gastos a Compartir)</h3>
+                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Crea el "Voto" aquí para que al ingresar gastos abajo, el sistema calcule cuánto falta por rendir del total aprobado.</p>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                            <input type="text" id="voto-nombre" placeholder="Concepto (Ej. Campaña Evang.)" style="flex: 2; min-width: 200px; margin-bottom: 0;">
+                            <input type="number" id="voto-monto" placeholder="Monto Total $" style="flex: 1; min-width: 120px; margin-bottom: 0;">
+                            <button class="btn-action" onclick="crearVoto()" style="margin-top: 0; width: auto; flex: 1;">Aprobar Voto</button>
+                        </div>
+                        <div id="lista-votos-pendientes" style="margin-top: 20px;"></div>
+                    </div>
+
                     <div class="glass-form" style="background: white; padding: 30px; border-radius: 20px;">
                         <h3>Registrar Egreso / Rendición</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                            
+                            <select id="gasto-voto-asociado" style="grid-column: span 2; border: 2px solid #c5a059; background: #fdfbf7; font-weight: bold;">
+                                </select>
+
                             <select id="gasto-dep"></select>
                             <select id="gasto-banco">
                                 <option value="estado">BancoEstado</option>
