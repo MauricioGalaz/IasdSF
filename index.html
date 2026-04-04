@@ -998,8 +998,8 @@
                                 // Guardar que ya se mostró en esta sesión
                                 sessionStorage.setItem('mensajeMostrado', 'true');
 
-                                // Auto-cerrar en 25 segundos
-                                timerCierreJesus = setTimeout(() => cerrarMensaje(), 25000);
+                                // Auto-cerrar en 6 segundos
+                                timerCierreJesus = setTimeout(() => cerrarMensaje(), 6000);
                             }
                         }, 500);
                     }, 10000);
@@ -1011,7 +1011,7 @@
                     const pTimer = document.getElementById('progress-timer');
                     if (pTimer) pTimer.classList.add('progress-fill-jesus');
                     sessionStorage.setItem('mensajeMostrado', 'true');
-                    timerCierreJesus = setTimeout(() => cerrarMensaje(), 25000);
+                    timerCierreJesus = setTimeout(() => cerrarMensaje(), 6000);
                 }, 1500);
             }
         });
