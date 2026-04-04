@@ -8,23 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" <meta name=" theme-color content="
-        #00305e">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-TileColor" content="#00305e">
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
 
     <!-- iOS -->
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="IASD Limache">
 
     <!-- Theme -->
     <meta name="theme-color" content="#00305e">
+    <meta name="msapplication-TileColor" content="#00305e">
 
     <script>
         tailwind.config = {
@@ -50,7 +46,7 @@
     <style>
         :root { scroll-behavior: smooth; }
         body { background: radial-gradient(circle at top right, #f8fafc, #eff6ff); overflow-x: hidden; }
-        
+
         .animate-fade-in { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -58,30 +54,43 @@
         }
 
         .hover-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        /* Hover solo en dispositivos con puntero real, no en táctil */
+        @media (hover: hover) and (pointer: fine) {
+            .hover-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            }
+        }
 
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+
         #mobile-menu { transition: max-height 0.3s ease-in-out; max-height: 0; overflow: hidden; }
         #mobile-menu.open { max-height: 300px; }
 
-        .dynamic-card { min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+        .dynamic-card { min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+
+        /* Evita desbordamiento de texto en pantallas pequeñas */
+        h1, h2, h3 { word-break: break-word; overflow-wrap: break-word; }
     </style>
 </head>
 
 <body class="text-slate-900">
 
+    <!-- NAV -->
     <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-xl border-b border-white/10">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="h-14 w-14 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg transition-transform group-hover:scale-110">
+        <div class="container mx-auto px-3 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 group">
+                <div class="h-11 w-11 sm:h-14 sm:w-14 bg-white rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg transition-transform group-hover:scale-110 flex-shrink-0">
                     <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo">
                 </div>
                 <div class="flex flex-col leading-tight">
-                    <span class="font-heading font-black text-[10px] sm:text-xs tracking-[0.2em] uppercase">IASD San Francisco</span>
-                    <span class="text-adventist-gold font-bold text-[12px] sm:text-sm uppercase tracking-widest">de Limache</span>
+                    <span class="font-heading font-black text-[9px] sm:text-xs tracking-[0.15em] uppercase">IASD San Francisco</span>
+                    <span class="text-adventist-gold font-bold text-[11px] sm:text-sm uppercase tracking-widest">de Limache</span>
                 </div>
             </a>
-            <button id="menu-btn" class="md:hidden text-2xl p-2 focus:outline-none"><i class="fas fa-bars"></i></button>
+            <button id="menu-btn" class="md:hidden text-xl p-2 focus:outline-none" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="hidden md:flex items-center gap-8 font-bold text-xs uppercase tracking-widest">
                 <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
                 <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
@@ -95,135 +104,159 @@
         </div>
     </nav>
 
-    <header class="w-full bg-adventist-blue text-white pt-12 pb-28 px-4 text-center rounded-b-[3rem] md:rounded-b-[6rem] shadow-2xl relative overflow-hidden">
+    <!-- HEADER -->
+    <header class="w-full bg-adventist-blue text-white pt-8 pb-20 px-4 text-center rounded-b-[2rem] md:rounded-b-[6rem] shadow-2xl relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <i class="fas fa-church text-[20rem] absolute -bottom-10 -left-10 rotate-12"></i>
+            <i class="fas fa-church text-[12rem] sm:text-[18rem] absolute -bottom-6 -left-6 rotate-12"></i>
         </div>
         <div class="relative z-10">
-            <span class="inline-block bg-white/10 backdrop-blur-md text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] uppercase tracking-[0.3em] mb-6 border border-white/20">Panel Oficial de Información</span>
-            <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-6 uppercase drop-shadow-lg text-white">AVISOS DE <br> <span class="text-adventist-gold">IGLESIA</span></h1>
-            <p class="text-sm md:text-2xl font-bold opacity-80 tracking-widest uppercase border-t border-white/20 inline-block pt-4 mt-2">Sábado 04 de Abril 2026</p>
+            <span class="inline-block bg-white/10 backdrop-blur-md text-adventist-gold px-4 py-1 rounded-full font-black text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mb-4 border border-white/20">
+                Panel Oficial de Información
+            </span>
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase drop-shadow-lg text-white">
+                AVISOS DE <br><span class="text-adventist-gold">IGLESIA</span>
+            </h1>
+            <p class="text-xs sm:text-sm md:text-2xl font-bold opacity-80 tracking-widest uppercase border-t border-white/20 inline-block pt-3 mt-2">
+                Sábado 04 de Abril 2026
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 -mt-16 pb-20 max-w-4xl space-y-10">
+    <!-- MAIN -->
+    <main class="container mx-auto px-3 sm:px-4 -mt-12 pb-16 max-w-4xl space-y-6 sm:space-y-10">
 
-        <div id="contenedor-avisos-dinamicos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+        <!-- Avisos dinámicos Firebase -->
+        <div id="contenedor-avisos-dinamicos" class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8"></div>
 
-                <section class="hover-card bg-adventist-red rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
-            <div class="bg-white rounded-[2.9rem] p-8 md:p-12 text-center relative overflow-hidden h-full">
-                <!-- <h2 class="text-5xl md:text-8xl font-heading font-black text-adventist-red leading-none mb-4 uppercase italic">CULTO JA</h2> -->
-                
-                <div class="bg-adventist-red text-white py-8 px-4 rounded-[2rem] shadow-xl mb-8 transform -rotate-1 group-hover:rotate-0 transition-transform">
-                    <p class="text-2xl md:text-4xl font-black uppercase leading-tight">HOY 16:00 HRS <br><span class="text-adventist-gold">AVENTUREROS</p>
+        <!-- AVENTUREROS -->
+        <section class="hover-card bg-adventist-red rounded-[2rem] sm:rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
+            <div class="bg-white rounded-[1.9rem] sm:rounded-[2.9rem] p-6 sm:p-10 text-center relative overflow-hidden h-full">
+                <div class="bg-adventist-red text-white py-6 px-4 rounded-[1.5rem] sm:rounded-[2rem] shadow-xl mb-5 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                    <p class="text-xl sm:text-3xl md:text-4xl font-black uppercase leading-tight">
+                        HOY 16:00 HRS <br><span class="text-adventist-gold">AVENTUREROS</span>
+                    </p>
                 </div>
-                <p class="font-black text-slate-700 uppercase text-sm md:text-lg tracking-tighter">
-                    <i class="fas fa-medal text-adventist-gold mr-2"></i>INICIO CLUB <span class="text-adventist-red"></span>
+                <p class="font-black text-slate-700 uppercase text-sm tracking-tighter">
+                    <i class="fas fa-medal text-adventist-gold mr-2"></i>INICIO CLUB
                 </p>
             </div>
         </section>
 
-        <section class="hover-card glass border-t-[12px] border-adventist-gold rounded-[2.5rem] p-8 md:p-14 shadow-2xl text-center">
-            <div class="w-20 h-20 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-hands-praying text-5xl text-adventist-gold animate-pulse"></i>
+        <!-- ORACIÓN INTERCESORA -->
+        <section class="hover-card glass border-t-[10px] sm:border-t-[12px] border-adventist-gold rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-12 shadow-2xl text-center">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-5">
+                <i class="fas fa-hands-praying text-4xl sm:text-5xl text-adventist-gold animate-pulse"></i>
             </div>
-            <h2 class="text-4xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-6 uppercase tracking-tighter">ORACIÓN<br>INTERCESORA</h2>
-            <div class="inline-block bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xl md:text-2xl shadow-xl">HOY SÁBADO <br> 17:00 HRS</div>
-            <p class="mt-6 text-slate-500 text-sm font-bold uppercase tracking-widest italic">"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos." <br> Mateo 18:20</p>
+            <h2 class="text-3xl sm:text-5xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-5 uppercase tracking-tighter">
+                ORACIÓN<br>INTERCESORA
+            </h2>
+            <div class="inline-block bg-adventist-blue text-white px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-black text-lg sm:text-2xl shadow-xl">
+                HOY SÁBADO <br> 17:00 HRS
+            </div>
+            <p class="mt-5 text-slate-500 text-xs sm:text-sm font-bold uppercase tracking-widest italic leading-relaxed px-2">
+                "Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos." <br> Mateo 18:20
+            </p>
         </section>
-        <section
-            class="hover-card glass border-t-[10px] border-adventist-blue rounded-[3rem] p-10 shadow-xl text-center">
-            <i class="fas fa-users-gear text-4xl text-adventist-blue mb-8"></i>
-            <h2 class="text-4xl md:text-3xl font-heading font-black text-slate-800 leading-none mb-6 uppercase">
-                !!INFORMACIÓN!! <br><br><span><b>ASA</b></span> <br><br> <span class="text-adventist-blue">"Se solicita a la membresía alimentos no perecibles y útiles escolares para campaña de apoyo a familias en necesidad. Dios bendiga al que comparte con amor 🙏"</span>
+
+        <!-- ASA -->
+        <section class="hover-card glass border-t-[8px] sm:border-t-[10px] border-adventist-blue rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-xl text-center">
+            <i class="fas fa-users-gear text-3xl sm:text-4xl text-adventist-blue mb-5"></i>
+            <h2 class="text-xl sm:text-2xl font-heading font-black text-slate-800 leading-snug mb-2 uppercase">
+                !!INFORMACIÓN!!
             </h2>
-            </section>
+            <p class="text-2xl sm:text-3xl font-heading font-black text-slate-800 mb-3">ASA</p>
+            <p class="text-sm sm:text-base text-adventist-blue font-semibold leading-relaxed px-1">
+                "Se solicita a la membresía alimentos no perecibles y útiles escolares para campaña de apoyo a familias en necesidad. Dios bendiga al que comparte con amor 🙏"
+            </p>
+        </section>
 
-
-        <section
-            class="hover-card glass border-t-[12px] border-adventist-blue rounded-[3rem] p-10 shadow-xl text-center">
-            <i class="fas fa-users-gear text-6xl text-adventist-blue mb-6"></i>
-            <h2 class="text-3xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-6 uppercase">
-                !!HOY!! <br>18:30 hrs. Culto Jóven <br> <span class="text-adventist-blue">!!Te esperamos!!</span>
+        <!-- CULTO JOVEN -->
+        <section class="hover-card glass border-t-[10px] sm:border-t-[12px] border-adventist-blue rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-xl text-center">
+            <i class="fas fa-users-gear text-4xl sm:text-6xl text-adventist-blue mb-5"></i>
+            <h2 class="text-2xl sm:text-4xl md:text-6xl font-heading font-black text-slate-800 leading-tight mb-5 uppercase">
+                !!HOY!! <br>18:30 hrs. Culto Jóven<br>
+                <span class="text-adventist-blue text-lg sm:text-2xl md:text-3xl">!!Te esperamos!!</span>
             </h2>
-            <div
-                class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
-                <div class="relative z-10">
-
-                    <p class="text-sm md:text-lg font-medium opacity-90 uppercase tracking-widest">📍 Calle Carrera 131,
-                        San Fco. de Limache</p>
-                    <hr class="my-6 border-white/10">
-                    <p class="text-lg md:text-2xl font-bold uppercase">¡Te esperamos para crecer y compartir juntos!</p>
-                </div>
+            <div class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-5 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl">
+                <p class="text-xs sm:text-base md:text-lg font-medium opacity-90 uppercase tracking-widest">
+                    📍 Calle Carrera 131, San Fco. de Limache
+                </p>
+                <hr class="my-4 border-white/10">
+                <p class="text-sm sm:text-lg md:text-2xl font-bold uppercase">¡Te esperamos para crecer y compartir juntos!</p>
             </div>
         </section>
 
-        
-        <section class="relative bg-cover bg-center rounded-[2.5rem] shadow-2xl text-white overflow-hidden"
-    style="background-image: url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65');">
-
-    <!-- Overlay oscuro -->
-    <div class="absolute inset-0 bg-black/70"></div>
-
-    <div class="relative p-10 md:p-16 text-center">
-
-        <!-- Título principal -->
-        <h2 class="text-4xl md:text-7xl font-black uppercase leading-tight mb-6">
-            JUNTA ADMINISTRATIVA MES DE ABRIL <br>
-            <span class="text-yellow-300">Domingo 5 de abril 10:00 hrs</span>
-        </h2>
-
-        <!-- Subtítulo -->
-        <p class="text-xl md:text-2xl font-semibold mb-8 tracking-wide">
-            Iglesia Adventista del Séptimo Día <br>
-            San Francisco de Limache
-        </p>
-
-        
-</section>
-
-        <section class="hover-card bg-adventist-dark rounded-[2.5rem] p-12 shadow-4xl text-center text-white border-b-[12px] border-adventist-gold relative overflow-hidden">
-            <p class="text-adventist-gold text-xs font-black uppercase tracking-[0.5em] mb-4">Anciano de Turno del Mes</p>
-            <h2 class="text-xl md:text-3xl font-black text-adventist-gold mb-2 uppercase italic">Mauricio <br> <span class="text-adventist-gold">Galaz</span></h2>
+        <!-- JUNTA ADMINISTRATIVA -->
+        <section class="relative bg-cover bg-center rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl text-white overflow-hidden"
+            style="background-image: url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65');">
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="relative p-7 sm:p-12 md:p-16 text-center">
+                <h2 class="text-2xl sm:text-4xl md:text-7xl font-black uppercase leading-tight mb-4">
+                    JUNTA ADMINISTRATIVA MES DE ABRIL <br>
+                    <span class="text-yellow-300 text-lg sm:text-2xl md:text-5xl">Domingo 5 de abril 10:00 hrs</span>
+                </h2>
+                <p class="text-sm sm:text-lg md:text-2xl font-semibold tracking-wide">
+                    Iglesia Adventista del Séptimo Día <br>
+                    San Francisco de Limache
+                </p>
+            </div>
         </section>
 
-        <section class="mt-20 flex flex-col items-center px-4 relative">
+        <!-- ANCIANO DE TURNO -->
+        <section class="hover-card bg-adventist-dark rounded-[2rem] sm:rounded-[2.5rem] p-8 sm:p-12 shadow-2xl text-center text-white border-b-[10px] border-adventist-gold relative overflow-hidden">
+            <p class="text-adventist-gold text-[10px] font-black uppercase tracking-[0.4em] mb-3">Anciano de Turno del Mes</p>
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-adventist-gold mb-2 uppercase italic">
+                Mauricio <br><span class="text-adventist-gold">Galaz</span>
+            </h2>
+        </section>
+
+        <!-- PANEL ADMIN -->
+        <section class="mt-14 flex flex-col items-center px-4 relative">
             <button onclick="toggleAdminPanel()" class="group flex items-center gap-2 text-slate-400 hover:text-adventist-blue transition-all">
                 <span class="text-[10px] font-black uppercase tracking-[0.5em]">Gestión de Muro</span>
                 <i class="fas fa-fingerprint text-xs group-hover:rotate-12 transition-transform"></i>
             </button>
-            <div id="admin-panel" class="hidden mt-8 w-full max-w-sm">
-                <div class="glass p-8 rounded-[2rem] shadow-2xl space-y-4">
-                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY" class="w-full bg-slate-100 border p-4 rounded-xl text-center font-black tracking-widest outline-none focus:border-adventist-blue">
-                    <button onclick="activarEdicion()" class="w-full bg-adventist-blue text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg">Validar Acceso</button>
+            <div id="admin-panel" class="hidden mt-6 w-full max-w-xs sm:max-w-sm">
+                <div class="glass p-6 sm:p-8 rounded-[2rem] shadow-2xl space-y-4">
+                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
+                        class="w-full bg-slate-100 border p-4 rounded-xl text-center font-black tracking-widest outline-none focus:border-adventist-blue text-sm">
+                    <button onclick="activarEdicion()"
+                        class="w-full bg-adventist-blue text-white py-3 sm:py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg">
+                        Validar Acceso
+                    </button>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <footer class="bg-adventist-dark text-white pt-20 pb-10">
+    <!-- FOOTER -->
+    <footer class="bg-adventist-dark text-white pt-14 pb-10">
         <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center space-x-10 mb-12">
-                <a href="https://www.facebook.com/profile.php?id=61586113753680" target="_blank" class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2"><i class="fab fa-facebook-f fa-2x"></i></a>
-                <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank" class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2"><i class="fab fa-youtube fa-2x"></i></a>
+            <div class="flex justify-center space-x-10 mb-10">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680" target="_blank"
+                    class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank"
+                    class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2">
+                    <i class="fab fa-youtube fa-2x"></i>
+                </a>
             </div>
-            <img src="imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-2 border-adventist-gold shadow-2xl p-1">
-        
-            <div class="pt-8 border-t border-white/5">
-                <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 iasd San Francisco de Limache </p>
+            <img src="imagenes/logo.jpg" class="h-16 w-16 sm:h-20 sm:w-20 rounded-full mx-auto mb-5 border-2 border-adventist-gold shadow-2xl p-1" alt="Logo">
+            <div class="pt-6 border-t border-white/5">
+                <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 iasd San Francisco de Limache</p>
             </div>
-                                <div class="mt-3">
-                        <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-adventist-surface text-adventist-blue px-4 py-2 rounded-lg 
-                        border border-adventist-blue hover:bg-adventist-blue hover:text-white transition duration-300 text-xs">
-
-                            <i class="fas fa-globe"></i>
-                            MG Servicios - Visitar sitio oficial
-                        </a>
-                    </div>
-                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
-                        By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-                    </p>
-                </div>
+            <div class="mt-3">
+                <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 text-adventist-gold px-4 py-2 rounded-lg border border-adventist-gold/30 hover:border-adventist-gold transition duration-300 text-xs">
+                    <i class="fas fa-globe"></i>
+                    MG Servicios - Visitar sitio oficial
+                </a>
+            </div>
+            <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+            </p>
         </div>
     </footer>
 
@@ -246,12 +279,15 @@
         let modoEdicionActivo = false;
         const ADMIN_PASS = "iasdsf";
 
-        document.getElementById("menu-btn").onclick = () => document.getElementById("mobile-menu").classList.toggle("open");
-        window.toggleAdminPanel = () => document.getElementById("admin-panel").classList.toggle("hidden");
+        document.getElementById("menu-btn").onclick = () =>
+            document.getElementById("mobile-menu").classList.toggle("open");
+
+        window.toggleAdminPanel = () =>
+            document.getElementById("admin-panel").classList.toggle("hidden");
 
         window.activarEdicion = () => {
             const pass = document.getElementById("admin-pass").value;
-            if(pass === ADMIN_PASS) {
+            if (pass === ADMIN_PASS) {
                 modoEdicionActivo = true;
                 alert("✅ Gestión activada");
                 document.getElementById("admin-panel").classList.add("hidden");
@@ -262,7 +298,7 @@
         };
 
         window.eliminarAviso = async (id) => {
-            if(confirm("¿Quitar aviso?")) await deleteDoc(doc(db, "avisos", id));
+            if (confirm("¿Quitar aviso?")) await deleteDoc(doc(db, "avisos", id));
         };
 
         function renderAvisos() {
@@ -273,17 +309,17 @@
                 snapshot.forEach((d) => {
                     const data = d.data();
                     const card = document.createElement("div");
-                    card.className = "animate-fade-in glass dynamic-card rounded-[2.5rem] p-8 shadow-xl border-l-[8px] border-adventist-gold relative group";
+                    card.className = "animate-fade-in glass dynamic-card rounded-[2rem] p-6 shadow-xl border-l-[6px] border-adventist-gold relative group";
                     card.innerHTML = `
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="bg-adventist-blue text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-md">${data.departamento}</span>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="bg-adventist-blue text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">${data.departamento}</span>
                                 ${modoEdicionActivo ? `<button onclick="eliminarAviso('${d.id}')" class="text-red-500 hover:scale-125 transition-transform"><i class="fas fa-trash-alt"></i></button>` : ''}
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-700 leading-tight italic mb-6">"${data.mensaje}"</h3>
+                            <h3 class="text-base sm:text-xl font-bold text-slate-700 leading-tight italic mb-5">"${data.mensaje}"</h3>
                         </div>
                         <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
-                            <div class="w-10 h-10 bg-adventist-gold rounded-full flex items-center justify-center text-xs font-black text-adventist-blue shadow-lg">${data.lider.charAt(0)}</div>
+                            <div class="w-9 h-9 bg-adventist-gold rounded-full flex items-center justify-center text-xs font-black text-adventist-blue shadow-lg flex-shrink-0">${data.lider.charAt(0)}</div>
                             <div class="flex flex-col text-[11px] font-black text-slate-600 uppercase">
                                 <span class="text-[8px] text-slate-400 font-bold uppercase">Responsable</span>
                                 <span>${data.lider}</span>
