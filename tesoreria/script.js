@@ -81,13 +81,17 @@ function inicializarDB() {
     updateUI();
 }
 
+// CORRECCIÓN MATEMÁTICA: El pozo a distribuir debe incluir lo que ya se ha gastado para no desajustar a los demás.
 function recalcularSaldosPorcentuales() {
     const totalBancos = (db.bancos.estado || 0) + (db.bancos.chile || 0);
     const totalEnProyectos = Object.values(db.proyectos).reduce((a, b) => a + b, 0);
-    const patrimonioNeto = Math.max(0, totalBancos - totalEnProyectos);
+    const totalGastadoDeptos = db.departamentos.reduce((acc, dep) => acc + (db.gastosReales[dep] || 0), 0);
+    
+    // El pozo histórico (la torta completa) es el dinero disponible HOY + el dinero que YA gastaron.
+    const patrimonioNetoHistorico = Math.max(0, (totalBancos - totalEnProyectos) + totalGastadoDeptos);
 
     db.departamentos.forEach(n => {
-        const asignacionIdeal = (patrimonioNeto * (db.porcentajes[n] / 100));
+        const asignacionIdeal = (patrimonioNetoHistorico * (db.porcentajes[n] / 100));
         db.saldos[n] = asignacionIdeal - (db.gastosReales[n] || 0);
     });
 }
@@ -174,15 +178,14 @@ window.cerrarMesConFiltro = async function() {
     });
 
     if (formValues) {
-        const yyyy_mm = formValues.mes; // Ej: "2026-03"
+        const yyyy_mm = formValues.mes; 
         const nombreMes = formValues.nombre;
 
-        // Función para saber si un registro pertenece a ese mes
         const isDateInMonth = (dateStr) => {
             if(!dateStr) return false;
             const [y, m] = yyyy_mm.split('-');
-            if (dateStr.startsWith(yyyy_mm)) return true; // Formato YYYY-MM-DD
-            const parts = dateStr.split(/[-/]/); // Formato DD/MM/YYYY o DD-MM-YYYY
+            if (dateStr.startsWith(yyyy_mm)) return true; 
+            const parts = dateStr.split(/[-/]/); 
             if (parts.length === 3) {
                 const pYear = parts[2].substring(0,4); const pMonth = parts[1].padStart(2, '0');
                 if (pYear === y && pMonth === m) return true;
@@ -196,7 +199,6 @@ window.cerrarMesConFiltro = async function() {
         db.historial_movimientos.forEach(m => {
             if(isDateInMonth(m.fecha)) {
                 recordsDelMes.push(m);
-                // Mantiene los egresos pendientes de ACMS en la vista principal, pero sí hace copia al archivo
                 if(m.tipo === 'egreso' && m.estado_gasto !== 'OK ingresado a remesas(ACMS)') {
                     recordsParaMantener.push(m); 
                 }
@@ -207,7 +209,6 @@ window.cerrarMesConFiltro = async function() {
 
         if(recordsDelMes.length === 0) return Swal.fire('Sin Registros', 'No se encontraron movimientos en la fecha seleccionada.', 'info');
 
-        // Genera Snapshot
         const snapshot = {
             bancos: JSON.parse(JSON.stringify(db.bancos)), saldos: JSON.parse(JSON.stringify(db.saldos)),
             porcentajes: JSON.parse(JSON.stringify(db.porcentajes)), gastosReales: JSON.parse(JSON.stringify(db.gastosReales)),
@@ -218,7 +219,6 @@ window.cerrarMesConFiltro = async function() {
         db.archivos_mensuales[nombreMes] = snapshot;
         db.historial_movimientos = recordsParaMantener;
 
-        // Descarga de Seguridad
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
         const d = document.createElement('a'); d.setAttribute("href", dataStr); d.setAttribute("download", `Cierre_${nombreMes}.json`); document.body.appendChild(d); d.click(); d.remove();
 
@@ -226,6 +226,7 @@ window.cerrarMesConFiltro = async function() {
             await window.guardarEnFirebase();
             mesSeleccionadoHistorial = 'actual';
             if(document.getElementById('filtro-texto-historial')) document.getElementById('filtro-texto-historial').value = ''; 
+            if(document.getElementById('filtro-dep-historial')) document.getElementById('filtro-dep-historial').value = 'TODOS'; 
             updateUI();
             Swal.fire('¡Cierre Exitoso!', `Se archivaron ${recordsDelMes.length} registros en "${nombreMes}". Las rendiciones pendientes siguen visibles.`, 'success');
         } catch(e) {}
@@ -239,7 +240,7 @@ window.cambiarMesHistorial = function() {
 };
 
 // -------------------------------------------------------------
-// RESTO DE FUNCIONALIDADES DEL SISTEMA
+// FUNCIONES DE REGISTRO (INGRESOS, GASTOS Y VOTOS)
 // -------------------------------------------------------------
 window.agregarDepartamento = async function() {
     const nombre = document.getElementById('nuevo-dep-nombre').value.trim().toUpperCase();
@@ -305,7 +306,7 @@ window.procesarIngreso = async function() {
         db.proyectos[pName] += monto; meta = { nombre: pName };
     }
     db.historial_movimientos.push({ fecha, detalle: tipo === 'proyecto' ? `Fondo Especial: ${meta.nombre}` : `Remesa ${remesa}`, monto, tipo, banco: cuenta, meta });
-    try { await window.guardarEnFirebase(); document.getElementById('monto-in').value = ""; document.getElementById('remesa-num').value = ""; mostrarAviso("Fondo integrado", "success"); } catch(e){}
+    try { await window.guardarEnFirebase(); document.getElementById('monto-in').value = ""; document.getElementById('remesa-num').value = ""; mostrarAviso("Fondo integrado", "success"); updateUI(); } catch(e){}
 };
 
 window.registrarGasto = async function() {
@@ -325,7 +326,7 @@ window.registrarGasto = async function() {
         if (db.votos[idVoto].rendido >= db.votos[idVoto].total) { db.votos[idVoto].activo = false; setTimeout(() => Swal.fire('¡Voto Completado!', `El Voto ha cubierto el total.`, 'success'), 1000); }
     }
 
-    db.historial_movimientos.push({ fecha: new Date().toLocaleDateString(), detalle: `Gasto: ${prop} (${nombre})${textoVoto}`, monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre, id_voto: idVoto }, estado_gasto: estadoGasto });
+    db.historial_movimientos.push({ fecha: new Date().toLocaleDateString('es-CL').split('-').reverse().join('-'), detalle: `Gasto: ${prop} (${nombre})${textoVoto}`, monto: -monto, tipo: 'egreso', banco, meta: { tipo, nombre, id_voto: idVoto }, estado_gasto: estadoGasto });
     
     try {
         await window.guardarEnFirebase(); const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 }); recalcularSaldosPorcentuales();
@@ -365,15 +366,25 @@ window.limpiarRegistros = async function() {
 
 window.guardarConfig = async function() {
     document.querySelectorAll('.in-porc').forEach(i => db.porcentajes[i.dataset.dep] = parseFloat(i.value));
-    try { await window.guardarEnFirebase(); mostrarAviso("Configuración guardada", "success"); } catch(e){}
+    try { await window.guardarEnFirebase(); mostrarAviso("Configuración guardada", "success"); updateUI(); } catch(e){}
 };
 
 // -------------------------------------------------------------
-// ACTUALIZADORES DE VISTAS (RENDER)
+// ACTUALIZADORES DE VISTAS (RENDER EN TIEMPO REAL)
 // -------------------------------------------------------------
 window.updateUI = function() {
     const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-    document.getElementById('total-estado').innerText = clp.format(db.bancos.estado || 0); document.getElementById('total-chile').innerText = clp.format(db.bancos.chile || 0);
+    
+    // AQUÍ SE ACTUALIZAN LAS CASILLAS DEL DASHBOARD EN TIEMPO REAL
+    const totalE = db.bancos.estado || 0;
+    const totalC = db.bancos.chile || 0;
+    const totalIglesia = totalE + totalC;
+
+    document.getElementById('total-estado').innerText = clp.format(totalE); 
+    document.getElementById('total-chile').innerText = clp.format(totalC);
+    
+    const elTotalIglesia = document.getElementById('total-iglesia');
+    if(elTotalIglesia) elTotalIglesia.innerText = clp.format(totalIglesia);
 
     document.getElementById('grid-departamentos').innerHTML = db.departamentos.map(n => `<div class="dep-card"><h4>${n}</h4><div class="balance">${clp.format(db.saldos[n] || 0)}</div><small>${db.porcentajes[n]}% | Gastado: ${clp.format(db.gastosReales[n] || 0)}</small></div>`).join("");
     document.getElementById('grid-proyectos-reunido').innerHTML = Object.keys(db.proyectos).map(p => `<div class="dep-card" style="border-left:5px solid #c5a059"><h4>${p}</h4><div class="balance">${clp.format(db.proyectos[p] || 0)}</div></div>`).join("");
@@ -393,6 +404,18 @@ window.updateUI = function() {
         let optsMeses = `<option value="actual">-- Mostrando Historial Activo --</option>`;
         Object.keys(db.archivos_mensuales || {}).reverse().forEach(mes => { optsMeses += `<option value="${mes}">Archivo: ${mes}</option>`; });
         selMeses.innerHTML = optsMeses; selMeses.value = mesSeleccionadoHistorial;
+    }
+
+    const selFiltroDep = document.getElementById('filtro-dep-historial');
+    if(selFiltroDep) {
+        let currentVal = selFiltroDep.value; 
+        let optsFiltro = '<option value="TODOS">-- Todos los Departamentos / Fondos --</option><optgroup label="Departamentos Regulares">';
+        db.departamentos.forEach(n => optsFiltro += `<option value="${n}">${n}</option>`);
+        optsFiltro += '</optgroup><optgroup label="Fondos Especiales">';
+        Object.keys(db.proyectos).forEach(p => optsFiltro += `<option value="${p}">${p}</option>`);
+        optsFiltro += '</optgroup>';
+        selFiltroDep.innerHTML = optsFiltro;
+        if(currentVal && currentVal !== "") selFiltroDep.value = currentVal; 
     }
 
     if(document.getElementById('tab-historial').classList.contains('active')) renderHistorial();
@@ -450,9 +473,23 @@ window.renderHistorial = function() {
     else { listaA_renderizar = db.historial_movimientos; }
 
     const filtroTxt = (document.getElementById('filtro-texto-historial')?.value || "").toLowerCase();
+    const filtroDep = document.getElementById('filtro-dep-historial')?.value || "TODOS";
     
     let listaFiltrada = listaA_renderizar.slice().reverse().map((m, indexReverse) => ({ m, realIdx: listaA_renderizar.length - 1 - indexReverse })).filter(item => {
-        return item.m.fecha.toLowerCase().includes(filtroTxt) || item.m.detalle.toLowerCase().includes(filtroTxt) || (item.m.meta && item.m.meta.nombre && item.m.meta.nombre.toLowerCase().includes(filtroTxt));
+        
+        let pasaTexto = true;
+        if(filtroTxt !== "") {
+            pasaTexto = item.m.fecha.toLowerCase().includes(filtroTxt) || 
+                        item.m.detalle.toLowerCase().includes(filtroTxt) || 
+                        (item.m.meta && item.m.meta.nombre && item.m.meta.nombre.toLowerCase().includes(filtroTxt));
+        }
+
+        let pasaDep = true;
+        if (filtroDep !== "TODOS") {
+            pasaDep = (item.m.meta && item.m.meta.nombre === filtroDep) || (item.m.detalle && item.m.detalle.includes(`(${filtroDep})`));
+        }
+
+        return pasaTexto && pasaDep;
     });
 
     if(listaFiltrada.length === 0) { container.innerHTML = "<p style='text-align:center; color:#94a3b8; padding: 20px;'>No hay registros o no coinciden con la búsqueda.</p>"; return; }
@@ -513,7 +550,24 @@ function actualizarGrafico() {
 }
 
 window.mostrarAviso = function(m, t) { const toast = document.createElement('div'); toast.className = `toast ${t}`; toast.innerText = m; document.getElementById('toast-container').appendChild(toast); setTimeout(() => toast.remove(), 3000); };
-window.verTotalGeneral = function() { const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 }); const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0); const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0); Swal.fire({ title: 'Estado Real de la Iglesia', html: `Bancos: ${clp.format(totalB)}<br>Fondos Especiales: ${clp.format(totalP)}<hr><p style="color: green;">Neto a Distribuir: <b>${clp.format(totalB - totalP)}</b></p>`, icon: 'info' }); };
+
+window.verTotalGeneral = function() { 
+    const clp = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 }); 
+    const totalB = (db.bancos.estado || 0) + (db.bancos.chile || 0); 
+    const totalP = Object.values(db.proyectos).reduce((a, b) => a + b, 0); 
+    Swal.fire({ 
+        title: 'Desglose del Patrimonio', 
+        html: `
+        <div style="text-align:left; font-size:1.1rem;">
+            <p>Total en Bancos: <b>${clp.format(totalB)}</b></p>
+            <p>Total en Fondos Especiales: <b style="color:#c5a059;">${clp.format(totalP)}</b></p>
+            <hr>
+            <p style="color: green;">Dinero Líquido para Distribuir (%): <b>${clp.format(totalB - totalP)}</b></p>
+        </div>`, 
+        icon: 'info' 
+    }); 
+};
+
 window.descargarCopia = function() { const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db)); const d = document.createElement('a'); d.setAttribute("href", dataStr); d.setAttribute("download", "Respaldo_Tesoreria.json"); document.body.appendChild(d); d.click(); d.remove(); };
 window.toggleInputs = function() { document.getElementById('wrapper-proyecto').style.display = (document.getElementById('tipo-in').value === 'proyecto') ? 'block' : 'none'; };
 window.checkNuevoConcepto = function() { document.getElementById('nuevo-concepto-nombre').style.display = (document.getElementById('proj-select').value === 'NUEVO_CONCEPTO') ? 'block' : 'none'; };
