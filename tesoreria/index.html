@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Tesoreria Pro | IASD Limache</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -19,12 +19,12 @@
     <div id="toast-container"></div>
 
     <div id="login-screen" style="height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a192f; color: white; padding: 20px;">
-        <div class="glass-form" style="text-align: center; max-width: 400px; background: rgba(255,255,255,0.1); padding: 40px 20px; border-radius: 20px; width: 100%;">
+        <div class="glass-form" style="text-align: center; max-width: 400px; background: rgba(255,255,255,0.1); padding: 40px 20px; border-radius: 20px; width: 100%; border: none;">
             <i class="fas fa-church" style="font-size: 3rem; color: #c5a059; margin-bottom: 20px;"></i>
-            <h2>Acceso Tesorería</h2>
-            <p>IASD San Francisco de Limache</p>
-            <input type="password" id="input-pass" placeholder="Contraseña" style="margin-top: 20px; text-align: center; padding: 12px; width: 100%; border-radius: 8px;">
-            <button class="btn-action" onclick="validarAcceso()" style="width: 100%; margin-top: 20px;">Entrar al Sistema</button>
+            <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Acceso Tesorería</h2>
+            <p style="opacity: 0.8;">IASD San Francisco de Limache</p>
+            <input type="password" id="input-pass" placeholder="Contraseña Maestra" style="margin-top: 25px; text-align: center; background: rgba(255,255,255,0.9); color: black;">
+            <button class="btn-action" onclick="validarAcceso()" style="margin-top: 15px; font-size: 1.1rem; padding: 15px;">Entrar al Sistema</button>
         </div>
     </div>
 
@@ -42,24 +42,25 @@
                     <button class="nav-btn" onclick="showTab('historial')"><i class="fas fa-history"></i> Historial de Meses</button>
                     <button class="nav-btn" onclick="showTab('config')"><i class="fas fa-gears"></i> Ajustes %</button>
                 </nav>
-                <button class="btn-report gold" onclick="generarReportePDF()">
-                    <i class="fas fa-file-pdf"></i> Generar Reporte PDF
-                </button>
-
-                <button class="btn-backup" onclick="cerrarMesConFiltro()" style="background: #f39c12; margin-top: 15px;">
-                    <i class="fas fa-calendar-check"></i> Cierre de Mes (Filtrado)
-                </button>
-
-                <input type="file" id="file-input" style="display: none;" onchange="restaurarCopia(this)">
-                <button class="btn-backup" onclick="descargarCopia()" style="background: #2980b9; margin-top: 5px;">
-                    <i class="fas fa-download"></i> Guardar Copia Manual
-                </button>
-                <button class="btn-backup" onclick="document.getElementById('file-input').click()" style="background: #8e44ad; margin-top: 5px;">
-                    <i class="fas fa-upload"></i> Restaurar Copia
-                </button>
-                <button class="btn-backup" onclick="limpiarRegistros()" style="background: #e74c3c; margin-top: 5px;">
-                    <i class="fas fa-trash-alt"></i> Formatear Sistema
-                </button>
+                
+                <div style="margin-top: auto;">
+                    <button class="btn-report gold" onclick="generarReportePDF()">
+                        <i class="fas fa-file-pdf"></i> Generar Reporte PDF
+                    </button>
+                    <button class="btn-backup" onclick="cerrarMesConFiltro()" style="background: #f39c12; margin-top: 15px;">
+                        <i class="fas fa-calendar-check"></i> Cierre de Mes (Filtrado)
+                    </button>
+                    <input type="file" id="file-input" style="display: none;" onchange="restaurarCopia(this)">
+                    <button class="btn-backup" onclick="descargarCopia()" style="background: #2980b9; margin-top: 5px;">
+                        <i class="fas fa-download"></i> Guardar Copia
+                    </button>
+                    <button class="btn-backup" onclick="document.getElementById('file-input').click()" style="background: #8e44ad; margin-top: 5px;">
+                        <i class="fas fa-upload"></i> Restaurar Copia
+                    </button>
+                    <button class="btn-backup" onclick="limpiarRegistros()" style="background: #e74c3c; margin-top: 5px;">
+                        <i class="fas fa-trash-alt"></i> Formatear Sistema
+                    </button>
+                </div>
             </aside>
 
             <main class="main-content">
@@ -67,25 +68,27 @@
 
                 <header class="bank-summary">
                     <div class="bank-card solid-blue">
-                        <p>BancoEstado</p>
+                        <p style="font-size: 0.9rem; font-weight: bold; opacity: 0.9;">BancoEstado</p>
                         <h2 id="total-estado">$0</h2>
                     </div>
                     <div class="bank-card solid-gold">
-                        <p>Banco Chile</p>
+                        <p style="font-size: 0.9rem; font-weight: bold; opacity: 0.9;">Banco Chile</p>
                         <h2 id="total-chile">$0</h2>
                     </div>
                     <div class="bank-card solid-green" onclick="verTotalGeneral()" title="Haz clic para ver el desglose">
-                        <p>Patrimonio Total <small style="font-weight: normal; opacity: 0.8;">(Click desglose)</small></p>
+                        <p style="font-size: 0.9rem; font-weight: bold; opacity: 0.9;">Patrimonio Total <i class="fas fa-search-dollar" style="margin-left: 5px;"></i></p>
                         <h2 id="total-iglesia">$0</h2>
                     </div>
                 </header>
 
                 <section id="tab-dashboard" class="tab-view active">
-                    <div style="background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; height: 300px; position: relative; width: 100%;">
+                    <div class="glass-form" style="height: 350px; position: relative;">
                         <canvas id="chartPresupuesto"></canvas>
                     </div>
+                    <h3 style="margin: 25px 0 15px 0;"><i class="fas fa-chart-line"></i> Neto Disponible por Departamentos</h3>
                     <div id="grid-departamentos" class="smart-grid"></div>
-                    <h3 style="margin: 20px 0;">Fondos y Ofrendas Especiales (Exclusivos)</h3>
+                    
+                    <h3 style="margin: 35px 0 15px 0; color: var(--gold);"><i class="fas fa-star"></i> Fondos y Ofrendas Especiales</h3>
                     <div id="grid-proyectos-reunido" class="smart-grid"></div>
                 </section>
 
@@ -93,24 +96,25 @@
                     <div class="glass-form" style="max-width: 800px; margin: auto;">
                         <h3 style="color: #0a192f; margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> Registrar Entrada</h3>
                         <div class="form-grid">
-                            <div class="form-group"><label>Monto $</label><input type="number" id="monto-in"></div>
-                            <div class="form-group"><label>N° Remesa o Detalle</label><input type="text" id="remesa-num"></div>
-                            <div class="form-group"><label>Fecha</label><input type="date" id="fecha-in"></div>
-                            <div class="form-group"><label>Cuenta</label>
+                            <div class="form-group"><label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;">Monto $</label><input type="number" id="monto-in" placeholder="0"></div>
+                            <div class="form-group"><label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;">N° Remesa o Detalle</label><input type="text" id="remesa-num" placeholder="Ej. Remesa Enero"></div>
+                            <div class="form-group full-width"><label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;">Fecha</label><input type="date" id="fecha-in"></div>
+                            <div class="form-group"><label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;">Cuenta</label>
                                 <select id="cuenta-in">
                                     <option value="estado">BancoEstado</option>
                                     <option value="chile">Banco Chile</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label>Tipo de Fondo</label>
+                            <div class="form-group"><label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;">Tipo de Fondo</label>
                                 <select id="tipo-in" onchange="toggleInputs()">
-                                    <option value="distribucion">Distribución % (Departamentos)</option>
+                                    <option value="distribucion">Distribución Automática % (Para Remesas)</option>
                                     <option value="proyecto">Fondo / Ofrenda Especial</option>
                                 </select>
                             </div>
                             <div id="wrapper-proyecto" style="display:none;" class="full-width">
-                                <label>Seleccionar Fondo Especial</label><select id="proj-select" onchange="checkNuevoConcepto()"></select>
-                                <input type="text" id="nuevo-concepto-nombre" placeholder="Nombre..." style="display:none; margin-top:15px; border: 2px solid #c5a059;">
+                                <label style="font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block; color: var(--gold);">Seleccionar Fondo Especial</label>
+                                <select id="proj-select" onchange="checkNuevoConcepto()"></select>
+                                <input type="text" id="nuevo-concepto-nombre" placeholder="Nombre del nuevo fondo..." style="display:none; margin-top:15px; border: 2px solid #c5a059; font-weight: bold;">
                             </div>
                         </div>
                         <button class="btn-action" onclick="procesarIngreso()" style="margin-top: 30px;">Integrar a Contabilidad</button>
@@ -119,21 +123,21 @@
 
                 <section id="tab-egresos" class="tab-view" style="display:none;">
                     
-                    <div class="glass-form" style="margin-bottom: 20px; border-left: 5px solid #3498db;">
+                    <div class="glass-form" style="border-left: 5px solid #3498db;">
                         <h3><i class="fas fa-exchange-alt" style="color:#3498db;"></i> Transferencias Internas (Departamentos)</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Mueve dinero para ayudar a otros departamentos o fondos. Esto ajusta los saldos pero <b>no extrae dinero real de los bancos.</b></p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px; line-height: 1.4;">Mueve dinero para ayudar a otros departamentos o fondos. Esto ajusta los saldos pero <b>no extrae dinero real de los bancos.</b></p>
                         <div class="form-grid">
                             <select id="trans-origen"><option value="" disabled selected>Origen (Quita saldo)...</option></select>
                             <select id="trans-destino"><option value="" disabled selected>Destino (Recibe saldo)...</option></select>
                             <input type="number" id="trans-monto" placeholder="Monto a transferir $">
-                            <input type="text" id="trans-motivo" placeholder="Motivo (Ej. Apoyo para evento juvenil)">
+                            <input type="text" id="trans-motivo" placeholder="Motivo (Ej. Apoyo juvenil)">
                         </div>
-                        <button class="btn-action" style="background:#3498db;" onclick="procesarTransferencia()">Realizar Transferencia de Departamentos</button>
+                        <button class="btn-action" style="background:#3498db;" onclick="procesarTransferencia()">Realizar Transferencia Interna</button>
                     </div>
 
-                    <div class="glass-form" style="margin-bottom: 20px; border-left: 5px solid #9b59b6;">
+                    <div class="glass-form" style="border-left: 5px solid #9b59b6;">
                         <h3><i class="fas fa-building-columns" style="color:#9b59b6;"></i> Ajuste entre Bancos</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Mueve dinero real entre las cuentas bancarias. <b>Esto no afecta ni altera los saldos de los departamentos.</b></p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px; line-height: 1.4;">Mueve dinero real entre las cuentas bancarias. <b>Esto no afecta los saldos de los departamentos.</b></p>
                         <div class="form-grid">
                             <select id="trans-banco-origen">
                                 <option value="" disabled selected>Banco Origen (Saca dinero)...</option>
@@ -146,37 +150,46 @@
                                 <option value="chile">Banco Chile</option>
                             </select>
                             <input type="number" id="trans-banco-monto" placeholder="Monto a transferir $">
-                            <input type="text" id="trans-banco-motivo" placeholder="Motivo (Ej. Ajuste de saldo / Traspaso)">
+                            <input type="text" id="trans-banco-motivo" placeholder="Motivo del ajuste">
                         </div>
                         <button class="btn-action" style="background:#9b59b6;" onclick="procesarTransferenciaBanco()">Registrar Movimiento Bancario</button>
                     </div>
 
-                    <div class="glass-form" style="margin-bottom: 20px;">
+                    <div class="glass-form">
                         <h3><i class="fas fa-users" style="color:var(--gold);"></i> Votos de Junta (Gastos Compartidos)</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Define el voto y marca qué departamentos o fondos aportarán y cuánto dinero deben rendir.</p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Define un gasto que pagarán entre varios departamentos.</p>
                         
-                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 25px;">
-                            <input type="text" id="voto-nombre-input" placeholder="Nombre o Concepto (Ej. Campaña Semana Santa)" style="font-weight: bold; border: 2px solid var(--primary);">
-                            <h4 style="margin: 15px 0 10px 0; color: #334155; font-size: 0.95rem;">Selecciona los aportantes y define su cuota:</h4>
-                            <div id="voto-aportantes-container" class="form-grid"></div>
-                            <div style="margin-top: 15px; text-align: right; font-size: 1.1rem; background: #e2e8f0; padding: 10px; border-radius: 8px;">
-                                <strong>Total del Voto a Aprobar: </strong><span id="voto-total-calc" style="color: var(--primary); font-weight: 800;">$0</span>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 25px;">
+                            <input type="text" id="voto-nombre-input" placeholder="Nombre o Concepto (Ej. Campaña Evangelismo)" style="font-weight: bold; border: 2px solid var(--primary); margin-bottom: 15px;">
+                            <h4 style="margin: 0 0 15px 0; color: #334155; font-size: 1rem;">Selecciona quiénes aportan y su cuota:</h4>
+                            <div id="voto-aportantes-container" class="form-grid" style="gap: 10px;"></div>
+                            
+                            <div style="margin-top: 20px; text-align: right; background: white; padding: 15px; border-radius: 12px; border: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                <strong style="color: #64748b; font-size: 1.1rem;">Total a Aprobar:</strong>
+                                <span id="voto-total-calc" style="color: var(--primary); font-weight: 900; font-size: 1.5rem;">$0</span>
                             </div>
                             <button class="btn-action" onclick="guardarVotoAvanzado()" style="margin-top: 15px;">Crear y Aprobar Voto</button>
                         </div>
                         
+                        <hr>
+                        <h3 style="color: #e74c3c; margin-bottom: 10px;"><i class="fas fa-clipboard-check"></i> Detalles de Control de Votos</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Control de quiénes faltan por rendir dinero.</p>
                         <div id="lista-votos-pendientes"></div>
                     </div>
 
-                    <div class="glass-form" style="margin-bottom: 20px; border-left: 5px solid #f39c12;">
-                        <h3 style="color: #d35400; margin-bottom: 5px;"><i class="fas fa-file-invoice-dollar"></i> Control de Boletas Faltantes</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Listado de gastos registrados en tu historial activo que figuran "Pendientes" o "Reembolsado al Hno/a" sin boleta física final.</p>
+                    <div class="glass-form" style="border-left: 5px solid #f39c12;">
+                        <h3 style="color: #d35400; margin-bottom: 10px;"><i class="fas fa-file-invoice-dollar"></i> Control de Boletas Faltantes</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Listado de gastos registrados que figuran sin boleta física final entregada.</p>
                         <div id="lista-boletas-pendientes"></div>
                     </div>
 
-                    <div class="glass-form">
-                        <h3>Registrar Egreso / Rendición Normal</h3>
-                        <div class="form-grid">
+                    <div class="glass-form" style="border: 2px solid var(--primary);">
+                        <h3 style="color: var(--primary);"><i class="fas fa-hand-holding-usd"></i> Registrar Egreso / Rendición Normal</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px; line-height: 1.4;">
+                            Cada gasto rebajará automáticamente el saldo del departamento elegido.<br>
+                            <b>Nota sobre Misiones / Cobros:</b> Para registrarlo, ingresa el monto aquí y selecciona en Origen a "GASTOS DE IGLESIA". Esto rebajará ese saldo y el banco de inmediato.
+                        </p>
+                        <div class="form-grid" style="margin-top: 10px;">
                             <select id="gasto-voto-asociado" class="full-width" style="border: 2px solid #c5a059; background: #fdfbf7; font-weight: bold;"></select>
                             <select id="gasto-dep"></select>
                             <select id="gasto-banco">
@@ -186,77 +199,101 @@
                             <input type="text" id="gasto-director" placeholder="Director Responsable">
                             <input type="number" id="gasto-monto" placeholder="Monto Rendido $">
 
-                            <select id="gasto-estado" class="full-width">
-                                <option value="Ingresado al sistema">Ingresado al Sistema (Pendiente Status)</option>
-                                <option value="Rendido con boleta">Rendido con Boleta</option>
-                                <option value="Reembolsado (X Rendir Boleta)">Reembolsado al Hermano/a</option>
-                                <option value="OK ingresado a remesas(ACMS)">OK Ingresado a Remesas(ACMS)</option>
+                            <select id="gasto-estado" class="full-width" style="font-weight: bold;">
+                                <option value="Ingresado al sistema">⏳ Ingresado al Sistema (Pendiente Status)</option>
+                                <option value="Rendido con boleta">🧾 Rendido con Boleta</option>
+                                <option value="Reembolsado (X Rendir Boleta)">✅ Reembolsado al Hermano/a</option>
+                                <option value="OK ingresado a remesas(ACMS)">✔️ OK Ingresado a Remesas(ACMS)</option>
                             </select>
 
-                            <input type="text" id="gasto-proposito" placeholder="¿En qué se ocupará?" class="full-width">
+                            <input type="text" id="gasto-proposito" placeholder="¿En qué se ocupará / Qué se compró?" class="full-width">
                         </div>
-                        <button class="btn-action" onclick="registrarGasto()">Procesar Gasto</button>
+                        <button class="btn-action" onclick="registrarGasto()" style="font-size: 1.1rem; padding: 16px;">Procesar Gasto</button>
                     </div>
                 </section>
 
                 <section id="tab-historial" class="tab-view" style="display:none;">
-                    <div style="background: white; padding: 30px; border-radius: 20px; width: 100%; overflow-x: hidden;">
+                    <div class="glass-form" style="padding: 1.5rem;">
                         
-                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px;">
-                            <h3>Historial de Movimientos</h3>
-                            <select id="selector-mes-historial" onchange="cambiarMesHistorial()" style="width: auto; margin: 0; border: 2px solid var(--primary); font-weight: bold; background: #fdfbf7; color: var(--primary);">
+                        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 15px;">
+                            <h3 style="margin: 0;"><i class="fas fa-history"></i> Historial</h3>
+                            <select id="selector-mes-historial" onchange="cambiarMesHistorial()" style="width: auto; margin: 0; border: 2px solid var(--primary); font-weight: bold; background: #fdfbf7; color: var(--primary); flex: 1; min-width: 200px;">
                                 <option value="actual">-- Mostrando Historial Activo --</option>
                             </select>
                         </div>
                         
-                        <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                            <input type="text" id="filtro-texto-historial" placeholder="🔍 Buscar por fecha o detalle..." onkeyup="renderHistorial()" style="flex: 1; border: 2px solid #e2e8f0; font-weight: bold; padding: 12px; margin-bottom: 0; min-width: 250px;">
-                            
-                            <select id="filtro-dep-historial" onchange="renderHistorial()" style="flex: 1; border: 2px solid #e2e8f0; font-weight: bold; padding: 12px; margin-bottom: 0; min-width: 250px;">
-                                <option value="TODOS">-- Todos los Departamentos / Fondos --</option>
+                        <div class="form-grid" style="margin-bottom: 20px;">
+                            <input type="text" id="filtro-texto-historial" placeholder="🔍 Buscar por fecha, remesa o detalle..." onkeyup="renderHistorial()" style="border: 2px solid #e2e8f0; font-weight: bold; margin-bottom: 0;">
+                            <select id="filtro-dep-historial" onchange="renderHistorial()" style="border: 2px solid #e2e8f0; font-weight: bold; margin-bottom: 0;">
+                                <option value="TODOS">-- Filtrar Todos los Departamentos --</option>
                             </select>
                         </div>
 
-                        <div id="alerta-archivo" style="display: none; background: #3498db; color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; text-align: center;">
-                            <i class="fas fa-info-circle"></i> Archivo Antiguo: Cualquier edición que hagas aquí corregirá automáticamente tus saldos actuales.
+                        <div id="alerta-archivo" style="display: none; background: #3498db; color: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; text-align: center; line-height: 1.4;">
+                            <i class="fas fa-info-circle" style="font-size: 1.2rem; margin-bottom: 5px; display: block;"></i> 
+                            Estás viendo un Archivo Antiguo. Cualquier edición que hagas aquí corregirá matemáticamente tus saldos actuales.
                         </div>
 
-                        <div id="lista-movimientos" style="margin-top: 10px;"></div>
+                        <div id="lista-movimientos"></div>
                     </div>
                 </section>
 
                 <section id="tab-config" class="tab-view" style="display:none;">
                     
-                    <div class="glass-form" style="margin-bottom: 20px;">
+                    <div class="glass-form" style="border-left: 5px solid #9b59b6;">
+                        <h3 style="color: #9b59b6;"><i class="fas fa-edit"></i> Corrección Directa de Banco</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Fija el saldo real exacto de tu banco sin afectar los departamentos.</p>
+                        <div class="form-grid">
+                            <select id="correccion-banco">
+                                <option value="chile">Banco Chile</option>
+                                <option value="estado">BancoEstado</option>
+                            </select>
+                            <input type="number" id="correccion-monto" placeholder="Ej: 2203846">
+                        </div>
+                        <button class="btn-action" style="background: #9b59b6;" onclick="corregirSaldoBanco()">Actualizar Saldo Exacto</button>
+                    </div>
+
+                    <div class="glass-form" style="border-left: 5px solid #e67e22;">
+                        <h3 style="color: #e67e22;"><i class="fas fa-sliders-h"></i> Corrección Exacta de Departamentos</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Fija el saldo de un departamento a la fuerza. La diferencia matemática se equilibrará usando un fondo llamado "Ajustes de Cuadratura" para <b>no alterar a los demás departamentos ni a los bancos.</b></p>
+                        <div class="form-grid">
+                            <select id="correccion-dep"></select>
+                            <input type="number" id="correccion-monto-dep" placeholder="Ej: 41980">
+                        </div>
+                        <button class="btn-action" style="background: #e67e22;" onclick="corregirSaldoDepartamento()">Ajustar Saldo Departamental</button>
+                    </div>
+
+                    <div class="glass-form">
                         <h3><i class="fas fa-plus-circle"></i> Agregar Nuevos Conceptos</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Añade nuevos departamentos al sistema de porcentaje, o crea fondos aislados para ofrendas especiales.</p>
-                        <div class="form-grid" style="margin-top: 15px;">
-                            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                                <h4 style="color: var(--primary);">Nuevo Departamento (%)</h4>
-                                <small style="display:block; margin-bottom: 10px; color:#64748b;">Participa en la distribución del presupuesto de la iglesia.</small>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Añade nuevos departamentos al sistema de porcentaje, o crea fondos aislados.</p>
+                        
+                        <div class="form-grid">
+                            <div style="background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+                                <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.1rem;">Nuevo Departamento (%)</h4>
+                                <p style="font-size: 0.85rem; color:#64748b; margin-bottom: 15px; line-height: 1.4;">Participa en la distribución del presupuesto general.</p>
                                 <input type="text" id="nuevo-dep-nombre" placeholder="Nombre (Ej. CONQUISTADORES)">
-                                <button class="btn-action" onclick="agregarDepartamento()" style="padding: 10px;">Agregar Departamento</button>
+                                <button class="btn-action" onclick="agregarDepartamento()">Agregar Departamento</button>
                             </div>
-                            <div style="background: #fdfbf7; padding: 15px; border-radius: 8px; border: 1px solid #c5a059;">
-                                <h4 style="color: var(--gold);">Nuevo Fondo Especial (Aislado)</h4>
-                                <small style="display:block; margin-bottom: 10px; color:#64748b;">Saldo independiente. No afecta a la distribución general.</small>
-                                <input type="text" id="nuevo-fondo-nombre" placeholder="Nombre (Ej. Construcción Templo)">
-                                <button class="btn-action" onclick="agregarFondoEspecial()" style="padding: 10px; background: #c5a059; color: #0a192f;">Agregar Fondo / Ofrenda</button>
+                            <div style="background: #fdfbf7; padding: 20px; border-radius: 16px; border: 1px solid #c5a059;">
+                                <h4 style="color: var(--gold); margin-bottom: 5px; font-size: 1.1rem;">Nuevo Fondo Especial</h4>
+                                <p style="font-size: 0.85rem; color:#64748b; margin-bottom: 15px; line-height: 1.4;">Saldo independiente. No afecta a la distribución general.</p>
+                                <input type="text" id="nuevo-fondo-nombre" placeholder="Nombre (Ej. Ofrenda Construcción)">
+                                <button class="btn-action" onclick="agregarFondoEspecial()" style="background: #c5a059; color: #0a192f;">Agregar Fondo / Ofrenda</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="glass-form" style="margin-bottom: 20px;">
-                        <h3>Configurar % Departamentos Activos</h3>
-                        <div id="inputs-porcentajes" class="form-grid" style="margin-top: 15px;"></div>
-                        <div id="check-total" style="margin-top: 20px; text-align: right; background: #eee; padding:10px; border-radius: 8px;">Suma: 0%</div>
-                        <button class="btn-save" id="btn-guardar-config" onclick="guardarConfig()" disabled>Guardar Distribución</button>
+                    <div class="glass-form">
+                        <h3><i class="fas fa-percentage"></i> Configurar % Departamentos Activos</h3>
+                        <div id="inputs-porcentajes" class="form-grid" style="margin-top: 20px; gap: 10px;"></div>
+                        <div id="check-total" style="margin-top: 25px; text-align: center; background: #f1f5f9; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.2rem;">Suma: 0%</div>
+                        <button class="btn-save" id="btn-guardar-config" onclick="guardarConfig()" disabled style="padding: 16px; font-size: 1.1rem;">Guardar Distribución</button>
                     </div>
 
                     <div class="glass-form" style="border-left: 5px solid #c5a059;">
-                        <h3 style="color: var(--gold);">Fondos Especiales Activos</h3>
-                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Listado de ofrendas aisladas que puedes editar o eliminar.</p>
-                        <div id="lista-config-fondos" class="form-grid"></div>
+                        <h3 style="color: var(--gold);"><i class="fas fa-star"></i> Fondos Especiales Activos</h3>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Listado de ofrendas aisladas que puedes editar o eliminar.</p>
+                        <div id="lista-config-fondos" class="form-grid" style="gap: 10px;"></div>
                     </div>
 
                 </section>
