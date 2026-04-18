@@ -246,146 +246,184 @@
     </header>
 
     <main class="w-full px-3 sm:px-4 -mt-8 pb-14 space-y-5"
-    style="max-width: 56rem; margin-left: auto; margin-right: auto;">
+        style="max-width: 56rem; margin-left: auto; margin-right: auto;">
 
-    <!-- Avisos dinámicos Firebase -->
-    <div id="contenedor-avisos-dinamicos" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"></div>
-<br><br>
-    <!-- ── AVENTUREROS ── -->
-    <section class="hover-card bg-adventist-red card-radius p-[3px] shadow-xl overflow-hidden group">
-        <div class="bg-white sec-pad card-radius text-center h-full">
-            <div class="bg-adventist-red text-white py-5 px-3 rounded-xl shadow-lg mb-4">
-                <p class="t-section font-black uppercase leading-tight">
-                    HOY 16:00 HRS<br>
-                    <span class="text-adventist-gold">AVENTUREROS</span>
-                </p>
-            </div>
-            <p class="font-black text-slate-700 uppercase t-small track-mobile"><br>
-                <i class="fas fa-medal text-adventist-gold mr-1"> <br></i> <br><br>NO TE LO PIERDAS, VEN A DISFRUTAR DE UNA TARDE DE AVENTURA, AMISTAD Y DIVERSIÓN EN FAMILIA. TE ESPERAMOS CON LOS BRAZOS ABIERTOS!  
-            </p>
-        </div>
-    </section>
-
-    <!-- ── ORACIÓN INTERCESORA ── -->
-    <section class="hover-card glass border-t-[8px] border-adventist-gold card-radius sec-pad shadow-xl text-center">
-        <div class="w-14 h-14 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-hands-praying text-adventist-gold animate-pulse"></i>
-        </div>
-        <h2 class="t-title font-heading font-black text-slate-800 uppercase">
-            ORACIÓN<br>INTERCESORA
-        </h2>
-        <div class="bg-adventist-blue text-white px-5 py-3 rounded-xl font-black shadow-lg t-section mt-3">
-            HOY SÁBADO<br>16:00 HRS
-        </div>
-    </section>
-
-    <!-- ── ASA ── -->
-    <section class="hover-card glass border-t-[8px] border-adventist-blue card-radius sec-pad shadow-xl text-center">
-        <i class="fas fa-users-gear text-adventist-blue mb-4"></i>
-        <h2 class="t-section font-heading font-black text-slate-800 uppercase">!!INFORMACIÓN!!</h2>
-        <p class="t-title font-heading font-black text-slate-800">ASA</p>
-        <p class="t-body text-adventist-blue font-semibold text-adventist-blue mb-4">
-            Se solicita a la membresía alimentos no perecibles y útiles escolares para campaña de apoyo a familias en necesidad. Dios bendiga al que comparte con amor 🙏
-        </p>
-    </section>
-
-    <!-- ── CULTO JOVEN ── -->
-    <section class="hover-card glass border-t-[8px] border-adventist-blue card-radius sec-pad shadow-xl text-center">
-        <i class="fas fa-users-gear text-adventist-blue mb-4"></i>
-        <h2 class="t-title font-heading font-black text-slate-800 uppercase">
-            !!HOY!!<br><br>Culto Jóven  "SUSPENDIDO"
-        </h2>
-        <div class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-4 rounded-xl shadow-xl">
-            <p class="t-small uppercase">📍 Calle Carrera 131</p>
-        </div>
-    </section>
-
-    <!-- 🔥 NUEVO ANUNCIO (PING PONG) -->
-    <section class="hover-card">
-        <div class="bg-red-600 text-white p-6 sm:p-8 rounded-xl shadow-2xl border-4 border-yellow-400 animate-pulse text-center">
-
-            <i class="fas fa-bell text-yellow-300 mb-4" style="font-size: clamp(2rem,6vw,3rem);"></i>
-
-            <h3 class="t-section font-heading font-extrabold uppercase mb-2">
-                CAMPEONATO DISTRITAL DE PING PONG
-            </h3>
-
-            <p class="t-body font-bold mb-3">
-                Ven y demuestra tu habilidad, disfruta un día de deporte y hermandad.
-            </p>
-
-            <p class="t-small mb-2">
-                <i class="fas fa-calendar-day mr-2"></i>
-                DOMINGO 19 ABRIL 2026
-            </p>
-            <p class="t-small uppercase">📍 Calle Carrera 131</p>
-
-            <p class="t-small mb-4">
-                <i class="fas fa-clock mr-2"></i>
-                TODO EL DÍA
-            </p>
-            <p class="t-small mb-4">
-                <i class="fas fa-clock mr-2"></i>
-                DESDE LAS 10:00 HRS
-            </p>
-            <p class="t-small mb-4">
-                <i class="fas fa-clock mr-2"></i>
-                !! Habrá colación y almuerzo (tallarinata) para los jugadores !!
-            </p>
-
-            <a href="contactoaviso.html"
-                class="inline-block bg-yellow-400 text-red-600 font-bold px-6 py-3 rounded-full uppercase shadow-lg hover:bg-yellow-300 transition">
-                INSCRÍBETE
-            </a>
-
-        </div>
-    </section>
+        <!-- Avisos dinámicos Firebase -->
+        <div id="contenedor-avisos-dinamicos" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"></div>
+        <br><br>
         <!-- ── AVENTUREROS ── -->
-    <section class="hover-card bg-adventist-red card-radius p-[3px] shadow-xl overflow-hidden group">
-        <div class="bg-white sec-pad card-radius text-center h-full">
-            <div class="bg-adventist-red text-white py-5 px-3 rounded-xl shadow-lg mb-4">
-                <p class="t-section font-black uppercase leading-tight">
-                    PROYECTO IGLESIA 2026 <br>
-                    <span class="text-adventist-gold">"SILLAS TIPO BUCATAS"</span>
+        <section class="hover-card bg-adventist-red card-radius p-[3px] shadow-xl overflow-hidden group">
+            <div class="bg-white sec-pad card-radius text-center h-full">
+                <div class="bg-adventist-red text-white py-5 px-3 rounded-xl shadow-lg mb-4">
+                    <p class="t-section font-black uppercase leading-tight">
+                        HOY 16:00 HRS<br>
+                        <span class="text-adventist-gold">AVENTUREROS</span>
+                    </p>
+                </div>
+                <p class="font-black text-slate-700 uppercase t-small track-mobile"><br>
+                    <i class="fas fa-medal text-adventist-gold mr-1"> <br></i> <br><br>NO TE LO PIERDAS, VEN A DISFRUTAR
+                    DE UNA TARDE DE AVENTURA, AMISTAD Y DIVERSIÓN EN FAMILIA. TE ESPERAMOS CON LOS BRAZOS ABIERTOS!
                 </p>
             </div>
-            <p class="font-black text-slate-700 uppercase t-small track-mobile"><br>
-                <i class="fas fa-medal text-adventist-gold mr-1"> <br></i> <br><br>Queridos hermanos, les recordamos nuestro proyecto 2026 para adquirir nuevas butacas para la iglesia. Cada una tiene un valor aproximado de $30.000.
+        </section>
 
-Les invitamos a orar y comprometerse con este desafío, aportando con alegría para preparar un lugar más acogedor para todos. Unidos, con la ayuda de Dios, podremos lograrlo.
-
-¡Dios es bueno!  
-            </p>
-            <span class="text-adventist-gold">“Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque Dios ama al dador alegre.” (2 Corintios 9:7)</span>
-        </div>
-    </section>
-
-    <!-- ── ANCIANO DE TURNO ── -->
-    <section class="hover-card glass border-t-[8px] border-adventist-gold card-radius sec-pad shadow-xl text-center">
-        <p class="text-adventist-gold font-black uppercase t-badge">Anciano de Turno</p>
-        <h2 class="t-title font-heading font-black text-slate-800 uppercase">
-            Mauricio Galaz
-        </h2>
-    </section>
-
-    <!-- ── PANEL ADMIN ── -->
-    <section class="mt-10 flex flex-col items-center px-2">
-        <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-adventist-blue">
-            Gestión de Muro
-        </button>
-        <div id="admin-panel" class="hidden mt-5 w-full" style="max-width: 22rem;">
-            <div class="glass p-5 rounded-2xl shadow-xl space-y-3">
-                <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
-                    class="w-full bg-slate-100 border p-3 rounded-xl text-center">
-                <button onclick="activarEdicion()"
-                    class="w-full bg-adventist-blue text-white py-3 rounded-xl font-black">
-                    Validar Acceso
-                </button>
+        <!-- ── ORACIÓN INTERCESORA ── -->
+        <section
+            class="hover-card glass border-t-[8px] border-adventist-gold card-radius sec-pad shadow-xl text-center">
+            <div class="w-14 h-14 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-hands-praying text-adventist-gold animate-pulse"></i>
             </div>
-        </div>
-    </section>
+            <h2 class="t-title font-heading font-black text-slate-800 uppercase">
+                ORACIÓN<br>INTERCESORA
+            </h2>
+            <div class="bg-adventist-blue text-white px-5 py-3 rounded-xl font-black shadow-lg t-section mt-3">
+                HOY SÁBADO<br>16:00 HRS
+            </div>
+        </section>
 
-</main>
+        <!-- ── ASA ── -->
+        <section
+            class="hover-card glass border-t-[8px] border-adventist-blue card-radius sec-pad shadow-xl text-center">
+            <i class="fas fa-users-gear text-adventist-blue mb-4"></i>
+            <h2 class="t-section font-heading font-black text-slate-800 uppercase">!!INFORMACIÓN!!</h2>
+            <p class="t-title font-heading font-black text-slate-800">ASA</p>
+            <p class="t-body text-adventist-blue font-semibold text-adventist-blue mb-4">
+                Se solicita a la membresía alimentos no perecibles y útiles escolares para campaña de apoyo a familias
+                en necesidad. Dios bendiga al que comparte con amor 🙏
+            </p>
+        </section>
+
+        <!-- ── CULTO JOVEN ── -->
+        <section
+            class="hover-card glass border-t-[8px] border-adventist-blue card-radius sec-pad shadow-xl text-center">
+            <i class="fas fa-users-gear text-adventist-blue mb-4"></i>
+            <h2 class="t-title font-heading font-black text-slate-800 uppercase">
+                !!HOY!!<br><br>Culto Jóven "SUSPENDIDO"
+            </h2>
+            <div class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-4 rounded-xl shadow-xl">
+                <p class="t-small uppercase">📍 Calle Carrera 131</p>
+            </div>
+        </section>
+
+        <!-- 🔥 NUEVO ANUNCIO (PING PONG) -->
+        <section class="hover-card">
+            <div
+                class="bg-red-600 text-white p-6 sm:p-8 rounded-xl shadow-2xl border-4 border-yellow-400 animate-pulse text-center">
+
+                <i class="fas fa-bell text-yellow-300 mb-4" style="font-size: clamp(2rem,6vw,3rem);"></i>
+
+                <h3 class="t-section font-heading font-extrabold uppercase mb-2">
+                    CAMPEONATO DISTRITAL DE PING PONG
+                </h3>
+
+                <p class="t-body font-bold mb-3">
+                    Ven y demuestra tu habilidad, disfruta un día de deporte y hermandad.
+                </p>
+
+                <p class="t-small mb-2">
+                    <i class="fas fa-calendar-day mr-2"></i>
+                    DOMINGO 19 ABRIL 2026
+                </p>
+                <p class="t-small uppercase">📍 Calle Carrera 131</p>
+
+                <p class="t-small mb-4">
+                    <i class="fas fa-clock mr-2"></i>
+                    TODO EL DÍA
+                </p>
+                <p class="t-small mb-4">
+                    <i class="fas fa-clock mr-2"></i>
+                    DESDE LAS 10:00 HRS
+                </p>
+                <p class="t-small mb-4">
+                    <i class="fas fa-clock mr-2"></i>
+                    !! Habrá colación y almuerzo (tallarinata) para los jugadores !!
+                </p>
+
+                <a href="contactoaviso.html"
+                    class="inline-block bg-yellow-400 text-red-600 font-bold px-6 py-3 rounded-full uppercase shadow-lg hover:bg-yellow-300 transition">
+                    INSCRÍBETE
+                </a>
+
+            </div>
+        </section>
+        <!-- ── PROYECTO IGLESIA ── -->
+        <section class="hover-card bg-adventist-red card-radius p-[3px] shadow-xl overflow-hidden group">
+            <div class="bg-white sec-pad card-radius text-center h-full flex flex-col justify-between">
+
+                <!-- Encabezado -->
+                <div class="bg-adventist-red text-white py-5 px-3 rounded-xl shadow-lg mb-4">
+                    <p class="t-section font-black uppercase leading-tight">
+                        Proyecto Iglesia 2026 <br>
+                        <span class="text-adventist-gold">"Butacas para el templo"</span>
+                    </p>
+                </div>
+
+                <!-- Contenido -->
+                <div class="space-y-3 text-slate-700">
+                    <p class="font-semibold uppercase t-small track-mobile">
+                        Queridos hermanos, les recordamos nuestro proyecto 2026 para adquirir nuevas butacas para la
+                        iglesia.
+                    </p>
+
+                    <p class="font-bold text-adventist-red">
+                        Valor por butaca: $30.000
+                    </p>
+
+                    <p class="t-small">
+                        Les invitamos a orar y comprometerse con este desafío, aportando con alegría para preparar un
+                        lugar más acogedor para todos.
+                    </p>
+
+                    <p class="font-semibold">
+                        Unidos, con la ayuda de Dios, podremos lograrlo.
+                    </p>
+
+                    <p class="text-adventist-red font-bold">
+                        ¡Dios es bueno!
+                    </p>
+                </div>
+
+                <!-- Texto bíblico -->
+                <div class="mt-4">
+                    <p class="text-adventist-gold italic text-sm">
+                        “Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque Dios ama al
+                        dador alegre.”
+                    </p>
+                    <p class="text-xs text-slate-500">
+                        2 Corintios 9:7
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── ANCIANO DE TURNO ── -->
+        <section
+            class="hover-card glass border-t-[8px] border-adventist-gold card-radius sec-pad shadow-xl text-center">
+            <p class="text-adventist-gold font-black uppercase t-badge">Anciano de Turno</p>
+            <h2 class="t-title font-heading font-black text-slate-800 uppercase">
+                Mauricio Galaz
+            </h2>
+        </section>
+
+        <!-- ── PANEL ADMIN ── -->
+        <section class="mt-10 flex flex-col items-center px-2">
+            <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-adventist-blue">
+                Gestión de Muro
+            </button>
+            <div id="admin-panel" class="hidden mt-5 w-full" style="max-width: 22rem;">
+                <div class="glass p-5 rounded-2xl shadow-xl space-y-3">
+                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
+                        class="w-full bg-slate-100 border p-3 rounded-xl text-center">
+                    <button onclick="activarEdicion()"
+                        class="w-full bg-adventist-blue text-white py-3 rounded-xl font-black">
+                        Validar Acceso
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- ── FOOTER ── -->
     <footer class="bg-adventist-dark text-white pt-12 pb-8">
