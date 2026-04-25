@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pauta Litúrgica Sabática - IASD Limache</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+adventist: {
+blue: '#00305e',
+gold: '#fec325',
+accent: '#004a87',
+bg: '#f1f5f9'
+}
+}
+}
+}
+}
+</script>
+
+<style>
+body { font-family: 'Outfit', sans-serif; }
+
+.input-pauta {
+width: 100%;
+padding: .75rem;
+background: #f1f5f9;
+border-radius: .75rem;
+font-weight: 700;
+outline: none;
+border: 2px solid transparent;
+}
+
+.input-pauta:focus {
+background: #fff;
+border-color: #fec325;
+}
+
+.step-box {
+border-left: 4px solid #00305e;
+background: #fff;
+padding: 1.25rem;
+border-radius: 1rem;
+box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+</style>
+</head>
+
+<body class="bg-adventist-bg p-4 md:p-8">
+
+<div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] shadow-xl p-6 md:p-10 border-b-[12px] border-adventist-blue">
+
+<header class="text-center mb-10">
+<h1 class="text-3xl font-black text-adventist-blue uppercase">
+Guion de Culto Sabático
+</h1>
+<p class="text-slate-500 italic font-semibold">
+IASD San Francisco de Limache
+</p>
+</header>
+
+<!-- DATOS -->
+<div class="grid md:grid-cols-2 gap-4 mb-10">
+<input type="date" class="input-pauta">
+<input type="text" placeholder="Predicador" class="input-pauta">
+</div>
+
+<!-- ===================== -->
+<!-- 🔵 ACOMPAÑANTE 1 -->
+<!-- ===================== -->
+<section class="mb-12">
+
+<h2 class="text-xl font-black text-adventist-blue mb-4 uppercase">
+👤 Acompañante 1 – Liturgia Inicial
+</h2>
+
+<div class="step-box bg-blue-50 border-blue-500 mb-6">
+<p class="font-black text-sm mb-2">ROL:</p>
+<ul class="text-sm space-y-1">
+<li>✔ Bienvenida oficial</li>
+<li>✔ Dirección de himnos</li>
+<li>✔ Introducción espiritual</li>
+<li>✔ Dirección de diezmos y ofrendas</li>
+</ul>
+</div>
+
+<div class="space-y-4">
+
+<div class="step-box">
+<p class="font-bold">🎵 Himnos Previos</p>
+<div class="flex gap-3 mt-2">
+<input class="input-pauta text-center" placeholder="N°">
+<input class="input-pauta text-center" placeholder="N°">
+<input class="input-pauta text-center" placeholder="N°">
+</div>
+</div>
+
+<div class="step-box">
+<p>🚶 Ingreso Plataforma — Himno 32</p>
+<p>🙏 Oración Rodillas — Himno 135</p>
+</div>
+
+<div class="step-box bg-yellow-50 border-yellow-400">
+<p class="font-black text-sm mb-2">🗣️ GUION ACOMPAÑANTE 1</p>
+<ul class="text-sm space-y-2">
+<li>✨ Saludo y bienvenida</li>
+<li>📽️ Invitación video misionero</li>
+<li>🎶 Himno #525</li>
+<li>💰 Oración diezmos y ofrendas</li>
+</ul>
+</div>
+
+<input class="input-pauta" placeholder="Nombre Acompañante 1">
+<input class="input-pauta" placeholder="Diácono oración">
+
+</div>
+
+</section>
+
+<!-- ===================== -->
+<!-- 🟡 ACOMPAÑANTE 2 -->
+<!-- ===================== -->
+<section class="mb-12">
+
+<h2 class="text-xl font-black text-adventist-blue mb-4 uppercase">
+👤 Acompañante 2 – Bloque Espiritual
+</h2>
+
+<div class="step-box bg-yellow-50 border-yellow-400 mb-6">
+<p class="font-black text-sm mb-2">ROL:</p>
+<ul class="text-sm space-y-1">
+<li>✔ Lectura bíblica</li>
+<li>✔ Presentación del predicador</li>
+<li>✔ Dirección del cierre</li>
+</ul>
+</div>
+
+<div class="space-y-4">
+
+<div class="step-box">
+<p class="font-bold">📖 Lectura Bíblica</p>
+<input class="input-pauta mt-2" placeholder="Cita bíblica">
+</div>
+
+<div class="step-box">
+<p class="font-bold">👶 Historia Infantil</p>
+<input class="input-pauta mt-2" placeholder="Responsable">
+</div>
+
+<div class="step-box">
+<p class="font-bold">🎵 Alabanza Especial</p>
+<input class="input-pauta mt-2" placeholder="Grupo / Solista">
+</div>
+
+<div class="step-box">
+<p class="font-bold">🎤 Mensaje</p>
+<input class="input-pauta mt-2" placeholder="Predicador">
+</div>
+
+<div class="step-box bg-blue-50 border-blue-500">
+<p class="font-black text-sm mb-2">🗣️ GUION ACOMPAÑANTE 2</p>
+<ul class="text-sm space-y-2">
+<li>🎤 Presentar predicador</li>
+<li>🙏 Dirigir himno final</li>
+<li>🛐 Solicitar oración final</li>
+</ul>
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================== -->
+<!-- 🔴 CIERRE -->
+<!-- ===================== -->
+<section>
+
+<h2 class="text-xl font-black text-adventist-blue mb-4 uppercase">
+✝️ Cierre del Culto
+</h2>
+
+<div class="step-box">
+<p>🎶 Himno Final</p>
+<input class="input-pauta mt-2" placeholder="Número Himno">
+</div>
+
+<div class="step-box">
+<p>🙏 Oración Final</p>
+<input class="input-pauta mt-2" placeholder="Responsable">
+</div>
+
+<div class="grid md:grid-cols-2 gap-4 mt-4">
+<div class="step-box">
+<p>🎵 Salida Plataforma</p>
+<p class="font-bold">Himno 41</p>
+</div>
+<div class="step-box">
+<p>🎵 Salida Congregación</p>
+<p class="font-bold">Himno 37</p>
+</div>
+</div>
+
+</section>
+
+<footer class="text-center text-xs text-gray-400 mt-10">
+“Todo sea hecho decentemente y con orden” – 1 Corintios 14:40
+</footer>
+
+</div>
+
+</body>
+</html>
