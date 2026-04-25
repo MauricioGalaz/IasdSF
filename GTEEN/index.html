@@ -978,6 +978,99 @@
             width: 100%;
             overflow-x: hidden;
         }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
+            transition: transform .3s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.08);
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(transparent, black);
+            color: white;
+        }
+
+        /* MODAL */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-modal video {
+            width: 90%;
+            max-height: 90%;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.96);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-modal iframe {
+            width: 92%;
+            height: 82vh;
+            border: none;
+            border-radius: 18px;
+            background: #000;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #e50914;
+            color: white;
+            border: none;
+            font-size: 26px;
+            padding: 8px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100000;
+        }
     </style>
 </head>
 
@@ -1301,91 +1394,63 @@
 
         <div class="video-grid">
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/buscas.mp4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Videoclip Oficial</span>
-                    <h4 class="video-title">Buscas - Vivo La Misión</h4>
-                    <p class="video-desc">Canto Unión Chilena 02</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/v4ftkMuwYaI')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Buscas - Vivo La Misión</h4>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/control.MP4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Canto Lema 2021</span>
-                    <h4 class="video-title">Toma el Control</h4>
-                    <p class="video-desc">Campaña de Evangelismo G-Teen</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/ahUOckp2Tfo')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Toma el Control</h4>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/yo.mp4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Karaoke</span>
-                    <h4 class="video-title">Yo soy Misionero</h4>
-                    <p class="video-desc">Mini Teen UPS</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/fswoAX1GBvg')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Yo soy Misionero</h4>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/me_escogiste.mp4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Alabanza</span>
-                    <h4 class="video-title">Me Escogiste</h4>
-                    <p class="video-desc">MCHP Oficial</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/VUoyhrSrzb0')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Me Escogiste</h4>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/yo_seguire.mp4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Misión</span>
-                    <h4 class="video-title">Yo Seguiré</h4>
-                    <p class="video-desc">Canto AMCh</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/4ajiWuES5Ko')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Yo Seguiré</h4>
                 </div>
             </div>
 
-            <div class="video-card">
-                <div class="video-player-wrapper">
-                    <video controls preload="none" poster="logo.jpg">
-                        <source src="cantos/video1.mp4" type="video/mp4">
-                        Tu navegador no soporta videos.
-                    </video>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">Musical</span>
-                    <h4 class="video-title">Yo Puedo Ayudarte</h4>
-                    <p class="video-desc">Videoclip Oficial</p>
+            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/NEehhwm2YeI')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>Yo Puedo Ayudarte</h4>
                 </div>
             </div>
 
-        </div>
+            <div class="video-card" onclick="abrirYoutube('')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>pronto estará disponible</h4>
+                </div>
+            </div>
+
+            <div class="video-card" onclick="abrirYoutube('')">
+                <img src="logo.jpg">
+                <div class="overlay">
+                    <h4>pronto estará disponible</h4>
+                </div>
+            </div>
+
+
     </section>
 
     <section class="seccion-oscura" id="lideres" style="border-top: 4px solid var(--gteen-red);">
@@ -1592,6 +1657,53 @@
                 document.querySelector('.nav-links').classList.remove('active');
             });
         });
+    </script>
+
+    <script>
+        function abrirVideo(ruta) {
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("videoPlayer");
+
+            video.src = ruta;
+            modal.style.display = "flex";
+
+            video.play();
+        }
+
+        function cerrarVideo() {
+            const modal = document.getElementById("videoModal");
+            const video = document.getElementById("videoPlayer");
+
+            video.pause();
+            video.src = "";
+            modal.style.display = "none";
+        }
+    </script>
+
+
+    <div id="videoModal" class="video-modal">
+        <button class="cerrar" onclick="cerrarVideo()">✖</button>
+        <iframe id="youtubePlayer" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        function abrirYoutube(url) {
+            const modal = document.getElementById("videoModal");
+            const player = document.getElementById("youtubePlayer");
+
+            player.src = url + "?autoplay=1&rel=0";
+            modal.style.display = "flex";
+        }
+
+        function cerrarVideo() {
+            const modal = document.getElementById("videoModal");
+            const player = document.getElementById("youtubePlayer");
+
+            player.src = "";
+            modal.style.display = "none";
+        }
     </script>
 </body>
 
