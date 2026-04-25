@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cronograma - IASD Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f8fafc',
+                            green: '#1b5e20',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Solo aplica el efecto de escala en pantallas grandes para evitar saltos en móvil */
+        @media (min-width: 768px) {
+            .hover-card:hover {
+                transform: scale(1.02);
+            }
+
+            .day-badge {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+            }
+        }
+
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 300px;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 font-sans text-slate-900">
+
+    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-2xl border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-4 group">
+                <div class="relative">
+                    <div
+                        class="h-16 w-16 sm:h-20 sm:w-20 bg-white rounded-full overflow-hidden border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+                        <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                    </div>
+                </div>
+
+                <span
+                    class="font-heading font-black text-[11px] sm:text-sm leading-tight uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325] filter drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">de Limache</span>
+                </span>
+            </a>
+
+            <button id="menu-btn" class="md:hidden text-2xl p-2">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="hidden md:flex items-center gap-6 font-bold text-xs uppercase tracking-widest">
+                <a href="avisos.html" class="hover:text-adventist-gold transition">Volver Avisos</a>
+                <span class="text-adventist-gold border-b-2 border-adventist-gold">Cronograma</span>
+                <a href="contactoaviso.html" class="hover:text-adventist-gold transition">Contacto</a>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-adventist-blue px-4 flex flex-col gap-4 font-bold text-center">
+            <a href="avisos.html" class="py-2 border-b border-white/5">Volver Avisos</a>
+            <a href="index.html" class="py-2 border-b border-white/5">Inicio</a>
+            <a href="contactoaviso.html" class="py-2 text-adventist-gold">Contacto</a>
+        </div>
+    </nav>
+
+    <header
+        class="w-full bg-adventist-blue text-white pt-10 pb-20 px-4 text-center rounded-b-[3rem] md:rounded-b-[5rem] shadow-2xl relative overflow-hidden">
+        <div class="relative z-10">
+            <span
+                class="inline-block bg-white/10 backdrop-blur-sm text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4 border border-white/20">
+                Planificación Semanal
+            </span>
+            <h1 class="text-4xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-4 uppercase">
+                NUESTROS <br> <span class="text-adventist-gold">HORARIOS</span>
+            </h1>
+            <p class="text-sm md:text-2xl font-bold opacity-80 uppercase tracking-widest italic px-4">
+                Participa en cada actividad de nuestra iglesia
+            </p>
+        </div>
+    </header><br> <br> <br>
+
+    <main class="container mx-auto px-4 -mt-10 pb-20 max-w-4xl space-y-6">
+
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-gold">
+            <div
+                class="bg-adventist-gold text-adventist-blue p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                Sábado
+            </div>
+            <div class="p-6 md:p-8 flex-grow">
+                <div class="mb-6">
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Escuela
+                        Sabática</h3>
+                    <p class="text-slate-500 font-bold text-sm md:text-base">09:30 AM — 10:45 AM</p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Culto
+                        Divino</h3>
+                    <p class="text-slate-500 font-bold text-sm md:text-base">11:00 AM — 12:30 PM</p>
+                </div>
+                <div>
+                    <h3 class="text-adventist-blue font-black text-xl md:text-2xl uppercase tracking-tighter">Sociedad
+                        de Jóvenes</h3>
+                    <p class="text-slate-500 font-bold text-sm md:text-base">18:00 PM - Horario de Invierno</p>
+                    <p class="text-orange-600 font-bold text-xs uppercase mt-1">Revisar avisos para cada sábado</p>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-slate-300">
+            <div
+                class="bg-slate-300 text-slate-600 p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                SÁBADO
+            </div>
+            <div class="p-6 md:p-8 flex-grow">
+                <h3 class="text-slate-800 font-black text-xl md:text-2xl uppercase tracking-tighter">Club de Aventureros
+                </h3>
+                <p class="text-slate-500 font-bold text-sm md:text-base">16:00 PM — 17:30 PM</p>
+                <div class="mt-4 p-4 bg-slate-50 rounded-2xl italic text-xs md:text-sm text-slate-500">
+                    * Ver disponibilidad según calendario del club. <br>
+                    <span class="font-bold text-red-700">***!! REGRESARON LAS ACTIVIDADES REGULARES!!***</span>
+                </div>
+            </div>
+        </section>
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-slate-300">
+            <div
+                class="bg-slate-300 text-slate-600 p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                SÁBADO
+            </div>
+            <div class="p-6 md:p-8 flex-grow">
+                <h3 class="text-slate-800 font-black text-xl md:text-2xl uppercase tracking-tighter">MINISTERIO DE
+                    ORACIÓN INTERCESORA
+                </h3>
+                <p class="text-slate-500 font-bold text-sm md:text-base">16:00 PM — 17:45 PM</p>
+                <div class="mt-4 p-4 bg-slate-50 rounded-2xl italic text-xs md:text-sm text-slate-500">
+                    * Ver información adicionales en grupo de wha. <br>
+                    <span class="font-bold text-red-700">***!! MUCHA ORACIÓN, MUCHO PODER!!***</span>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[1.5rem] md:rounded-[3rem] shadow-lg md:shadow-xl overflow-hidden border-l-[6px] md:border-l-[15px] border-slate-300 transition-transform duration-300 hover:scale-[1.01] mx-2 md:mx-0 my-4">
+
+            <div
+                class="bg-slate-300 text-slate-600 p-3 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-lg md:text-xl md:min-w-[140px]">
+                SÁBADO
+            </div>
+
+            <div class="p-5 md:p-8 flex-grow flex flex-col justify-center">
+                <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
+                    <h3 class="text-slate-800 font-black text-lg md:text-2xl uppercase tracking-tighter leading-tight">
+                        Club de Aventureros
+                    </h3>
+                    <p class="text-slate-500 font-bold text-xs md:text-base whitespace-nowrap">
+                        <i class="far fa-clock mr-1"></i> 16:00 PM — 17:30 PM
+                    </p>
+                </div>
+
+                <div class="mt-4 p-3 md:p-4 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100">
+                    <p class="italic text-[10px] md:text-sm text-slate-500 leading-relaxed">
+                        * Ver disponibilidad según calendario del club.
+                    </p>
+                    <div class="mt-2 inline-block">
+                        <span
+                            class="font-black text-red-700 text-[10px] md:text-xs uppercase tracking-wider animate-pulse">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            ¡¡Regresaron las actividades regulares!!
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="hover-card flex flex-col md:flex-row bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border-l-[10px] md:border-l-[15px] border-adventist-green text-center md:text-left">
+            <div
+                class="bg-adventist-green text-white p-4 md:p-6 flex items-center justify-center font-black day-badge uppercase tracking-tighter text-xl">
+                Viernes
+            </div>
+            <div class="p-6 md:p-8 flex-grow">
+                <h3 class="text-adventist-green font-black text-2xl md:text-3xl uppercase tracking-tighter">Recepción de
+                    Sábado</h3>
+                <p class="text-slate-500 font-bold text-base md:text-lg italic">Culto en Grupos Pequeños u Hogares</p>
+                <p class="mt-2 font-black text-adventist-green uppercase tracking-widest text-xs">Consultar según
+                    programación</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="bg-adventist-dark text-white pt-12 pb-8">
+        <div class="w-full px-5 text-center">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680" target="_blank"
+                    class="text-white hover:text-adventist-gold transition-all hover:-translate-y-1">
+                    <i class="fab fa-facebook-f fa-lg"></i>
+                </a>
+                <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank"
+                    class="text-white hover:text-adventist-gold transition-all hover:-translate-y-1">
+                    <i class="fab fa-youtube fa-lg"></i>
+                </a>
+            </div>
+            <img src="imagenes/logo.jpg"
+                class="h-14 w-14 rounded-full mx-auto mb-4 border-2 border-adventist-gold shadow-xl p-1" alt="Logo">
+            <div class="pt-5 border-t border-white/5">
+                <p class="text-slate-600 text-[9px] uppercase tracking-widest">© 2026 IASD San Francisco de Limache</p>
+            </div>
+            <div class="mt-3">
+                <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 text-adventist-gold px-3 py-2 rounded-lg border border-adventist-gold/30 hover:border-adventist-gold transition duration-300 text-xs">
+                    <i class="fas fa-globe"></i>
+                    MG Servicios
+                </a>
+            </div>
+            <p class="mt-3 text-slate-400 text-xs uppercase tracking-wider">
+                By <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+            </p>
+        </div>
+    </footer>
+    <button id="btnTop"
+        class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue p-4 rounded-2xl shadow-2xl z-[100] transition-transform active:scale-90">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Menú Móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Botón Arriba
+        const btnTop = document.getElementById("btnTop");
+        window.addEventListener("scroll", () => {
+            btnTop.classList.toggle("hidden", window.scrollY < 400);
+            btnTop.classList.toggle("flex", window.scrollY >= 400);
+        });
+        btnTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    </script>
+</body>
+
+</html>

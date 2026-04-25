@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Ministerio – IASD Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f4f4f4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-700 scroll-smooth">
+
+    <!-- NAV -->
+    <!-- NAV MINISTERIOS -->
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Prototipo
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache
+                    </p>
+                </div>
+                <img src="imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="pt-32 pb-24 bg-gradient-to-r from-adventist-blue to-blue-900 text-white text-center">
+        <img src="../imagenes/ministerio.jpg"
+            class="w-32 h-32 mx-auto rounded-full border-4 border-adventist-gold shadow-lg mb-6">
+        <h1 class="text-4xl font-bold mb-4">NOMBRE DEL MINISTERIO</h1>
+        <p class="max-w-3xl mx-auto text-gray-200">
+            Breve descripción inspiradora del ministerio.
+        </p>
+    </header>
+
+    <!-- SECCIÓN VIDEOS -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-8">
+                📹 Contenido Multimedia
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <button onclick="video('https://www.youtube.com/embed/dsdjHEMnFJs')"
+                    class="bg-adventist-blue text-white py-3 rounded-lg hover:bg-adventist-gold hover:text-adventist-blue transition">
+                    Video 1
+                </button>
+
+                <button onclick="video('https://www.youtube.com/embed/yCIyxcDc5Z4')"
+                    class="bg-adventist-blue text-white py-3 rounded-lg hover:bg-adventist-gold hover:text-adventist-blue transition">
+                    Video 2
+                </button>
+            </div>
+
+            <iframe id="videoFrame" class="w-full h-96 rounded-xl shadow-lg" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOTICIAS -->
+    <section class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📰 Noticias</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Actividad Próxima</h4>
+                    <p class="text-sm text-gray-600">Información destacada del ministerio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Evento Especial</h4>
+                    <p class="text-sm text-gray-600">Invitación o anuncio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Mensaje Espiritual</h4>
+                    <p class="text-sm text-gray-600">Reflexión breve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-6 text-center text-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-youtube fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="border-gray-800 my-6">
+
+            <p>© 2025 Iglesia Adventista del Séptimo Día – Limache</p>
+            <p class="mt-2">
+                Desarrollado con <i class="fas fa-heart text-red-500"></i> por
+                <a href="#" class="text-adventist-gold hover:underline font-bold">MGE</a>
+            </p>
+        </div>
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+    </footer>
+
+    <script>
+        /* Cambiar video */
+        function cargarVideo(url) {
+            document.getElementById("videoFrame").src = url;
+        }
+
+        /* Botón volver arriba */
+        const btnTop = document.getElementById("btnTop");
+
+        window.addEventListener("scroll", () => {
+            btnTop.classList.toggle("hidden", window.scrollY < 300);
+        });
+
+        btnTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+
+</body>
+
+</html>

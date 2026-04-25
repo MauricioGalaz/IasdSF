@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Ministerio – IASD Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f4f4f4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-700">
+
+    <!-- NAV MINISTERIOS -->
+    <nav class="fixed w-full z-50 bg-adventist-blue/95 backdrop-blur-md text-white shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="../index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[20px] text-adventist-gold font-bold uppercase tracking-widest">Ministerio de ASA
+                    </p>
+                    <p class="text-[20px] text-white font-bold leading-tight uppercase">IASD - San Francisco de Limache</p>
+                </div>
+                <img src="../imagenes/logo.jpg" class="h-12 w-12 rounded-full border-2 border-adventist-gold shadow-md">
+            </div>
+        </div>
+    </nav>
+    <!-- HERO -->
+    <section class="py-20 bg-adventist-light text-center">
+        <h1 class="text-4xl font-bold text-adventist-blue mb-4">
+            MINISTERIO DE ASA
+        </h1>
+        <p class="max-w-3xl mx-auto text-gray-600">
+            Servicio cristiano a la comunidad.
+        </p>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-6">📹 Videos</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <button onclick="cargarVideo('https://www.youtube.com/embed/dsdjHEMnFJs')"
+                    class="bg-adventist-blue text-white py-2 rounded">Video 1</button>
+                <button onclick="cargarVideo('https://www.youtube.com/embed/yCIyxcDc5Z4')"
+                    class="bg-adventist-blue text-white py-2 rounded">Video 2</button>
+            </div>
+
+            <iframe id="videoFrame" class="w-full h-96 rounded shadow" allowfullscreen></iframe>
+        </div>
+    </section>
+
+
+
+            <!-- SECCIÓN EVENTOS -->
+    <section class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6">                
+            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📅 Próximos Eventos</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Reunión de Servicio</h4>
+                    <p class="text-sm text-gray-600">Fecha: 15 de Marzo<br>Hora: 10:00 AM<br>Lugar: Salón Comunal</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Campaña Comunitaria</h4>
+                    <p class="text-sm text-gray-600">Fecha: 22 de Marzo<br>Hora: 9:00 AM<br>Lugar: Plaza Central</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Taller de Voluntariado</h4>
+                    <p class="text-sm text-gray-600">Fecha: 29 de Marzo<br>Hora: 11:00 AM<br>Lugar: Biblioteca Local</p>
+                </div>
+            </div>
+    
+
+    <!-- SECCIÓN NOTICIAS -->
+    <section class="py-20 bg-adventist-light">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-adventist-blue mb-8">📰 Noticias</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Actividad Próxima</h4>
+                    <p class="text-sm text-gray-600">Información destacada del ministerio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Evento Especial</h4>
+                    <p class="text-sm text-gray-600">Invitación o anuncio.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
+                    <h4 class="font-bold mb-2">Mensaje Espiritual</h4>
+                    <p class="text-sm text-gray-600">Reflexión breve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+<footer class="bg-adventist-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center">
+                <img src="../imagenes/logo.jpg"
+                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                <h2  class="text-adventist-gold font-bold">Iglesia Adeventista del Septimo día</h2><br>
+
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f fa-2xl"></i></a>
+                    <a href="#"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-instagram fa-2xl"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-youtube fa-2xl"></i></a>
+                </div>
+
+                <div class="w-full border-t border-white/5 pt-8 text-center">
+                    <p class="text-slate-500 text-xs">© 2026 ASA - IASD - Todos los derechos reservados.</p>
+                    <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                        Creado por <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+    </footer>
+
+
+    <script>
+        /* Cambiar video */
+        function cargarVideo(url) {
+            document.getElementById("videoFrame").src = url;
+        }
+
+        /* Botón volver arriba */
+        const btnTop = document.getElementById("btnTop");
+
+        window.addEventListener("scroll", () => {
+            btnTop.classList.toggle("hidden", window.scrollY < 300);
+        });
+
+        btnTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+</body>
+
+</html>

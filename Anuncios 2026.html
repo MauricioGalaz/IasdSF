@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anuncios - IASD San Francisco de Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .bg-adventist-blue {
+            background-color: #004C97;
+        }
+
+        .bg-adventist-gold {
+            background-color: #fec325;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- NAV -->
+    <nav class="bg-adventist-blue sticky top-0 z-50 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+
+            <a href="index.html" class="flex items-center gap-4">
+                <div class="h-14 w-14 rounded-full overflow-hidden border-4 border-[#fec325] bg-white">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
+                </div>
+                <span class="uppercase text-xs font-black tracking-widest">
+                    IASD San Francisco<br>
+                    <span class="text-[#fec325]">de Limache</span>
+                </span>
+            </a>
+
+            <button id="menu-btn" class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="hidden md:flex gap-6 text-xs font-black uppercase tracking-widest">
+                <a href="index.html">Inicio</a>
+                <a href="cronograma.html">Cronograma</a>
+                <a href="contactoaviso.html"
+                    class="bg-adventist-gold text-slate-900 px-4 py-2 rounded-full">Contacto</a>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden bg-adventist-blue px-4 pb-4 text-center">
+            <a href="index.html" class="block py-3 border-b border-white/10">Inicio</a>
+            <a href="cronograma.html" class="block py-3 border-b border-white/10">Cronograma</a>
+            <a href="contactoaviso.html" class="block py-3 text-[#fec325]">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="max-w-xl w-full glass p-10 rounded-[2.5rem] shadow-2xl">
+
+            <!-- HEADER -->
+            <div class="text-center mb-10">
+                <div class="bg-adventist-blue w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-bullhorn text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-black uppercase">Enviar Aviso</h1>
+                <p class="text-blue-300 text-sm font-bold">Solo líderes autorizados</p>
+            </div>
+
+            <!-- FORM -->
+            <form id="formAvisosLideres" class="space-y-6">
+
+                <select id="departamento" required
+                    class="w-full bg-slate-900/60 border border-white/10 p-4 rounded-2xl">
+                    <option value="">Seleccione Departamento...</option>
+                    <option value="SEC26">SECRETARÍA</option>
+                    <option value="JA26">MINISTERIO JOVEN</option>
+                    <option value="PUB26">PUBLICACIONES</option>
+                    <option value="SALUD26">SALUD</option>
+                    <option value="MUJER26">MINISTERIO DE LA MUJER</option>
+                    <option value="MUSICA26">MINISTERIO DE MUSICA</option>
+                    <option value="TESOR26">TESORERIA</option>
+                    <option value="ESCUELA26">ESCUELA SABATICA</option>
+                    <option value="INF26">MINISTERIO INFANTIL</option>
+                    <option value="MIP26">MIPES</option>
+                    <option value="DIAC26">DIACONOS</option>
+                    <option value="MID26">MIDEA</option>
+                    <option value="AVENT26">AVENTUREROS</option>
+                    <option value="VOLUN26">VOLUNTARIADO</option>
+                    <option value="ASA26">ASA</option>
+                    <option value="MAYOR26">MAYORDOMIA</option>
+                </select>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input id="lider" required placeholder="Nombre del líder"
+                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                    <input id="clave" type="password" required placeholder="Clave del departamento"
+                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                </div>
+
+                <div>
+                    <textarea id="mensaje" rows="4" required maxlength="250"
+                        placeholder="Detalle del aviso (máx. 250 caracteres)..."
+                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none"
+                        oninput="document.getElementById('count').innerText = this.value.length + '/250'"></textarea>
+                    <p id="count" class="text-[10px] text-right text-gray-500 mt-1">0/250</p>
+                </div>
+
+                <!-- FECHA DE EXPIRACIÓN -->
+                <div>
+                    <label class="block text-xs uppercase mb-2 text-gray-400">
+                        Caduca el día (opcional)
+                    </label>
+                    <input type="date" id="expira"
+                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                </div>
+
+
+                <button id="btnEnviar" type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black uppercase">
+                    Enviar aviso
+                </button>
+            </form>
+
+            <div id="estado" class="hidden text-center mt-8">
+                <i class="fas fa-circle-notch fa-spin text-3xl text-blue-400"></i>
+                <p class="mt-2 font-bold">Enviando aviso…</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from
+            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("menu-btn").onclick = () =>
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+
+        const form = document.getElementById("formAvisosLideres");
+        const estado = document.getElementById("estado");
+        const btn = document.getElementById("btnEnviar");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const deptSelect = document.getElementById("departamento");
+            const departamento = deptSelect.options[deptSelect.selectedIndex].text;
+            const claveCorrecta = deptSelect.value;
+            const clave = document.getElementById("clave").value.trim();
+            const lider = document.getElementById("lider").value.trim();
+            const mensaje = document.getElementById("mensaje").value.trim();
+            const expiraInput = document.getElementById("expira").value;
+            const expira = expiraInput ? new Date(expiraInput) : null;
+
+
+            if (clave !== claveCorrecta) {
+                alert("❌ Clave incorrecta");
+                return;
+            }
+
+            btn.disabled = true;
+            estado.classList.remove("hidden");
+
+            await addDoc(collection(db, "avisos"), {
+                departamento,
+                lider,
+                mensaje,
+                fecha: new Date().toLocaleDateString("es-CL"),
+                timestamp: serverTimestamp(),
+                expira: expiraInput ? new Date(expiraInput) : null
+            });
+
+            window.location.href = "avisos.html";
+        });
+    </script>
+
+<footer class="bg-adventist-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center">
+                <img src="imagenes/logo.jpg"
+                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                <h2 class="text-adventist-gold font-bold">Iglesia Adventista del Séptimo día</h2><br>
+
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f fa-2xl"></i></a>
+                    <a href="#"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-instagram fa-2xl"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                            class="fab fa-youtube fa-2xl"></i></a>
+                </div>
+
+                <div class="pt-8 border-t border-white/5">
+                    <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 iasd San Francisco de
+                        Limache </p>
+                </div>
+
+                <div class="mt-3">
+                    <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 bg-adventist-surface text-adventist-blue px-4 py-2 rounded-lg 
+                        border border-adventist-blue hover:bg-adventist-blue hover:text-white transition duration-300 text-xs">
+
+                        <i class="fas fa-globe"></i>
+                        MG Servicios - Visitar sitio oficial
+                    </a>
+                </div>
+                <p class="mt-4 text-slate-400 text-xs uppercase tracking-[0.2em]">
+                    By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                </p>
+            </div>
+            
+    
+
+        </div>
+        </div>
+
+        <!-- BOTÓN VOLVER ARRIBA -->
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
+        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+    </footer>
+
+</body>
+
+</html>

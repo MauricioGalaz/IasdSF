@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Muro de Oración - IASD Limache</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: { blue: '#00305e', gold: '#fec325', light: '#f4f4f4' }
+                    },
+                    fontFamily: { sans: ['Open Sans', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg-prayer {
+            background-image: linear-gradient(rgba(0, 48, 94, 0.8), rgba(0, 48, 94, 0.8)), url('imagenes/oracion.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        .post-item {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modern-swal-popup {
+            border-radius: 25px !important;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-700 bg-gray-50 scroll-smooth">
+
+    <nav class="bg-adventist-blue text-white shadow-lg fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="imagenes/oracion.jpg"
+                    class="h-9 w-9 rounded-full object-cover border-2 border-adventist-gold">
+                <span class="font-heading font-bold text-[10px] leading-tight uppercase">IASD<br>San Francisco<br>de
+                    Limache</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-xs font-bold uppercase">
+                <a href="#inicio" class="hover:text-adventist-gold">Inicio</a>
+                <a href="#oracion" class="hover:text-adventist-gold">Oración</a>
+                <a href="#estudio" class="hover:text-adventist-gold">Estudio</a>
+            </div>
+            <a href="../index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
+            </a>
+        </div>
+    </nav>
+
+    <header id="inicio" class="hero-bg-prayer pt-32 pb-20 px-6 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-adventist-gold uppercase tracking-widest font-bold mb-2">Bienvenidos a Nuestra Familia de Fe
+            </h2>
+            <h1 class="font-heading text-3xl md:text-5xl font-bold mb-6 italic">Ministerio de Oración Intercesora</h1>
+            <p class="italic text-lg">"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de
+                ellos."</p>
+            <p class="font-bold text-adventist-gold">Mateo 18:20</p>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 -mt-10 relative z-10">
+        <div id="wall-metrics" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-12">
+        <section id="oracion" class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-heading font-bold text-adventist-blue uppercase">Pedidos y Agradecimientos</h2>
+                <div class="w-24 h-1 bg-adventist-gold mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-adventist-blue h-fit">
+                    <h3 class="font-bold text-xl mb-4 text-adventist-blue uppercase"><i
+                            class="fas fa-edit mr-2"></i>Nueva Entrada</h3>
+                    <form id="prayer-form" class="space-y-4">
+                        <input type="text" id="p-name" placeholder="Tu Nombre"
+                            class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-adventist-blue outline-none"
+                            required>
+                        <select id="p-cat"
+                            class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-adventist-blue outline-none"
+                            required>
+                            <option value="">Selecciona Categoría</option>
+                            <option value="Salud">Salud</option>
+                            <option value="Familia">Familia</option>
+                            <option value="Trabajo">Trabajo/Estudios</option>
+                            <option value="Espiritual">Vida Espiritual</option>
+                            <option value="Agradecimiento">✨ Agradecimiento</option>
+                        </select>
+                        <textarea id="p-req" placeholder="Escribe aquí tu petición o testimonio..."
+                            class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-adventist-blue outline-none"
+                            rows="4" required></textarea>
+                        <button type="submit"
+                            class="w-full bg-adventist-blue text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg uppercase tracking-wide">Publicar
+                            en el Muro</button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div id="prayers-list" class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                        <p class="text-center py-10 text-gray-400">Conectando con el Muro de Oración...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="estudio" class="mb-20 py-10 bg-white rounded-3xl shadow-sm px-6 border border-slate-100">
+            <h2 class="text-2xl font-heading font-bold text-adventist-blue text-center mb-10 uppercase tracking-widest">
+                Recursos de Estudio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-adventist-gold">
+                    <h4 class="font-bold text-adventist-blue mb-4 uppercase text-sm">Guías Diarias</h4>
+                    <ul class="space-y-3 text-sm font-semibold">
+                        <li><a href="https://escuelasabatica.es/" target="_blank"
+                                class="flex items-center text-slate-600 hover:text-adventist-gold"><i
+                                    class="fas fa-book mr-2"></i> Lección Escuela Sabática</a></li>
+                        <li><a href="https://egwwritings.org/" target="_blank"
+                                class="flex items-center text-slate-600 hover:text-adventist-gold"><i
+                                    class="fas fa-feather mr-2"></i> Escritos de Elena G. White</a></li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-adventist-blue">
+                    <h4 class="font-bold text-adventist-blue mb-4 uppercase text-sm">Medios</h4>
+                    <ul class="space-y-3 text-sm font-semibold">
+                        <li><a href="https://www.nuevotiempo.org" target="_blank"
+                                class="flex items-center text-slate-600 hover:text-adventist-blue"><i
+                                    class="fas fa-tv mr-2"></i> TV Nuevo Tiempo</a></li>
+                        <li><a href="https://www.nuevotiempo.org/envivo/radio/"
+                                class="flex items-center text-slate-600 hover:text-adventist-blue"><i
+                                    class="fas fa-radio mr-2"></i> Radio Adventista</a></li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-adventist-gold">
+                    <h4 class="font-bold text-adventist-blue mb-4 uppercase text-sm">Planes de Lectura</h4>
+                    <ul class="space-y-3 text-sm font-semibold text-slate-500">
+                        <li><i class="fas fa-check-circle mr-2 text-green-500"></i> Plan 365 días</li>
+                        <li><i class="fas fa-clock mr-2 text-adventist-blue"></i> 15-20 min diarios</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="biblioteca" class="bg-adventist-blue text-white rounded-3xl p-8 md:p-12 mb-20 shadow-2xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-heading font-bold mb-4 text-adventist-gold uppercase tracking-wider">Biblioteca
+                    de Esperanza</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto italic">"Unidos en el estudio de las verdades que transforman
+                    el corazón."</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div
+                    class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-adventist-gold hover:scale-105 transition-transform group relative">
+                    <div
+                        class="absolute top-4 right-4 bg-adventist-gold text-adventist-blue text-[10px] font-black px-3 py-1 rounded-full z-10 shadow-lg animate-bounce">
+                        LIBRO DEL AÑO
+                    </div>
+                    <img src="imagenes/orara.jpeg" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center text-gray-700">
+                        <h4 class="font-bold text-lg text-adventist-blue uppercase mb-2">Si mi pueblo orara</h4>
+                        <p class="text-xs mb-6 italic">Randy Maxwell nos invita a experimentar el poder real de la
+                            oración intercesora.</p>
+                        <a href="https://eunice.fustero.es/libros/todosPDF/SiMiPuebloOrara_RandyMaxwell.pdf"
+                            target="_blank"
+                            class="w-full bg-green-600 text-white py-3 rounded-xl font-black text-xs block hover:bg-green-700 transition">DESCARGAR
+                            PDF</a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-adventist-gold hover:scale-105 transition-transform group">
+                    <img src="imagenes/el-deseado.jpg" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center text-gray-700">
+                        <h4 class="font-bold text-lg text-adventist-blue uppercase mb-2">El Deseado de Todas las Gentes
+                        </h4>
+                        <p class="text-xs mb-6 italic">La vida de Jesús narrada con profundidad espiritual.</p>
+                        <a href="https://egwwritings.org/read?panels=p174.2&index=0" target="_blank"
+                            class="w-full bg-adventist-blue text-white py-3 rounded-xl font-black text-xs block">LEER
+                            LIBRO</a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-adventist-gold hover:scale-105 transition-transform group">
+                    <img src="imagenes/eventos.jpg" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center text-gray-700">
+                        <h4 class="font-bold text-lg text-adventist-blue uppercase mb-2">Eventos de los Últimos Días
+                        </h4>
+                        <p class="text-xs mb-6 italic">Panorama profético de los sucesos finales de la historia.</p>
+                        <a href="https://egwwritings.org/read?panels=p1709.2&index=0" target="_blank"
+                            class="w-full bg-adventist-blue text-white py-3 rounded-xl font-black text-xs block">LEER
+                            LIBRO</a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-adventist-gold hover:scale-105 transition-transform group">
+                    <img src="imagenes/conflicto.jpg" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center text-gray-700">
+                        <h4 class="font-bold text-lg text-adventist-blue uppercase mb-2">El Conflicto de los Siglos</h4>
+                        <p class="text-xs mb-6 italic">La gran controversia entre el bien y el mal a través de los
+                            siglos.</p>
+                        <a href="https://egwwritings.org/read?panels=p1710.2&index=0" target="_blank"
+                            class="w-full bg-adventist-blue text-white py-3 rounded-xl font-black text-xs block">LEER
+                            LIBRO</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white py-16 text-center rounded-t-[4rem] border-t border-slate-200 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-facebook-f fa-2xl"></i></a>
+                <a href="#"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-instagram fa-2xl"></i></a>
+                <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                    class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                        class="fab fa-youtube fa-2xl"></i></a>
+            </div>
+
+            <p
+                class="font-heading font-black text-adventist-blue text-2xl md:text-3xl uppercase tracking-tighter mb-6 italic underline decoration-adventist-gold decoration-4">
+                IASD SAN FRANCISCO DE LIMACHE
+            </p>
+
+            <p
+                class="text-slate-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                Diseñado con <i class="fas fa-heart text-red-500 animate-pulse"></i> por <span
+                    class="text-slate-900 font-black">Mauricio Galaz Estay</span>
+            </p>
+
+            <p class="text-[10px] text-slate-800 mt-8 uppercase tracking-[0.4em] font-bold italic">Esperanza en el
+                pronto regreso de Jesús</p>
+
+            <p class="text-slate-500 text-xs">© 2026 Ministerio de Oración Intercesora - IASD - Todos los derechos
+                reservados.</p>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[100]">
+        <button onclick="descargarReportePDF()" title="Descargar PDF"
+            class="bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all">
+            <i class="fas fa-file-pdf"></i>
+        </button>
+        <button onclick="menuAdmin()" title="Administración"
+            class="bg-slate-900 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 border-2 border-white/20 transition-all">
+            <i class="fas fa-user-shield"></i>
+        </button>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURACIÓN FIREBASE ACTUALIZADA ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            databaseURL: "https://iasd-limache-muro-default-rtdb.firebaseio.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            messagingSenderId: "277039117234",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab",
+            measurementId: "G-8VBFEYZRTT"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const CLAVE_ADMIN = "iasdsf";
+
+        // --- 2. ESCUCHA Y MÉTRICAS EN TIEMPO REAL ---
+        function escucharPedidos() {
+            database.ref('pedidos').on('value', (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('prayers-list');
+                const metricsContainer = document.getElementById('wall-metrics');
+                if (!container || !metricsContainer) return;
+
+                container.innerHTML = "";
+                if (data) {
+                    const pedidosArray = Object.keys(data).map(key => ({ id: key, ...data[key] })).reverse();
+
+                    // Métricas
+                    const total = pedidosArray.length;
+                    const agradecimientos = pedidosArray.filter(p => p.category === 'Agradecimiento' || p.contestada).length;
+                    const soloPedidos = total - agradecimientos;
+
+                    metricsContainer.innerHTML = `
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border-b-4 border-adventist-blue text-center fade-in">
+                            <span class="text-[10px] font-black uppercase text-slate-400">Pedidos de Oración</span>
+                            <p class="text-3xl font-black text-adventist-blue">${soloPedidos}</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border-b-4 border-adventist-gold text-center fade-in">
+                            <span class="text-[10px] font-black uppercase text-slate-400">Agradecimientos</span>
+                            <p class="text-3xl font-black text-adventist-blue">${agradecimientos}</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border-b-4 border-slate-800 text-center fade-in">
+                            <span class="text-[10px] font-black uppercase text-slate-400">Total en la Nube</span>
+                            <p class="text-3xl font-black text-adventist-blue">${total}</p>
+                        </div>`;
+
+                    pedidosArray.forEach(item => {
+                        const isContestada = item.contestada === true;
+                        const isThanks = item.category === 'Agradecimiento' || isContestada;
+                        const card = document.createElement('div');
+                        card.className = `bg-white p-6 rounded-2xl shadow-md border-l-8 ${isContestada ? 'border-yellow-500 bg-yellow-50 animate-pulse' : (isThanks ? 'border-adventist-gold' : 'border-adventist-blue')} relative group post-item mb-4`;
+
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-black uppercase tracking-widest ${isContestada ? 'text-yellow-600' : (isThanks ? 'text-adventist-gold' : 'text-adventist-blue')}">
+                                    ${isContestada ? '✨ ORACIÓN CONTESTADA' : (isThanks ? '✨ GRATITUD' : '🙏 ' + item.category)}
+                                </span>
+                                <div class="flex gap-2">
+                                    ${!isContestada ? `<button onclick="marcarContestada('${item.id}')" class="text-yellow-500 opacity-0 group-hover:opacity-100 transition" title="Resaltar"><i class="fas fa-star"></i></button>` : ''}
+                                    <button onclick="adminDelete('${item.id}')" class="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                            <p class="text-slate-800 font-medium ${isContestada ? 'font-bold text-lg' : 'italic'} mb-4">"${item.content}"</p>
+                            <div class="flex justify-between items-center border-t border-slate-50 pt-3">
+                                <span class="text-xs font-bold text-adventist-blue uppercase"><i class="fas fa-user-circle mr-1 text-adventist-gold"></i> ${item.name}</span>
+                                <span class="text-[10px] font-bold text-slate-300">${item.date}</span>
+                            </div>`;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center py-20 text-slate-300 font-bold uppercase italic tracking-widest">Muro vacío - Conexión establecida</p>';
+                }
+            });
+        }
+
+        // --- 3. GUARDAR PEDIDO ---
+        document.getElementById('prayer-form').onsubmit = (e) => {
+            e.preventDefault();
+            const nuevoPedido = {
+                name: document.getElementById('p-name').value,
+                category: document.getElementById('p-cat').value,
+                content: document.getElementById('p-req').value,
+                date: new Date().toLocaleDateString('es-CL'),
+                contestada: false
+            };
+
+            database.ref('pedidos').push(nuevoPedido).then(() => {
+                e.target.reset();
+                Swal.fire({
+                    title: '¡Recibido con Amor!',
+                    html: 'Tu solicitud ha sido registrada.<br><b style="color: #1e5aa8;">Estaremos orando por ti.</b>',
+                    icon: 'success',
+                    confirmButtonText: 'Amén',
+                    confirmButtonColor: '#00305e',
+                    customClass: { popup: 'modern-swal-popup' }
+                });
+            });
+        };
+
+        // --- 4. FUNCIONES ADMIN ---
+        async function marcarContestada(id) {
+            const { value: pass } = await Swal.fire({ title: 'Confirmar Testimonio', input: 'password', inputPlaceholder: 'Clave Admin', showCancelButton: true });
+            if (pass === CLAVE_ADMIN) {
+                database.ref('pedidos/' + id).update({ contestada: true, category: 'Agradecimiento' }).then(() => {
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#00305e', '#fec325'] });
+                    Swal.fire('¡Gloria a Dios!', 'El testimonio ha sido resaltado globalmente.', 'success');
+                });
+            }
+        }
+
+        async function adminDelete(id) {
+            const { value: pass } = await Swal.fire({ title: 'Eliminar Registro', input: 'password', showCancelButton: true });
+            if (pass === CLAVE_ADMIN) {
+                database.ref('pedidos/' + id).remove().then(() => Swal.fire('Eliminado', '', 'success'));
+            }
+        }
+
+        async function menuAdmin() {
+            const { value: pass } = await Swal.fire({ title: 'Panel de Control', input: 'password', showCancelButton: true });
+            if (pass === CLAVE_ADMIN) {
+                const { isConfirmed } = await Swal.fire({ title: '¿Vaciado Global?', text: "Borrará el muro de TODOS los usuarios.", icon: 'warning', showCancelButton: true, confirmButtonText: 'Sí, borrar todo' });
+                if (isConfirmed) database.ref('pedidos').remove();
+            }
+        }
+
+        // --- 5. REPORTES PDF GLOBALES ---
+        // --- 5. REPORTES PDF GLOBALES CENTRADOS Y CON LOGO ---
+        // --- 5. REPORTE PDF CON FUNCIÓN DE AUTOENVÍO POR GMAIL ---
+        async function descargarReportePDF() {
+            // 1. Validación de Seguridad (Sin mostrar la clave)
+            const { value: password } = await Swal.fire({
+                title: 'Acceso Restringido',
+                text: 'Ingrese su credencial para generar y enviar el reporte',
+                input: 'password',
+                inputPlaceholder: 'Contraseña requerida',
+                showCancelButton: true,
+                confirmButtonText: 'Generar y Enviar',
+                confirmButtonColor: '#00305e',
+                customClass: { popup: 'modern-swal-popup' }
+            });
+
+            if (password !== CLAVE_ADMIN) {
+                if (password) Swal.fire('Error', 'Credencial inválida', 'error');
+                return;
+            }
+
+            // 2. Obtención de datos desde Firebase
+            database.ref('pedidos').once('value', async (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return Swal.fire('Sin datos', 'No hay registros para exportar', 'info');
+
+                const pedidosArray = Object.values(data);
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const centerX = doc.internal.pageSize.getWidth() / 2;
+
+                // 3. Generación del contenido del PDF (Logo y Tabla)
+                try {
+                    const logoImg = new Image();
+                    logoImg.src = 'imagenes/logo.png';
+                    await new Promise((resolve) => {
+                        logoImg.onload = () => {
+                            doc.addImage(logoImg, 'JPEG', centerX - 15, 10, 30, 30);
+                            resolve();
+                        };
+                        logoImg.onerror = () => resolve();
+                    });
+                } catch (e) { console.error("Logo no detectado"); }
+
+                doc.setFontSize(18);
+                doc.setTextColor(0, 48, 94);
+                doc.text("REPORTE DE ORACIÓN INTERCESORA", centerX, 50, { align: 'center' });
+
+                doc.autoTable({
+                    startY: 60,
+                    head: [['Fecha', 'Nombre', 'Tipo', 'Contenido']],
+                    body: pedidosArray.map(p => [p.date, p.name, p.category, p.content]),
+                    theme: 'striped',
+                    headStyles: { fillColor: [0, 48, 94], halign: 'center' }
+                });
+
+                // 4. Descarga local del archivo
+                const nombreArchivo = `Reporte_IASD_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
+                doc.save(nombreArchivo);
+
+                // 5. LÓGICA DE AUTOENVÍO (Apertura de Gmail)
+                const destinatarios = "hildateresasandoval@gmail.com,iasdsanfranciscodelimache@gmail.com";
+                const asunto = encodeURIComponent("Reporte Automático - Ministerio de Oración");
+                const cuerpo = encodeURIComponent(
+                    "Hola,\n\nSe ha generado un nuevo reporte del Muro de Oración.\n\n" +
+                    "POR FAVOR SIGA ESTOS PASOS:\n" +
+                    "1. El archivo '" + nombreArchivo + "' se ha descargado en su dispositivo.\n" +
+                    "2. Adjúntelo en esta ventana de Gmail que se acaba de abrir.\n" +
+                    "3. Presione Enviar.\n\n" +
+                    "Bendiciones."
+                );
+
+                // URL universal para Gmail (Web y Móvil)
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${destinatarios}&su=${asunto}&body=${cuerpo}`;
+
+                const { isConfirmed } = await Swal.fire({
+                    title: '¡PDF Generado!',
+                    text: 'El archivo se descargó. ¿Abrir Gmail para enviarlo ahora?',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, abrir Gmail',
+                    confirmButtonColor: '#d93025' // Color rojo Gmail
+                });
+
+                if (isConfirmed) {
+                    // Abre Gmail en una pestaña nueva o en la App del móvil
+                    window.open(gmailUrl, '_blank');
+                }
+            });
+        }
+
+        window.onload = escucharPedidos;
+    </script>
+</body>
+</body>
+
+</html>

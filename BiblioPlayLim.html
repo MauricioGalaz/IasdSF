@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIBLIOPLAYLIM - IASD Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --console-blue: #3b82f6;
+            --console-neon: #00f2ff;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        .card-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card-btn:hover {
+            border-color: var(--console-neon);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        #timerCircle {
+            transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="p-2 md:p-6">
+    <nav
+        class="glass sticky top-0 z-50 px-4 md:px-6 py-4 m-2 md:m-4 shadow-xl flex justify-between items-center border-b-2 border-blue-500">
+        <div class="flex items-center gap-4">
+            <a href="index.html"
+                class="bg-slate-800 p-2 md:p-3 rounded-xl border border-slate-600 hover:bg-blue-600 transition-all shadow-lg flex items-center gap-2 group">
+                <span class="text-white group-hover:scale-110 transition-transform">🏠</span>
+                <span class="hidden md:block text-[10px] font-black text-white uppercase tracking-tighter">Inicio</span>
+            </a>
+
+            <div>
+                <h1 class="text-lg md:text-2xl font-black text-blue-400 tracking-tighter uppercase leading-none">
+                    BiblioPlay<span class="text-white">Lim</span>
+                </h1>
+                <p class="text-[7px] md:text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">
+                    IASD San Francisco de Limache
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button id="audioToggle" onclick="initAudio()"
+                class="relative z-50 bg-slate-800 p-2 rounded-full border border-slate-600 shadow-lg cursor-pointer active:scale-90 transition-transform">
+                <span id="audioIcon">🔇</span>
+            </button>
+
+            <div
+                class="bg-blue-900 text-white px-4 py-1 rounded-xl shadow-lg border border-blue-500 flex flex-col items-center min-w-[70px]">
+                <span
+                    class="text-[8px] block opacity-70 uppercase font-black tracking-tighter leading-none">Puntaje</span>
+                <span id="score" class="text-lg font-black leading-tight">0</span>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-4xl mx-auto px-4 mt-8">
+        <div id="menuScreen" class="space-y-10 animate-pop">
+
+            <div
+                class="glass p-10 md:p-16 border-y-2 border-yellow-500/50 bg-gradient-to-b from-yellow-900/40 to-transparent shadow-[0_0_50px_rgba(234,179,8,0.2)] text-center relative overflow-hidden">
+
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-70">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-30">
+                </div>
+
+                <h4
+                    class="text-xl md:text-2xl font-black text-yellow-500 uppercase tracking-[0.6em] mb-8 flex items-center justify-center drop-shadow-[0_0_15px_rgba(234,179,8,1)]">
+                    <span class="mr-4 text-3xl">💡</span> ¿SABÍAS QUE?
+                </h4>
+
+                <div class="max-w-3xl mx-auto">
+                    <p id="factDisplay"
+                        class="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter italic uppercase transition-all duration-1000">
+                        "Escudriñad las Escrituras..."
+                    </p>
+                </div>
+
+                <div class="mt-8 flex justify-center gap-3 opacity-50">
+                    <div class="w-4 h-1 bg-yellow-500 rounded-full animate-pulse"></div>
+                    <div class="w-12 h-1 bg-yellow-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                    <div class="w-4 h-1 bg-yellow-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="startGame('Primarios')"
+                    class="card-btn glass p-6 border-b-4 border-green-500 text-left">
+                    <span class="text-4xl mb-2 block">👶</span>
+                    <h3 class="text-xl font-bold text-white">Primarios</h3>
+                    <p class="text-sm text-slate-400">Nivel inicial para niños.</p>
+                </button>
+                <button onclick="startGame('Jóvenes')" class="card-btn glass p-6 border-b-4 border-blue-500 text-left">
+                    <span class="text-4xl mb-2 block">🔥</span>
+                    <h3 class="text-xl font-bold text-white">Jóvenes</h3>
+                    <p class="text-sm text-slate-400">Desafíos de nivel pro.</p>
+                </button>
+            </div>
+
+            <div class="glass p-6 shadow-inner border border-slate-700">
+                <h3 class="font-bold text-slate-300 mb-4 flex items-center uppercase text-xs tracking-widest">🏆 Tabla
+                    de Posiciones</h3>
+                <ul id="rankingList" class="space-y-2"></ul>
+            </div>
+        </div>
+
+        <div id="gameScreen" class="hidden animate-pop">
+            <div class="mb-6 bg-slate-800 h-2 rounded-full overflow-hidden shadow-inner">
+                <div id="progressBar"
+                    class="bg-cyan-400 h-full w-0 transition-all duration-500 shadow-[0_0_10px_#22d3ee]"></div>
+            </div>
+            <div class="flex justify-center mb-6">
+                <div class="relative flex items-center justify-center">
+                    <svg class="w-24 h-24 transform -rotate-90">
+                        <circle cx="48" cy="48" r="42" stroke="#1e293b" stroke-width="6" fill="transparent" />
+                        <circle id="timerCircle" cx="48" cy="48" r="42" stroke="#3b82f6" stroke-width="6"
+                            fill="transparent" stroke-dasharray="263.8" stroke-dashoffset="0" />
+                    </svg>
+                    <span id="timerSeconds" class="absolute text-3xl font-black text-white">15</span>
+                </div>
+            </div>
+            <div class="glass p-8 shadow-2xl border border-blue-500/20 text-center">
+                <div id="categoryBadge"
+                    class="inline-block bg-blue-500/20 text-blue-300 px-4 py-1 rounded-full text-[10px] font-black mb-4 uppercase tracking-widest">
+                </div>
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-white mb-8"></h2>
+                <div id="optionsGrid" class="grid grid-cols-1 gap-3"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="feedbackScreen"
+        class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md text-center">
+        <div class="glass p-8 max-w-sm w-full border-t-4 border-blue-500">
+            <div id="feedbackIcon" class="text-6xl mb-2"></div>
+            <h3 id="feedbackTitle" class="text-2xl font-black mb-2 uppercase"></h3>
+            <p id="feedbackMsg" class="text-slate-400 mb-6"></p>
+            <button onclick="nextQuestion()"
+                class="w-full bg-blue-600 text-white font-black py-4 rounded-2xl shadow-lg active:scale-95 transition-transform">CONTINUAR</button>
+        </div>
+    </div>
+
+    <div id="endModal"
+        class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl text-center">
+        <div class="glass p-10 max-w-md w-full border-2 border-blue-500/30">
+            <div class="text-7xl mb-4">👑</div>
+            <h3 class="text-3xl font-black mb-1 text-white uppercase tracking-tighter">Misión Completada</h3>
+            <p class="text-slate-400 mb-6 font-bold text-xl">Score: <span id="finalScoreDisplay"
+                    class="text-cyan-400">0</span></p>
+            <input type="text" id="playerNameInput" placeholder="NICKNAME"
+                class="w-full p-4 mb-4 bg-slate-800 border border-slate-700 rounded-2xl text-center font-black text-white outline-none focus:border-cyan-400 uppercase tracking-widest">
+            <button onclick="saveAndExit()"
+                class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-black py-4 rounded-2xl uppercase">Guardar
+                Récord</button>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop src="audios/fondo.mp3"></audio>
+    <audio id="sndCorrect" src="audios/acierto.mp3"></audio>
+    <audio id="sndApplause" src="audios/aplausos.mp3"></audio>
+    <audio id="sndWrong" src="audios/error.mp3"></audio>
+    <audio id="sndCountdown" src="audios/reloj.mp3"></audio>
+    <audio id="sndClick" src="audios/click.mp3"></audio>
+
+
+
+
+    <footer class="bg-adventist-dark text-white pt-20 pb-10 border-t-8 border-adventist-gold text-center">
+        <div class="container mx-auto px-6">
+            <img src="imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-4 border-white/20">
+            <h2 class="text-adventist-gold font-black uppercase text-xl tracking-widest">IASD San Francisco de Limache
+            </h2>
+            <p class="mt-8 text-[10px] opacity-40 uppercase tracking-[0.5em]">© 2026 Ministerio Infantil - Creado por
+                Mauricio Galaz Estay</p>
+        </div>
+    </footer>
+
+    <script>
+
+        const bibleTrivia = [
+
+            /* ===== NIVEL PRIMARIOS (1–70) ===== */
+            { q: "¿Quién fue el primer hombre creado por Dios?", a: ["Adán", "Noé", "Moisés", "Abraham"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue la primera mujer?", a: ["Eva", "Sara", "Rebeca", "María"], correct: 0, cat: "Primarios" },
+            { q: "¿Dónde vivían Adán y Eva?", a: ["Belén", "Edén", "Jerusalén", "Nazaret"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién construyó el arca?", a: ["Abraham", "Noé", "Moisés", "Isaac"], correct: 1, cat: "Primarios" },
+            { q: "¿Qué animales entraron al arca?", a: ["Uno de cada", "Dos de cada", "Solo aves", "Solo ovejas"], correct: 1, cat: "Primarios" },
+            { q: "¿Qué señal puso Dios después del diluvio?", a: ["Una nube", "Un arco iris", "Una estrella", "Un fuego"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue el padre de Isaac?", a: ["Jacob", "Abraham", "Noé", "Moisés"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue vendido por sus hermanos?", a: ["José", "David", "Daniel", "Jonás"], correct: 0, cat: "Primarios" },
+            { q: "¿Dónde nació Moisés?", a: ["Egipto", "Belén", "Jerusalén", "Nazaret"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué mar abrió Dios para Israel?", a: ["Mar Rojo", "Mar Muerto", "Jordán", "Mediterráneo"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién recibió los Diez Mandamientos?", a: ["David", "Moisés", "Abraham", "Samuel"], correct: 1, cat: "Primarios" },
+            { q: "¿Cuántos mandamientos son?", a: ["5", "7", "10", "12"], correct: 2, cat: "Primarios" },
+            { q: "¿Quién derrotó a Goliat?", a: ["Saúl", "David", "Salomón", "Samuel"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue el rey más sabio?", a: ["David", "Salomón", "Saúl", "Ezequías"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue tragado por un pez?", a: ["Pedro", "Jonás", "Pablo", "Juan"], correct: 1, cat: "Primarios" },
+            { q: "¿Dónde nació Jesús?", a: ["Nazaret", "Belén", "Jerusalén", "Egipto"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue la madre de Jesús?", a: ["María", "Ana", "Marta", "Elizabeth"], correct: 0, cat: "Primarios" },
+            { q: "¿Dónde nació Jesús?", a: ["En un palacio", "En un establo", "En un templo", "En una casa"], correct: 1, cat: "Primarios" },
+            { q: "¿Cuántos discípulos tuvo Jesús?", a: ["10", "11", "12", "14"], correct: 2, cat: "Primarios" },
+            { q: "¿Quién caminó sobre el agua?", a: ["Pedro", "Jesús", "Juan", "Pablo"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién calmó la tormenta?", a: ["Pedro", "Jesús", "Juan", "Pablo"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién negó a Jesús tres veces?", a: ["Juan", "Pedro", "Tomás", "Judas"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién traicionó a Jesús?", a: ["Pedro", "Judas", "Juan", "Mateo"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién escribió Apocalipsis?", a: ["Pedro", "Juan", "Pablo", "Lucas"], correct: 1, cat: "Primarios" },
+            { q: "¿Cuál es el último libro de la Biblia?", a: ["Hebreos", "Judas", "Apocalipsis", "Romanos"], correct: 2, cat: "Primarios" },
+            { q: "¿Cuántos libros tiene la Biblia?", a: ["66", "70", "39", "27"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué animal habló con Balaam?", a: ["Un caballo", "Una burra", "Un león", "Un buey"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue el profeta que fue llevado al cielo en un carro de fuego?", a: ["Elías", "Eliseo", "Isaías", "Jeremías"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién construyó el templo?", a: ["David", "Salomón", "Saúl", "Ezequías"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue el primer rey de Israel?", a: ["Saúl", "David", "Salomón", "Samuel"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién interpretó los sueños del faraón?", a: ["José", "Daniel", "Moisés", "Samuel"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue lanzado al foso de los leones?", a: ["Daniel", "José", "Jeremías", "Pablo"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue la reina que salvó a su pueblo?", a: ["Ester", "Rut", "Déborah", "Ana"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el mejor amigo de David?", a: ["Saúl", "Jonatán", "Samuel", "Absalón"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién era el padre de Juan el Bautista?", a: ["Zacarías", "José", "Pedro", "Simeón"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién bautizó a Jesús?", a: ["Pedro", "Juan el Bautista", "Pablo", "Lucas"], correct: 1, cat: "Primarios" },
+            { q: "¿Qué animal estuvo en el arca con Noé?", a: ["León", "Elefante", "Paloma", "Todos"], correct: 3, cat: "Primarios" },
+            { q: "¿Qué libro cuenta la creación?", a: ["Génesis", "Éxodo", "Mateo", "Salmos"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué libro habla del diluvio?", a: ["Génesis", "Éxodo", "Salmos", "Proverbios"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió muchos Salmos?", a: ["David", "Salomón", "Pedro", "Moisés"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué instrumento tocaba David?", a: ["Arpa", "Flauta", "Tambor", "Trompeta"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue la madre de Samuel?", a: ["Ana", "Rut", "María", "Ester"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién guió a Israel por el desierto?", a: ["Moisés", "Josué", "David", "Saúl"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue sucesor de Moisés?", a: ["Josué", "Caleb", "David", "Salomón"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió los Proverbios?", a: ["Salomón", "David", "Pedro", "Juan"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el primer discípulo llamado por Jesús?", a: ["Pedro", "Juan", "Andrés", "Mateo"], correct: 2, cat: "Primarios" },
+            { q: "¿Quién escribió el evangelio de Lucas?", a: ["Lucas", "Mateo", "Juan", "Marcos"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el primer mártir cristiano?", a: ["Esteban", "Pedro", "Juan", "Pablo"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el apóstol que dudó?", a: ["Pedro", "Tomás", "Juan", "Mateo"], correct: 1, cat: "Primarios" },
+            { q: "¿Quién fue el apóstol de los gentiles?", a: ["Pedro", "Pablo", "Juan", "Mateo"], correct: 1, cat: "Primarios" },
+            { q: "¿Qué libro habla del fin del mundo?", a: ["Apocalipsis", "Mateo", "Hechos", "Salmos"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué profeta fue llevado al cielo sin morir?", a: ["Elías", "Eliseo", "Isaías", "Jeremías"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el profeta que fue comido por un pez?", a: ["Jonás", "Amós", "Oseas", "Miqueas"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió el libro de Hechos?", a: ["Lucas", "Pedro", "Pablo", "Juan"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió muchas cartas del Nuevo Testamento?", a: ["Pablo", "Pedro", "Juan", "Mateo"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué ciudad cayó con trompetas?", a: ["Jericó", "Jerusalén", "Nazaret", "Belén"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el profeta que desafió a los profetas de Baal?", a: ["Elías", "Eliseo", "Isaías", "Daniel"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué apóstol caminó sobre el agua?", a: ["Pedro", "Juan", "Mateo", "Pablo"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el rey que escribió muchos proverbios?", a: ["Salomón", "David", "Saúl", "Josías"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el padre de Salomón?", a: ["David", "Saúl", "Samuel", "Josías"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el rey que construyó el templo?", a: ["Salomón", "David", "Saúl", "Josías"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue la esposa de Isaac?", a: ["Rebeca", "Sara", "Raquel", "Ana"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el hijo de Jacob?", a: ["José", "Moisés", "David", "Samuel"], correct: 0, cat: "Primarios" },
+            { q: "¿Qué apóstol era recaudador de impuestos?", a: ["Mateo", "Pedro", "Juan", "Andrés"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió el evangelio de Mateo?", a: ["Mateo", "Juan", "Lucas", "Marcos"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién fue el apóstol amado?", a: ["Juan", "Pedro", "Pablo", "Mateo"], correct: 0, cat: "Primarios" },
+            { q: "¿Quién escribió Apocalipsis?", a: ["Juan", "Pedro", "Pablo", "Lucas"], correct: 0, cat: "Primarios" },
+
+
+            // aquí van las 70 Primarios
+
+            { q: "¿Quién interpretó los sueños del faraón?", a: ["José", "Daniel", "Moisés", "Samuel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién conquistó Jericó?", a: ["Josué", "Moisés", "David", "Saúl"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue lanzado al foso de los leones?", a: ["Daniel", "José", "Jeremías", "Isaías"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió la mayoría de las cartas del Nuevo Testamento?", a: ["Pedro", "Juan", "Pablo", "Lucas"], correct: 2, cat: "Jóvenes" },
+            { q: "¿Quién negó a Jesús tres veces?", a: ["Pedro", "Juan", "Tomás", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el primer mártir cristiano?", a: ["Esteban", "Pedro", "Pablo", "Juan"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el sucesor de Moisés?", a: ["Josué", "Caleb", "David", "Salomón"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el libro de Romanos?", a: ["Pablo", "Pedro", "Juan", "Lucas"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién traicionó a Jesús?", a: ["Judas", "Pedro", "Juan", "Tomás"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el evangelio más largo?", a: ["Lucas", "Mateo", "Marcos", "Juan"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el rey cuando nació Jesús?", a: ["Herodes", "César", "Pilato", "David"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el libro de Hechos?", a: ["Lucas", "Pedro", "Juan", "Pablo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Qué apóstol fue pescador?", a: ["Pedro", "Pablo", "Lucas", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién vio a Jesús resucitado primero?", a: ["María Magdalena", "Pedro", "Juan", "Marta"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el primer rey de Israel?", a: ["Saúl", "David", "Salomón", "Samuel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió Proverbios?", a: ["Salomón", "David", "Isaías", "Jeremías"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el profeta del fuego?", a: ["Elías", "Eliseo", "Isaías", "Daniel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el apóstol amado?", a: ["Juan", "Pedro", "Pablo", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién bautizó a Jesús?", a: ["Juan", "Pedro", "Pablo", "Lucas"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Qué ciudad fue destruida por fuego del cielo?", a: ["Sodoma", "Nínive", "Jerusalén", "Betel"], correct: 0, cat: "Jóvenes" },
+            // (continúa… total 70 preguntas jóvenes)
+
+            { q: "¿Quién interpretó los sueños del faraón?", a: ["José", "Daniel", "Moisés", "Samuel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién conquistó Jericó?", a: ["Josué", "Moisés", "David", "Saúl"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue lanzado al foso de los leones?", a: ["Daniel", "José", "Jeremías", "Isaías"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió la mayoría de las cartas del Nuevo Testamento?", a: ["Pedro", "Juan", "Pablo", "Lucas"], correct: 2, cat: "Jóvenes" },
+            { q: "¿Quién negó a Jesús tres veces?", a: ["Pedro", "Juan", "Tomás", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el primer mártir cristiano?", a: ["Esteban", "Pedro", "Pablo", "Juan"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el sucesor de Moisés?", a: ["Josué", "Caleb", "David", "Salomón"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el libro de Romanos?", a: ["Pablo", "Pedro", "Juan", "Lucas"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién traicionó a Jesús?", a: ["Judas", "Pedro", "Juan", "Tomás"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el evangelio más largo?", a: ["Lucas", "Mateo", "Marcos", "Juan"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el rey cuando nació Jesús?", a: ["Herodes", "César", "Pilato", "David"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió el libro de Hechos?", a: ["Lucas", "Pedro", "Juan", "Pablo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Qué apóstol fue pescador?", a: ["Pedro", "Pablo", "Lucas", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién vio a Jesús resucitado primero?", a: ["María Magdalena", "Pedro", "Juan", "Marta"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el primer rey de Israel?", a: ["Saúl", "David", "Salomón", "Samuel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién escribió Proverbios?", a: ["Salomón", "David", "Isaías", "Jeremías"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el profeta del fuego?", a: ["Elías", "Eliseo", "Isaías", "Daniel"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién fue el apóstol amado?", a: ["Juan", "Pedro", "Pablo", "Mateo"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Quién bautizó a Jesús?", a: ["Juan", "Pedro", "Pablo", "Lucas"], correct: 0, cat: "Jóvenes" },
+            { q: "¿Qué ciudad fue destruida por fuego del cielo?", a: ["Sodoma", "Nínive", "Jerusalén", "Betel"], correct: 0, cat: "Jóvenes" }
+
+        ]
+
+        const bibleFacts = ["Matusalén vivió 969 años.", "El Salmo 119 es el más largo.", "2 Juan es el libro más corto."];
+        let score = 0, currentQuestions = [], currentIndex = 0, timerInterval, timeLeft = 15, audioInited = false;
+
+        function initAudio() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.getElementById('audioIcon');
+            if (!music) return;
+            if (!audioInited) {
+                music.muted = false; music.volume = 0.2;
+                music.play().then(() => { audioInited = true; icon.innerText = "🔊"; }).catch(() => { });
+            } else {
+                music.muted = !music.muted;
+                icon.innerText = music.muted ? "🔇" : "🔊";
+            }
+        }
+
+        function startGame(category) {
+            initAudio();
+            currentQuestions = bibleTrivia.filter(item => item.cat === category).sort(() => Math.random() - 0.5).slice(0, 10);
+            score = 0; currentIndex = 0; document.getElementById('score').innerText = "0";
+            document.getElementById('menuScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentIndex >= currentQuestions.length) { finishGame(); return; }
+            const data = currentQuestions[currentIndex];
+            document.getElementById('categoryBadge').innerText = data.cat;
+            document.getElementById('questionText').innerText = data.q;
+            const grid = document.getElementById('optionsGrid'); grid.innerHTML = '';
+            data.a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "card-btn glass p-4 text-left font-bold text-slate-200 border border-slate-700 flex items-center";
+                btn.innerHTML = `<span class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 text-cyan-400 font-black border border-cyan-500/30">${String.fromCharCode(65 + i)}</span> ${opt}`;
+                btn.onclick = () => { document.getElementById('sndClick').play(); checkAnswer(i); };
+                grid.appendChild(btn);
+            });
+            updateProgress(); startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval); timeLeft = 15;
+            const circle = document.getElementById('timerCircle');
+            const snd = document.getElementById('sndCountdown');
+            circle.style.strokeDashoffset = 0; circle.style.stroke = "#3b82f6";
+            timerInterval = setInterval(() => {
+                timeLeft--; document.getElementById('timerSeconds').innerText = timeLeft;
+                circle.style.strokeDashoffset = 263.8 - (timeLeft * 263.8) / 15;
+                if (timeLeft <= 5 && timeLeft > 0) { circle.style.stroke = "#ef4444"; snd.play(); }
+                if (timeLeft <= 0) { stopClock(); handleTimeout(); }
+            }, 1000);
+        }
+
+        function stopClock() {
+            clearInterval(timerInterval);
+            const snd = document.getElementById('sndCountdown');
+            snd.pause(); snd.currentTime = 0;
+        }
+
+        function checkAnswer(selected) {
+            stopClock();
+            const data = currentQuestions[currentIndex];
+            if (selected === data.correct) {
+                score += 100; document.getElementById('score').innerText = score;
+                const snd = document.getElementById('sndCorrect'); snd.currentTime = 0; snd.play();
+                showFeedback("✅", "SISTEMA OK", "text-cyan-400", "+100 XP por sabiduría.");
+            } else {
+                const snd = document.getElementById('sndWrong'); snd.currentTime = 0; snd.play();
+                showFeedback("❌", "ERROR", "text-red-500", `CORRECTO: ${data.a[data.correct]}`);
+            }
+        }
+
+        function handleTimeout() {
+            const snd = document.getElementById('sndWrong'); snd.currentTime = 0; snd.play();
+            showFeedback("⏰", "TIMEOUT", "text-orange-500", "¡Sincronización perdida!");
+        }
+
+        function showFeedback(icon, title, color, msg) {
+            document.getElementById('feedbackIcon').innerText = icon;
+            document.getElementById('feedbackTitle').innerText = title;
+            document.getElementById('feedbackTitle').className = `text-2xl font-black ${color}`;
+            document.getElementById('feedbackMsg').innerText = msg;
+            document.getElementById('feedbackScreen').classList.remove('hidden');
+        }
+
+        function nextQuestion() { document.getElementById('feedbackScreen').classList.add('hidden'); currentIndex++; loadQuestion(); }
+        function updateProgress() { document.getElementById('progressBar').style.width = `${(currentIndex / 10) * 100}%`; }
+
+        function finishGame() {
+            document.getElementById('finalScoreDisplay').innerText = score;
+            document.getElementById('endModal').classList.remove('hidden');
+            if (score >= 1000) { setTimeout(() => { document.getElementById('sndApplause').play(); }, 500); }
+        }
+
+        function saveAndExit() {
+            const name = document.getElementById('playerNameInput').value.trim() || "PLAYER";
+            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+            let rank = JSON.parse(localStorage.getItem('biblioRank') || '[]');
+            rank.push({ name: name.toUpperCase(), score, date: new Date().toLocaleDateString() });
+            rank.sort((a, b) => b.score - a.score);
+            localStorage.setItem('biblioRank', JSON.stringify(rank.slice(0, 5)));
+            setTimeout(() => location.reload(), 2500);
+        }
+
+        function renderRanking() {
+            const rank = JSON.parse(localStorage.getItem('biblioRank') || '[]');
+            document.getElementById('rankingList').innerHTML = rank.map((r, i) => `
+                <li class="flex justify-between items-center bg-slate-800/40 p-3 rounded-xl border border-slate-700/50">
+                    <span class="font-bold text-slate-500">#0${i + 1} <span class="text-white ml-2">${r.name}</span></span>
+                    <span class="text-cyan-400 font-black">${r.score} XP</span>
+                </li>
+            `).join('') || '<p class="text-center text-slate-500 py-4">NO DATA</p>';
+            document.getElementById('factDisplay').innerText = bibleFacts[Math.floor(Math.random() * bibleFacts.length)];
+        }
+        document.addEventListener('DOMContentLoaded', renderRanking);
+    </script>
+</body>
+
+</html>

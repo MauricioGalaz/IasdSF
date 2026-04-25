@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Avisos - IASD Limache</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        adventist: {
+                            blue: '#00305e',
+                            gold: '#fec325',
+                            light: '#f8fafc',
+                            red: '#b71c1c',
+                            dark: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { scroll-behavior: smooth; }
+        body { background: radial-gradient(circle at top right, #f8fafc, #eff6ff); overflow-x: hidden; }
+        
+        .animate-fade-in { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hover-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        #mobile-menu { transition: max-height 0.3s ease-in-out; max-height: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 300px; }
+
+        .dynamic-card { min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+    </style>
+</head>
+
+<body class="text-slate-900">
+
+    <nav class="bg-adventist-blue text-white sticky top-0 z-[100] shadow-xl border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="h-14 w-14 sm:h-16 sm:w-16 bg-white rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg transition-transform group-hover:scale-110">
+                    <img src="imagenes/logo.jpg" class="h-full w-full object-cover" alt="Logo">
+                </div>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-heading font-black text-[10px] sm:text-xs tracking-[0.2em] uppercase">IASD San Francisco</span>
+                    <span class="text-adventist-gold font-bold text-[12px] sm:text-sm uppercase tracking-widest">de Limache</span>
+                </div>
+            </a>
+            <button id="menu-btn" class="md:hidden text-2xl p-2 focus:outline-none"><i class="fas fa-bars"></i></button>
+            <div class="hidden md:flex items-center gap-8 font-bold text-xs uppercase tracking-widest">
+                <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
+                <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
+                <a href="contactoaviso.html" class="bg-adventist-gold text-adventist-blue px-6 py-2 rounded-full hover:bg-white transition shadow-lg">Contacto</a>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-adventist-blue px-6 flex flex-col gap-4 font-bold text-center">
+            <a href="index.html" class="py-3 border-b border-white/10">Inicio</a>
+            <a href="cronograma.html" class="py-3 border-b border-white/10">Cronograma</a>
+            <a href="contactoaviso.html" class="py-3 text-adventist-gold">Contacto</a>
+        </div>
+    </nav>
+
+    <header class="w-full bg-adventist-blue text-white pt-12 pb-28 px-4 text-center rounded-b-[3rem] md:rounded-b-[6rem] shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <i class="fas fa-church text-[20rem] absolute -bottom-10 -left-10 rotate-12"></i>
+        </div>
+        <div class="relative z-10">
+            <span class="inline-block bg-white/10 backdrop-blur-md text-adventist-gold px-6 py-1 rounded-full font-black text-[10px] uppercase tracking-[0.3em] mb-6 border border-white/20">Panel Oficial de Información</span>
+            <h1 class="text-5xl md:text-8xl font-heading font-black tracking-tighter leading-none mb-6 uppercase drop-shadow-lg text-white">AVISOS DE <br> <span class="text-adventist-gold">IGLESIA</span></h1>
+            <p class="text-sm md:text-2xl font-bold opacity-80 tracking-widest uppercase border-t border-white/20 inline-block pt-4 mt-2">Sábado 25 de Abril 2026</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 -mt-16 pb-20 max-w-4xl space-y-10">
+
+        <div id="contenedor-avisos-dinamicos" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+
+        <section class="hover-card glass border-t-[12px] border-adventist-gold rounded-[2.5rem] p-8 md:p-14 shadow-2xl text-center">
+            <div class="w-20 h-20 bg-adventist-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-hands-praying text-5xl text-adventist-gold animate-pulse"></i>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-6 uppercase tracking-tighter">ORACIÓN<br>INTERCESORA</h2>
+            <div class="inline-block bg-adventist-blue text-white px-8 py-4 rounded-2xl font-black text-xl md:text-2xl shadow-xl">HOY SÁBADO <br> 17:00 HRS</div>
+            <p class="mt-6 text-slate-500 text-sm font-bold uppercase tracking-widest italic">"Donde dos o tres se reúnen en mi nombre..."</p>
+        </section>
+
+        <section class="hover-card bg-adventist-red rounded-[3rem] p-1 shadow-2xl overflow-hidden group">
+            <div class="bg-white rounded-[2.9rem] p-8 md:p-12 text-center relative overflow-hidden h-full">
+                <!-- <h2 class="text-5xl md:text-8xl font-heading font-black text-adventist-red leading-none mb-4 uppercase italic">CULTO JA</h2> -->
+                
+                <div class="bg-adventist-red text-white py-8 px-4 rounded-[2rem] shadow-xl mb-8 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                    <p class="text-2xl md:text-4xl font-black uppercase leading-tight">HOY 18:30 HRS <br><span class="text-adventist-gold">SOCIEDAD DE JÓVENES</span></p>
+                </div>
+                <p class="font-black text-slate-700 uppercase text-sm md:text-lg tracking-tighter">
+                    <i class="fas fa-medal text-adventist-gold mr-2"></i>PRONTO SE REALIZARÁ <span class="text-adventist-red">CAMPEONATO DE PING-PONG</span>
+                </p>
+            </div>
+        </section>
+
+        <section
+            class="hover-card glass border-t-[12px] border-adventist-blue rounded-[3rem] p-10 shadow-xl text-center">
+            <i class="fas fa-users-gear text-6xl text-adventist-blue mb-6"></i>
+            <h2 class="text-3xl md:text-6xl font-heading font-black text-slate-800 leading-none mb-6 uppercase">
+                !!HOY!! <br>ENTRENAMIENTO <br> <span class="text-adventist-blue">DISTRITAL DE LÍDERES</span>
+            </h2>
+            <div
+                class="bg-gradient-to-br from-adventist-blue to-blue-900 text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-xl md:text-3xl font-black text-adventist-gold mb-2 uppercase italic">HOY EN EL SIGUIENTE HORARIO -
+                        16:00 HRS</p>
+                    <p class="text-sm md:text-lg font-medium opacity-90 uppercase tracking-widest">📍 Calle El Boldo 995,
+                        Limache</p>
+                    <hr class="my-6 border-white/10">
+                    <p class="text-lg md:text-2xl font-bold uppercase">¡Te esperamos para crecer juntos en el Señor!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hover-card bg-orange-600 rounded-[2.5rem] p-8 shadow-2xl text-center text-white">
+            <h2 class="text-4xl md:text-7xl font-heading font-black uppercase mb-6 leading-none">TARDE ENTRE <br><span class="text-adventist-gold">AMIGOS</span></h2>
+            <div class="bg-white text-orange-600 p-8 rounded-3xl inline-block shadow-2xl">
+                <p class="text-3xl md:text-6xl font-black italic">SÁBADO 28 DE MARZO</p>
+                <p class="text-lg font-bold uppercase tracking-widest mt-6 border-t border-orange-180 pt-4">Horario - 16:00 hrs</p>
+                <p class="text-lg font-bold uppercase tracking-widest mt-2 border-t border-orange-100 pt-2">!!INVITA A TU FAMILIA Y AMIGOS!!</p>
+            </div>
+        </section>
+
+        <section class="hover-card bg-adventist-dark rounded-[2.5rem] p-12 shadow-4xl text-center text-white border-b-[12px] border-adventist-gold relative overflow-hidden">
+            <p class="text-adventist-gold text-xs font-black uppercase tracking-[0.5em] mb-4">Anciano de Turno del Mes</p>
+            <h2 class="text-xl md:text-3xl font-black text-adventist-gold mb-2 uppercase italic">Victor <br> <span class="text-adventist-gold">Recabarren</span></h2>
+        </section>
+
+        <section class="mt-20 flex flex-col items-center px-4 relative">
+            <button onclick="toggleAdminPanel()" class="group flex items-center gap-2 text-slate-400 hover:text-adventist-blue transition-all">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em]">Gestión de Muro</span>
+                <i class="fas fa-fingerprint text-xs group-hover:rotate-12 transition-transform"></i>
+            </button>
+            <div id="admin-panel" class="hidden mt-8 w-full max-w-sm">
+                <div class="glass p-8 rounded-[2rem] shadow-2xl space-y-4">
+                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY" class="w-full bg-slate-100 border p-4 rounded-xl text-center font-black tracking-widest outline-none focus:border-adventist-blue">
+                    <button onclick="activarEdicion()" class="w-full bg-adventist-blue text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg">Validar Acceso</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-adventist-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-10 mb-12">
+                <a href="https://www.facebook.com/profile.php?id=61586113753680" target="_blank" class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2"><i class="fab fa-facebook-f fa-2x"></i></a>
+                <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank" class="text-white hover:text-adventist-gold transition-all hover:-translate-y-2"><i class="fab fa-youtube fa-2x"></i></a>
+            </div>
+            <img src="imagenes/logo.jpg" class="h-20 w-20 rounded-full mx-auto mb-6 border-2 border-adventist-gold shadow-2xl p-1">
+        
+            <div class="pt-8 border-t border-white/5">
+                <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 iasd limache | diseñado por mauricio galaz estay</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.appspot.com",
+            messagingSenderId: "277039117234",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let modoEdicionActivo = false;
+        const ADMIN_PASS = "iasdsf";
+
+        document.getElementById("menu-btn").onclick = () => document.getElementById("mobile-menu").classList.toggle("open");
+        window.toggleAdminPanel = () => document.getElementById("admin-panel").classList.toggle("hidden");
+
+        window.activarEdicion = () => {
+            const pass = document.getElementById("admin-pass").value;
+            if(pass === ADMIN_PASS) {
+                modoEdicionActivo = true;
+                alert("✅ Gestión activada");
+                document.getElementById("admin-panel").classList.add("hidden");
+                renderAvisos();
+            } else {
+                alert("❌ Código incorrecto");
+            }
+        };
+
+        window.eliminarAviso = async (id) => {
+            if(confirm("¿Quitar aviso?")) await deleteDoc(doc(db, "avisos", id));
+        };
+
+        function renderAvisos() {
+            const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const cont = document.getElementById("contenedor-avisos-dinamicos");
+                cont.innerHTML = "";
+                snapshot.forEach((d) => {
+                    const data = d.data();
+                    const card = document.createElement("div");
+                    card.className = "animate-fade-in glass dynamic-card rounded-[2.5rem] p-8 shadow-xl border-l-[8px] border-adventist-gold relative group";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-adventist-blue text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-md">${data.departamento}</span>
+                                ${modoEdicionActivo ? `<button onclick="eliminarAviso('${d.id}')" class="text-red-500 hover:scale-125 transition-transform"><i class="fas fa-trash-alt"></i></button>` : ''}
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-700 leading-tight italic mb-6">"${data.mensaje}"</h3>
+                        </div>
+                        <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
+                            <div class="w-10 h-10 bg-adventist-gold rounded-full flex items-center justify-center text-xs font-black text-adventist-blue shadow-lg">${data.lider.charAt(0)}</div>
+                            <div class="flex flex-col text-[11px] font-black text-slate-600 uppercase">
+                                <span class="text-[8px] text-slate-400 font-bold uppercase">Responsable</span>
+                                <span>${data.lider}</span>
+                            </div>
+                        </div>
+                    `;
+                    cont.appendChild(card);
+                });
+            });
+        }
+        renderAvisos();
+    </script>
+</body>
+
+</html>

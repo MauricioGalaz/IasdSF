@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pauta Litúrgica Sabática - IASD Limache</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            adventist: {
+              blue: '#00305e',
+              gold: '#fec325',
+              accent: '#004a87',
+              bg: '#f1f5f9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .input-pauta {
+      width: 100%;
+      padding: .75rem;
+      background: #f1f5f9;
+      border-radius: .75rem;
+      font-weight: 700;
+      outline: none;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .input-pauta:focus {
+      background: #fff;
+      border-color: #fec325;
+    }
+
+    .step-box {
+      border-left: 4px solid #00305e;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: 1rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    }
+
+    .himno-badge {
+      background: #00305e;
+      color: #fec325;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 900;
+    }
+  </style>
+</head>
+
+<body class="bg-adventist-bg p-4 md:p-8">
+
+  <div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] shadow-xl p-6 md:p-10 border-b-[12px] border-adventist-blue">
+
+    <header class="text-center mb-10">
+      <div class="inline-block bg-adventist-blue text-white p-3 rounded-2xl mb-4 shadow-lg">
+        <i class="fas fa-scroll text-2xl"></i>
+      </div>
+      <h1 class="text-3xl font-black text-adventist-blue uppercase tracking-tighter">
+        Guion de Culto Sabático
+      </h1>
+      <p class="text-slate-500 italic font-semibold">
+        Iglesia Adventista del Séptimo Día – San Francisco de Limache
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+      <div class="relative">
+        <span
+          class="absolute -top-2 left-3 bg-white px-2 text-[10px] font-black text-adventist-blue uppercase z-10">Fecha</span>
+        <input type="date" class="input-pauta border-slate-200">
+      </div>
+      <div class="relative">
+        <span
+          class="absolute -top-2 left-3 bg-white px-2 text-[10px] font-black text-adventist-blue uppercase z-10">Predicador
+          Invitado</span>
+        <input type="text" class="input-pauta border-slate-200" placeholder="Nombre completo">
+      </div>
+    </div>
+
+    <section class="mb-12">
+      <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase border-b-2 border-adventist-gold inline-block">
+        I. Liturgia Inicial
+      </h2>
+
+      <div class="space-y-4">
+        <div class="step-box">
+          <p class="text-xs font-black uppercase text-slate-400 mb-3">Momento 1 · Himnos Previos</p>
+          <div class="flex gap-4">
+            <input class="input-pauta text-center border-2 border-adventist-gold/20" placeholder="N°">
+            <input class="input-pauta text-center border-2 border-adventist-gold/20" placeholder="N°">
+            <input class="input-pauta text-center border-2 border-adventist-gold/20" placeholder="N°">
+          </div>
+        </div>
+
+        <div class="step-box bg-adventist-blue text-white border-none">
+          <div class="flex justify-between items-center mb-2">
+            <p class="font-bold flex items-center gap-2"><i class="fas fa-walking text-adventist-gold"></i> Ingreso de
+              Plataforma</p>
+            <span class="himno-badge">Himno 32</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="font-bold flex items-center gap-2"><i class="fas fa-praying-hands text-adventist-gold"></i>
+              Oración de Rodillas</p>
+            <span class="himno-badge">Himno 135</span>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <p class="font-black uppercase text-xs text-slate-400 mb-2">Responsables de Apertura</p>
+          <input class="input-pauta mt-2 border-slate-100" placeholder="Acompañante 1 (Bienvenida)">
+          <input class="input-pauta mt-2 border-slate-100" placeholder="Diácono (Oración Diezmos)">
+          <div class="flex flex-col text-center md:text-left">
+            <span class="text-[10px] font-black text-adventist-gold uppercase leading-none mb-1">Himno de
+              Inicio</span>
+            <div class="flex items-center gap-2">
+              <span class="text-3xl font-black text-adventist-blue">HIMNO N°</span>
+              <input
+                class="w-20 text-3xl font-black text-adventist-accent bg-transparent border-none outline-none focus:ring-0"
+                placeholder="000">
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-xl font-black text-adventist-blue mb-6 uppercase border-b-2 border-adventist-gold inline-block">
+        II. Bloque Espiritual
+      </h2>
+
+      <div class="space-y-6">
+        <div class="step-box border-l-8 border-adventist-accent">
+          <p class="text-[10px] font-black uppercase text-slate-400 mb-2">Momento 1 · Lectura Bíblica</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input class="input-pauta" placeholder="Cita (Ej: Salmos 95:1-7)">
+            <input class="input-pauta" placeholder="Acompañante 2">
+          </div>
+          <div class="mt-3 flex items-center gap-3 text-sm font-bold text-slate-600 bg-slate-50 p-3 rounded-xl italic">
+            <i class="fas fa-music text-adventist-gold"></i> Fondo Musical: Himno N.º 36
+          </div>
+        </div>
+
+        <div class="step-box border-l-8 border-yellow-400">
+          <p class="text-[10px] font-black uppercase text-slate-400 mb-2">Momento 2 · Historia Infantil</p>
+          <input class="input-pauta" placeholder="Relator(a) de la historia">
+        </div>
+
+        <div class="step-box border-l-8 border-adventist-gold bg-adventist-gold/5">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-adventist-gold text-adventist-blue w-8 h-8 rounded-lg flex items-center justify-center">
+              <i class="fas fa-music"></i>
+            </div>
+            <h3 class="font-black uppercase text-sm text-adventist-blue">Momento 3 · Alabanza Especial</h3>
+          </div>
+          <input class="input-pauta bg-white border-adventist-gold/30 text-lg" placeholder="Nombre del Grupo o Solista">
+        </div>
+
+        <div class="step-box border-l-8 border-adventist-blue bg-slate-50">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-adventist-blue text-white w-8 h-8 rounded-lg flex items-center justify-center">
+              <i class="fas fa-microphone-alt"></i>
+            </div>
+            <h3 class="font-black uppercase text-sm text-adventist-blue">Momento 4 · Mensaje Bíblico</h3>
+          </div>
+          <input class="input-pauta bg-white border-adventist-blue/20 text-xl" placeholder="Predicador(a)">
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <div class="bg-adventist-blue rounded-[2.5rem] shadow-2xl p-8 text-white relative overflow-hidden">
+        <div class="flex items-center gap-4 mb-6 relative z-10">
+          <div class="bg-white text-adventist-blue w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-church text-xl"></i>
+          </div>
+          <div>
+            <h3 class="font-black uppercase text-xl leading-none">Doxología y Cierre</h3>
+            <p class="text-[10px] text-adventist-gold font-bold uppercase tracking-widest mt-1">Finalización del Culto
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-4 relative z-10">
+          <div
+            class="flex justify-between items-center p-4 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-md">
+            <span class="text-xs font-black uppercase tracking-widest">Doxología</span>
+            <span class="text-xs font-black text-adventist-gold italic">Congregación de Pie</span>
+          </div>
+
+          <div
+            class="p-6 bg-white rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-inner">
+            <div class="flex flex-col text-center md:text-left">
+              <span class="text-[10px] font-black text-adventist-gold uppercase leading-none mb-1">Himno de
+                Despedida</span>
+              <div class="flex items-center gap-2">
+                <span class="text-3xl font-black text-adventist-blue">HIMNO N°</span>
+                <input
+                  class="w-20 text-3xl font-black text-adventist-accent bg-transparent border-none outline-none focus:ring-0"
+                  placeholder="000">
+              </div>
+            </div>
+            <div class="text-center md:text-right bg-slate-100 p-3 rounded-xl min-w-[150px]">
+              <span class="text-[9px] font-black text-slate-400 uppercase block">Acompañante</span>
+              <input class="bg-transparent text-center md:text-right font-black text-adventist-blue italic outline-none"
+                placeholder="Acompañante 2">
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center p-4 bg-white/10 rounded-2xl border border-white/20">
+            <span class="text-xs font-black uppercase tracking-widest">Oración Final</span>
+            <div class="text-right">
+              <span class="text-[9px] font-black text-adventist-gold uppercase block">Responsable</span>
+              <input class="bg-transparent text-right font-black text-white italic outline-none"
+                placeholder="Predicador">
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-[120px] rotate-12">
+          <i class="fas fa-dove"></i>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div class="step-box bg-slate-50 border-adventist-blue">
+          <p class="text-[10px] font-black text-slate-400 uppercase">Salida Plataforma</p>
+          <p class="text-lg font-black text-adventist-blue">🎵 Himno 41</p>
+        </div>
+        <div class="step-box bg-slate-50 border-adventist-blue">
+          <p class="text-[10px] font-black text-slate-400 uppercase">Salida Congregación</p>
+          <p class="text-lg font-black text-adventist-blue">🎵 Himno 37</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center text-[10px] text-slate-400 italic pt-6 border-t border-slate-100">
+      “Todo sea hecho decentemente y con orden” – 1 Corintios 14:40
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
