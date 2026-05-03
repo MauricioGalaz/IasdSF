@@ -101,7 +101,7 @@
                     <option value="AVENT26">AVENTUREROS</option>
                     <option value="VOLUN26">VOLUNTARIADO</option>
                     <option value="ASA26">ASA</option>
-                    <option value="MAYOR26">MAYORDOMIA</option>
+                    <option value="GETEEN26">GEETEN</option>                    
                 </select>
 
                 <div class="grid md:grid-cols-2 gap-4">
@@ -127,7 +127,16 @@
                     <input type="date" id="expira"
                         class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
-
+                <!-- IMAGEN ADJUNTA -->
+                <div>
+                    <label class="block text-xs uppercase mb-2 text-gray-400">
+                        Imagen adjunta (Opcional)
+                    </label>
+                    <input type="file" id="imagenAviso" accept="image/*" class="w-full bg-slate-900/60 p-3 rounded-2xl border border-white/10 text-sm 
+        file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 
+        file:text-sm file:font-bold file:bg-adventist-gold file:text-slate-900 
+        hover:file:bg-yellow-400 transition cursor-pointer text-gray-300">
+                </div>
 
                 <button id="btnEnviar" type="submit"
                     class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black uppercase">
@@ -145,61 +154,88 @@
 
     <!-- FIREBASE -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from
-            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-            authDomain: "iasd-limache-muro.firebaseapp.com",
-            projectId: "iasd-limache-muro"
-        };
+const firebaseConfig = {
+        apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+        authDomain: "iasd-limache-muro.firebaseapp.com",
+        projectId: "iasd-limache-muro",
+        storageBucket: "iasd-limache-muro.firebasestorage.app", // <-- CAMBIADO AL ENLACE CORRECTO
+        messagingSenderId: "277039117234",
+        appId: "1:277039117234:web:65f4e76064935cadabaaab"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app); // Inicializamos Storage
 
-        document.getElementById("menu-btn").onclick = () =>
-            document.getElementById("mobile-menu").classList.toggle("hidden");
+    document.getElementById("menu-btn").onclick = () =>
+        document.getElementById("mobile-menu").classList.toggle("hidden");
 
-        const form = document.getElementById("formAvisosLideres");
-        const estado = document.getElementById("estado");
-        const btn = document.getElementById("btnEnviar");
+    const form = document.getElementById("formAvisosLideres");
+    const estado = document.getElementById("estado");
+    const btn = document.getElementById("btnEnviar");
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-            const deptSelect = document.getElementById("departamento");
-            const departamento = deptSelect.options[deptSelect.selectedIndex].text;
-            const claveCorrecta = deptSelect.value;
-            const clave = document.getElementById("clave").value.trim();
-            const lider = document.getElementById("lider").value.trim();
-            const mensaje = document.getElementById("mensaje").value.trim();
-            const expiraInput = document.getElementById("expira").value;
-            const expira = expiraInput ? new Date(expiraInput) : null;
+        const deptSelect = document.getElementById("departamento");
+        const departamento = deptSelect.options[deptSelect.selectedIndex].text;
+        const claveCorrecta = deptSelect.value;
+        const clave = document.getElementById("clave").value.trim();
+        const lider = document.getElementById("lider").value.trim();
+        const mensaje = document.getElementById("mensaje").value.trim();
+        const expiraInput = document.getElementById("expira").value;
+        const imagenInput = document.getElementById("imagenAviso");
+        const expira = expiraInput ? new Date(expiraInput) : null;
 
+        if (clave !== claveCorrecta) {
+            alert("❌ Clave incorrecta");
+            return;
+        }
 
-            if (clave !== claveCorrecta) {
-                alert("❌ Clave incorrecta");
-                return;
+        btn.disabled = true;
+        estado.classList.remove("hidden");
+
+        try {
+            let imagenUrl = null;
+
+            // 1. Si hay una imagen seleccionada, la subimos a Storage primero
+            if (imagenInput.files.length > 0) {
+                const file = imagenInput.files[0];
+                const nombreArchivo = Date.now() + "_" + file.name;
+                const storageRef = ref(storage, 'avisos/' + nombreArchivo);
+                
+                estado.querySelector("p").innerText = "Subiendo imagen...";
+                await uploadBytes(storageRef, file);
+                imagenUrl = await getDownloadURL(storageRef);
             }
 
-            btn.disabled = true;
-            estado.classList.remove("hidden");
-
+            // 2. Guardamos el aviso en Firestore con la URL de la imagen (si existe)
+            estado.querySelector("p").innerText = "Guardando aviso...";
             await addDoc(collection(db, "avisos"), {
                 departamento,
                 lider,
                 mensaje,
+                imagenUrl: imagenUrl, // Se guarda null si no hay imagen, o la URL si la hay
                 fecha: new Date().toLocaleDateString("es-CL"),
                 timestamp: serverTimestamp(),
                 expira: expiraInput ? new Date(expiraInput) : null
             });
 
-            window.location.href = "avisos.html";
-        });
-    </script>
+            window.location.href = "avisos.html"; // Redirige a tu página principal
+        } catch (error) {
+            console.error("Error al publicar:", error);
+            alert("Hubo un error al enviar el aviso. Revisa la consola.");
+            btn.disabled = false;
+            estado.classList.add("hidden");
+        }
+    });
+</script>
 
-<footer class="bg-adventist-dark text-white pt-16 pb-8">
+    <footer class="bg-adventist-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center">
                 <img src="imagenes/logo.jpg"
@@ -236,8 +272,8 @@
                     By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
                 </p>
             </div>
-            
-    
+
+
 
         </div>
         </div>
