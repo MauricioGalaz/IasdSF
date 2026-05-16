@@ -55,8 +55,7 @@
             <div class="hidden md:flex gap-6 text-xs font-black uppercase tracking-widest">
                 <a href="index.html">Inicio</a>
                 <a href="cronograma.html">Cronograma</a>
-                <a href="contactoaviso.html"
-                    class="bg-adventist-gold text-slate-900 px-4 py-2 rounded-full">Contacto</a>
+                <a href="contactoaviso.html" class="bg-adventist-gold text-slate-900 px-4 py-2 rounded-full">Contacto</a>
             </div>
         </div>
 
@@ -83,8 +82,7 @@
             <!-- FORM -->
             <form id="formAvisosLideres" class="space-y-6">
 
-                <select id="departamento" required
-                    class="w-full bg-slate-900/60 border border-white/10 p-4 rounded-2xl">
+                <select id="departamento" required class="w-full bg-slate-900/60 border border-white/10 p-4 rounded-2xl">
                     <option value="">Seleccione Departamento...</option>
                     <option value="SEC26">SECRETARÍA</option>
                     <option value="JA26">MINISTERIO JOVEN</option>
@@ -101,56 +99,32 @@
                     <option value="AVENT26">AVENTUREROS</option>
                     <option value="VOLUN26">VOLUNTARIADO</option>
                     <option value="ASA26">ASA</option>
-                    <option value="GTEEN26">GTEEN</option>                    
-                    <option value="GTEEN26">GTEEN</option>                    
+                    <option value="GTEEN26">GTEEN</option>                     
                 </select>
 
                 <div class="grid md:grid-cols-2 gap-4">
-                    <input id="lider" required placeholder="Nombre del líder"
-                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
-                    <input id="clave" type="password" required placeholder="Clave del departamento"
-                        class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                    <input id="lider" required placeholder="Nombre del líder" class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
+                    <input id="clave" type="password" required placeholder="Clave del departamento" class="bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
 
                 <div>
-                    <textarea id="mensaje" rows="4" required maxlength="250"
-                        placeholder="Detalle del aviso (máx. 250 caracteres)..."
-                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none"
-                        oninput="document.getElementById('count').innerText = this.value.length + '/250'"></textarea>
+                    <textarea id="mensaje" rows="4" required maxlength="250" placeholder="Detalle del aviso (máx. 250 caracteres)..." class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10 resize-none" oninput="document.getElementById('count').innerText = this.value.length + '/250'"></textarea>
                     <p id="count" class="text-[10px] text-right text-gray-500 mt-1">0/250</p>
                 </div>
 
                 <!-- FECHA DE EXPIRACIÓN -->
                 <div>
-                    <label class="block text-xs uppercase mb-2 text-gray-400">
-                        Caduca el día (opcional)
-                    </label>
-                    <input type="date" id="expira"
-                        class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10">
-                </div>
-                <!-- IMAGEN ADJUNTA -->
-                <div>
-                    <label class="block text-xs uppercase mb-2 text-gray-400">
-                        Imagen adjunta (Opcional)
-                    </label>
-                    <input type="file" id="imagenAviso" accept="image/*" class="w-full bg-slate-900/60 p-3 rounded-2xl border border-white/10 text-sm 
-        file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 
-        file:text-sm file:font-bold file:bg-adventist-gold file:text-slate-900 
-        hover:file:bg-yellow-400 transition cursor-pointer text-gray-300">
-                </div>
-                <!-- IMAGEN ADJUNTA -->
-                <div>
-                    <label class="block text-xs uppercase mb-2 text-gray-400">
-                        Imagen adjunta (Opcional)
-                    </label>
-                    <input type="file" id="imagenAviso" accept="image/*" class="w-full bg-slate-900/60 p-3 rounded-2xl border border-white/10 text-sm 
-        file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 
-        file:text-sm file:font-bold file:bg-adventist-gold file:text-slate-900 
-        hover:file:bg-yellow-400 transition cursor-pointer text-gray-300">
+                    <label class="block text-xs uppercase mb-2 text-gray-400">Caduca el día (opcional)</label>
+                    <input type="date" id="expira" class="w-full bg-slate-900/60 p-4 rounded-2xl border border-white/10">
                 </div>
 
-                <button id="btnEnviar" type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black uppercase">
+                <!-- IMAGEN ADJUNTA -->
+                <div>
+                    <label class="block text-xs uppercase mb-2 text-gray-400">Imagen adjunta (Opcional)</label>
+                    <input type="file" id="imagenAviso" accept="image/*" class="w-full bg-slate-900/60 p-3 rounded-2xl border border-white/10 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-adventist-gold file:text-slate-900 hover:file:bg-yellow-400 transition cursor-pointer text-gray-300">
+                </div>
+
+                <button id="btnEnviar" type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black uppercase">
                     Enviar aviso
                 </button>
             </form>
@@ -165,179 +139,106 @@
 
     <!-- FIREBASE -->
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-const firebaseConfig = {
-        apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-        authDomain: "iasd-limache-muro.firebaseapp.com",
-        projectId: "iasd-limache-muro",
-        storageBucket: "iasd-limache-muro.firebasestorage.app", // <-- CAMBIADO AL ENLACE CORRECTO
-        messagingSenderId: "277039117234",
-        appId: "1:277039117234:web:65f4e76064935cadabaaab"
-    };
-const firebaseConfig = {
-        apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
-        authDomain: "iasd-limache-muro.firebaseapp.com",
-        projectId: "iasd-limache-muro",
-        storageBucket: "iasd-limache-muro.firebasestorage.app", // <-- CAMBIADO AL ENLACE CORRECTO
-        messagingSenderId: "277039117234",
-        appId: "1:277039117234:web:65f4e76064935cadabaaab"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoC_7Pehjca4CQSoy0K3Rm5q9CC-IY1Ic",
+            authDomain: "iasd-limache-muro.firebaseapp.com",
+            projectId: "iasd-limache-muro",
+            storageBucket: "iasd-limache-muro.firebasestorage.app",
+            messagingSenderId: "277039117234",
+            appId: "1:277039117234:web:65f4e76064935cadabaaab"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app); // Inicializamos Storage
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app); // Inicializamos Storage
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
 
-    document.getElementById("menu-btn").onclick = () =>
-        document.getElementById("mobile-menu").classList.toggle("hidden");
-    document.getElementById("menu-btn").onclick = () =>
-        document.getElementById("mobile-menu").classList.toggle("hidden");
+        document.getElementById("menu-btn").onclick = () =>
+            document.getElementById("mobile-menu").classList.toggle("hidden");
 
-    const form = document.getElementById("formAvisosLideres");
-    const estado = document.getElementById("estado");
-    const btn = document.getElementById("btnEnviar");
-    const form = document.getElementById("formAvisosLideres");
-    const estado = document.getElementById("estado");
-    const btn = document.getElementById("btnEnviar");
+        const form = document.getElementById("formAvisosLideres");
+        const estado = document.getElementById("estado");
+        const btn = document.getElementById("btnEnviar");
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        const deptSelect = document.getElementById("departamento");
-        const departamento = deptSelect.options[deptSelect.selectedIndex].text;
-        const claveCorrecta = deptSelect.value;
-        const clave = document.getElementById("clave").value.trim();
-        const lider = document.getElementById("lider").value.trim();
-        const mensaje = document.getElementById("mensaje").value.trim();
-        const expiraInput = document.getElementById("expira").value;
-        const imagenInput = document.getElementById("imagenAviso");
-        const expira = expiraInput ? new Date(expiraInput) : null;
-        const deptSelect = document.getElementById("departamento");
-        const departamento = deptSelect.options[deptSelect.selectedIndex].text;
-        const claveCorrecta = deptSelect.value;
-        const clave = document.getElementById("clave").value.trim();
-        const lider = document.getElementById("lider").value.trim();
-        const mensaje = document.getElementById("mensaje").value.trim();
-        const expiraInput = document.getElementById("expira").value;
-        const imagenInput = document.getElementById("imagenAviso");
-        const expira = expiraInput ? new Date(expiraInput) : null;
+            const deptSelect = document.getElementById("departamento");
+            const departamento = deptSelect.options[deptSelect.selectedIndex].text;
+            const claveCorrecta = deptSelect.value;
+            const clave = document.getElementById("clave").value.trim();
+            const lider = document.getElementById("lider").value.trim();
+            const mensaje = document.getElementById("mensaje").value.trim();
+            const expiraInput = document.getElementById("expira").value;
+            const imagenInput = document.getElementById("imagenAviso");
 
-        if (clave !== claveCorrecta) {
-            alert("❌ Clave incorrecta");
-            return;
-        }
-        if (clave !== claveCorrecta) {
-            alert("❌ Clave incorrecta");
-            return;
-        }
-
-        btn.disabled = true;
-        estado.classList.remove("hidden");
-        btn.disabled = true;
-        estado.classList.remove("hidden");
-
-        try {
-            let imagenUrl = null;
-
-            // 1. Si hay una imagen seleccionada, la subimos a Storage primero
-            if (imagenInput.files.length > 0) {
-                const file = imagenInput.files[0];
-                const nombreArchivo = Date.now() + "_" + file.name;
-                const storageRef = ref(storage, 'avisos/' + nombreArchivo);
-                
-                estado.querySelector("p").innerText = "Subiendo imagen...";
-                await uploadBytes(storageRef, file);
-                imagenUrl = await getDownloadURL(storageRef);
+            if (clave !== claveCorrecta) {
+                alert("❌ Clave incorrecta");
+                return;
             }
 
-            // 2. Guardamos el aviso en Firestore con la URL de la imagen (si existe)
-            estado.querySelector("p").innerText = "Guardando aviso...";
-        try {
-            let imagenUrl = null;
+            btn.disabled = true;
+            estado.classList.remove("hidden");
 
-            // 1. Si hay una imagen seleccionada, la subimos a Storage primero
-            if (imagenInput.files.length > 0) {
-                const file = imagenInput.files[0];
-                const nombreArchivo = Date.now() + "_" + file.name;
-                const storageRef = ref(storage, 'avisos/' + nombreArchivo);
-                
-                estado.querySelector("p").innerText = "Subiendo imagen...";
-                await uploadBytes(storageRef, file);
-                imagenUrl = await getDownloadURL(storageRef);
+            try {
+                let imagenUrl = null;
+
+                // 1. Si hay una imagen seleccionada, la subimos a Storage primero
+                if (imagenInput.files.length > 0) {
+                    const file = imagenInput.files[0];
+                    const nombreArchivo = Date.now() + "_" + file.name;
+                    const storageRef = ref(storage, 'avisos/' + nombreArchivo);
+                    
+                    estado.querySelector("p").innerText = "Subiendo imagen...";
+                    await uploadBytes(storageRef, file);
+                    imagenUrl = await getDownloadURL(storageRef);
+                }
+
+                // 2. Guardamos el aviso en Firestore
+                estado.querySelector("p").innerText = "Guardando aviso...";
+                await addDoc(collection(db, "avisos"), {
+                    departamento,
+                    lider,
+                    mensaje,
+                    imagenUrl: imagenUrl,
+                    fecha: new Date().toLocaleDateString("es-CL"),
+                    timestamp: serverTimestamp(),
+                    expira: expiraInput ? new Date(expiraInput) : null
+                });
+
+                window.location.href = "avisos.html"; 
+            } catch (error) {
+                console.error("Error al publicar:", error);
+                alert("Hubo un error al enviar el aviso. Revisa la consola.");
+                btn.disabled = false;
+                estado.classList.add("hidden");
             }
+        });
+    </script>
 
-            // 2. Guardamos el aviso en Firestore con la URL de la imagen (si existe)
-            estado.querySelector("p").innerText = "Guardando aviso...";
-            await addDoc(collection(db, "avisos"), {
-                departamento,
-                lider,
-                mensaje,
-                imagenUrl: imagenUrl, // Se guarda null si no hay imagen, o la URL si la hay
-                imagenUrl: imagenUrl, // Se guarda null si no hay imagen, o la URL si la hay
-                fecha: new Date().toLocaleDateString("es-CL"),
-                timestamp: serverTimestamp(),
-                expira: expiraInput ? new Date(expiraInput) : null
-            });
-
-            window.location.href = "avisos.html"; // Redirige a tu página principal
-        } catch (error) {
-            console.error("Error al publicar:", error);
-            alert("Hubo un error al enviar el aviso. Revisa la consola.");
-            btn.disabled = false;
-            estado.classList.add("hidden");
-        }
-    });
-</script>
-            window.location.href = "avisos.html"; // Redirige a tu página principal
-        } catch (error) {
-            console.error("Error al publicar:", error);
-            alert("Hubo un error al enviar el aviso. Revisa la consola.");
-            btn.disabled = false;
-            estado.classList.add("hidden");
-        }
-    });
-</script>
-
-    <footer class="bg-adventist-dark text-white pt-16 pb-8">
-    <footer class="bg-adventist-dark text-white pt-16 pb-8">
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="flex flex-col items-center">
-                <img src="imagenes/logo.jpg"
-                    class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
-                <h2 class="text-adventist-gold font-bold">Iglesia Adventista del Séptimo día</h2><br>
+                <img src="imagenes/logo.jpg" class="h-16 w-16 rounded-full mb-6 grayscale hover:grayscale-0 transition duration-700">
+                <h2 class="text-adventist-gold font-bold text-center">Iglesia Adventista del Séptimo Día</h2>
+                <p class="text-xs text-gray-400 mb-6">San Francisco de Limache</p>
 
                 <div class="flex justify-center space-x-8 mb-8">
-                    <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-facebook-f fa-2xl"></i></a>
-                    <a href="#"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-instagram fa-2xl"></i></a>
-                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
-                        class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
-                            class="fab fa-youtube fa-2xl"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61586113753680" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-facebook-f fa-2xl"></i></a>
+                    <a href="#" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-instagram fa-2xl"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-white hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-youtube fa-2xl"></i></a>
                 </div>
 
-                <div class="pt-8 border-t border-white/5">
-                    <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 iasd San Francisco de
-                        Limache </p>
+                <div class="pt-8 border-t border-white/5 w-full text-center">
+                    <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em]">© 2026 IASD San Francisco de Limache</p>
                 </div>
 
                 <div class="mt-3">
-                    <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 bg-adventist-surface text-adventist-blue px-4 py-2 rounded-lg 
-                        border border-adventist-blue hover:bg-adventist-blue hover:text-white transition duration-300 text-xs">
-
+                    <a href="https://mgserviciosweb.netlify.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-transparent text-white px-4 py-2 rounded-lg border border-white/20 hover:bg-white hover:text-slate-900 transition duration-300 text-xs">
                         <i class="fas fa-globe"></i>
                         MG Servicios - Visitar sitio oficial
                     </a>
@@ -346,17 +247,10 @@ const firebaseConfig = {
                     By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
                 </p>
             </div>
-
-
-
-
-
-        </div>
         </div>
 
         <!-- BOTÓN VOLVER ARRIBA -->
-        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-surface text-adventist-blue
-        p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
+        <button id="btnTop" class="hidden fixed bottom-6 right-6 bg-adventist-gold text-slate-900 p-3 rounded-full shadow-lg hover:scale-110 transition z-50">
             <i class="fas fa-chevron-up"></i>
         </button>
 
