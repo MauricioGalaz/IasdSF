@@ -480,92 +480,350 @@
 
         <div id="contenedor-avisos-dinamicos"></div>
 
-        <section class="hover-card card-style bg-gradient-to-br from-red-700 to-red-900 text-white shadow-2xl">
-            <div class="card-top-line"></div>
-            <div class="p-6 md:p-12 text-center w-full">
-                <div class="w-24 h-24 md:w-28 md:h-28 mx-auto mb-6 flex items-center justify-center overflow-hidden">
-                    <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain">
+        <!-- CLUB DE AVENTUREROS (DISEÑO DINÁMICO Y DIVERTIDO) -->
+        <section
+            class="hover-card card-style shadow-[0_20px_50px_rgba(220,38,38,0.4)] relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white">
+
+            <!-- LUZ DINÁMICA DE FONDO -->
+            <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 bg-orange-500/40 rounded-full blur-[100px] pointer-events-none">
+            </div>
+
+            <!-- TEXTURA DE PUNTOS -->
+            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center z-10">
+
+                <!-- ETIQUETA SUPERIOR TEMÁTICA -->
+                <div
+                    class="inline-flex items-center gap-2 bg-white/20 border border-white/40 backdrop-blur-sm px-6 py-2 rounded-full uppercase tracking-[0.25em] text-xs md:text-sm font-black mb-6 shadow-sm">
+                    <i class="fas fa-campground"></i> Club de Niños
                 </div>
-                <h2 class="t-title font-heading font-black uppercase leading-tight">Aventureros</h2>
-                <p class="text-adventist-gold font-black text-2xl md:text-4xl mt-4 uppercase">
-                    ¡HOY! Sábado 23 de Mayo 2026
+
+                <!-- LOGO FLOTANTE CON MARCO GLASS -->
+                <div
+                    class="w-28 h-28 md:w-40 md:h-40 mx-auto mb-6 flex items-center justify-center overflow-hidden bg-white/10 backdrop-blur-md rounded-3xl p-4 border-2 border-white/50 shadow-[0_0_40px_rgba(255,255,255,0.2)] transform transition hover:scale-110 hover:rotate-3 duration-300">
+                    <img src="imagenes/avent.png" alt="Logo Aventureros"
+                        class="w-full h-full object-contain drop-shadow-md">
+                </div>
+
+                <!-- TÍTULO GIGANTE -->
+                <h2
+                    class="text-5xl sm:text-6xl md:text-[5.5rem] font-heading font-black uppercase leading-none tracking-tighter drop-shadow-[0_10px_10px_rgba(0,0,0,0.4)]">
+                    Aventureros
+                </h2>
+
+                <!-- FECHA TIPO STICKER (¡HOY!) -->
+                <div class="mt-8 mb-10 transform -rotate-2 hover:rotate-0 transition duration-300">
+                    <div
+                        class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-900 font-black text-xl sm:text-3xl md:text-4xl px-8 py-4 rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] uppercase tracking-wide border-b-8 border-yellow-600">
+                        <span class="animate-[pulse_1s_ease-in-out_infinite] inline-block mr-2">¡HOY!</span> Sábado 23
+                        de Mayo
+                    </div>
+                </div>
+
+                <!-- CAJA DE ACTIVIDAD (CARTEL 3D) -->
+                <div class="w-full max-w-xl mx-auto transform transition hover:-translate-y-2 duration-300">
+                    <div
+                        class="bg-white text-red-700 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-b-8 border-gray-300">
+
+                        <p class="font-bold text-slate-400 uppercase tracking-[0.2em] text-xs md:text-sm mb-3">
+                            Preparativos listos
+                        </p>
+
+                        <p class="font-black uppercase text-3xl sm:text-4xl md:text-5xl leading-tight text-slate-800">
+                            Actividad de Club
+                        </p>
+
+                        <div class="w-20 h-1.5 bg-red-600 mx-auto my-5 rounded-full"></div>
+
+                        <p class="font-black uppercase flex flex-col sm:flex-row items-center justify-center gap-2">
+                            <span class="text-slate-600 text-xl sm:text-2xl mt-2">Desde las</span>
+                            <span class="text-red-600 text-6xl sm:text-7xl drop-shadow-sm tracking-tighter">16:00</span>
+                            <span class="text-slate-600 text-xl sm:text-2xl mt-2">hrs</span>
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ORACIÓN INTERCESORA (DISEÑO ESPIRITUAL Y PODEROSO) -->
+        <section
+            class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden bg-gradient-to-b from-slate-900 via-blue-950 to-black text-white">
+
+            <!-- EFECTO DE LUZ DIVINA (HALO DE FONDO) -->
+            <div
+                class="absolute top-1/4 left-1/2 -translate-x-1/2 w-80 h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-[pulse_3s_ease-in-out_infinite]">
+            </div>
+
+            <!-- LÍNEA SUPERIOR BRILLANTE -->
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-500 via-yellow-200 to-yellow-500">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center z-10">
+
+                <!-- ICONO RADIANTE -->
+                <div class="relative w-28 h-28 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center">
+                    <!-- Círculo giratorio de fondo -->
+                    <div
+                        class="absolute inset-0 border-2 border-dashed border-adventist-gold/50 rounded-full animate-[spin_10s_linear_infinite]">
+                    </div>
+                    <!-- Círculo principal -->
+                    <div
+                        class="relative w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-adventist-gold to-yellow-600 shadow-[0_0_40px_rgba(254,195,37,0.5)] flex items-center justify-center transform transition hover:scale-110 duration-500">
+                        <i class="fas fa-hands-praying text-white text-5xl md:text-6xl drop-shadow-md"></i>
+                    </div>
+                </div>
+
+                <!-- SUBTÍTULO ESPIRITUAL -->
+                <p
+                    class="text-adventist-gold font-bold uppercase tracking-[0.4em] text-xs md:text-sm mb-4 drop-shadow-md">
+                    Ministerio de Oración
                 </p>
-                <div
-                    class="mt-8 inline-block bg-white text-red-700 px-6 md:px-8 py-4 rounded-2xl shadow-2xl w-full max-w-md mx-auto">
-                    <p class="font-black uppercase text-lg md:text-2xl break-words">
-                        Actividad de Club desde las 16:00 hrs
-                    </p>
+
+                <!-- TÍTULO IMPACTANTE -->
+                <h2
+                    class="text-4xl sm:text-5xl md:text-7xl font-heading font-black uppercase leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                    Oración <br class="hidden sm:block"> Intercesora
+                </h2>
+
+                <!-- FRASE INSPIRADORA -->
+                <p
+                    class="mt-6 text-blue-100 font-medium italic text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto px-4 opacity-90">
+                    "Hay un poder inmenso cuando la iglesia se une de rodillas."
+                </p>
+
+                <!-- HORARIO (INVITACIÓN DORADA) -->
+                <div class="mt-10 w-full max-w-md mx-auto transform transition hover:-translate-y-2 duration-300">
+                    <div
+                        class="relative bg-gradient-to-r from-adventist-gold via-yellow-400 to-adventist-gold text-adventist-blue p-6 md:p-8 rounded-[2rem] shadow-[0_15px_30px_rgba(254,195,37,0.3)] border-b-8 border-yellow-600">
+
+                        <p class="font-bold uppercase text-sm sm:text-base tracking-[0.2em] mb-2 text-slate-700">
+                            Únete a nosotros
+                        </p>
+
+                        <p class="font-black text-4xl sm:text-5xl md:text-6xl uppercase leading-none drop-shadow-sm">
+                            Hoy Sábado
+                        </p>
+
+                        <div class="w-16 h-1 bg-adventist-blue/30 mx-auto my-4 rounded-full"></div>
+
+                        <p
+                            class="font-extrabold text-2xl sm:text-3xl md:text-4xl uppercase tracking-widest text-slate-800">
+                            16:00 <span class="text-xl md:text-2xl">hrs</span>
+                        </p>
+
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-adventist-gold">
-            <div class="p-6 md:p-12 text-center w-full">
-                <div class="w-24 h-24 rounded-full bg-adventist-gold/10 flex items-center justify-center mx-auto mb-7">
-                    <i class="fas fa-hands-praying text-adventist-gold text-5xl"></i>
-                </div>
-                <h2 class="t-title font-heading font-black uppercase">Oración Intercesora</h2>
-                <div class="bg-adventist-blue text-white mt-8 inline-block px-8 py-5 rounded-2xl shadow-2xl">
-                    <p class="font-black uppercase text-xl md:text-3xl">Hoy Sábado<br>16:00 hrs</p>
-                </div>
-            </div>
-        </section>
+        <!-- INFORMACIÓN ASA (CAMPAÑA DE INVIERNO - ALTO IMPACTO) -->
+        <section
+            class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white">
 
-        <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-adventist-blue">
-            <div class="p-6 md:p-12 text-center w-full">
+            <!-- EFECTOS DE "CALOR" DE FONDO -->
+            <div
+                class="absolute top-0 right-0 w-72 h-72 bg-orange-500 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-pulse">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-80 h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[120px] opacity-20">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center z-10">
+
+                <!-- ETIQUETA DE CAMPAÑA -->
                 <div
-                    class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gray-200 shadow-2xl mx-auto mb-6 border-4 border-white/30 overflow-hidden">
+                    class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/50 text-orange-300 px-6 py-2 rounded-full uppercase tracking-[0.25em] text-xs md:text-sm font-black mb-8 shadow-inner backdrop-blur-sm">
+                    <i class="fas fa-snowflake"></i> Campaña de Invierno <i class="fas fa-fire-alt ml-1"></i>
+                </div>
+
+                <!-- LOGO ASA CON MARCO -->
+                <div
+                    class="w-28 h-28 md:w-36 md:h-36 rounded-3xl bg-white shadow-[0_0_30px_rgba(255,255,255,0.2)] mx-auto mb-8 border-4 border-orange-400 overflow-hidden transform transition hover:rotate-3 duration-500">
                     <img src="imagenes/asa.jpg" alt="Logo ASA" class="w-full h-full object-cover">
                 </div>
-                <h2 class="t-title font-heading font-black uppercase">Información ASA</h2>
+
+                <!-- TÍTULO -->
+                <h2
+                    class="text-4xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-lg">
+                    Acción Solidaria
+                </h2>
+
+                <!-- TEXTO INTRODUCTORIO -->
                 <p
-                    class="auto-text mt-8 text-slate-800 font-bold text-lg sm:text-xl md:text-2xl leading-relaxed px-2 md:px-6">
-                    Atendiendo el mandato de nuestro Señor de cuidar los unos de los otros, solicitamos la donación de
-                    <span
-                        class="inline-block bg-adventist-gold/30 text-adventist-blue font-black px-3 py-1 mt-1 mb-1 rounded-xl uppercase tracking-wider">
-                        legumbres y café
-                    </span>
-                    para los meses fríos que se vienen por delante.
-                    <br><br>
-                    <span class="text-adventist-gold font-black drop-shadow-sm text-xl sm:text-2xl md:text-3xl">
-                        Dios bendiga al que dá con un corazón alegre 🙏🥰
-                    </span>
+                    class="mt-8 text-blue-100 font-medium text-lg sm:text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto px-2 md:px-6">
+                    Atendiendo el mandato de nuestro Señor de cuidar los unos de los otros, solicitamos la donación para
+                    los meses fríos que se vienen por delante.
                 </p>
-            </div>
-        </section>
 
-        <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-adventist-blue">
-            <div class="p-6 md:p-12 text-center w-full">
-                <div class="w-24 h-24 md:w-28 md:h-28 mx-auto mb-6 flex items-center justify-center overflow-hidden">
-                    <img src="imagenes/ja.jpg" alt="Logo Jóvenes" class="w-full h-full object-contain">
+                <!-- CAJA DEL PEDIDO EXACTO (GIGANTE Y VIBRANTE) -->
+                <div class="my-10 w-full transform transition hover:scale-105 duration-300">
+                    <p
+                        class="block text-sm md:text-base uppercase tracking-[0.3em] text-orange-300 font-bold mb-3 drop-shadow-md">
+                        Necesitamos urgente:
+                    </p>
+                    <div
+                        class="inline-block bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 text-white font-black text-3xl sm:text-5xl md:text-7xl px-8 py-5 sm:px-12 sm:py-8 rounded-[2.5rem] shadow-[0_0_50px_rgba(249,115,22,0.4)] border-b-8 border-orange-700 break-words w-full max-w-4xl">
+                        LEGUMBRES <br class="md:hidden"> Y CAFÉ
+                    </div>
                 </div>
-                <h2 class="t-title font-heading font-black uppercase leading-tight">Culto Joven</h2>
-                <p class="text-adventist-blue font-black text-3xl md:text-5xl mt-6 uppercase">Hoy — 18:00 hrs</p>
+
+                <!-- MENSAJE FINAL (BENDICIÓN) -->
                 <div
-                    class="mt-8 bg-gradient-to-r from-adventist-blue to-blue-950 text-white rounded-2xl p-6 shadow-xl w-full max-w-sm mx-auto">
-                    <p class="font-bold uppercase text-lg md:text-2xl">📍 Calle Carrera 131</p>
-                    <p class="mt-3 text-adventist-gold font-black text-xl md:text-3xl uppercase">¡Te Esperamos!</p>
+                    class="mt-4 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-3xl p-6 md:p-8 w-full max-w-4xl mx-auto">
+                    <p
+                        class="text-adventist-gold font-black text-2xl sm:text-3xl md:text-4xl leading-tight drop-shadow-[0_0_15px_rgba(254,195,37,0.4)]">
+                        Dios bendiga al que da <br class="hidden sm:block"> con un corazón alegre 🙏🥰
+                    </p>
                 </div>
+
             </div>
         </section>
 
-        <section class="hover-card card-style bg-gradient-to-br from-red-700 to-red-900 text-white shadow-2xl">
-            <div class="card-top-line"></div>
-            <div class="p-6 md:p-12 w-full">
-                <div class="text-center">
-                    <h2 class="t-title font-heading font-black uppercase">Proyecto Iglesia 2026</h2>
-                    <p class="text-adventist-gold font-black text-2xl md:text-4xl mt-4 break-words">Sillas Tipo Butacas
+        <!-- CULTO JOVEN (DISEÑO JUVENIL DE ALTO IMPACTO) -->
+        <section
+            class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-adventist-blue to-black text-white">
+
+            <!-- EFECTOS DE LUCES DE FONDO (NEÓN) -->
+            <div
+                class="absolute -top-20 -right-20 w-64 h-64 bg-blue-500 rounded-full mix-blend-screen filter blur-[80px] opacity-60">
+            </div>
+            <div
+                class="absolute -bottom-20 -left-20 w-72 h-72 bg-adventist-gold rounded-full mix-blend-screen filter blur-[90px] opacity-30">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center">
+
+                <!-- LOGO CON AURA LUMINOSA -->
+                <div
+                    class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center overflow-hidden rounded-full p-2 bg-white/10 backdrop-blur-md border-2 border-blue-400 shadow-[0_0_30px_rgba(96,165,250,0.5)] transform transition hover:scale-110 duration-300 z-10">
+                    <img src="imagenes/ja.jpg" alt="Logo Jóvenes" class="w-full h-full object-contain rounded-full">
+                </div>
+
+                <!-- TÍTULO DINÁMICO (Con inclinación y brillo) -->
+                <h2
+                    class="text-5xl sm:text-6xl md:text-[5rem] font-heading font-black uppercase italic tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-white to-blue-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] mb-8 z-10">
+                    Culto Joven
+                </h2>
+
+                <!-- ETIQUETA DE HORA (ROTADA TIPO STICKER) -->
+                <div class="transform -rotate-2 hover:rotate-0 transition duration-300 z-10 my-4">
+                    <div
+                        class="bg-gradient-to-r from-adventist-gold via-yellow-400 to-yellow-500 text-black px-8 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-[0_0_40px_rgba(254,195,37,0.6)] border-b-8 border-yellow-600">
+                        <p class="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter">
+                            ¡Hoy! <span class="opacity-30 mx-1">—</span> 18:00 hrs
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CAJA DE UBICACIÓN (ESTILO CIBERNÉTICO/GLASS) -->
+                <div
+                    class="mt-12 bg-white/10 backdrop-blur-xl border border-blue-400/30 rounded-[2rem] p-8 shadow-2xl w-full max-w-lg mx-auto relative group z-10">
+                    <!-- Brillo al hacer hover -->
+                    <div
+                        class="absolute inset-0 bg-blue-400/10 rounded-[2rem] opacity-0 group-hover:opacity-100 transition duration-500">
+                    </div>
+
+                    <p class="font-bold uppercase text-xl md:text-3xl text-blue-100 tracking-wide">
+                        📍 Calle Carrera 131
+                    </p>
+
+                    <div class="w-20 h-1 bg-blue-500 mx-auto my-5 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)]">
+                    </div>
+
+                    <p
+                        class="text-adventist-gold font-black text-3xl md:text-5xl uppercase drop-shadow-[0_0_15px_rgba(254,195,37,0.5)] animate-pulse">
+                        ¡Te Esperamos!
                     </p>
                 </div>
-                <div class="mt-8 bg-white text-red-800 rounded-2xl p-6 md:p-8 shadow-2xl text-center mx-auto max-w-xl">
-                    <p class="font-black uppercase text-lg sm:text-xl md:text-3xl break-words">Acumulado Actual</p>
-                    <p class="font-black text-5xl sm:text-6xl md:text-7xl mt-3 break-words tracking-tighter">
-                        $509.000
-                    </p>
-                </div>
+
             </div>
         </section>
 
+        <!-- PROYECTO IGLESIA IMPACTANTE 2026 - RECAUDACIÓN PARA NUEVAS SILLAS Y BUTACAS -->
+
+        <section
+            class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white">
+
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+            </div>
+            <div
+                class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center">
+
+                <div
+                    class="inline-flex items-center gap-2 bg-red-900/50 border border-red-500/30 px-6 py-2 rounded-full uppercase tracking-[0.3em] text-xs md:text-sm font-black text-adventist-gold mb-6 shadow-inner">
+                    <i class="fas fa-hammer"></i> Proyecto Iglesia 2026
+                </div>
+
+                <h2
+                    class="text-4xl sm:text-6xl md:text-8xl font-heading font-black uppercase leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    Nuevas
+                </h2>
+                <h3
+                    class="text-4xl sm:text-5xl md:text-7xl font-heading font-extrabold uppercase leading-tight mt-2 text-adventist-gold drop-shadow-lg">
+                    Sillas <span class="text-white">Butacas</span>
+                </h3>
+
+                <div class="mt-12 w-full max-w-3xl relative z-10">
+                    <div class="absolute inset-0 bg-adventist-gold blur-2xl opacity-30 rounded-[3rem] animate-pulse">
+                    </div>
+
+                    <div
+                        class="relative bg-gradient-to-b from-white to-gray-100 border-b-8 border-gray-300 rounded-[2.5rem] p-6 sm:p-8 md:p-12 shadow-[0_25px_50px_rgba(0,0,0,0.5)] transform transition hover:scale-[1.02] duration-500 w-full">
+
+                        <p
+                            class="font-black uppercase tracking-widest text-red-800 text-lg sm:text-2xl md:text-3xl mb-2">
+                            Acumulado Actual
+                        </p>
+
+                        <p
+                            class="font-black text-5xl sm:text-7xl md:text-[6.5rem] leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-800 to-red-900 drop-shadow-sm mb-4 break-words">
+                            $509.000
+                        </p>
+
+                        <div class="w-full max-w-xl mx-auto mt-6 px-1">
+                            <div
+                                class="flex justify-between text-xs sm:text-sm font-black uppercase tracking-wider mb-2">
+                                <span class="text-red-700 bg-red-100 px-2.5 py-1 rounded-md text-[11px] sm:text-xs">
+                                    17% Completado
+                                </span>
+                                <span class="text-slate-700 bg-slate-200 px-2.5 py-1 rounded-md text-[11px] sm:text-xs">
+                                    Meta: $3.000.000
+                                </span>
+                            </div>
+
+                            <div
+                                class="w-full h-6 bg-gray-200 rounded-full overflow-hidden shadow-inner border border-gray-300 p-0.5">
+                                <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full relative shadow-md"
+                                    style="width: 16.96%;">
+                                    <div
+                                        class="absolute inset-0 bg-white/30 animate-[pulse_1.5s_ease-in-out_infinite] rounded-full">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-600 font-extrabold uppercase text-xs sm:text-base tracking-wide mt-6">
+                            Faltan por recaudar: <span class="text-red-700 font-black font-sans">$2.491.000</span>
+                        </p>
+                        <p class="text-slate-400 font-bold uppercase text-[10px] sm:text-xs tracking-[0.2em] mt-1">
+                            ¡Sigamos avanzando juntos como iglesia!
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <script src="https://www.youtube.com/iframe_api"></script>
         <div id="youtube-player" class="hidden"></div>
         <script>
@@ -676,22 +934,150 @@
                 <div
                     class="mt-10 mb-2 inline-block bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black px-6 sm:px-10 py-4 sm:py-5 rounded-full shadow-[0_0_50px_rgba(255,215,0,0.9)] animate-pulse w-full sm:w-auto">
                     <p class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-widest break-words">
-                        ¡Entrada Liberada!
+                        ¡No Faltes!
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-adventist-blue">
-            <div class="p-6 md:p-12 text-center w-full">
+        <!-- MINISTERIO DE PUBLICACIONES (DISEÑO PREMIUM Y ELEGANTE) -->
+        <section
+            class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.5)] relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white">
+
+            <!-- TEXTURA DE FONDO -->
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+            </div>
+
+            <!-- LUZ LECTORA (EFECTO FOCO) -->
+            <div
+                class="absolute -top-32 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-adventist-gold rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center z-10">
+
+                <!-- ETIQUETA SUPERIOR -->
                 <div
-                    class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gray-200 shadow-2xl mx-auto mb-6 border-4 border-white/30 overflow-hidden">
-                    <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones" class="w-full h-full object-cover">
+                    class="inline-flex items-center gap-2 bg-blue-800/50 border border-blue-400/30 px-6 py-2 rounded-full uppercase tracking-[0.25em] text-xs md:text-sm font-black text-blue-200 mb-8 shadow-inner backdrop-blur-md">
+                    <i class="fas fa-book-open"></i> Campaña Anual
                 </div>
-                <h2 class="t-title font-heading font-black uppercase">Ministerio de Publicaciones</h2>
-                <h2 class="t-title font-heading font-black uppercase mt-2">Suscripciones 2027</h2>
-                <p class="text-adventist-blue font-black text-xl md:text-4xl mt-4 uppercase break-words">Hna. Bárbara
-                    Beltrán</p>
+
+                <!-- LOGO CON MARCO DORADO -->
+                <div
+                    class="w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-white shadow-[0_0_40px_rgba(254,195,37,0.3)] mx-auto mb-6 border-4 border-adventist-gold p-1 overflow-hidden transform transition hover:scale-105 duration-500 relative z-10">
+                    <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones"
+                        class="w-full h-full object-cover rounded-xl">
+                </div>
+
+                <!-- SUBTÍTULO DEL DEPARTAMENTO -->
+                <h3
+                    class="text-adventist-gold font-bold uppercase tracking-[0.3em] text-xs sm:text-sm mb-3 drop-shadow-md">
+                    Ministerio de Publicaciones
+                </h3>
+
+                <!-- TÍTULO PRINCIPAL (GIGANTE) -->
+                <h2
+                    class="text-5xl sm:text-6xl md:text-[5.5rem] font-heading font-black uppercase leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+                    Suscripciones
+                    <span class="block text-adventist-gold drop-shadow-[0_0_15px_rgba(254,195,37,0.4)] mt-2">
+                        2027
+                    </span>
+                </h2>
+
+                <!-- CAJA DE CONTACTO 3D -->
+                <div class="mt-12 w-full max-w-lg mx-auto transform transition hover:-translate-y-2 duration-300">
+                    <div
+                        class="relative bg-gradient-to-b from-white to-gray-100 rounded-[2.5rem] p-6 sm:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.4)] border-b-8 border-gray-300 w-full">
+
+                        <!-- Icono de contacto -->
+                        <div
+                            class="absolute -top-6 left-1/2 -translate-x-1/2 bg-adventist-blue text-white w-12 h-12 rounded-full flex items-center justify-center border-4 border-white shadow-md">
+                            <i class="fas fa-user-edit text-xl"></i>
+                        </div>
+
+                        <p class="mt-3 font-bold text-slate-400 uppercase tracking-[0.15em] text-xs sm:text-sm mb-2">
+                            Reserva tu material con:
+                        </p>
+
+                        <p
+                            class="font-black uppercase text-2xl sm:text-3xl md:text-4xl leading-tight text-slate-800 break-words">
+                            Hna. Bárbara Beltrán
+                        </p>
+
+                        <!-- Animación sutil de "¡Haz tu pedido ya!" -->
+                        <div
+                            class="mt-5 inline-block bg-blue-100 text-adventist-blue font-black text-[10px] sm:text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-blue-200">
+                            Matinales • Lecciones • Revistas
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- MADRES DE RODILLAS HOJOS DE PIE - MINISTERIO DE LA MUJER -->
+        <section
+            class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-black text-white">
+
+            <!-- EFECTO DE FONDO (Opcional, le da textura) -->
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+            </div>
+            <!-- LÍNEA SUPERIOR BRILLANTE -->
+            <div
+                class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold">
+            </div>
+
+            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center">
+
+                <!-- LOGO CON BRILLO -->
+                <div
+                    class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-white shadow-[0_0_40px_rgba(254,195,37,0.4)] mx-auto mb-6 border-4 border-adventist-gold overflow-hidden transform transition hover:scale-105 duration-500">
+                    <img src="imagenes/mujer.jpg" alt="Logo Ministerio de la Mujer" class="w-full h-full object-cover">
+                </div>
+
+                <!-- NOMBRE DEL DEPARTAMENTO -->
+                <h2
+                    class="text-lg sm:text-xl md:text-2xl font-heading font-bold uppercase tracking-[0.25em] text-gray-300 mb-6">
+                    Ministerio de la Mujer
+                </h2>
+
+                <!-- FRASE DE IMPACTO GIGANTE -->
+                <div class="my-4 w-full">
+                    <h3
+                        class="text-5xl sm:text-6xl md:text-8xl font-heading font-black uppercase leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                        Madres de
+                        <span
+                            class="block text-transparent bg-clip-text bg-gradient-to-r from-adventist-gold to-yellow-100 mt-2">
+                            Rodillas
+                        </span>
+                    </h3>
+                    <h3
+                        class="text-3xl sm:text-4xl md:text-6xl font-heading font-extrabold uppercase leading-tight mt-6 md:mt-8 text-gray-200">
+                        Hijos de <span
+                            class="text-white underline decoration-adventist-gold decoration-4 md:decoration-8 underline-offset-8">Pie</span>
+                    </h3>
+                </div>
+
+                <!-- HORARIO (CARTEL LUMINOSO) -->
+                <div class="mt-12 relative inline-block w-full max-w-3xl">
+                    <!-- Sombra dorada animada -->
+                    <div class="absolute inset-0 bg-adventist-gold blur-xl opacity-40 rounded-3xl animate-pulse"></div>
+
+                    <div
+                        class="relative bg-white text-adventist-blue px-4 py-6 md:px-8 md:py-10 rounded-3xl shadow-2xl border-4 border-adventist-gold">
+                        <p class="font-black text-2xl sm:text-4xl md:text-5xl uppercase tracking-tight break-words">
+                            ¡Todos los Sábados!
+                        </p>
+                        <div class="w-16 h-1 bg-adventist-gold mx-auto my-4 rounded-full"></div>
+                        <p class="font-bold text-lg sm:text-xl md:text-3xl uppercase text-slate-600 break-words">
+                            Inmediatamente después del culto
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
