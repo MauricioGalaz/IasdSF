@@ -7,13 +7,8 @@
     <title>Avisos - IASD Limache</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <meta name="theme-color" content="#00305e">
@@ -41,377 +36,81 @@
     </script>
 
     <style>
-        :root {
-            scroll-behavior: smooth;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
+        :root { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            width: 100%; max-width: 100%; overflow-x: hidden;
             font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(circle at top right,
-                    rgba(254, 195, 37, 0.10),
-                    transparent 25%),
-                radial-gradient(circle at bottom left,
-                    rgba(0, 48, 94, 0.08),
-                    transparent 25%),
-                linear-gradient(to bottom,
-                    #f8fafc,
-                    #eef4ff);
+            background: radial-gradient(circle at top right, rgba(254, 195, 37, 0.10), transparent 25%),
+                        radial-gradient(circle at bottom left, rgba(0, 48, 94, 0.08), transparent 25%),
+                        linear-gradient(to bottom, #f8fafc, #eef4ff);
             color: #0f172a;
         }
 
-        /* ===================================== */
-        /* TIPOGRAFÍA RESPONSIVE */
-        /* ===================================== */
-        .t-hero {
-            font-size: clamp(2rem, 7vw, 5.5rem);
-            line-height: .95;
-        }
+        .t-hero { font-size: clamp(2rem, 7vw, 5.5rem); line-height: .95; }
+        .t-title { font-size: clamp(1.4rem, 4.5vw, 3.2rem); line-height: 1.05; }
+        p, h1, h2, h3, h4, span, div { overflow-wrap: break-word; word-break: break-word; hyphens: none; /* EVITA QUE SE CORTEN CON GUIONES */ }
+        .auto-text { text-wrap: balance; line-height: 1.8; }
 
-        .t-title {
-            font-size: clamp(1.4rem, 4.5vw, 3.2rem);
-            line-height: 1.05;
-        }
+        .glass { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, .45); }
+        .hover-card { transition: transform .35s ease, box-shadow .35s ease, border .35s ease; }
+        @media (hover:hover) { .hover-card:hover { transform: translateY(-6px); box-shadow: 0 25px 45px rgba(0, 0, 0, .12); } }
 
-        /* ===================================== */
-        /* TEXTO */
-        /* ===================================== */
-        p,
-        h1,
-        h2,
-        h3,
-        h4,
-        span,
-        div {
-            overflow-wrap: break-word;
-            word-break: break-word;
-            hyphens: auto;
-        }
+        .animate-fade { animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
-        .auto-text {
-            text-wrap: balance;
-            line-height: 1.8;
-        }
+        .card-style { border-radius: 1.5rem; overflow: hidden; position: relative; width: 100%; }
+        @media (min-width: 768px) { .card-style { border-radius: 2rem; } }
 
-        /* ===================================== */
-        /* EFECTOS Y TARJETAS */
-        /* ===================================== */
-        .glass {
-            background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, .45);
-        }
+        .card-top-line { position: absolute; top: 0; left: 0; width: 100%; height: 7px; background: linear-gradient(90deg, #00305e, #fec325); }
 
-        .hover-card {
-            transition:
-                transform .35s ease,
-                box-shadow .35s ease,
-                border .35s ease;
-        }
-
-        @media (hover:hover) {
-            .hover-card:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 25px 45px rgba(0, 0, 0, .12);
-            }
-        }
-
-        .animate-fade {
-            animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1);
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(22px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card-style {
-            border-radius: 1.5rem;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .card-style {
-                border-radius: 2rem;
-            }
-        }
-
-        .card-top-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 7px;
-            background: linear-gradient(90deg, #00305e, #fec325);
-        }
-
-        /* ===================================== */
         /* MURO FIREBASE */
-        /* ===================================== */
-        #contenedor-avisos-dinamicos {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.2rem;
-        }
+        #contenedor-avisos-dinamicos { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+        @media(min-width:768px) { #contenedor-avisos-dinamicos { grid-template-columns: repeat(2, 1fr); } }
 
-        @media(min-width:768px) {
-            #contenedor-avisos-dinamicos {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .aviso-card { position: relative; border-radius: 1.5rem; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+        @media (min-width: 768px) { .aviso-card { border-radius: 2rem; } }
+        .aviso-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 7px; background: linear-gradient(90deg, #00305e, #fec325); }
+        
+        .aviso-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+        .departamento-box { flex: 1; min-width: 0; display: flex; align-items: center; gap: .9rem; background: linear-gradient(135deg, #00305e, #0a4d91); color: white; padding: .9rem 1rem; border-radius: 1.3rem; box-shadow: 0 12px 24px rgba(0, 48, 94, .18); }
+        .departamento-logo { width: 50px; height: 50px; min-width: 50px; border-radius: 1rem; overflow: hidden; background: white; padding: .3rem; border: 3px solid rgba(255, 255, 255, .5); box-shadow: 0 10px 25px rgba(0, 0, 0, .15); }
+        @media (min-width: 768px) { .departamento-logo { width: 60px; height: 60px; min-width: 60px; } }
+        .departamento-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .departamento-texto { display: flex; flex-direction: column; min-width: 0; }
+        .departamento-texto small { font-size: .60rem; text-transform: uppercase; letter-spacing: .20em; opacity: .8; }
+        .departamento-texto strong { font-size: clamp(.9rem, 2vw, 1.1rem); line-height: 1.3; font-weight: 900; text-transform: uppercase; }
 
-        .aviso-card {
-            position: relative;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+        .mensaje-aviso { margin-top: 1.2rem; background: rgba(255, 255, 255, 0.95); border: 2px solid rgba(254, 195, 37, 0.3); border-radius: 1.2rem; padding: 1.5rem; font-size: clamp(1.15rem, 3.5vw, 1.35rem); line-height: 1.8; color: #0f172a; font-weight: 800; white-space: pre-wrap; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); }
+        .aviso-img-box { margin-top: 1rem; overflow: hidden; border-radius: 1.3rem; border: 1px solid rgba(203, 213, 225, .4); background: white; }
+        .aviso-img-box img { width: 100%; max-height: 350px; object-fit: cover; transition: transform .5s ease; }
+        @media (min-width: 768px) { .aviso-img-box img { max-height: 420px; } }
+        .aviso-img-box:hover img { transform: scale(1.03); }
 
-        @media (min-width: 768px) {
-            .aviso-card {
-                border-radius: 2rem;
-            }
-        }
+        .responsable-box { display: flex; align-items: center; gap: 1rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgba(203, 213, 225, .5); }
+        .responsable-avatar { width: 52px; height: 52px; min-width: 52px; border-radius: 50%; background: linear-gradient(135deg, #fec325, #ffdc70); display: flex; align-items: center; justify-content: center; color: #00305e; font-weight: 900; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(254, 195, 37, .35); }
 
-        .aviso-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 7px;
-            background: linear-gradient(90deg, #00305e, #fec325);
-        }
+        .btn-delete { width: 45px; height: 45px; min-width: 45px; border-radius: 50%; border: none; background: #fff1f2; color: #dc2626; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .25s ease; box-shadow: 0 8px 18px rgba(220, 38, 38, .15); }
+        .btn-delete:hover { background: #fee2e2; transform: scale(1.05); }
 
-        .aviso-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .departamento-box {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: .9rem;
-            background: linear-gradient(135deg, #00305e, #0a4d91);
-            color: white;
-            padding: .9rem 1rem;
-            border-radius: 1.3rem;
-            box-shadow: 0 12px 24px rgba(0, 48, 94, .18);
-        }
-
-        .departamento-logo {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
-            border-radius: 1rem;
-            overflow: hidden;
-            background: white;
-            padding: .3rem;
-            border: 3px solid rgba(255, 255, 255, .5);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
-        }
-
-        @media (min-width: 768px) {
-            .departamento-logo {
-                width: 60px;
-                height: 60px;
-                min-width: 60px;
-            }
-        }
-
-        .departamento-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .departamento-texto {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-
-        .departamento-texto small {
-            font-size: .60rem;
-            text-transform: uppercase;
-            letter-spacing: .20em;
-            opacity: .8;
-        }
-
-        .departamento-texto strong {
-            font-size: clamp(.9rem, 2vw, 1.1rem);
-            line-height: 1.3;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        /* MENSAJE DESTACADO (MÁS GRANDE Y LLAMATIVO) */
-        .mensaje-aviso {
-            margin-top: 1.2rem;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid rgba(254, 195, 37, 0.3);
-            /* Borde sutil dorado */
-            border-radius: 1.2rem;
-            padding: 1.5rem;
-            font-size: clamp(1.15rem, 3.5vw, 1.35rem);
-            /* Aumentado el tamaño */
-            line-height: 1.8;
-            color: #0f172a;
-            font-weight: 800;
-            /* Más grueso */
-            white-space: pre-wrap;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-            /* Sombra para que salte a la vista */
-        }
-
-        .aviso-img-box {
-            margin-top: 1rem;
-            overflow: hidden;
-            border-radius: 1.3rem;
-            border: 1px solid rgba(203, 213, 225, .4);
-            background: white;
-        }
-
-        .aviso-img-box img {
-            width: 100%;
-            max-height: 350px;
-            object-fit: cover;
-            transition: transform .5s ease;
-        }
-
-        @media (min-width: 768px) {
-            .aviso-img-box img {
-                max-height: 420px;
-            }
-        }
-
-        .aviso-img-box:hover img {
-            transform: scale(1.03);
-        }
-
-        .responsable-box {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: auto;
-            padding-top: 1.2rem;
-            border-top: 1px solid rgba(203, 213, 225, .5);
-        }
-
-        .responsable-avatar {
-            width: 52px;
-            height: 52px;
-            min-width: 52px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fec325, #ffdc70);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00305e;
-            font-weight: 900;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 20px rgba(254, 195, 37, .35);
-        }
-
-        .btn-delete {
-            width: 45px;
-            height: 45px;
-            min-width: 45px;
-            border-radius: 50%;
-            border: none;
-            background: #fff1f2;
-            color: #dc2626;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: .25s ease;
-            box-shadow: 0 8px 18px rgba(220, 38, 38, .15);
-        }
-
-        .btn-delete:hover {
-            background: #fee2e2;
-            transform: scale(1.05);
-        }
-
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .4s ease;
-        }
-
-        #mobile-menu.open {
-            max-height: 400px;
-        }
+        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+        #mobile-menu.open { max-height: 400px; }
 
         @media(max-width:480px) {
-            .departamento-box {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .departamento-texto {
-                align-items: center;
-            }
-
-            .mensaje-aviso {
-                padding: 1.2rem;
-            }
+            .departamento-box { flex-direction: column; text-align: center; }
+            .departamento-texto { align-items: center; }
+            .mensaje-aviso { padding: 1.2rem; }
         }
 
         @media(min-width:1400px) {
-            .t-title {
-                font-size: 4rem;
-            }
-
-            .mensaje-aviso {
-                font-size: 1.25rem;
-            }
-
-            main {
-                max-width: 84rem !important;
-            }
+            .t-title { font-size: 4rem; }
+            .mensaje-aviso { font-size: 1.25rem; }
+            main { max-width: 84rem !important; }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #00305e;
-            border-radius: 20px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #00305e; border-radius: 20px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
     </style>
 </head>
 
@@ -420,17 +119,12 @@
     <nav class="sticky top-0 z-50 bg-adventist-blue text-white shadow-2xl border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 min-w-0">
-                <div
-                    class="w-12 h-12 rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg flex-shrink-0">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg flex-shrink-0">
                     <img src="imagenes/logo.jpg" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight min-w-0">
-                    <p class="font-heading font-black uppercase text-[11px] tracking-widest truncate">
-                        IASD San Francisco
-                    </p>
-                    <p class="text-adventist-gold uppercase text-[10px] tracking-[0.25em] truncate">
-                        de Limache
-                    </p>
+                    <p class="font-heading font-black uppercase text-[11px] tracking-widest truncate">IASD San Francisco</p>
+                    <p class="text-adventist-gold uppercase text-[10px] tracking-[0.25em] truncate">de Limache</p>
                 </div>
             </a>
 
@@ -441,8 +135,7 @@
             <div class="hidden md:flex items-center gap-8 uppercase font-black tracking-widest text-xs">
                 <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
                 <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
-                <a href="contactoaviso.html"
-                    class="bg-adventist-gold text-adventist-blue px-5 py-2 rounded-full shadow-xl">Contacto</a>
+                <a href="contactoaviso.html" class="bg-adventist-gold text-adventist-blue px-5 py-2 rounded-full shadow-xl">Contacto</a>
             </div>
         </div>
 
@@ -453,340 +146,209 @@
         </div>
     </nav>
 
-    <header
-        class="relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-slate-950 text-white text-center py-16 md:py-24 px-5 shadow-2xl">
+    <header class="relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-slate-950 text-white text-center py-16 md:py-24 px-5 shadow-2xl">
         <div class="absolute inset-0 opacity-10">
             <i class="fas fa-church absolute right-0 top-0 text-[12rem] md:text-[26rem]"></i>
         </div>
         <div class="relative z-10 max-w-6xl mx-auto">
-            <div
-                class="inline-flex items-center gap-3 bg-white/10 border border-white/10 px-5 py-2 rounded-full uppercase tracking-[0.25em] text-xs font-black text-adventist-gold mb-6">
-                <i class="fas fa-bullhorn"></i>
-                Panel Oficial de Avisos
+            <div class="inline-flex items-center gap-3 bg-white/10 border border-white/10 px-5 py-2 rounded-full uppercase tracking-[0.25em] text-xs font-black text-adventist-gold mb-6">
+                <i class="fas fa-bullhorn"></i> Panel Oficial de Avisos
             </div>
-            <h1 class="t-hero font-heading font-black uppercase leading-none break-words">
-                Avisos de Iglesia
-            </h1>
-            <div
-                class="inline-block mt-8 bg-adventist-gold text-adventist-blue px-6 md:px-8 py-3 md:py-4 rounded-2xl shadow-2xl">
-                <p class="font-black uppercase tracking-widest text-sm md:text-2xl break-words">
-                    Sábado 23 de Mayo 2026
-                </p>
+            <h1 class="t-hero font-heading font-black uppercase leading-none break-words">Avisos de Iglesia</h1>
+            <div class="inline-block mt-8 bg-adventist-gold text-adventist-blue px-6 md:px-8 py-3 md:py-4 rounded-2xl shadow-2xl">
+                <p class="font-black uppercase tracking-widest text-sm md:text-2xl break-words">Sábado 30 de Mayo 2026</p>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 space-y-8">
+    <main class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 space-y-12">
 
         <div id="contenedor-avisos-dinamicos"></div>
 
-        <section
-            class="hover-card card-style shadow-[0_20px_50px_rgba(220,38,38,0.4)] relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white">
-
-            <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-orange-500/40 rounded-full blur-[80px] pointer-events-none">
-            </div>
-
-            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
-            </div>
+        <section class="hover-card card-style shadow-[0_20px_50px_rgba(220,38,38,0.4)] relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-orange-500/40 rounded-full blur-[80px] pointer-events-none"></div>
+            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center z-10">
-
-                <div
-                    class="inline-flex items-center gap-2 bg-white/20 border border-white/40 backdrop-blur-sm px-5 py-1.5 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-xs font-black mb-6 shadow-sm">
+                <div class="inline-flex items-center gap-2 bg-white/20 border border-white/40 backdrop-blur-sm px-5 py-1.5 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-xs font-black mb-6 shadow-sm">
                     <i class="fas fa-campground"></i> Club de Niños
                 </div>
 
-                <div
-                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto mb-6 flex items-center justify-center overflow-hidden bg-white/10 backdrop-blur-md rounded-[2rem] p-3 border-2 border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.1)] transform transition hover:scale-105 duration-300">
-                    <img src="imagenes/avent.png" alt="Logo Aventureros"
-                        class="w-full h-full object-contain drop-shadow-md">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto mb-6 flex items-center justify-center overflow-hidden bg-white/10 backdrop-blur-md rounded-[2rem] p-3 border-2 border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.1)] transform transition hover:scale-105 duration-300">
+                    <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain drop-shadow-md">
                 </div>
 
-                <h2
-                    class="text-[3rem] sm:text-[4.5rem] md:text-[5.5rem] font-heading font-black uppercase leading-[0.9] tracking-tighter drop-shadow-lg break-words">
+                <h2 class="text-4xl min-[400px]:text-5xl md:text-[5.5rem] font-heading font-black uppercase leading-[0.9] tracking-tighter drop-shadow-lg break-words">
                     Aventureros
                 </h2>
 
                 <div class="mt-8 mb-10 transform -rotate-2 hover:rotate-0 transition duration-300 px-4 w-full">
-                    <div
-                        class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-900 font-black text-lg sm:text-2xl md:text-3xl px-6 py-3 rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] uppercase tracking-wide border-b-4 border-yellow-600">
+                    <div class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-900 font-black text-lg sm:text-2xl md:text-3xl px-6 py-3 rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] uppercase tracking-wide border-b-4 border-yellow-600">
                         <span class="animate-[pulse_1s_ease-in-out_infinite] inline-block mr-2">¡HOY!</span> Sábado 23
                     </div>
                 </div>
 
                 <div class="w-full max-w-lg mx-auto transform transition hover:-translate-y-2 duration-300 px-4">
-                    <div
-                        class="bg-white text-red-700 rounded-[2rem] p-6 sm:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)] border-b-8 border-gray-200">
-
-                        <p class="font-bold text-slate-400 uppercase tracking-[0.2em] text-[10px] md:text-xs mb-3">
-                            Preparativos listos
-                        </p>
-
-                        <p class="font-black uppercase text-2xl sm:text-4xl leading-tight text-slate-800 break-words">
-                            Actividad de Club
-                        </p>
-
+                    <div class="bg-white text-red-700 rounded-[2rem] p-6 sm:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)] border-b-8 border-gray-200">
+                        <p class="font-bold text-slate-400 uppercase tracking-[0.2em] text-[10px] md:text-xs mb-3">Preparativos listos</p>
+                        <p class="font-black uppercase text-2xl sm:text-4xl leading-tight text-slate-800 break-words">Actividad de Club</p>
                         <div class="w-16 h-1 bg-red-600 mx-auto my-5 rounded-full"></div>
-
                         <p class="font-black uppercase flex flex-wrap items-center justify-center gap-2">
                             <span class="text-slate-600 text-lg sm:text-xl">Desde las</span>
                             <span class="text-red-600 text-5xl sm:text-6xl tracking-tighter drop-shadow-sm">16:00</span>
                             <span class="text-slate-600 text-lg sm:text-xl">hrs</span>
                         </p>
-
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <section
-            class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden bg-gradient-to-b from-slate-900 via-blue-950 to-black text-white">
-
-            <div
-                class="absolute top-1/4 left-1/2 -translate-x-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[80px] opacity-20 animate-[pulse_3s_ease-in-out_infinite]">
-            </div>
-
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-500 via-yellow-200 to-yellow-500">
-            </div>
+        <section class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden bg-gradient-to-b from-slate-900 via-blue-950 to-black text-white">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[80px] opacity-20 animate-[pulse_3s_ease-in-out_infinite]"></div>
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-500 via-yellow-200 to-yellow-500"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center z-10">
-
-                <div
-                    class="relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center">
-                    <div
-                        class="absolute inset-0 border-2 border-dashed border-adventist-gold/30 rounded-full animate-[spin_10s_linear_infinite]">
-                    </div>
-                    <div
-                        class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-adventist-gold to-yellow-600 shadow-[0_0_20px_rgba(254,195,37,0.4)] flex items-center justify-center">
+                <div class="relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center">
+                    <div class="absolute inset-0 border-2 border-dashed border-adventist-gold/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-adventist-gold to-yellow-600 shadow-[0_0_20px_rgba(254,195,37,0.4)] flex items-center justify-center">
                         <i class="fas fa-hands-praying text-white text-4xl sm:text-5xl md:text-6xl drop-shadow-md"></i>
                     </div>
                 </div>
 
-                <p
-                    class="text-adventist-gold font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[10px] sm:text-xs md:text-sm mb-4 drop-shadow-md">
+                <p class="text-adventist-gold font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[10px] sm:text-xs md:text-sm mb-4 drop-shadow-md">
                     Ministerio de Oración
                 </p>
 
-                <h2
-                    class="text-3xl sm:text-4xl md:text-7xl font-heading font-black uppercase leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-md px-2">
+                <h2 class="text-3xl sm:text-4xl md:text-7xl font-heading font-black uppercase leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-md px-2 break-words">
                     Oración Intercesora
                 </h2>
 
-                <p
-                    class="mt-4 sm:mt-6 text-blue-100 font-medium italic text-sm sm:text-lg md:text-2xl max-w-xl mx-auto px-4 opacity-90 leading-snug">
+                <p class="mt-4 sm:mt-6 text-blue-100 font-medium italic text-sm sm:text-lg md:text-2xl max-w-xl mx-auto px-4 opacity-90 leading-snug">
                     "Hay un poder inmenso cuando la iglesia se une de rodillas."
                 </p>
 
-                <div
-                    class="mt-8 w-full max-w-xs sm:max-w-md mx-auto transform transition hover:-translate-y-1 duration-300 px-4">
-                    <div
-                        class="relative bg-gradient-to-r from-adventist-gold via-yellow-400 to-adventist-gold text-adventist-blue p-5 sm:p-8 rounded-[2rem] shadow-[0_10px_20px_rgba(254,195,37,0.2)] border-b-4 sm:border-b-8 border-yellow-600">
-
-                        <p
-                            class="font-bold uppercase text-[10px] sm:text-sm tracking-[0.2em] mb-1 sm:mb-2 text-slate-700">
-                            Únete a nosotros
-                        </p>
-
-                        <p
-                            class="font-black text-2xl sm:text-4xl md:text-6xl uppercase leading-none drop-shadow-sm break-words">
-                            Hoy Sábado
-                        </p>
-
+                <div class="mt-8 w-full max-w-xs sm:max-w-md mx-auto transform transition hover:-translate-y-1 duration-300 px-4">
+                    <div class="relative bg-gradient-to-r from-adventist-gold via-yellow-400 to-adventist-gold text-adventist-blue p-5 sm:p-8 rounded-[2rem] shadow-[0_10px_20px_rgba(254,195,37,0.2)] border-b-4 sm:border-b-8 border-yellow-600">
+                        <p class="font-bold uppercase text-[10px] sm:text-sm tracking-[0.2em] mb-1 sm:mb-2 text-slate-700">Únete a nosotros</p>
+                        <p class="font-black text-2xl sm:text-4xl md:text-6xl uppercase leading-none drop-shadow-sm break-words">Hoy Sábado</p>
                         <div class="w-12 h-1 bg-adventist-blue/20 mx-auto my-3 rounded-full"></div>
-
-                        <p
-                            class="font-extrabold text-xl sm:text-2xl md:text-4xl uppercase tracking-widest text-slate-800">
+                        <p class="font-extrabold text-xl sm:text-2xl md:text-4xl uppercase tracking-widest text-slate-800">
                             16:00 <span class="text-sm md:text-2xl">hrs</span>
                         </p>
-
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <section
-            class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white">
-
-            <div
-                class="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 bg-orange-500 rounded-full mix-blend-screen filter blur-[80px] opacity-20 animate-pulse">
-            </div>
-            <div
-                class="absolute bottom-0 left-0 w-48 h-48 sm:w-80 sm:h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[90px] opacity-10">
-            </div>
+        <section class="hover-card card-style shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white">
+            <div class="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 bg-orange-500 rounded-full mix-blend-screen filter blur-[80px] opacity-20 animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 sm:w-80 sm:h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[90px] opacity-10"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center z-10">
-
-                <div
-                    class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/50 text-orange-300 px-4 py-2 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-sm font-black mb-6 shadow-inner backdrop-blur-sm">
+                <div class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/50 text-orange-300 px-4 py-2 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-sm font-black mb-6 shadow-inner backdrop-blur-sm">
                     <i class="fas fa-snowflake"></i> Campaña de Invierno <i class="fas fa-fire-alt ml-1"></i>
                 </div>
 
-                <div
-                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-3xl bg-white shadow-[0_0_20px_rgba(255,255,255,0.1)] mx-auto mb-6 border-4 border-orange-400 overflow-hidden transform transition hover:rotate-3 duration-500">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-3xl bg-white shadow-[0_0_20px_rgba(255,255,255,0.1)] mx-auto mb-6 border-4 border-orange-400 overflow-hidden transform transition hover:rotate-3 duration-500">
                     <img src="imagenes/asa.jpg" alt="Logo ASA" class="w-full h-full object-cover">
                 </div>
 
-                <h2
-                    class="text-3xl sm:text-4xl md:text-6xl font-heading font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-md">
+                <h2 class="text-3xl sm:text-4xl md:text-6xl font-heading font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-md break-words">
                     Acción Solidaria
                 </h2>
 
-                <p
-                    class="mt-6 text-blue-100 font-medium text-sm sm:text-base md:text-xl leading-relaxed max-w-2xl mx-auto px-4">
-                    Atendiendo el mandato de nuestro Señor de cuidar los unos de los otros, solicitamos la donación para
-                    los meses fríos que se vienen por delante.
+                <p class="mt-6 text-blue-100 font-medium text-sm sm:text-base md:text-xl leading-relaxed max-w-2xl mx-auto px-4">
+                    Atendiendo el mandato de nuestro Señor de cuidar los unos de los otros, solicitamos la donación para los meses fríos que se vienen por delante.
                 </p>
 
                 <div class="my-8 w-full px-2 sm:px-4">
-                    <p
-                        class="block text-[10px] sm:text-sm uppercase tracking-[0.3em] text-orange-300 font-bold mb-3 drop-shadow-md">
-                        Necesitamos urgente:
-                    </p>
-                    <div
-                        class="inline-block bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 text-white font-black text-2xl sm:text-4xl md:text-6xl px-6 py-4 sm:px-10 sm:py-6 rounded-[2rem] shadow-[0_15px_30px_rgba(249,115,22,0.3)] border-b-8 border-orange-700 w-full max-w-2xl break-words">
-                        LEGUMBRES <span class="mx-2 opacity-50">Y</span> CAFÉ
+                    <p class="block text-[10px] sm:text-sm uppercase tracking-[0.3em] text-orange-300 font-bold mb-3 drop-shadow-md">Necesitamos urgente:</p>
+                    <div class="inline-block bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 text-white font-black text-2xl sm:text-4xl md:text-6xl px-4 py-4 sm:px-10 sm:py-6 rounded-[2rem] shadow-[0_15px_30px_rgba(249,115,22,0.3)] border-b-8 border-orange-700 w-full max-w-2xl break-words">
+                        LEGUMBRES <span class="mx-1 sm:mx-2 opacity-50">Y</span> CAFÉ
                     </div>
                 </div>
 
-                <div
-                    class="mt-2 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-2xl p-4 sm:p-6 w-full max-w-2xl mx-auto">
-                    <p
-                        class="text-adventist-gold font-black text-base sm:text-xl md:text-2xl leading-tight drop-shadow-md px-2">
+                <div class="mt-2 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-2xl p-4 sm:p-6 w-full max-w-2xl mx-auto">
+                    <p class="text-adventist-gold font-black text-base sm:text-xl md:text-2xl leading-tight drop-shadow-md px-2">
                         Dios bendiga al que da con un corazón alegre 🙏🥰
                     </p>
                 </div>
-
             </div>
         </section>
 
-        <!-- CULTO JOVEN (DISEÑO JUVENIL DE ALTO IMPACTO) -->
-        <section
-            class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-adventist-blue to-black text-white">
+        <section class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.4)] relative overflow-hidden bg-gradient-to-br from-slate-900 via-adventist-blue to-black text-white">
+            <div class="absolute -top-20 -right-20 w-40 h-40 sm:w-64 sm:h-64 bg-blue-500 rounded-full mix-blend-screen filter blur-[80px] opacity-40"></div>
+            <div class="absolute -bottom-20 -left-20 w-48 h-48 sm:w-72 sm:h-72 bg-adventist-gold rounded-full mix-blend-screen filter blur-[90px] opacity-20"></div>
 
-            <!-- EFECTOS DE LUCES DE FONDO (NEÓN) -->
-            <div
-                class="absolute -top-20 -right-20 w-64 h-64 bg-blue-500 rounded-full mix-blend-screen filter blur-[80px] opacity-60">
-            </div>
-            <div
-                class="absolute -bottom-20 -left-20 w-72 h-72 bg-adventist-gold rounded-full mix-blend-screen filter blur-[90px] opacity-30">
-            </div>
-
-            <div class="relative p-8 md:p-14 text-center w-full flex flex-col items-center">
-
-                <!-- LOGO CON AURA LUMINOSA -->
-                <div
-                    class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center overflow-hidden rounded-full p-2 bg-white/10 backdrop-blur-md border-2 border-blue-400 shadow-[0_0_30px_rgba(96,165,250,0.5)] transform transition hover:scale-110 duration-300 z-10">
+            <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 flex items-center justify-center overflow-hidden rounded-full p-2 bg-white/10 backdrop-blur-md border-2 border-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.3)] transform transition hover:scale-105 duration-300 z-10">
                     <img src="imagenes/ja.jpg" alt="Logo Jóvenes" class="w-full h-full object-contain rounded-full">
                 </div>
 
-                <!-- TÍTULO DINÁMICO (Con inclinación y brillo) -->
-                <h2
-                    class="text-5xl sm:text-6xl md:text-[5rem] font-heading font-black uppercase italic tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-white to-blue-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] mb-8 z-10">
+                <h2 class="text-4xl min-[400px]:text-5xl md:text-[5rem] font-heading font-black uppercase italic tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-white to-blue-200 drop-shadow-md mb-6 z-10 break-words">
                     Culto Joven
                 </h2>
 
-                <!-- ETIQUETA DE HORA (ROTADA TIPO STICKER) -->
-                <div class="transform -rotate-2 hover:rotate-0 transition duration-300 z-10 my-4">
-                    <div
-                        class="bg-gradient-to-r from-adventist-gold via-yellow-400 to-yellow-500 text-black px-8 py-4 sm:px-10 sm:py-5 rounded-2xl shadow-[0_0_40px_rgba(254,195,37,0.6)] border-b-8 border-yellow-600">
-                        <p class="font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter">
+                <div class="transform -rotate-2 hover:rotate-0 transition duration-300 z-10 my-4 w-full px-4">
+                    <div class="inline-block bg-gradient-to-r from-adventist-gold via-yellow-400 to-yellow-500 text-black px-6 sm:px-10 py-4 rounded-2xl shadow-xl border-b-8 border-yellow-600 max-w-full">
+                        <p class="font-black text-2xl sm:text-3xl md:text-5xl uppercase tracking-tighter break-words">
                             ¡Hoy! <span class="opacity-30 mx-1">—</span> 18:00 hrs
                         </p>
                     </div>
                 </div>
 
-                <!-- CAJA DE UBICACIÓN (ESTILO CIBERNÉTICO/GLASS) -->
-                <div
-                    class="mt-12 bg-white/10 backdrop-blur-xl border border-blue-400/30 rounded-[2rem] p-8 shadow-2xl w-full max-w-lg mx-auto relative group z-10">
-                    <!-- Brillo al hacer hover -->
-                    <div
-                        class="absolute inset-0 bg-blue-400/10 rounded-[2rem] opacity-0 group-hover:opacity-100 transition duration-500">
-                    </div>
-
-                    <p class="font-bold uppercase text-xl md:text-3xl text-blue-100 tracking-wide">
-                        📍 Calle Carrera 131
-                    </p>
-
-                    <div class="w-20 h-1 bg-blue-500 mx-auto my-5 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)]">
-                    </div>
-
-                    <p
-                        class="text-adventist-gold font-black text-3xl md:text-5xl uppercase drop-shadow-[0_0_15px_rgba(254,195,37,0.5)] animate-pulse">
+                <div class="mt-8 sm:mt-12 bg-white/10 backdrop-blur-xl border border-blue-400/30 rounded-[2rem] p-6 sm:p-8 shadow-2xl w-full max-w-lg mx-auto relative group z-10">
+                    <div class="absolute inset-0 bg-blue-400/10 rounded-[2rem] opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <p class="font-bold uppercase text-lg sm:text-xl md:text-2xl text-blue-100 tracking-wide break-words">📍 Calle Carrera 131</p>
+                    <div class="w-16 sm:w-20 h-1 bg-blue-500 mx-auto my-4 sm:my-5 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+                    <p class="text-adventist-gold font-black text-2xl sm:text-3xl md:text-4xl uppercase drop-shadow-[0_0_10px_rgba(254,195,37,0.3)] animate-pulse break-words">
                         ¡Te Esperamos!
                     </p>
                 </div>
-
             </div>
         </section>
 
-        <!-- PROYECTO IGLESIA IMPACTANTE 2026 - RECAUDACIÓN PARA NUEVAS SILLAS Y BUTACAS -->
-
-        <section
-            class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white">
-            <div
-                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
-            </div>
-            <div
-                class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold">
-            </div>
+        <section class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center">
-                <div
-                    class="inline-flex items-center gap-2 bg-red-900/50 border border-red-500/30 px-5 py-2 rounded-full uppercase tracking-[0.2em] text-[10px] sm:text-xs font-black text-adventist-gold mb-6 shadow-inner">
+                <div class="inline-flex items-center gap-2 bg-red-900/50 border border-red-500/30 px-5 py-1.5 rounded-full uppercase tracking-[0.2em] text-[10px] sm:text-xs font-black text-adventist-gold mb-6 shadow-inner">
                     <i class="fas fa-hammer"></i> Proyecto Iglesia 2026
                 </div>
 
-                <h2
-                    class="text-3xl sm:text-5xl md:text-7xl font-heading font-black uppercase leading-none drop-shadow-lg">
-                    Nuevas
-                </h2>
-                <h3
-                    class="text-3xl sm:text-4xl md:text-6xl font-heading font-extrabold uppercase leading-tight mt-2 text-adventist-gold drop-shadow-md">
+                <h2 class="text-4xl md:text-7xl font-heading font-black uppercase leading-none drop-shadow-md break-words">Nuevas</h2>
+                <h3 class="text-3xl sm:text-4xl md:text-6xl font-heading font-extrabold uppercase leading-tight mt-2 text-adventist-gold drop-shadow-md break-words">
                     Sillas <span class="text-white">Butacas</span>
                 </h3>
 
-                <div class="mt-8 w-full max-w-2xl relative z-10 px-2 sm:px-4">
-                    <div class="absolute inset-0 bg-adventist-gold blur-2xl opacity-20 rounded-[2rem] animate-pulse">
-                    </div>
-
-                    <div
-                        class="relative bg-white text-slate-800 rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-2xl border-b-8 border-gray-200">
-
-                        <p
-                            class="font-black uppercase tracking-widest text-red-800 text-xs sm:text-sm md:text-base mb-1">
-                            Acumulado Actual
-                        </p>
-
-                        <p
-                            class="font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-none tracking-tighter text-red-900 break-words my-4">
+                <div class="mt-10 w-full max-w-xl mx-auto px-2 relative z-10">
+                    <div class="absolute inset-0 bg-adventist-gold blur-2xl opacity-20 rounded-[2rem] animate-pulse"></div>
+                    
+                    <div class="relative bg-white text-slate-800 rounded-[2rem] p-6 sm:p-8 shadow-2xl border-b-8 border-gray-200">
+                        <p class="font-black uppercase tracking-widest text-red-800 text-[10px] sm:text-xs md:text-sm mb-1">Acumulado Actual</p>
+                        
+                        <p class="font-black text-5xl md:text-[5rem] leading-[1] tracking-tighter text-red-900 break-words my-3">
                             $509.000
                         </p>
 
                         <div class="w-full mt-6">
-                            <div
-                                class="flex justify-between text-[9px] sm:text-xs font-black uppercase tracking-widest text-slate-500 mb-2">
+                            <div class="flex justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">
                                 <span>17% Completado</span>
                                 <span>Meta: $3.000.000</span>
                             </div>
-
-                            <div
-                                class="w-full h-5 sm:h-6 bg-gray-200 rounded-full overflow-hidden shadow-inner border border-gray-300 p-0.5">
-                                <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full relative"
-                                    style="width: 16.96%;">
+                            <div class="w-full h-5 sm:h-6 bg-gray-200 rounded-full overflow-hidden shadow-inner border border-gray-300 p-0.5">
+                                <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full relative" style="width: 16.96%;">
                                     <div class="absolute inset-0 bg-white/30 animate-pulse rounded-full"></div>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="mt-6 pt-6 border-t border-gray-100">
-                            <p class="font-bold uppercase text-[10px] sm:text-xs text-slate-500 tracking-widest">
+                            <p class="font-black uppercase text-[10px] sm:text-xs text-slate-500 tracking-widest break-words">
                                 Faltan por recaudar: <span class="text-red-700 font-black">$2.491.000</span>
                             </p>
-                            <p
-                                class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">
+                            <p class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">
                                 ¡Sigamos avanzando juntos!
                             </p>
                         </div>
@@ -794,22 +356,13 @@
                 </div>
             </div>
         </section>
+        
         <script src="https://www.youtube.com/iframe_api"></script>
         <div id="youtube-player" class="hidden"></div>
         <script>
             let player;
             function onYouTubeIframeAPIReady() {
-                player = new YT.Player('youtube-player', {
-                    height: '0',
-                    width: '0',
-                    videoId: '4tvmk5lKjhg',
-                    playerVars: {
-                        autoplay: 0,
-                        controls: 0,
-                        loop: 1,
-                        playlist: '4tvmk5lKjhg'
-                    }
-                });
+                player = new YT.Player('youtube-player', { height: '0', width: '0', videoId: '4tvmk5lKjhg', playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '4tvmk5lKjhg' } });
             }
             function reproducirMusica() {
                 player.playVideo();
@@ -827,67 +380,41 @@
             }
         </script>
 
-        <section
-            class="hover-card glass card-style shadow-2xl border-t-[10px] border-yellow-500 overflow-hidden relative bg-gradient-to-br from-blue-950 via-blue-900 to-black text-white">
-            <div
-                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
-            </div>
+        <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-yellow-500 overflow-hidden relative bg-gradient-to-br from-blue-950 via-blue-900 to-black text-white">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none"></div>
 
             <div class="relative p-6 sm:p-8 md:p-14 text-center w-full">
-                <div
-                    class="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 mx-auto mb-8 rounded-full overflow-hidden border-4 border-yellow-400 shadow-[0_0_35px_rgba(255,215,0,0.8)] bg-white">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 mx-auto mb-8 rounded-full overflow-hidden border-4 border-yellow-400 shadow-[0_0_35px_rgba(255,215,0,0.8)] bg-white">
                     <img src="imagenes/musica.png" alt="Cuarteto Unidos en Cristo" class="w-full h-full object-cover">
                 </div>
 
-                <h2
-                    class="text-3xl sm:text-4xl md:text-7xl font-black uppercase leading-tight tracking-wide text-yellow-400 drop-shadow-[0_0_25px_rgba(255,215,0,0.9)] break-words">
-                    Concierto de
-                </h2>
-                <h1
-                    class="mt-2 text-4xl sm:text-5xl md:text-8xl font-extrabold uppercase leading-none text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] break-words">
-                    Alabanza
-                </h1>
-                <h1
-                    class="text-4xl sm:text-5xl md:text-8xl font-extrabold uppercase leading-none text-yellow-400 drop-shadow-[0_0_30px_rgba(255,215,0,0.9)] break-words">
-                    y Adoración
-                </h1>
+                <h2 class="text-3xl sm:text-4xl md:text-7xl font-black uppercase leading-tight tracking-wide text-yellow-400 drop-shadow-md break-words">Concierto de</h2>
+                <h1 class="mt-2 text-4xl sm:text-5xl md:text-7xl font-extrabold uppercase leading-none text-white drop-shadow-md break-words">Alabanza</h1>
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold uppercase leading-none text-yellow-400 drop-shadow-md break-words">y Adoración</h1>
 
-                <div
-                    class="mt-8 md:mt-10 inline-block bg-gradient-to-r from-yellow-500 to-yellow-300 text-black px-4 sm:px-8 py-3 sm:py-4 rounded-2xl shadow-2xl max-w-full">
-                    <p class="font-black text-lg sm:text-2xl md:text-4xl uppercase tracking-widest break-words">
-                        Cuarteto Unidos en Cristo
-                    </p>
+                <div class="mt-8 md:mt-10 inline-block bg-gradient-to-r from-yellow-500 to-yellow-300 text-black px-4 sm:px-8 py-3 sm:py-4 rounded-2xl shadow-2xl max-w-full">
+                    <p class="font-black text-lg sm:text-2xl md:text-4xl uppercase tracking-widest break-words">Cuarteto Unidos en Cristo</p>
                 </div>
 
                 <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 px-4 w-full max-w-xl mx-auto">
-                    <button id="btnMusica" onclick="reproducirMusica()"
-                        class="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black font-black uppercase px-6 py-4 rounded-full shadow-[0_0_30px_rgba(255,215,0,0.7)] hover:scale-105 transition-all duration-300 text-sm md:text-base">
-                        ▶ Reproducir
-                    </button>
-                    <button onclick="detenerMusica()"
-                        class="flex-1 bg-gradient-to-r from-red-600 to-red-400 text-white font-black uppercase px-6 py-4 rounded-full shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:scale-105 transition-all duration-300 text-sm md:text-base">
-                        ⏹ Detener
-                    </button>
+                    <button id="btnMusica" onclick="reproducirMusica()" class="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black font-black uppercase px-6 py-4 rounded-full shadow-[0_0_30px_rgba(255,215,0,0.7)] hover:scale-105 transition-all duration-300 text-sm md:text-base">▶ Reproducir</button>
+                    <button onclick="detenerMusica()" class="flex-1 bg-gradient-to-r from-red-600 to-red-400 text-white font-black uppercase px-6 py-4 rounded-full shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:scale-105 transition-all duration-300 text-sm md:text-base">⏹ Detener</button>
                 </div>
 
                 <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto w-full px-2">
-                    <div
-                        class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 shadow-2xl flex flex-col justify-center">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 shadow-2xl flex flex-col justify-center">
                         <p class="text-yellow-400 text-lg md:text-2xl font-bold uppercase">📅 Fecha</p>
                         <p class="mt-2 text-2xl md:text-5xl font-black uppercase">Sábado</p>
-                        <p class="text-3xl md:text-6xl font-extrabold text-yellow-300 break-words">6 Jun 2026</p>
+                        <p class="text-3xl md:text-5xl font-extrabold text-yellow-300 break-words">6 Jun 2026</p>
                     </div>
-
-                    <div
-                        class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 shadow-2xl flex flex-col justify-center">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 shadow-2xl flex flex-col justify-center">
                         <p class="text-yellow-400 text-lg md:text-2xl font-bold uppercase">🕒 Hora</p>
                         <p class="mt-4 text-5xl md:text-7xl font-black text-white">17:30</p>
                         <p class="text-xl md:text-3xl uppercase text-yellow-300 font-bold">HRS</p>
                     </div>
                 </div>
 
-                <div
-                    class="mt-10 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black rounded-3xl p-6 md:p-8 shadow-[0_0_40px_rgba(255,215,0,0.7)] mx-2">
+                <div class="mt-10 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black rounded-3xl p-6 md:p-8 shadow-[0_0_40px_rgba(255,215,0,0.7)] mx-2">
                     <p class="text-xl md:text-4xl font-black uppercase break-words">📍 Iglesia San Francisco</p>
                     <p class="mt-2 text-lg md:text-3xl font-bold uppercase break-words">Calle Carrera 131</p>
                 </div>
@@ -896,191 +423,116 @@
                     <p class="text-xl sm:text-2xl md:text-4xl font-extrabold uppercase text-white leading-relaxed">
                         ¡Te Esperamos Junto a Tu <span class="text-yellow-400">Amigo y Familia</span> de Esperanza!
                     </p>
-                    <p class="mt-4 text-lg md:text-3xl font-bold uppercase text-gray-200 leading-relaxed">
-                        Para Alabar Juntos el Nombre de Dios
-                    </p>
                 </div>
 
-                <div
-                    class="mt-10 mb-2 inline-block bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black px-6 sm:px-10 py-4 sm:py-5 rounded-full shadow-[0_0_50px_rgba(255,215,0,0.9)] animate-pulse w-full sm:w-auto">
-                    <p class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-widest break-words">
-                        ¡No Faltes!
-                    </p>
+                <div class="mt-10 mb-2 inline-block bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black px-6 sm:px-10 py-4 sm:py-5 rounded-full shadow-[0_0_50px_rgba(255,215,0,0.9)] animate-pulse w-full sm:w-auto">
+                    <p class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-widest break-words">¡No Faltes!</p>
                 </div>
             </div>
         </section>
 
-        <section
-            class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.3)] relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white">
-
-            <div
-                class="absolute -top-32 left-1/2 -translate-x-1/2 w-80 h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[100px] opacity-10 pointer-events-none">
-            </div>
+        <section class="hover-card card-style shadow-[0_20px_50px_rgba(0,48,94,0.5)] relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none"></div>
+            <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-80 h-80 bg-adventist-gold rounded-full mix-blend-screen filter blur-[100px] opacity-10 pointer-events-none"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center z-10">
-
-                <div
-                    class="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/20 px-5 py-1.5 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-xs font-black text-blue-200 mb-8 shadow-inner backdrop-blur-md">
+                <div class="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/20 px-5 py-1.5 rounded-full uppercase tracking-[0.2em] text-[10px] md:text-xs font-black text-blue-200 mb-8 shadow-inner backdrop-blur-md">
                     <i class="fas fa-book-open"></i> Campaña Anual
                 </div>
 
-                <div
-                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-white shadow-xl mx-auto mb-6 border-4 border-adventist-gold p-1 overflow-hidden transition-transform duration-500 hover:rotate-3">
-                    <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones"
-                        class="w-full h-full object-cover rounded-xl">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-white shadow-xl mx-auto mb-6 border-4 border-adventist-gold p-1 overflow-hidden transition-transform duration-500 hover:rotate-3">
+                    <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones" class="w-full h-full object-cover rounded-xl">
                 </div>
 
-                <h3
-                    class="text-adventist-gold font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs mb-3 drop-shadow-md">
-                    Ministerio de Publicaciones
-                </h3>
+                <h3 class="text-adventist-gold font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs mb-3 drop-shadow-md">Ministerio de Publicaciones</h3>
 
-                <h2
-                    class="text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] font-heading font-black uppercase leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-md break-words">
-                    Suscripciones
-                    <span class="block text-adventist-gold mt-1">2027</span>
+                <h2 class="text-4xl sm:text-5xl md:text-[5.5rem] font-heading font-black uppercase leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-md break-words">
+                    Suscripciones <span class="block text-adventist-gold mt-1">2027</span>
                 </h2>
 
                 <div class="mt-10 w-full max-w-sm sm:max-w-md mx-auto px-2">
-                    <div
-                        class="relative bg-gradient-to-b from-white to-gray-50 rounded-[2rem] p-6 sm:p-8 shadow-2xl border-b-8 border-gray-200 w-full transform transition hover:scale-[1.02]">
-
-                        <div
-                            class="absolute -top-6 left-1/2 -translate-x-1/2 bg-adventist-blue text-white w-12 h-12 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
+                    <div class="relative bg-gradient-to-b from-white to-gray-50 rounded-[2rem] p-6 sm:p-8 shadow-2xl border-b-8 border-gray-200 w-full transform transition hover:scale-[1.02]">
+                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-adventist-blue text-white w-12 h-12 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
                             <i class="fas fa-user-edit text-lg"></i>
                         </div>
-
-                        <p class="mt-4 font-bold text-slate-400 uppercase tracking-[0.2em] text-[9px] sm:text-xs mb-2">
-                            Reserva tu material con:
-                        </p>
-
-                        <p
-                            class="font-black uppercase text-xl sm:text-2xl md:text-3xl leading-tight text-slate-800 break-words">
-                            Hna. Bárbara Beltrán
-                        </p>
-
+                        <p class="mt-4 font-bold text-slate-400 uppercase tracking-[0.2em] text-[9px] sm:text-xs mb-2">Reserva tu material con:</p>
+                        <p class="font-black uppercase text-xl sm:text-2xl md:text-3xl leading-tight text-slate-800 break-words">Hna. Bárbara Beltrán</p>
                         <div class="mt-4 flex flex-wrap justify-center gap-2">
-                            <span
-                                class="bg-blue-50 text-adventist-blue font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-blue-100">
-                                Matinales
-                            </span>
-                            <span
-                                class="bg-blue-50 text-adventist-blue font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-blue-100">
-                                Lecciones
-                            </span>
+                            <span class="bg-blue-50 text-adventist-blue font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-blue-100">Matinales</span>
+                            <span class="bg-blue-50 text-adventist-blue font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-blue-100">Lecciones</span>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </section>
 
-
-        <section
-            class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-black text-white">
-
-            <div
-                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none">
-            </div>
-            <div
-                class="absolute top-0 left-0 w-full h-2 sm:h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold">
-            </div>
+        <section class="hover-card card-style shadow-2xl relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-black text-white">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-2 sm:h-3 bg-gradient-to-r from-adventist-gold via-yellow-200 to-adventist-gold"></div>
 
             <div class="relative p-6 sm:p-10 md:p-14 text-center w-full flex flex-col items-center">
-
-                <div
-                    class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full bg-white shadow-[0_0_30px_rgba(254,195,37,0.3)] mx-auto mb-6 border-4 border-adventist-gold overflow-hidden transform transition hover:scale-105 duration-500">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full bg-white shadow-[0_0_30px_rgba(254,195,37,0.3)] mx-auto mb-6 border-4 border-adventist-gold overflow-hidden transform transition hover:scale-105 duration-500">
                     <img src="imagenes/mujer.jpg" alt="Logo Ministerio de la Mujer" class="w-full h-full object-cover">
                 </div>
 
-                <h2
-                    class="text-xs sm:text-sm md:text-xl font-heading font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-gray-300 mb-4 sm:mb-6">
+                <h2 class="text-xs sm:text-sm md:text-xl font-heading font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-gray-300 mb-4 sm:mb-6">
                     Ministerio de la Mujer
                 </h2>
 
                 <div class="my-4 w-full px-2">
-                    <h3
-                        class="text-[2.5rem] sm:text-[4rem] md:text-[6rem] font-heading font-black uppercase leading-[0.9] drop-shadow-md">
-                        Madres de
-                        <span
-                            class="block text-transparent bg-clip-text bg-gradient-to-r from-adventist-gold to-yellow-100 mt-2">
-                            Rodillas
-                        </span>
+                    <h3 class="text-4xl sm:text-5xl md:text-[6rem] font-heading font-black uppercase leading-[0.9] drop-shadow-md break-words">
+                        Madres de <span class="block text-transparent bg-clip-text bg-gradient-to-r from-adventist-gold to-yellow-100 mt-2">Rodillas</span>
                     </h3>
-                    <h3
-                        class="text-2xl sm:text-4xl md:text-6xl font-heading font-extrabold uppercase leading-tight mt-6 md:mt-8 text-gray-200">
-                        Hijos de <span
-                            class="text-white underline decoration-adventist-gold decoration-4 underline-offset-8">Pie</span>
+                    <h3 class="text-2xl sm:text-4xl md:text-5xl font-heading font-extrabold uppercase leading-tight mt-6 md:mt-8 text-gray-200 break-words">
+                        Hijos de <span class="text-white underline decoration-adventist-gold decoration-4 underline-offset-8">Pie</span>
                     </h3>
                 </div>
 
                 <div class="mt-10 sm:mt-12 relative inline-block w-full max-w-sm sm:max-w-xl px-4">
                     <div class="absolute inset-0 bg-adventist-gold blur-2xl opacity-20 rounded-3xl animate-pulse"></div>
-
-                    <div
-                        class="relative bg-white text-adventist-blue p-6 sm:p-8 rounded-[2rem] shadow-2xl border-4 border-adventist-gold w-full">
-                        <p
-                            class="font-black text-xl sm:text-3xl md:text-4xl uppercase tracking-tight break-words leading-tight">
-                            ¡Todos los Sábados!
-                        </p>
+                    <div class="relative bg-white text-adventist-blue p-6 sm:p-8 rounded-[2rem] shadow-2xl border-4 border-adventist-gold w-full">
+                        <p class="font-black text-xl sm:text-3xl md:text-4xl uppercase tracking-tight break-words leading-tight">¡Todos los Sábados!</p>
                         <div class="w-16 h-1 bg-adventist-gold mx-auto my-4 rounded-full"></div>
-                        <p
-                            class="font-bold text-sm sm:text-lg md:text-xl uppercase text-slate-600 break-words leading-snug">
-                            Inmediatamente después del culto
-                        </p>
+                        <p class="font-bold text-sm sm:text-lg md:text-xl uppercase text-slate-600 break-words leading-snug">Inmediatamente después del culto</p>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="hover-card glass card-style shadow-2xl border-t-[10px] border-adventist-gold">
             <div class="p-6 md:p-12 text-center w-full">
-                <div
-                    class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gray-200 shadow-2xl mx-auto mb-6 border-4 border-white/30 overflow-hidden">
+                <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gray-200 shadow-2xl mx-auto mb-6 border-4 border-white/30 overflow-hidden">
                     <img src="imagenes/anciano.jpg" alt="Foto Hno. Guillermo Vera" class="w-full h-full object-cover">
                 </div>
-                <p
-                    class="text-adventist-gold font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-lg">
-                    Anciano de Turno</p>
+                <p class="text-adventist-gold font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-lg">Anciano de Turno</p>
                 <h2 class="t-title font-heading font-black uppercase mt-3 break-words">Hno. Guillermo Vera</h2>
             </div>
         </section>
 
         <section class="mt-10 flex flex-col items-center px-4 w-full">
-            <button onclick="toggleAdminPanel()"
-                class="text-slate-500 hover:text-adventist-blue font-bold uppercase tracking-widest p-4">
+            <button onclick="toggleAdminPanel()" class="text-slate-500 hover:text-adventist-blue font-bold uppercase tracking-widest p-4">
                 Gestión de Muro
             </button>
             <div id="admin-panel" class="hidden mt-2 w-full max-w-sm">
                 <div class="glass p-5 sm:p-6 rounded-3xl shadow-2xl space-y-4">
-                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
-                        class="w-full bg-slate-100 border border-slate-200 p-4 rounded-2xl text-center font-bold outline-none">
-                    <button onclick="activarEdicion()"
-                        class="w-full bg-adventist-blue hover:bg-blue-950 transition text-white py-4 rounded-2xl font-black uppercase tracking-wider shadow-xl">
+                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY" class="w-full bg-slate-100 border border-slate-200 p-4 rounded-2xl text-center font-bold outline-none">
+                    <button onclick="activarEdicion()" class="w-full bg-adventist-blue hover:bg-blue-950 transition text-white py-4 rounded-2xl font-black uppercase tracking-wider shadow-xl">
                         Validar Acceso
                     </button>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer class="bg-adventist-dark text-white pt-14 pb-10 mt-10 w-full">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <div class="flex justify-center gap-8 mb-8">
-                <a href="https://www.facebook.com/" target="_blank" class="hover:text-adventist-gold transition"><i
-                        class="fab fa-facebook-f text-xl"></i></a>
-                <a href="https://www.youtube.com/" target="_blank" class="hover:text-adventist-gold transition"><i
-                        class="fab fa-youtube text-xl"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" class="hover:text-adventist-gold transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="https://www.youtube.com/" target="_blank" class="hover:text-adventist-gold transition"><i class="fab fa-youtube text-xl"></i></a>
             </div>
-            <img src="imagenes/logo.jpg"
-                class="h-16 w-16 rounded-full mx-auto mb-5 border-2 border-adventist-gold shadow-xl p-1">
+            <img src="imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-5 border-2 border-adventist-gold shadow-xl p-1">
             <p class="text-slate-400 uppercase tracking-[0.25em] text-[10px]">© 2026 IASD San Francisco de Limache</p>
-            <p class="mt-4 text-slate-400 uppercase tracking-wider text-xs">
-                By <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
-            </p>
+            <p class="mt-4 text-slate-400 uppercase tracking-wider text-xs">By <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span></p>
         </div>
     </footer>
 
@@ -1102,7 +554,7 @@
 
         /* MENU MOBILE */
         document.getElementById("menu-btn").addEventListener("click", () => {
-            document.getElementById("mobile-menu").classList.toggle("open");
+            document.getElementById("mobile-menu").classList.toggle("hidden");
         });
 
         /* ADMIN */
@@ -1132,11 +584,12 @@
             }
         };
 
-        /* RENDER */
+        /* RENDER AVISOS DINÁMICOS */
         function renderAvisos() {
             const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
             onSnapshot(q, (snapshot) => {
                 const cont = document.getElementById("contenedor-avisos-dinamicos");
+                if (!cont) return; // Evita error si no está en la página correcta
                 cont.innerHTML = "";
 
                 snapshot.forEach((d) => {
@@ -1145,32 +598,13 @@
                     card.className = "aviso-card animate-fade glass shadow-2xl hover-card p-4 md:p-6";
 
                     const logosDepartamentos = {
-                        "AVENTUREROS": "imagenes/avent.jpg",
-                        "ASA": "imagenes/asa.jpg",
-                        "MINISTERIO JOVEN": "imagenes/jovenes.jpg",
-                        "MAYORDOMÍA": "imagenes/mayor.jpg",
-                        "DIÁCONOS": "imagenes/diacono.jpg",
-                        "ESCUELA SABÁTICA": "imagenes/sabatica.jpg",
-                        "MINISTERIO INFANTIL": "imagenes/infantil.jpg",
-                        "ORACIÓN": "imagenes/oracion.jpg",
-                        "PUBLICACIONES": "imagenes/publicaciones.jpg",
-                        "MÚSICA": "imagenes/musica.jpg",
-                        "JÓVENES": "imagenes/ja.jpg",
-                        "MUJER": "imagenes/mujer.jpg",
-                        "MINISTERIO PERSONAL": "imagenes/personal.jpg",
-                        "SALUD": "imagenes/salud.jpg",
-                        "FAMILIA": "imagenes/familia.jpg",
-                        "DORCAS": "imagenes/dorcas.jpg",
-                        "GTEEN": "imagenes/gteen.jpeg",
+                        "AVENTUREROS": "imagenes/avent.jpg", "ASA": "imagenes/asa.jpg", "MINISTERIO JOVEN": "imagenes/jovenes.jpg", "MAYORDOMÍA": "imagenes/mayor.jpg", "DIÁCONOS": "imagenes/diacono.jpg", "ESCUELA SABÁTICA": "imagenes/sabatica.jpg", "MINISTERIO INFANTIL": "imagenes/infantil.jpg", "ORACIÓN": "imagenes/oracion.jpg", "PUBLICACIONES": "imagenes/publicaciones.jpg", "MÚSICA": "imagenes/musica.jpg", "JÓVENES": "imagenes/ja.jpg", "MUJER": "imagenes/mujer.jpg", "MINISTERIO PERSONAL": "imagenes/personal.jpg", "SALUD": "imagenes/salud.jpg", "FAMILIA": "imagenes/familia.jpg", "DORCAS": "imagenes/dorcas.jpg", "GTEEN": "imagenes/gteen.jpeg",
                     };
 
                     const departamentoNombre = data.departamento ? data.departamento.toUpperCase() : "DEPARTAMENTO";
                     const logoDepartamento = logosDepartamentos[departamentoNombre] || "logos/default.png";
 
-                    const imagenAvisoHtml = data.imagenUrl ? `
-                        <div class="aviso-img-box">
-                            <img src="${data.imagenUrl}" alt="Imagen aviso">
-                        </div>` : '';
+                    const imagenAvisoHtml = data.imagenUrl ? `<div class="aviso-img-box"><img src="${data.imagenUrl}" alt="Imagen aviso"></div>` : '';
 
                     card.innerHTML = `
                     <div class="aviso-header">
@@ -1180,36 +614,24 @@
                             </div>
                             <div class="departamento-texto">
                                 <small>Departamento</small>
-                                <strong>${data.departamento || 'Departamento'}</strong>
+                                <strong class="break-words">${data.departamento || 'Departamento'}</strong>
                             </div>
                         </div>
-                        ${modoEdicionActivo ? `
-                            <button onclick="eliminarAviso('${d.id}')" class="btn-delete">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        ` : ''}
+                        ${modoEdicionActivo ? `<button onclick="eliminarAviso('${d.id}')" class="btn-delete"><i class="fas fa-trash-alt"></i></button>` : ''}
                     </div>
-                    
-                    <div class="mensaje-aviso auto-text">
+                    <div class="mensaje-aviso auto-text break-words">
                         ${data.mensaje || 'Sin mensaje'}
                     </div>
-                    
                     ${imagenAvisoHtml}
-                    
                     <div class="responsable-box">
                         <div class="responsable-avatar">
                             ${data.lider ? data.lider.charAt(0).toUpperCase() : 'L'}
                         </div>
                         <div class="flex flex-col min-w-0">
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-black">
-                                Responsable
-                            </span>
-                            <span class="font-black uppercase text-slate-700 text-sm md:text-base break-words">
-                                ${data.lider || 'Sin nombre'}
-                            </span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-black">Responsable</span>
+                            <span class="font-black uppercase text-slate-700 text-sm md:text-base break-words">${data.lider || 'Sin nombre'}</span>
                         </div>
-                    </div>
-                    `;
+                    </div>`;
                     cont.appendChild(card);
                 });
             });
@@ -1217,5 +639,4 @@
         renderAvisos();
     </script>
 </body>
-
 </html>

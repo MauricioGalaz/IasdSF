@@ -7,25 +7,29 @@
     <meta name="theme-color" content="#09090b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Base G-Teen | San Francisco de Limache</title>
+    <title>Base G-Teen & Intermediarios | San Francisco de Limache</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;0,900;1,800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* Colores Oficiales G-Teen */
+            /* Paleta de Colores Cyber-Neon para Preadolescentes */
             --gteen-red: #e3000f;
             --gteen-blue: #00a0e3;
+            --inter-purple: #8b5cf6;
+            --inter-yellow: #f59e0b;
 
             --bg-dark: #09090b;
-            --bg-card: #18181b;
-            --bg-card-hover: #27272a;
+            --bg-card: #141419;
+            --bg-card-hover: #1f1f27;
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
 
             --gradient-gteen: linear-gradient(135deg, var(--gteen-red), var(--gteen-blue));
+            --gradient-inter: linear-gradient(135deg, var(--inter-purple), var(--inter-yellow));
             --gradient-ig: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
 
@@ -42,13 +46,12 @@
             color: var(--text-main);
             overflow-x: hidden;
             padding-bottom: 80px;
-            /* Espacio para la barra de navegación móvil */
         }
 
-        /* --- SISTEMA DE ALERTAS (TOASTS) --- */
+        /* --- CONTENEDOR DE TOASTS --- */
         #toast-container {
             position: fixed;
-            top: 80px;
+            top: 20px;
             right: 20px;
             z-index: 999999;
             display: flex;
@@ -57,21 +60,25 @@
         }
 
         .modern-toast {
-            background: white;
+            background: #ffffff;
             color: #18181b;
-            padding: 15px 25px;
+            padding: 14px 22px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            font-weight: 800;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 15px;
-            animation: slideIn 0.3s ease forwards;
+            gap: 12px;
+            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             border-left: 5px solid var(--gteen-blue);
         }
 
         .modern-toast.error {
             border-left-color: var(--gteen-red);
+        }
+
+        .modern-toast.success {
+            border-left-color: #10b981;
         }
 
         @keyframes slideIn {
@@ -91,9 +98,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 5%;
-            background: rgba(9, 9, 11, 0.95);
-            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(20px);
             position: fixed;
             width: 100%;
             top: 0;
@@ -108,8 +115,8 @@
         }
 
         .logo-nav img {
-            height: 45px;
-            border-radius: 10px;
+            height: 40px;
+            border-radius: 8px;
         }
 
         .nav-links {
@@ -124,7 +131,7 @@
             font-size: 13px;
             transition: color 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a:hover {
@@ -133,15 +140,18 @@
 
         .btn-accion {
             background: var(--gteen-red);
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 22px;
+            border-radius: 30px;
             color: white;
             text-decoration: none;
             font-weight: 800;
-            font-size: 14px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-block;
-            text-align: center;
+            font-size: 13px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-accion:hover {
@@ -149,18 +159,18 @@
             box-shadow: 0 5px 15px rgba(227, 0, 15, 0.4);
         }
 
-        /* --- NAVEGACIÓN MÓVIL (TIPO APP) --- */
+        /* --- NAVEGACIÓN MÓVIL ESTILO APP BAR --- */
         .mobile-nav {
             display: none;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(24, 24, 27, 0.95);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 25, 0.96);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             z-index: 1000;
-            padding: 10px 5px 15px;
+            padding: 12px 5px;
             justify-content: space-around;
             align-items: center;
         }
@@ -171,15 +181,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             gap: 5px;
             transition: 0.3s;
-            width: 20%;
+            width: 18%;
         }
 
         .mobile-nav a i {
-            font-size: 22px;
+            font-size: 20px;
             transition: 0.3s;
         }
 
@@ -189,65 +199,64 @@
         }
 
         .mobile-nav a.active i {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             color: var(--gteen-red);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
-            padding: 140px 5% 60px;
-            min-height: 100vh;
+            padding: 160px 5% 80px;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at center, rgba(0, 160, 227, 0.15) 0%, var(--bg-dark) 70%);
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, var(--bg-dark) 75%);
         }
 
         .hero-logo {
-            width: 220px;
-            margin-bottom: 20px;
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0, 160, 227, 0.4);
+            width: 160px;
+            margin-bottom: 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
             animation: float 4s ease-in-out infinite;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.05);
         }
 
         @keyframes float {
-            0% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
 
             50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
+                transform: translateY(-8px);
             }
         }
 
         .iglesia-tag {
             background: linear-gradient(135deg, var(--gteen-red), #90000a);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
-            font-size: 14px;
-            font-weight: 900;
-            letter-spacing: 1px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(227, 0, 15, 0.4);
+            box-shadow: 0 5px 15px rgba(227, 0, 15, 0.3);
         }
 
         .hero h1 {
-            font-size: clamp(35px, 8vw, 70px);
+            font-size: clamp(38px, 7vw, 65px);
             line-height: 1.1;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 900;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .hero h1 span {
@@ -257,46 +266,226 @@
         .hero p {
             font-size: clamp(14px, 2vw, 16px);
             color: var(--text-muted);
-            max-width: 700px;
-            margin-bottom: 30px;
+            max-width: 650px;
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
 
-        /* --- SECCIONES GENERALES --- */
+        /* --- SECCIONES ESTRUCTURALES --- */
+        section {
+            padding: 80px 5%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
         .seccion-oscura {
-            padding: 60px 5%;
             background: var(--bg-dark);
         }
 
         .seccion-clara {
-            padding: 60px 5%;
-            background: #121214;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0c0c10;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .seccion-intermediarios {
+            background: linear-gradient(180deg, #0c0c10 0%, #120e1e 100%);
         }
 
         .section-title {
             text-align: center;
-            font-size: clamp(28px, 5vw, 40px);
-            margin-bottom: 10px;
+            font-size: clamp(28px, 5vw, 38px);
+            margin-bottom: 12px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
         }
 
         .section-title span {
             color: var(--gteen-red);
         }
 
+        .section-title.inter-title span {
+            color: var(--inter-yellow);
+        }
+
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 15px;
-            max-width: 800px;
+            margin-bottom: 50px;
+            font-size: 14px;
+            max-width: 600px;
             margin-inline: auto;
         }
 
-        /* --- TIMELINE (PROGRAMA) --- */
+        /* --- CONTENEDORES DE ESCUELA SABÁTICA --- */
+        .leccion-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .leccion-box {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .leccion-box.teen-box {
+            border-top: 4px solid var(--gteen-blue);
+        }
+
+        .leccion-box.inter-box {
+            border-top: 4px solid var(--inter-purple);
+        }
+
+        .video-wrapper {
+            width: 100%;
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .leccion-info h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .leccion-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* --- CONFIGURACIÓN ESTRUCTURA DEL CARRUSEL --- */
+        .carrusel-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .carrusel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carrusel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carrusel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carrusel-tag-slide {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .carrusel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(20, 20, 25, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.2s;
+        }
+
+        .carrusel-btn:hover {
+            background: var(--inter-purple);
+        }
+
+        .carrusel-btn.prev {
+            left: 10px;
+        }
+
+        .carrusel-btn.next {
+            right: 10px;
+        }
+
+        /* EDITOR DINÁMICO DE IMÁGENES (OCULTO POR DEFECTO) */
+        .editor-carrusel-panel {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 5px;
+        }
+
+        .editor-carrusel-panel h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--inter-yellow);
+            margin-bottom: 10px;
+        }
+
+        .editor-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .editor-row input {
+            background: #09090b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        /* --- TIMELINE DE ACTIVIDADES --- */
         .timeline {
             max-width: 800px;
             margin: 0 auto;
@@ -307,7 +496,7 @@
             content: '';
             position: absolute;
             width: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
             top: 0;
             bottom: 0;
             left: 30px;
@@ -317,7 +506,7 @@
         .timeline-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
         }
 
@@ -325,34 +514,38 @@
             width: 40px;
             height: 40px;
             background: var(--bg-dark);
-            border: 4px solid var(--gteen-blue);
+            border: 3px solid var(--gteen-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: absolute;
             left: 12px;
-            top: 0;
+            top: 4px;
             color: var(--gteen-red);
-            font-size: 16px;
+            font-size: 14px;
             z-index: 2;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .timeline-content {
             background: var(--bg-card);
-            padding: 20px;
+            padding: 22px;
             border-radius: 20px;
-            width: calc(100% - 60px);
-            margin-left: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
+            width: calc(100% - 65px);
+            margin-left: 65px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.2s;
+        }
+
+        .timeline-content:hover {
+            background: var(--bg-card-hover);
+            transform: translateX(4px);
         }
 
         .timeline-content h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
             text-transform: uppercase;
             display: flex;
             justify-content: space-between;
@@ -360,25 +553,27 @@
         }
 
         .timeline-time-badge {
-            background: rgba(0, 160, 227, 0.1);
+            background: rgba(0, 160, 227, 0.15);
             color: var(--gteen-blue);
-            font-size: 12px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: bold;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
         }
 
         .timeline-content p {
             color: var(--text-muted);
             font-size: 13px;
-            margin: 0;
         }
 
-        /* --- DESAFÍOS TIPO FLYER (6 TARJETAS PREADOLESCENTES) --- */
+        .timeline-time-desktop {
+            display: none;
+        }
+
+        /* --- GRID DE TARJETAS FLYER --- */
         .flyer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -388,33 +583,28 @@
             border-radius: 24px;
             overflow: hidden;
             aspect-ratio: 4/5;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             background: var(--bg-card);
         }
 
         .flyer-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
             z-index: 1;
-            transition: transform 0.6s ease;
+            transition: transform 0.4s ease;
         }
 
         .flyer-card:hover .flyer-bg {
-            transform: scale(1.1);
+            transform: scale(1.06);
         }
 
         .flyer-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(9, 9, 11, 1) 0%, rgba(9, 9, 11, 0.5) 50%, rgba(9, 9, 11, 0.1) 100%);
+            inset: 0;
+            background: linear-gradient(to top, #09090b 18%, rgba(9, 9, 11, 0.3) 65%, transparent 100%);
             z-index: 2;
         }
 
@@ -423,335 +613,184 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px;
+            padding: 25px;
             z-index: 3;
-            text-align: left;
         }
 
         .flyer-icon {
-            width: auto;
-            display: inline-flex;
-            height: 45px;
-            padding: 0 15px;
-            border-radius: 25px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             background: var(--gteen-blue);
+            display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 16px;
             color: white;
-            margin-bottom: 12px;
-            box-shadow: 0 5px 15px rgba(0, 160, 227, 0.5);
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 160, 227, 0.4);
         }
 
         .flyer-content h3 {
-            color: white;
-            font-size: 20px;
-            margin-bottom: 6px;
+            font-size: 22px;
             font-weight: 900;
             text-transform: uppercase;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 8px;
         }
 
         .flyer-content p {
-            color: #e4e4e7;
+            color: #d4d4d8;
             font-size: 13px;
-            line-height: 1.4;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            line-height: 1.5;
         }
 
-        @keyframes latidoCorazon {
-            0% {
-                transform: scale(1);
-            }
-
-            15% {
-                transform: scale(1.3);
-            }
-
-            30% {
-                transform: scale(1);
-            }
-
-            45% {
-                transform: scale(1.3);
-            }
-
-            60% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        /* --- SECCIÓN JUEGOS VIRTUALES (CÓDIGO RESPETADO EXACTAMENTE COMO LO ENVIASTE) --- */
+        /* --- JUEGOS Y TRIVIAS GAMIFICADAS --- */
         .juegos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .juego-card {
-            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(0, 160, 227, 0.08) 100%);
-            padding: 30px 20px;
+            background: rgba(20, 20, 25, 0.7);
+            padding: 35px 25px;
             border-radius: 24px;
             text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             text-decoration: none;
-            display: block;
-            -webkit-tap-highlight-color: transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
 
         .juego-card:hover {
             border-color: var(--gteen-blue);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 160, 227, 0.2);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
         }
 
         .juego-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
+            font-size: 45px;
             color: var(--gteen-blue);
-            filter: drop-shadow(0 0 10px rgba(0, 160, 227, 0.5));
+            margin-bottom: 5px;
         }
 
-        .juego-card h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: white;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        /* JUEGO INTERACTIVO QUIÉN SOY */
         .juego-interactivo {
-            background: var(--bg-dark);
-            border: 2px dashed var(--gteen-red);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 30px;
+            background: var(--bg-card);
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 35px 20px;
+            margin-top: 45px;
             text-align: center;
-            max-width: 800px;
+            max-width: 750px;
             margin-inline: auto;
         }
 
         .trivia-pista {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 17px;
+            font-weight: 600;
+            color: #f4f4f5;
+            margin-bottom: 25px;
+            min-height: 50px;
             font-style: italic;
+            line-height: 1.6;
         }
 
         .trivia-respuesta {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
-            color: var(--gteen-blue);
-            margin-bottom: 20px;
+            color: var(--inter-yellow);
+            margin-bottom: 25px;
             display: none;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 160, 227, 0.5);
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
         }
 
         .btn-trivia {
             background: var(--gradient-gteen);
             border: none;
-            padding: 12px 20px;
+            padding: 12px 25px;
             color: white;
-            font-size: 14px;
-            font-weight: 800;
+            font-size: 13px;
+            font-weight: 700;
             border-radius: 30px;
             cursor: pointer;
-            margin: 5px;
             width: 100%;
-            max-width: 250px;
+            max-width: 200px;
+            transition: 0.2s;
         }
 
-        /* --- GALERÍA DE CANTOS (TIPO NETFLIX/YOUTUBE) --- */
+        .btn-trivia:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* --- ADORACIÓN MEDIA --- */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .video-card {
-            background: var(--bg-card);
-            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: transform 0.2s;
+            aspect-ratio: 16/10;
         }
 
         .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 160, 227, 0.2);
+            transform: scale(1.03);
             border-color: var(--gteen-blue);
         }
 
-        .video-player-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            position: relative;
-        }
-
-        .video-player-wrapper video {
+        .video-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .video-info {
-            padding: 20px;
-        }
-
-        .video-tag {
-            display: inline-block;
-            background: var(--gteen-red);
-            color: white;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .video-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-
-        .video-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* --- PILARES CRM --- */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--bg-card);
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
+        .video-overlay-title {
             position: absolute;
-            top: 0;
-            left: 0;
+            bottom: 0;
             width: 100%;
-            height: 4px;
-            background: var(--gradient-gteen);
-            transform: scaleX(0);
-            transition: 0.3s;
-            transform-origin: left;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            background: var(--bg-card-hover);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: var(--gteen-red);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-icon {
-                left: 2px;
-            }
-
-            .timeline-time {
-                display: none;
-            }
-
-            .timeline-content {
-                width: calc(100% - 50px);
-                margin-left: 50px;
-            }
-        }
-
-
-        /* MEJORAS VISUALES */
-        .card.desafio {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .card.desafio:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 160, 227, 0.3);
-        }
-
-        /* Botones más pro */
-        button.btn-accion {
-            border: none;
-            cursor: pointer;
-        }
-
-        /* --- SECCIÓN LÍDERES (PROTEGIDA) --- */
+        /* --- PORTAL DIRECTIVA --- */
         .lideres-login {
-            max-width: 400px;
+            max-width: 380px;
             margin: 0 auto;
             background: var(--bg-card);
-            padding: 30px;
+            padding: 35px 25px;
             border-radius: 24px;
-            border: 2px solid var(--border-light);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
         }
 
         .lideres-login input {
             width: 100%;
-            padding: 15px;
-            font-size: 16px;
+            padding: 14px;
+            font-size: 15px;
             text-align: center;
             border-radius: 12px;
-            border: 2px solid var(--border-light);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             background: var(--bg-dark);
             color: white;
-            font-weight: bold;
             margin-bottom: 20px;
             outline: none;
         }
@@ -766,280 +805,13 @@
 
         .pdf-visor {
             width: 100%;
-            height: 70vh;
-            border-radius: 15px;
-            border: 3px solid var(--gteen-red);
+            height: 65vh;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 15px;
         }
 
-        /* RESPONSIVE DESKTOP OVERRIDES */
-        @media (min-width: 769px) {
-            .mobile-nav {
-                display: none !important;
-            }
-
-            body {
-                padding-bottom: 0;
-            }
-
-            .timeline::before {
-                left: 50px;
-            }
-
-            .timeline-icon {
-                left: 32px;
-                width: 40px;
-                height: 40px;
-            }
-
-            .timeline-content {
-                width: calc(100% - 120px);
-                margin-left: 120px;
-            }
-
-            .timeline-time-badge {
-                display: none;
-            }
-
-            .timeline-time-desktop {
-                display: block;
-                position: absolute;
-                left: -120px;
-                top: 8px;
-                width: 100px;
-                text-align: right;
-                color: var(--gteen-blue);
-                font-weight: 900;
-            }
-        }
-
-        /* HIDE DESKTOP ELEMENTS ON MOBILE */
-        @media (max-width: 768px) {
-            nav.desktop-nav {
-                display: none;
-            }
-
-            .mobile-nav {
-                display: flex;
-            }
-
-            .timeline-time-desktop {
-                display: none;
-            }
-        }
-
-        .video-youtube {
-            max-width: 900px;
-            margin: 0 auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .video-youtube iframe {
-            width: 100%;
-            height: 500px;
-        }
-
-        .gteen-texto {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .gteen-texto h3 {
-            color: var(--gteen-red);
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-
-        .gteen-texto p {
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: auto;
-            font-size: 14px;
-        }
-
-        /* RESPONSIVE */
-        @media(max-width:768px) {
-            .video-youtube iframe {
-                height: 220px;
-            }
-        }
-
-        .leccion-card {
-            max-width: 500px;
-            margin: auto;
-            text-align: center;
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .leccion-card i {
-            font-size: 50px;
-            color: red;
-            margin-bottom: 15px;
-        }
-
-        .leccion-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .leccion-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .leccion-botones {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-accion.compartir {
-            background: var(--gteen-blue);
-        }
-
-        .video-youtube iframe {
-            width: 100%;
-            height: 500px;
-        }
-
-        @media(max-width:768px) {
-            .video-youtube iframe {
-                height: 220px;
-            }
-        }
-
-        /* HAMBURGUESA */
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* RESPONSIVE NAV */
-        @media (max-width: 768px) {
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 70px;
-                right: 0;
-                width: 100%;
-                background: rgba(9, 9, 11, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                padding: 20px 0;
-                display: none;
-                border-top: 2px solid var(--gteen-red);
-            }
-
-            .nav-links.active {
-                display: flex;
-                animation: fadeIn 0.3s ease;
-            }
-
-            .nav-links a {
-                font-size: 16px;
-            }
-        }
-
-        /* ANIMACIÓN */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        img,
-        video,
-        iframe {
-            max-width: 100%;
-            height: auto;
-        }
-
-        section {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .video-card {
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 12px;
-            transition: transform .3s ease;
-        }
-
-        .video-card:hover {
-            transform: scale(1.08);
-        }
-
-        .video-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .overlay {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(transparent, black);
-            color: white;
-        }
-
-        /* MODAL */
-        .video-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: black;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .video-modal video {
-            width: 90%;
-            max-height: 90%;
-        }
-
-        .cerrar {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
+        /* --- MODAL DE REPRODUCCIÓN --- */
         .video-modal {
             display: none;
             position: fixed;
@@ -1051,26 +823,97 @@
         }
 
         .video-modal iframe {
-            width: 92%;
-            height: 82vh;
+            width: 90%;
+            height: 75vh;
             border: none;
-            border-radius: 18px;
-            background: #000;
+            border-radius: 16px;
         }
 
-        .cerrar {
+        .cerrar-modal {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            background: #e50914;
+            top: 25px;
+            right: 25px;
+            background: var(--gteen-red);
             color: white;
             border: none;
-            font-size: 26px;
-            padding: 8px 14px;
+            font-size: 20px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 100000;
         }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (min-width: 769px) {
+            .mobile-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .timeline::before {
+                left: 110px;
+            }
+
+            .timeline-icon {
+                left: 90px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 150px);
+                margin-left: 150px;
+            }
+
+            .timeline-time-badge {
+                display: none;
+            }
+
+            .timeline-time-desktop {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 12px;
+                width: 75px;
+                text-align: right;
+                color: var(--gteen-blue);
+                font-weight: 800;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav.desktop-nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: 90px;
+            }
+
+            section {
+                padding: 55px 4%;
+            }
+        }
+
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        @keyframes glowSuccess {
+            0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.6); border-color: #10b981; }
+        }
+        .anim-shake { animation: shake 0.4s ease-in-out; }
+        .anim-glow { animation: glowSuccess 0.6s ease-in-out 2; }
+    
     </style>
 </head>
 
@@ -1078,632 +921,740 @@
 
     <div id="toast-container"></div>
 
+    <!-- NAVEGACIÓN ESCRITORIO -->
     <nav class="desktop-nav">
         <div class="logo-nav">
             <img src="logo.jpg" alt="G-Teen Logo" onerror="this.style.display='none'">
-            <span style="font-weight: 900; letter-spacing: 1px;">IASD</span>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
+            <span style="font-weight: 900; letter-spacing: 0.5px;">BASE G-TEEN</span>
         </div>
         <div class="nav-links">
+            <a href="#leccion">Escuela Sabática</a>
             <a href="#programa">Programa</a>
+            <a href="#intermediarios">Intermediarios</a>
             <a href="#desafios">Desafíos</a>
             <a href="#juegos">Juegos</a>
-            <a href="#cantos">Cantos</a>
-            <a href="#lideres" style="color: var(--gteen-red);"><i class="fa-solid fa-lock"></i> Líderes</a>
+            <a href="#cantos">Adoración</a>
+            <a href="#lideres" style="color: var(--gteen-red);"><i class="fa-solid fa-lock"></i> Directiva</a>
         </div>
-        <a href="#gteen" class="btn-accion">
-            <i class="fa-solid fa-circle-question"></i> ¿Qué es G-Teen?
+        <a href="https://www.youtube.com/embed/Cg-bdHo2zzE?si=jXdgHAYd6tXf8oIG" target="_blank" class="btn-accion">
+            <i class="fa-solid fa-play"></i> ¡ENTRAR A LA BASE!
         </a>
-        <a href="https://www.youtube.com/embed/Cg-bdHo2zzE?si=jXdgHAYd6tXf8oIG" class="btn-accion">
-            <i class="fa-solid fa-circle-question"></i> ¡𝐕𝐄𝐍 𝐀 𝐓𝐔 𝐁𝐀𝐒𝐄 #𝐆𝐓𝐄𝐄𝐍! 🙌🏼
-        </a>
-
     </nav>
 
+    <!-- INTRODUCCIÓN -->
     <section class="hero" id="inicio">
         <img src="logo.jpg" alt="Generación Teen" class="hero-logo" onerror="this.style.display='none'">
         <div class="iglesia-tag"><i class="fa-solid fa-church"></i> San Francisco de Limache</div>
         <h1>#VoyX<span>Jesús</span></h1>
-        <p>No somos solo una clase de escuela sabática; somos una Base de discipulado. Prepárate para vivir una
-            experiencia integral, llena de desafíos, amigos y propósito.</p>
+        <p>No somos una simple clase de sábado; somos una Base unificada de discipulado, identidad y acción. Prepárate
+            para vivir una experiencia de fe integral junto a tus amigos.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; width: 100%;">
-
-            <!-- <a href="#GteenCanalIASF" class="btn-accion"
-                style="padding: 15px 30px; font-size: 16px; border-radius: 30px; width: 80%; max-width: 300px;">
-                <i class="fa-solid fa-list-check"></i> Nuestro Canal
-            </a> -->
-
-            <!-- BOTÓN INSTAGRAM -->
-            <a href="https://instagram.com/TU_USUARIO_AQUI" target="_blank" class="btn-accion"
-                style="padding: 15px 30px; font-size: 16px; border-radius: 30px; width: 80%; max-width: 300px; background: var(--gradient-ig);">
-                <i class="fa-brands fa-instagram"></i> Instagram G-Teen
+            <a href="https://instagram.com/" target="_blank" class="btn-accion"
+                style="padding: 14px 30px; font-size: 14px; background: var(--gradient-ig);">
+                <i class="fa-brands fa-instagram"></i> @GTeenLimache
             </a>
-
+            <a href="#intermediarios" class="btn-accion"
+                style="padding: 14px 30px; font-size: 14px; background: var(--gradient-inter);">
+                <i class="fa-solid fa-user-group"></i> Intermediarios Hub
+            </a>
         </div>
     </section>
 
+    <!-- SECCIÓN ESCUELA SABÁTICA UNIFICADA -->
+    <section class="seccion-clara" id="leccion">
+        <h2 class="section-title">Escuela <span>Sabática</span></h2>
+        <p class="section-subtitle">Repasa y estudia el folleto con los videos oficiales e interactivos de esta semana.
+        </p>
+
+        <div class="leccion-container">
+            <!-- LECCIÓN ADOLESCENTES (G-TEEN) -->
+            <div class="leccion-box teen-box">
+                <div class="leccion-info">
+                    <span
+                        style="color: var(--gteen-blue); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Generación
+                        Teen</span>
+                    <h3>Lección de Adolescentes</h3>
+                    <p>Estudio interactivo de la Escuela Sabática para jóvenes y adolescentes de la Base.</p>
+                </div>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/aZeJBVw2fFY?rel=0" title="Lección G-Teen Semanal"
+                        allowfullscreen></iframe>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="https://www.youtube.com/@Lecci%C3%B3nGPTeens" target="_blank" class="btn-accion"
+                        style="flex: 1; justify-content: center; background: #ef4444;">
+                        <i class="fa-brands fa-youtube"></i> Canal Oficial
+                    </a>
+                    <button onclick="compartirURL('https://www.youtube.com/watch?v=aZeJBVw2fFY')" class="btn-accion"
+                        style="background: var(--gteen-blue);">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN MEJORADA: ACTIVIDADES CON CARRUSEL EDITABLE & NOTICIAS -->
+            <div class="leccion-box inter-box" id="leccion-intermediarios">
+                <div class="leccion-info">
+                    <span
+                        style="color: var(--inter-yellow); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Intermediarios</span>
+                    <h3>Actividades & Noticias</h3>
+                    <p>Entérate de lo que pasa cada sábado en nuestra base y revisa los próximos eventos.</p>
+                </div>
+
+                <!-- CARRUSEL DINÁMICO DESLIZABLE -->
+                <div class="carrusel-container">
+                    <button class="carrusel-btn prev" onclick="cambiarSlide(-1)"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carrusel-btn next" onclick="cambiarSlide(1)"><i
+                            class="fa-solid fa-chevron-right"></i></button>
+
+                    <div class="carrusel-track" id="carruselTrack">
+                        <div class="carrusel-slide">
+                            <img id="imgSlide1" src="logo.jpg" alt="Actividad 1">
+                            <span id="tagSlide1" class="carrusel-tag-slide">Estudio Base</span>
+                        </div>
+                        <div class="carrusel-slide">
+                            <img id="imgSlide2" src="logo.jpg" alt="Actividad 2">
+                            <span id="tagSlide2" class="carrusel-tag-slide">Dinámicas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL EXCLUSIVO DE EDICIÓN (Sincronizado con la Directiva) -->
+                <div class="editor-carrusel-panel" id="editorCarruselPanel">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> Modificar Fotos del Carrusel</h4>
+                    <div class="editor-row">
+                        <label style="font-size: 11px; color: var(--text-muted);">Foto 1 (URL o nombre archivo):</label>
+                        <input type="text" id="inputUrl1" value="logo.jpg" oninput="actualizarFotosLive()">
+                        <input type="text" id="inputTag1" value="Estudio Base" oninput="actualizarFotosLive()"
+                            placeholder="Etiqueta foto 1">
+                    </div>
+                    <div class="editor-row" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <label style="font-size: 11px; color: var(--text-muted);">Foto 2 (URL o nombre archivo):</label>
+                        <input type="text" id="inputUrl2" value="logo.jpg" oninput="actualizarFotosLive()">
+                        <input type="text" id="inputTag2" value="Dinámicas" oninput="actualizarFotosLive()"
+                            placeholder="Etiqueta foto 2">
+                    </div>
+                </div>
+
+                <!-- TABLERO DE AVISOS Y BOLETÍN DE LA SEMANA -->
+                <div
+                    style="background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 16px; border: 1px solid rgba(245, 158, 11, 0.15); display: flex; flex-direction: column; gap: 10px;">
+                    <h4
+                        style="font-size: 13px; color: var(--inter-yellow); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-bullhorn"></i> Boletín de la Base
+                    </h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;">
+                        <li style="display: flex; gap: 8px; align-items: flex-start;">
+                            <i class="fa-solid fa-calendar-day"
+                                style="color: var(--inter-purple); margin-top: 3px;"></i>
+                            <span><strong>Próximo Sábado:</strong> Trae tu polera oficial para la fotografía grupal de
+                                la Base.</span>
+                        </li>
+                        <li
+                            style="display: flex; gap: 8px; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                            <i class="fa-solid fa-cake-candles" style="color: var(--gteen-red); margin-top: 3px;"></i>
+                            <span><strong>Cumpleaños:</strong> ¡Felicidades a los cumpleañeros de este mes! Tendremos un
+                                momento especial.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ACCESO AL FOLLETO EN YOUTUBE POR CONTEXTO -->
+                <div
+                    style="background: rgba(139, 92, 246, 0.08); padding: 12px; border-radius: 14px; border: 1px dashed rgba(139, 92, 246, 0.25); text-align: center; font-size: 12px;">
+                    <span style="color: var(--text-muted); display: block; margin-bottom: 4px;">¿Quieres estudiar el
+                        folleto de la semana?</span>
+                    <a href="https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa" target="_blank"
+                        style="color: var(--inter-yellow); font-weight: 700; text-decoration: none; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Folleto en YouTube
+                    </a>
+                </div>
+
+                <div style="display: flex; gap: 10px; width: 100%; margin-top: auto;">
+                    <a href="https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa" target="_blank"
+                        class="btn-accion"
+                        style="flex: 1; justify-content: center; background: var(--inter-purple); padding: 12px;">
+                        <i class="fa-solid fa-children"></i> Lista de Videos
+                    </a>
+                    <button
+                        onclick="compartirURL('https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa')"
+                        class="btn-accion" style="background: var(--inter-yellow); color: #000; padding: 12px;">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRONOGRAMA SÁBADO -->
     <section class="seccion-oscura" id="programa">
-        <h2 class="section-title">Programa de <span>Sábado</span></h2>
-        <p class="section-subtitle">Sigue el paso a paso de nuestra Base G-Teen para vivir una experiencia completa.</p>
+        <h2 class="section-title">Cronograma <span>Sábado</span></h2>
+        <p class="section-subtitle">Sigue la ruta y actividades oficiales en vivo dentro de nuestra base.</p>
 
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-time-desktop">09:30 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-door-open"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Recepción</span> <span
-                            class="timeline-time-badge">09:30</span></h3>
-                    <p>Bienvenida a la base. Saludos, abrazos y registro de asistencia. ¡Feliz sábado!</p>
+                    <h3><span style="color: var(--gteen-blue);">Recepción</span> <span class="timeline-time-badge">09:30
+                            AM</span></h3>
+                    <p>Registro de asistencia en el tótem digital, entrega de materiales y bienvenida formal.</p>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 2</div>
+                <div class="timeline-time-desktop">09:45 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-red);">Adoración</span></h3>
-                    <p>Momento de alabar a Dios con música. Canto de alabanza y tema lema.</p>
+                    <h3><span style="color: var(--gteen-red);">Alabanza & Adoración</span> <span
+                            class="timeline-time-badge">09:45 AM</span></h3>
+                    <p>Espacio musical para sintonizar el corazón mediante cantos lema y reflexiones.</p>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 3</div>
+                <div class="timeline-time-desktop">10:00 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-person-praying"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Conexión</span></h3>
-                    <p>Oración con dinámicas, recolección de pedidos especiales y agradecimientos.</p>
+                    <h3><span style="color: var(--gteen-blue);">Dinámica de Oración</span> <span
+                            class="timeline-time-badge">10:00 AM</span></h3>
+                    <p>Cadena de peticiones y agradecimientos grupales en la pizarra interactiva.</p>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 4</div>
-                <div class="timeline-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-                <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-red);">Anuncios</span></h3>
-                    <p>Noticias, boletín Teen, cumpleaños de la semana, anuncio del Desafío Teen.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 5</div>
+                <div class="timeline-time-desktop">10:15 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-earth-americas"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Misión Teen</span></h3>
-                    <p>Informe misionero dinámico y recolección de ofrendas para los proyectos.</p>
+                    <h3><span style="color: var(--gteen-red);">Misión Global</span> <span
+                            class="timeline-time-badge">10:15 AM</span></h3>
+                    <p>Relato animado de la recolección de ofrendas mundiales y el impacto misionero actual.</p>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 6</div>
+                <div class="timeline-time-desktop">10:30 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-book-bible"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-red);">Conectado</span></h3>
-                    <p>El núcleo de nuestra clase: Repaso de la lección de Escuela Sabática interactiva.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time-desktop">Paso 7</div>
-                <div class="timeline-icon"><i class="fa-solid fa-hands-praying"></i></div>
-                <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Despedida</span></h3>
-                    <p>Incentivo del trimestre, canto final de adoración y oración de cierre.</p>
+                    <h3><span style="color: var(--gteen-blue);">Repaso de Lección</span> <span
+                            class="timeline-time-badge">10:30 AM</span></h3>
+                    <p>Análisis interactivo por unidades, debates dinámicos y resolución de dudas.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="seccion-oscura" id="leccion">
-        <h2 class="section-title">Lección <span>Semanal</span></h2>
-        <p class="section-subtitle">
-            Mira el video de esta semana 📖
-        </p>
+    <!-- ZONA INTERMEDIARIOS HUB (PREADOLESCENTES) -->
+    <section class="seccion-intermediarios" id="intermediarios">
+        <h2 class="section-title inter-title">Espacio de <span>Intermediarios</span></h2>
+        <p class="section-subtitle">Un espacio interactivo de crecimiento, descarga de materiales y multimedia para
+            preadolescentes.</p>
 
-        <div class="video-youtube">
-            <iframe src="https://www.youtube.com/embed/hXG6G5kKzJ8" title="Lección G-Teen" frameborder="0"
-                allowfullscreen>
-            </iframe>
-        </div>
+        <div class="flyer-grid">
+            <div class="flyer-card" style="border-radius: 20px;">
+                <img src="logo.jpg" alt="Folleto" class="flyer-bg" style="filter: hue-rotate(50deg); opacity: 0.2;">
+                <div class="flyer-overlay"></div>
+                <div class="flyer-content">
+                    <div class="flyer-icon" style="background: var(--inter-purple);"><i
+                            class="fa-solid fa-book-bible"></i></div>
+                    <h3 style="color: var(--inter-yellow);">Guía de Estudio</h3>
+                    <p style="margin-bottom: 15px;">Accede al folleto digital oficial de la clase de Intermediarios para
+                        tu lectura y repaso de la semana.</p>
+                    <a href="https://www.adventistas.org/es/infantiles/" target="_blank" class="btn-accion"
+                        style="padding: 6px 15px; font-size: 11px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);">
+                        <i class="fa-solid fa-download"></i> Leer Folleto Digital
+                    </a>
+                </div>
+            </div>
 
-        <div style="text-align:center; margin-top:20px;">
-            <a href="https://www.youtube.com/@Lecci%C3%B3nGPTeens" target="_blank" class="btn-accion">
-                <i class="fa-brands fa-youtube"></i> Ver Canal
-            </a>
+            <div class="flyer-card" style="border-radius: 20px;">
+                <img src="logo.jpg" alt="Misión" class="flyer-bg" style="filter: hue-rotate(120deg); opacity: 0.2;">
+                <div class="flyer-overlay"></div>
+                <div class="flyer-content">
+                    <div class="flyer-icon" style="background: var(--inter-yellow); color:#000;"><i
+                            class="fa-solid fa-globe"></i></div>
+                    <h3 style="color: white;">Misión Global</h3>
+                    <p style="margin-bottom: 15px;">Conoce los testimonios reales de fe, proyectos sociales e historias
+                        de preadolescentes alrededor del mundo.</p>
+                    <a href="https://www.youtube.com/@NuevoTiempoKids" target="_blank" class="btn-accion"
+                        style="padding: 6px 15px; font-size: 11px; background: #ef4444;">
+                        <i class="fa-brands fa-youtube"></i> Contenido Multimedia
+                    </a>
+                </div>
+            </div>
 
-            <button onclick="compartirLeccion()" class="btn-accion" style="background: var(--gteen-blue);">
-                <i class="fa-solid fa-share"></i> Compartir
-            </button>
+            <div class="flyer-card" style="border-radius: 20px;">
+                <img src="logo.jpg" alt="Actividades" class="flyer-bg"
+                    style="filter: hue-rotate(270deg); opacity: 0.2;">
+                <div class="flyer-overlay"></div>
+                <div class="flyer-content">
+                    <div class="flyer-icon" style="background: #10b981;"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <h3 style="color: var(--inter-purple);">Actividades Base</h3>
+                    <p style="margin-bottom: 15px;">Descarga mapas dinámicos, cuadernillos de actividades y proyectos de
+                        aplicación de fe en la comunidad.</p>
+                    <a href="https://www.adventistas.org/es/infantiles/proyecto/vivos-en-jesus/" target="_blank"
+                        class="btn-accion" style="padding: 6px 15px; font-size: 11px; background: #10b981;">
+                        <i class="fa-solid fa-scissors"></i> Descargar Guías
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- DESAFÍOS -->
     <section class="seccion-clara" id="desafios">
         <h2 class="section-title">Desafíos <span>G-Teen</span></h2>
-        <p class="section-subtitle">Nuestras metas para consolidar nuestra identidad y formar una Base Oficial
-            invencible. ¡Somos un equipo!</p>
+        <p class="section-subtitle">Nuestras metas estratégicas de equipo para consolidar la unión, fe y servicio
+            comunitario.</p>
 
         <div class="flyer-grid">
             <div class="flyer-card">
-                <img src="imagenes/sala.jpg" alt="Remodelar Sala" class="flyer-bg" onerror="this.src='sala'">
+                <img src="logo.jpg" alt="Sala" class="flyer-bg" style="opacity: 0.4;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--gteen-blue);"><i
-                            class="fa-solid fa-paint-roller"></i></div>
-                    <h3>Crear Nuestro<br>Espacio</h3>
-                    <p>Remodelar y decorar la sala para convertirla en nuestra verdadera Base G-Teen.</p>
+                    <div class="flyer-icon"><i class="fa-solid fa-paint-roller"></i></div>
+                    <h3>Nuestro Espacio</h3>
+                    <p>Completar la remodelación estética y la actualización tecnológica de nuestra sala base.</p>
                 </div>
             </div>
-
             <div class="flyer-card">
-                <img src="imagenes/poleras.jpg" alt="Poleras G-Teen" class="flyer-bg" onerror="this.src='poleras'">
+                <img src="logo.jpg" alt="Identidad" class="flyer-bg" style="filter: saturate(2); opacity: 0.4;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
-                    <div class="flyer-icon" style="background: #f09433;"><i class="fa-solid fa-shirt"></i></div>
-                    <h3>Identidad<br>Oficial</h3>
-                    <p>Obtener nuestra vestimenta. ¡Lograr que todo el equipo tenga su polera G-Teen!</p>
+                    <div class="flyer-icon" style="background: #f59e0b;"><i class="fa-solid fa-shirt"></i></div>
+                    <h3>Polera Oficial</h3>
+                    <p>Asegurar que cada miembro del equipo cuente con su indumentaria oficial G-Teen para misiones.</p>
                 </div>
             </div>
-
             <div class="flyer-card">
-                <img src="imagenes/ayuda.jpg" alt="Comunidad" class="flyer-bg" onerror="this.src='comunidad'">
+                <img src="logo.jpg" alt="Misión" class="flyer-bg" style="filter: brightness(0.6); opacity: 0.4;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
                     <div class="flyer-icon" style="background: #10b981;"><i class="fa-solid fa-hand-holding-heart"></i>
                     </div>
-                    <h3>Ayuda al<br>Prójimo</h3>
-                    <p>Impactar a nuestra comunidad de Limache y llevar ayuda a quienes más lo necesitan.</p>
+                    <h3>Impacto Limache</h3>
+                    <p>Organizar proyectos de apoyo solidario y urbano en sectores necesitados de nuestra comuna.</p>
                 </div>
             </div>
-
-            <div class="flyer-card">
-                <img src="imagenes/iglesia.jpg" alt="Iglesia" class="flyer-bg" onerror="this.src='iglesia'">
-                <div class="flyer-overlay"></div>
-                <div class="flyer-content">
-                    <div class="flyer-icon" style="background: #8b5cf6;"><i class="fa-solid fa-church"></i></div>
-                    <h3>Activos en<br>la Iglesia</h3>
-                    <p>Participar con alegría en cultos jóvenes, programas especiales y vida social.</p>
-                </div>
-            </div>
-
-            <div class="flyer-card">
-                <img src="imagenes/gp.jpg" alt="Grupos Pequeños" class="flyer-bg" onerror="this.src='gp'">
-                <div class="flyer-overlay"></div>
-                <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--gteen-blue);"><i
-                            class="fa-solid fa-people-group"></i></div>
-                    <h3>Grupos<br>Pequeños</h3>
-                    <p>Reunirnos en la semana para compartir, orar unos por otros y crecer juntos.</p>
-                </div>
-            </div>
-
-            <div class="flyer-card"
-                style="border: 2px solid var(--gteen-red); box-shadow: 0 0 30px rgba(227,0,15,0.4); transform: scale(1.02);">
-                <img src="imagenes/escuela.jpg" alt="Escuela Sabática" class="flyer-bg" onerror="this.src='escsab'">
-                <div class="flyer-overlay"
-                    style="background: linear-gradient(to top, rgba(9,9,11,1) 0%, rgba(227,0,15,0.4) 50%, rgba(9,9,11,0.1) 100%);">
-                </div>
-
-                <div
-                    style="position: absolute; top: 15px; right: 15px; background: var(--gteen-red); color: white; font-weight: 900; font-size: 11px; padding: 5px 12px; border-radius: 20px; z-index: 4; box-shadow: 0 2px 10px rgba(0,0,0,0.5); letter-spacing: 1px; animation: latidoCorazon 1.5s infinite;">
-                    VITAL
-                </div>
-
-                <div class="flyer-content">
-                    <div class="flyer-icon"
-                        style="background: var(--gteen-red); width: auto; padding: 0 20px; border-radius: 30px;">
-                        <i class="fa-solid fa-book-bible"></i>
-                        <div style="display: inline-flex; margin-left: 10px; gap: 3px;">
-                            <i class="fa-solid fa-heart"
-                                style="color: white; font-size: 18px; animation: latidoCorazon 1.2s infinite alternate;"></i>
-                            <i class="fa-solid fa-heart"
-                                style="color: white; font-size: 14px; animation: latidoCorazon 1.2s infinite alternate-reverse;"></i>
-                        </div>
-                    </div>
-                    <h3 style="color: white; text-shadow: 0 2px 10px rgba(227,0,15,0.8); font-size: 26px;">
-                        Escuela<br>Sabática</h3>
-                    <p style="color: white; font-weight: 700; font-size: 15px;"><strong>¡EL CORAZÓN DE LA
-                            BASE!</strong>
-                        Estudiar nuestro folleto y participar de la lección es el motor de nuestra clase.</p>
-                </div>
-            </div>
-            <div class="flyer-card">
-                <img src="logo.jpg" alt="" class="flyer-bg" onerror="this.src='desafio'">
-                <div class="flyer-overlay"></div>
-                <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--gteen-blue);"><i
-                            class="fa-solid fa-people-group"></i></div>
-                    <h3><br>Desafío#</h3>
-                    <p>Pronto se presentará el desafío</p>
-                </div>
-            </div>
-            <div class="flyer-card">
-                <img src="logo.jpg" alt="" class="flyer-bg" onerror="this.src='desafio'">
-                <div class="flyer-overlay"></div>
-                <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--gteen-blue);"><i
-                            class="fa-solid fa-people-group"></i></div>
-                    <h3><br>Desafío##</h3>
-                    <p>Pronto se presentará el desafío</p>
-                </div>
-            </div>
+        </div>
     </section>
 
+    <!-- TRIVIAS Y JUEGOS CON GAMIFICACIÓN AVANZADA -->
     <section class="seccion-oscura" id="juegos">
-        <h2 class="section-title">Juegos <span>Virtuales</span></h2>
-        <p class="section-subtitle">Dinámicas interactivas para aprender y divertirnos durante la clase.</p>
+        <h2 class="section-title">Zona de <span>Juegos</span></h2>
+        <p class="section-subtitle">Competiciones y evaluaciones divertidas en tiempo real durante la lección sabática.
+        </p>
 
         <div class="juegos-grid">
             <a href="https://kahoot.it/" target="_blank" class="juego-card">
                 <div class="juego-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
                 <h3>Biblia Kahoot!</h3>
-                <p style="color:var(--text-muted); font-size:13px; margin:0;">El profesor dará el PIN en pantalla.
-                    ¡Responde desde tu celular!</p>
+                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Ingresa el PIN de sala proyectado por
+                    tu profesor en la pantalla general.</p>
             </a>
-
             <a href="https://quizizz.com/join" target="_blank" class="juego-card"
-                style="border-bottom: 4px solid var(--gteen-red);">
+                style="border-bottom: 3px solid var(--gteen-red);">
                 <div class="juego-icon" style="color: var(--gteen-red);"><i class="fa-solid fa-bolt"></i></div>
-                <h3>Quizizz Teen</h3>
-                <p style="color:var(--text-muted); font-size:13px; margin:0;">Pon a prueba lo que aprendiste en la
-                    lección de la semana.</p>
+                <h3>Quizizz Hub</h3>
+                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Desafía tu rapidez mental respondiendo
+                    el cuestionario de la semana.</p>
             </a>
         </div>
 
-        <div class="juego-interactivo">
-            <h3 style="color: var(--gteen-red); font-size: 24px; margin-bottom: 10px; text-transform: uppercase;"><i
-                    class="fa-solid fa-user-secret"></i> ¿Quién Soy?</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Dinámica Bíblica en vivo para
-                jugar en la sala.</p>
+        <section class="seccion-oscura" id="juegos">
 
-            <div id="trivia-container"
-                style="background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-                <div class="trivia-pista" id="trivia-pista">Presiona "Generar Pista" para comenzar el juego.</div>
-                <div class="trivia-respuesta" id="trivia-respuesta"></div>
 
-                <div style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                    <button class="btn-trivia" onclick="generarTrivia()"><i class="fa-solid fa-shuffle"></i> Generar
-                        Pista</button>
-                    <button class="btn-trivia" onclick="mostrarRespuesta()" style="background: var(--gteen-red);"><i
-                            class="fa-solid fa-eye"></i> Ver Respuesta</button>
+
+
+        <div class="juego-interactivo" id="arcade-container" style="transition: all 0.3s ease;">
+            <h3 style="color: var(--inter-yellow); font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);">
+                <i class="fa-solid fa-gamepad"></i> ¿Quién Soy Bíblico? Arcade Pro
+            </h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 13px;">Analiza rápido las pistas. Escribe tu respuesta antes de que la barra colapse.</p>
+
+            <div style="background: #111115; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); box-shadow: inset 0 0 20px rgba(0,0,0,0.6);">
+                
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <div>Nivel: <span id="trivia-level" style="color:#fff;">1</span>/3</div>
+                    <div style="color: var(--gteen-red);"><i class="fa-solid fa-clock"></i> <span id="trivia-timer">30</span>s</div>
+                </div>
+
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
+                    <div id="time-bar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 1s linear, background-color 0.3s ease; border-radius: 10px;"></div>
+                </div>
+
+                <div class="trivia-pista" id="trivia-pista" style="font-size: 16px; min-height: 65px; display: flex; align-items: center; justify-content: center; color: #f4f4f5; font-style: normal; font-weight: 600; line-height: 1.6; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.02);">
+                    Presiona "Siguiente Desafío" para encender tus motores.
+                </div>
+
+                <div id="interactive-input-zone" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; max-width: 400px; margin-inline: auto;">
+                    <input type="text" id="user-guess" placeholder="Escribe el nombre aquí..." style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.08); background: #09090b; color: #fff; font-size: 15px; font-weight: bold; text-align: center; outline: none; transition: 0.2s;" onkeyup="if(event.key === 'Enter') verificarRespuesta()">
+                    <button class="btn-trivia" onclick="verificarRespuesta()" style="background: linear-gradient(135deg, #10b981, #059669); max-width: 100%; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);"><i class="fa-solid fa-circle-check"></i> Enviar Respuesta</button>
+                </div>
+
+                <div class="trivia-respuesta" id="trivia-respuesta" style="font-size: 24px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 20px;"></div>
+
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-trivia" id="btn-main-action" onclick="generarTrivia()"><i class="fa-solid fa-play"></i> Iniciar Reto</button>
+                    <button class="btn-trivia" id="btn-reveal-action" onclick="mostrarRespuesta()" style="background: rgba(227, 0, 15, 0.15); border: 1px solid var(--gteen-red); color: white; display: none;"><i class="fa-solid fa-eye"></i> Rendirse (-5 XP)</button>
+                </div>
+                
+                <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold;">
+                    <div style="color: var(--text-muted);">Score: <span id="marcador-puntos" style="color: var(--gteen-blue); font-size: 16px;">0</span> XP ⚡</div>
+                    <div style="color: var(--text-muted);">Rango: <span id="rango-gamer" style="color: var(--inter-yellow); font-size: 12px; text-transform: uppercase;">Recluta</span> 🛡️</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="seccion-clara" id="gteen">
-        <h2 class="section-title">¿Qué es ser <span>G-Teen</span>?</h2>
-        <p class="section-subtitle">
-            Conoce el propósito de esta generación que vive por Jesús.
-        </p>
+    <!-- PLAYLIST MULTIMEDIA SEGURO -->
+<div class="video-grid">
+            <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/AE4KVtyxc2c')">
+                <img src="logo.jpg" alt="Canto 1">
+                <div class="video-overlay-title">Canto lema "Soy un guerrero"</div>
+            </div>
+            
+            <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/ahUOckp2Tfo')">
+                <img src="logo.jpg" alt="Canto 2" style="filter: hue-rotate(90deg);">
+                <div class="video-overlay-title">Toma el Control</div>
+            </div>
+            
+            <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/fswoAX1GBvg')">
+                <img src="logo.jpg" alt="Canto 3" style="filter: hue-rotate(180deg);">
+                <div class="video-overlay-title">Yo soy Misionero</div>
+            </div>
 
-        <div class="video-youtube">
-            <iframe src="https://www.youtube.com/embed/WAXGEB-8RqM?si=M1t-8Uj4cf-x73_t" title="¿Qué es ser G-Teen?"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+            <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/_8dOMKNKiIQ')">
+                <img src="logo.jpg" alt="Canto 4" style="filter: hue-rotate(240deg);">
+                <div class="video-overlay-title">Siempre estás aquí </div>
+            </div>
         </div>
 
-        <div class="gteen-texto">
-            <h3>#VoyXJesús</h3>
-            <p>
-                Ser G-Teen es más que una clase: es una identidad.
-                Es vivir con propósito, servir a otros y seguir a Jesús con pasión.
-            </p>
-        </div>
-    </section>
-
-    <section class="seccion-clara" id="cantos">
-        <h2 class="section-title">Adoración <span>Teen</span></h2>
-        <p class="section-subtitle">Reproduce los cantos oficiales directamente desde la plataforma.</p>
-
-        <div class="video-grid">
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/v4ftkMuwYaI')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Buscas - Vivo La Misión</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/ahUOckp2Tfo')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Toma el Control</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/fswoAX1GBvg')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Yo soy Misionero</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/VUoyhrSrzb0')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Me Escogiste</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/4ajiWuES5Ko')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Yo Seguiré</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('https://www.youtube.com/embed/NEehhwm2YeI')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>Yo Puedo Ayudarte</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>pronto estará disponible</h4>
-                </div>
-            </div>
-
-            <div class="video-card" onclick="abrirYoutube('')">
-                <img src="logo.jpg">
-                <div class="overlay">
-                    <h4>pronto estará disponible</h4>
-                </div>
-            </div>
-
-
-    </section>
-
-    <section class="seccion-oscura" id="lideres" style="border-top: 4px solid var(--gteen-red);">
+    <!-- PORTAL DIRECTIVA PRIVADO -->
+    <section class="seccion-oscura" id="lideres" style="border-top: 2px solid var(--gteen-red);">
         <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de
-            <span>Líderes</span>
-        </h2>
-        <p class="section-subtitle">Acceso exclusivo para maestros y directiva.</p>
+            <span>Directiva</span></h2>
+        <p class="section-subtitle">Acceso restringido para maestros, directores y administradores de la base.</p>
 
         <div class="lideres-login" id="leader-login">
             <i class="fa-solid fa-user-shield"
-                style="font-size: 40px; color: var(--gteen-red); margin-bottom: 20px;"></i>
-            <h3 style="color: white; margin-bottom: 15px; font-size: 20px;">Ingresa la Clave</h3>
-            <input type="password" id="leader-pass" placeholder="Clave (*****)">
-            <button class="btn-accion" style="width: 100%; padding: 15px; font-size: 16px;"
-                onclick="unlockLeaders()">Ingresar</button>
+                style="font-size: 36px; color: var(--gteen-red); margin-bottom: 15px; display:block;"></i>
+            <h3 style="color: white; margin-bottom: 15px; font-size: 18px;">Autenticación Obligatoria</h3>
+            <input type="password" id="leader-pass" placeholder="Clave de Gestión">
+            <button class="btn-accion" style="width: 100%; padding: 12px; justify-content: center;"
+                onclick="unlockLeaders()">Autorizar Ingreso</button>
         </div>
 
         <div class="lideres-content" id="leader-content">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3 style="color: var(--gteen-blue); font-size: 22px; text-transform: uppercase;">Material Oficial
-                    de la
-                    Base</h3>
-            </div>
-
             <div
-                style="max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+                style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                    <h4 style="color: white; font-size: 16px;"><i class="fa-solid fa-file-pdf"
-                            style="color: var(--gteen-red);"></i> Desafío G-Teen PDF</h4>
-                    <button class="btn-accion" style="background: var(--gteen-blue);" onclick="openFullscreenPdf()"><i
-                            class="fa-solid fa-expand"></i> Proyectar PDF</button>
+                    <h4 style="color: white; font-size: 15px;"><i class="fa-solid fa-file-pdf"
+                            style="color: var(--gteen-red);"></i> Manual Trimestral de Base e Intermediarios.pdf</h4>
+                    <button class="btn-accion"
+                        style="background: var(--gteen-blue); padding: 6px 14px; font-size: 12px;"
+                        onclick="proyectarPdf()"><i class="fa-solid fa-expand"></i> Pantalla Completa</button>
                 </div>
-                <iframe src="desafio.pdf" class="pdf-visor" id="pdf-frame" title="Material Lideres"></iframe>
+                <iframe src="desafio.pdf" class="pdf-visor" id="pdf-frame" title="Material Directiva"></iframe>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer
-        style="text-align: center; padding: 40px; background: rgba(0,0,0,0.8); border-top: 2px solid var(--gteen-red); display: flex; flex-direction: column; align-items: center;">
-        <img src="logo.jpg" alt="Generación Teen" style="width: 80px; border-radius: 15px; margin-bottom: 20px;"
-            onerror="this.style.display='none'">
-        <h2 style="margin-bottom: 10px; font-weight: 900; color: white;">#VoyX<span
+        style="text-align: center; padding: 40px 5%; background: #050507; border-top: 1px solid rgba(255,255,255,0.04);">
+        <h2 style="margin-bottom: 10px; font-weight: 900; color: white; font-size: 22px;">#VoyX<span
                 style="color: var(--gteen-red);">Jesús</span></h2>
-        <p style="color: var(--text-muted); font-size: 14px;">Iglesia Adventista del Séptimo Día - San Franisco de
-            Limache </p>
-
-
-        <p style="margin:0 0 8px;">&copy; 2026 Diseñado por <strong>mgservicios</strong></p>
-        <div style="display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;font-size:0.9rem;">
-            <span><i class="fas fa-map-marker-alt" style="color:#ED4E44;"></i> Chile</span>
-            <span style="color:#64748b;">•</span>
+        <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia Adventista
+            del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por
+            <strong>mgservicios</strong></p>
+        <div style="display:flex; justify-content:center; gap:15px; font-size:12px; color: #64748b;">
             <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596"
-                    target="_blank" style="color:#25D366;text-decoration:none;">+56 9 98797596</a></span>
+                    target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
         </div>
-
     </footer>
 
-
+    <!-- MENÚ APP MÓVIL LOWER BAR -->
     <nav class="mobile-nav">
-        <a href="#inicio" onclick="setActive(this)"><i class="fa-solid fa-house"></i>Inicio</a>
-        <a href="#programa" onclick="setActive(this)"><i class="fa-solid fa-list-check"></i>Prog</a>
-        <a href="#desafios" onclick="setActive(this)"><i class="fa-solid fa-rocket"></i>Metas</a>
-        <a href="#juegos" onclick="setActive(this)"><i class="fa-solid fa-gamepad"></i>Jugar</a>
-        <a href="#gteen" class="btn-accion"><i class="fa-solid fa-circle-question"></i> ¿Qué es G-Teen?
-        </a>
+        <a href="#inicio" class="active" onclick="setMobileActive(this)"><i class="fa-solid fa-house"></i>Inicio</a>
+        <a href="#leccion" onclick="setMobileActive(this)"><i class="fa-solid fa-book-open"></i>Lecciones</a>
+        <a href="#intermediarios" onclick="setMobileActive(this)"><i class="fa-solid fa-user-group"></i>Inter</a>
+        <a href="#juegos" onclick="setMobileActive(this)"><i class="fa-solid fa-gamepad"></i>Juegos</a>
+        <a href="#cantos" onclick="setMobileActive(this)"><i class="fa-solid fa-play"></i>Adoración</a>
     </nav>
 
+    <!-- MODAL DE YOUTUBE -->
+    <div id="videoModal" class="video-modal">
+        <button class="cerrar-modal" onclick="cerrarVideoModal()">✖</button>
+        <iframe id="youtubePlayer" src="" allow="autoplay; fullscreen; encrypted-media"></iframe>
+    </div>
+
+    <!-- SISTEMA LOGIC JAVASCRIPT -->
     <script>
-        // Activar iconos nav móvil
-        function setActive(element) {
+        // Gestor de Navegación Móvil Activa
+        function setMobileActive(element) {
             document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // Mostrar Alertas Bonitas
-        function mostrarAlertaModerna(msg, tipo) {
+        // Toasts Modernos Reutilizables
+        function lanzarToast(msg, tipo) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = `modern-toast ${tipo}`;
-            const icon = tipo === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-            toast.innerHTML = `<i class="fa-solid ${icon}" style="color: ${tipo === 'success' ? 'var(--gteen-blue)' : 'var(--gteen-red)'}; font-size: 24px;"></i> <span style="font-size:13px;">${msg}</span>`;
+            const icon = tipo === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span style="font-size:13px;">${msg}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
-                toast.style.animation = 'slideIn 0.3s reverse forwards';
+                toast.style.opacity = '0';
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 3500);
         }
 
-        // Pausar videos automáticamente
-        const videos = document.querySelectorAll('video');
-        videos.forEach(video => {
-            video.addEventListener('play', () => {
-                videos.forEach(v => {
-                    if (v !== video) v.pause();
-                });
-            });
-        });
-
-        // Lógica Líderes
+        // Validación de Directiva e Interconexión con el Panel del Carrusel
         function unlockLeaders() {
             const pass = document.getElementById('leader-pass').value.toLowerCase();
-            if (pass === 'gteen') {
+            if (pass === 'iasdsf') { // Clave de acceso guardada del sistema
                 document.getElementById('leader-login').style.display = 'none';
                 document.getElementById('leader-content').style.display = 'block';
-                mostrarAlertaModerna('¡Acceso Autorizado!', 'success');
+
+                // Muestra el panel de edición de fotos arriba en la tarjeta
+                document.getElementById('editorCarruselPanel').style.display = 'block';
+
+                lanzarToast('Directiva Autorizada. Panel de edición activado arriba.', 'success');
             } else {
-                mostrarAlertaModerna('Clave incorrecta. Solo líderes.', 'error');
+                lanzarToast('Código de gestión inválido.', 'error');
                 document.getElementById('leader-pass').value = '';
             }
         }
 
-        function openFullscreenPdf() {
-            var elem = document.getElementById("pdf-frame");
-            if (elem.requestFullscreen) { elem.requestFullscreen(); }
-            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
-            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
+        // LÓGICA DINÁMICA DEL CARRUSEL DE ACTIVIDADES
+        let currentSlide = 0;
+        const totalSlides = 2;
+
+        function cambiarSlide(direccion) {
+            currentSlide += direccion;
+            if (currentSlide >= totalSlides) { currentSlide = 0; }
+            if (currentSlide < 0) { currentSlide = totalSlides - 1; }
+
+            const track = document.getElementById('carruselTrack');
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
-        // Mini-Juego Quién Soy
-        const basePreguntas = [
-            { pista: "Fui vendido por mis hermanos y llegué a ser gobernador de Egipto.", respuesta: "José" },
-            { pista: "Derroté a un gigante con una honda y una sola piedra.", respuesta: "David" },
-            { pista: "Fui tragado por un gran pez por intentar huir del mandato de Dios.", respuesta: "Jonás" },
-            { pista: "Dios me pidió construir un arca gigante antes del diluvio.", respuesta: "Noé" },
-            { pista: "Fui la reina que salvó a su pueblo judío de la destrucción.", respuesta: "Ester" },
-            { pista: "Escribí gran parte del Nuevo Testamento y fui perseguidor de cristianos.", respuesta: "Pablo" },
-            { pista: "Fui el hombre más fuerte de la Biblia, pero me cortaron el pelo.", respuesta: "Sansón" },
-            { pista: "Caminé sobre las aguas hacia Jesús, pero dudé y me hundí.", respuesta: "Pedro" },
-            { pista: "Fui el profeta que fue alimentado por cuervos en el arroyo.", respuesta: "Elías" },
-            { pista: "Fui echado al foso de los leones por orar a mi Dios.", respuesta: "Daniel" }
-        ];
+        // Actualización en tiempo real (Live Sync) desde el panel administrativo
+        function actualizarFotosLive() {
+            const url1 = document.getElementById('inputUrl1').value;
+            const tag1 = document.getElementById('inputTag1').value;
+            const url2 = document.getElementById('inputUrl2').value;
+            const tag2 = document.getElementById('inputTag2').value;
 
-        let preguntaActual = null;
-
-        function generarTrivia() {
-            const index = Math.floor(Math.random() * basePreguntas.length);
-            preguntaActual = basePreguntas[index];
-            document.getElementById('trivia-pista').innerText = `"${preguntaActual.pista}"`;
-            document.getElementById('trivia-respuesta').style.display = 'none';
+            // Inyección instantánea en el DOM del carrusel
+            document.getElementById('imgSlide1').src = url1;
+            document.getElementById('tagSlide1').innerText = tag1;
+            document.getElementById('imgSlide2').src = url2;
+            document.getElementById('tagSlide2').innerText = tag2;
         }
 
-        function mostrarRespuesta() {
-            if (!preguntaActual) {
-                mostrarAlertaModerna("Primero presiona 'Generar Pista'", "error");
-                return;
-            }
-            const respDiv = document.getElementById('trivia-respuesta');
-            respDiv.innerText = `¡Soy ${preguntaActual.respuesta}!`;
-            respDiv.style.display = 'block';
+        function proyectarPdf() {
+            const frame = document.getElementById("pdf-frame");
+            if (frame.requestFullscreen) { frame.requestFullscreen(); }
         }
-        function compartirLeccion() {
-            const url = "https://www.youtube.com/watch?v=hXG6G5kKzJ8";
 
+        // Función Compartir Links (API Nativa Android / Fallback Clipboard)
+        function compartirURL(url) {
             if (navigator.share) {
-                navigator.share({
-                    title: "Lección G-Teen",
-                    text: "Mira la lección de esta semana 🙌",
-                    url: url
-                });
+                navigator.share({ title: 'Compartido desde Base G-Teen', text: 'Repasa el folleto de estudio sabático:', url: url });
             } else {
                 navigator.clipboard.writeText(url);
-                alert("Link copiado 👍");
-            }
-        }
-        // CANAL ID (YA CONFIGURADO)
-        const canalID = "UC2vP9vYpE8l9zFqgS1K8W7A"; // Canal G-Teen
-
-        async function cargarUltimoVideo() {
-            try {
-                const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${canalID}`;
-
-                const res = await fetch(url);
-                const data = await res.json();
-
-                const video = data.items[0]; // último video
-                const videoId = video.link.split("v=")[1];
-
-                document.getElementById("video-container").innerHTML = `
-            <iframe 
-                src="https://www.youtube.com/embed/${videoId}"
-                frameborder="0"
-                allowfullscreen
-                style="width:100%; height:500px; border-radius:20px;">
-            </iframe>
-        `;
-
-            } catch (error) {
-                document.getElementById("video-container").innerHTML = `
-            <p style="text-align:center;">No se pudo cargar el video 😢</p>
-        `;
+                lanzarToast('Enlace copiado al portapapeles.', 'success');
             }
         }
 
-        // CARGA AUTOMÁTICA
-        cargarUltimoVideo();
+// Controles de Apertura Multimedia con Bypass de Restricción integrado
+// Controles de Apertura Multimedia con Redirección Nativa de Seguridad
+// Controles de Apertura Multimedia con Bypass de Seguridad para Android
+        function abrirYoutubeModal(url) {
+            // DETECCIÓN Y APERTURA INMEDIATA PARA EL VIDEO 4 PROTEGIDO
+            if (url.includes('_8dOMKNKiIQ')) {
+                lanzarToast('Cargando reproductor oficial de YouTube...', 'success');
+                
+                const videoId = '_8dOMKNKiIQ';
+                // URL universal que despierta el intent profundo de Android sin bloquear el WebView
+                const urlSeguraYouTube = `https://www.youtube.com/watch?v=${videoId}`;
+                
+                // Creamos un nodo de enlace fantasma en memoria para forzar la salida limpia
+                const enlaceBypass = document.createElement('a');
+                enlaceBypass.href = urlSeguraYouTube;
+                enlaceBypass.target = '_blank';
+                enlaceBypass.rel = 'noopener noreferrer';
+                
+                // Añadimos, gatillamos y removemos para evitar basura en el DOM
+                document.body.appendChild(enlaceBypass);
+                enlaceBypass.click();
+                document.body.removeChild(enlaceBypass);
+                
+                return; // Cortamos la ejecución para que no intente abrir el modal congelado
+            }
 
-
-        function toggleMenu() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        }
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
-    </script>
-
-    <script>
-        function abrirVideo(ruta) {
-            const modal = document.getElementById("videoModal");
-            const video = document.getElementById("videoPlayer");
-
-            video.src = ruta;
-            modal.style.display = "flex";
-
-            video.play();
-        }
-
-        function cerrarVideo() {
-            const modal = document.getElementById("videoModal");
-            const video = document.getElementById("videoPlayer");
-
-            video.pause();
-            video.src = "";
-            modal.style.display = "none";
-        }
-    </script>
-
-
-    <div id="videoModal" class="video-modal">
-        <button class="cerrar" onclick="cerrarVideo()">✖</button>
-        <iframe id="youtubePlayer" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <script>
-        function abrirYoutube(url) {
+            // LOS VIDEOS 1, 2 Y 3 SE ABREN PERFECTAMENTE EN EL MODAL FLOTANTE
             const modal = document.getElementById("videoModal");
             const player = document.getElementById("youtubePlayer");
-
             player.src = url + "?autoplay=1&rel=0";
             modal.style.display = "flex";
         }
 
-        function cerrarVideo() {
+        // Cierre Seguro del Modal
+        function cerrarVideoModal() {
             const modal = document.getElementById("videoModal");
             const player = document.getElementById("youtubePlayer");
-
-            player.src = "";
+            player.src = ""; // Limpiamos el buffer para cortar el audio por completo
             modal.style.display = "none";
         }
+
+        // --- LÓGICA ARCADE JUEGO "¿QUIÉN SOY?" ---
+        const basePreguntas = [
+            { pista: "Fui vendido por envidia de mis hermanos y terminé siendo gobernador en Egipto.", respuesta: "José", level: 1 },
+            { pista: "Vencí a un gigante guerrero filisteo usando solo una onda y una pequeña piedra.", respuesta: "David", level: 1 },
+            { pista: "Intenté huir del mandato del Señor y terminé tres días dentro de un gran pez.", respuesta: "Jonás", level: 1 },
+            { pista: "Interpreté los sueños del rey de Babilonia y sobreviví ileso al foso de los leones.", respuesta: "Daniel", level: 2 },
+            { pista: "Fui elegida reina de Persia y puse en juego mi corona para salvar al pueblo judío.", respuesta: "Ester", level: 2 },
+            { pista: "Perseguía a los cristianos, pero vi una gran luz camino a Damasco y escribí muchas cartas de la Biblia.", respuesta: "Pablo", level: 3 }
+        ];
+
+        let preguntaActual = null;
+        let puntos = 0;
+        let countdown = null;
+        let tiempoRestante = 30;
+
+        function generarTrivia() {
+            clearInterval(countdown);
+            
+            // UI Reset
+            const container = document.getElementById('arcade-container');
+            container.classList.remove('anim-shake', 'anim-glow');
+            document.getElementById('trivia-respuesta').style.display = 'none';
+            document.getElementById('user-guess').value = '';
+            document.getElementById('user-guess').style.borderColor = 'rgba(255,255,255,0.08)';
+            
+            // Activar Modo interactivo
+            document.getElementById('interactive-input-zone').style.display = 'flex';
+            document.getElementById('btn-reveal-action').style.display = 'inline-block';
+            document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-rotate"></i> Saltar Reto';
+
+            // Filtrado Dinámico por Nivel
+            let currentLevel = puntos >= 50 ? 3 : (puntos >= 25 ? 2 : 1);
+            document.getElementById('trivia-level').innerText = currentLevel;
+
+            const filtradas = basePreguntas.filter(p => p.level === currentLevel);
+            const index = Math.floor(Math.random() * filtradas.length);
+            preguntaActual = filtradas[index];
+
+            document.getElementById('trivia-pista').innerText = `"${preguntaActual.pista}"`;
+            
+            // Lógica y barra de progreso de tiempo Arcade
+            tiempoRestante = 30;
+            document.getElementById('trivia-timer').innerText = tiempoRestante;
+            
+            const timeBar = document.getElementById('time-bar');
+            timeBar.style.width = '100%';
+            timeBar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+
+            countdown = setInterval(() => {
+                tiempoRestante--;
+                document.getElementById('trivia-timer').innerText = tiempoRestante;
+                
+                // Reducir barra de progreso visualmente
+                let porcentaje = (tiempoRestante / 30) * 100;
+                timeBar.style.width = `${porcentaje}%`;
+
+                // Alertas de color de barra de peligro
+                if (tiempoRestante <= 10) {
+                    timeBar.style.background = 'linear-gradient(90deg, #e3000f, #ff4d4d)';
+                } else if (tiempoRestante <= 20) {
+                    timeBar.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+                }
+
+                if (tiempoRestante <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById('arcade-container').classList.add('anim-shake');
+                    lanzarToast("¡Tiempo agotado! Fin del multiplicador.", "error");
+                    ocultarZonaEntrada();
+                    mostrarRespuestaInmediata(false);
+                }
+            }, 1000);
+        }
+
+        function verificarRespuesta() {
+            if (!preguntaActual) return;
+            
+            const intentoUsuario = document.getElementById('user-guess').value.trim().toLowerCase();
+            
+            if (intentoUsuario === "") {
+                lanzarToast("¡Escribe algo antes de enviar!", "error");
+                return;
+            }
+
+            // Sanitizar acentos y normalizar cadenas
+            const respuestasValidas = preguntaActual.alternativas.map(r => r.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+            const intentoSanitizado = intentoUsuario.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            clearInterval(countdown);
+            ocultarZonaEntrada();
+
+            if (respuestasValidas.includes(intentoSanitizado)) {
+                // Ganador: Bonificación Pro por Velocidad
+                document.getElementById('arcade-container').classList.add('anim-glow');
+                let xpGanados = tiempoRestante > 15 ? 25 : 15;
+                puntos += xpGanados;
+                
+                mostrarRespuestaInmediata(true, `¡Es correcto! Ganaste +${xpGanados} XP ⚡`);
+                lanzarToast('¡Desafío superado de forma impecable!', 'success');
+            } else {
+                // Error: Sacudida de pantalla
+                document.getElementById('arcade-container').classList.add('anim-shake');
+                puntos = Math.max(0, puntos - 5); // Penalización min
+                mostrarRespuestaInmediata(false, `¡Incorrecto! La respuesta era ${preguntaActual.respuesta}.`);
+                lanzarToast('Pista fallida. ¡Sigue estudiando!', 'error');
+            }
+            
+            actualizarScoreboard();
+        }
+
+        function mostrarRespuesta() {
+            if (!preguntaActual) return;
+            clearInterval(countdown);
+            ocultarZonaEntrada();
+            puntos = Math.max(0, puntos - 5);
+            mostrarRespuestaInmediata(false, `Te rendiste. Era ${preguntaActual.respuesta}.`);
+            actualizarScoreboard();
+            lanzarToast('Penalización de escape aplicada: -5 XP', 'error');
+        }
+
+        function mostrarRespuestaInmediata(isCorrect, mensajePersonalizado) {
+            const respDiv = document.getElementById('trivia-respuesta');
+            respDiv.innerText = mensajePersonalizado || `La respuesta es: ${preguntaActual.respuesta}`;
+            respDiv.style.color = isCorrect ? 'var(--inter-purple)' : 'var(--gteen-red)';
+            respDiv.style.display = 'block';
+            preguntaActual = null;
+        }
+
+        function ocultarZonaEntrada() {
+            document.getElementById('interactive-input-zone').style.display = 'none';
+            document.getElementById('btn-reveal-action').style.display = 'none';
+            document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-forward"></i> Siguiente Desafío';
+        }
+
+        function actualizarScoreboard() {
+            document.getElementById('marcador-puntos').innerText = puntos;
+            
+            // Cálculo Dinámico de Rango Gamer
+            let rango = "Recluta";
+            if (puntos >= 60) rango = "Gran Maestro 👑";
+            else if (puntos >= 40) rango = "Guerrero Elite ⚔️";
+            else if (puntos >= 20) rango = "Explorador";
+            
+            document.getElementById('rango-gamer').innerText = rango;
+        }
+    
     </script>
 </body>
 
