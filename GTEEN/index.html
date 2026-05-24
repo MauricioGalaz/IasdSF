@@ -901,19 +901,45 @@
             }
         }
 
-        
+
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-8px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(8px);
+            }
         }
+
         @keyframes glowSuccess {
-            0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.6); border-color: #10b981; }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(16, 185, 129, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+                border-color: #10b981;
+            }
         }
-        .anim-shake { animation: shake 0.4s ease-in-out; }
-        .anim-glow { animation: glowSuccess 0.6s ease-in-out 2; }
-    
+
+        .anim-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .anim-glow {
+            animation: glowSuccess 0.6s ease-in-out 2;
+        }
     </style>
 </head>
 
@@ -1047,14 +1073,14 @@
                     <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;">
                         <li style="display: flex; gap: 8px; align-items: flex-start;">
                             <i class="fa-solid fa-calendar-day"
-                                style="color: var(--inter-purple); margin-top: 3px;"></i>
-                            <span><strong>Próximo Sábado:</strong> Trae tu polera oficial para la fotografía grupal de
+                                style="color: var(--inter-purple); margin-top: 4px;"></i>
+                            <span><strong>Próximo Sábado:</strong> Tendremos la fotografía grupal de
                                 la Base.</span>
                         </li>
                         <li
                             style="display: flex; gap: 8px; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
                             <i class="fa-solid fa-cake-candles" style="color: var(--gteen-red); margin-top: 3px;"></i>
-                            <span><strong>Cumpleaños:</strong> ¡Felicidades a los cumpleañeros de este mes! Tendremos un
+                            <span><strong>Cumpleaños:</strong> ¡Felicidades a los cumpleañeros de este mes! Lorena y Eudice. <br> Tendremos un
                                 momento especial.</span>
                         </li>
                     </ul>
@@ -1062,27 +1088,21 @@
 
                 <!-- ACCESO AL FOLLETO EN YOUTUBE POR CONTEXTO -->
                 <div
-                    style="background: rgba(139, 92, 246, 0.08); padding: 12px; border-radius: 14px; border: 1px dashed rgba(139, 92, 246, 0.25); text-align: center; font-size: 12px;">
-                    <span style="color: var(--text-muted); display: block; margin-bottom: 4px;">¿Quieres estudiar el
-                        folleto de la semana?</span>
-                    <a href="https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa" target="_blank"
-                        style="color: var(--inter-yellow); font-weight: 700; text-decoration: none; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Folleto en YouTube
-                    </a>
+                    style="background: rgba(139, 92, 246, 0.08); padding: 15px; border-radius: 16px; border: 1px dashed rgba(139, 92, 246, 0.25); text-align: center; font-size: 12px; display: flex; flex-direction: column; gap: 12px;">
+                    <span
+                        style="color: var(--text-muted); display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fa-solid fa-graduation-cap"></i> Material de Estudio Sabático
+                    </span>
+
+                <a href="https://drive.google.com/file/d/15u4JVopG77iBwDvZbm0v1fiPXCOSF7WQ/view?usp=drive_link"
+                            target="_blank"
+                            style="color: #34d399; font-weight: 700; text-decoration: none; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02);">
+                            <i class="fa-solid fa-key"></i> Explorar Llave Maestra (PDF)
+                        </a>
+                    </div>
                 </div>
 
-                <div style="display: flex; gap: 10px; width: 100%; margin-top: auto;">
-                    <a href="https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa" target="_blank"
-                        class="btn-accion"
-                        style="flex: 1; justify-content: center; background: var(--inter-purple); padding: 12px;">
-                        <i class="fa-solid fa-children"></i> Lista de Videos
-                    </a>
-                    <button
-                        onclick="compartirURL('https://www.youtube.com/playlist?list=PLwWWYJbkIyQbngkB_DIrFGCTTLJUr4fPa')"
-                        class="btn-accion" style="background: var(--inter-yellow); color: #000; padding: 12px;">
-                        <i class="fa-solid fa-share-nodes"></i>
-                    </button>
-                </div>
+
             </div>
         </div>
     </section>
@@ -1141,7 +1161,7 @@
         </div>
     </section>
 
-    <!-- ZONA INTERMEDIARIOS HUB (PREADOLESCENTES) -->
+    <!-- ZONA INTERMEDIARIOS (PREADOLESCENTES) -->
     <section class="seccion-intermediarios" id="intermediarios">
         <h2 class="section-title inter-title">Espacio de <span>Intermediarios</span></h2>
         <p class="section-subtitle">Un espacio interactivo de crecimiento, descarga de materiales y multimedia para
@@ -1263,59 +1283,81 @@
 
 
 
-        <div class="juego-interactivo" id="arcade-container" style="transition: all 0.3s ease;">
-            <h3 style="color: var(--inter-yellow); font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);">
-                <i class="fa-solid fa-gamepad"></i> ¿Quién Soy Bíblico? Arcade Pro
-            </h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 13px;">Analiza rápido las pistas. Escribe tu respuesta antes de que la barra colapse.</p>
+            <div class="juego-interactivo" id="arcade-container" style="transition: all 0.3s ease;">
+                <h3
+                    style="color: var(--inter-yellow); font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);">
+                    <i class="fa-solid fa-gamepad"></i> ¿Quién Soy Bíblico? Arcade Pro
+                </h3>
+                <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 13px;">Analiza rápido las pistas.
+                    Escribe tu respuesta antes de que la barra colapse.</p>
 
-            <div style="background: #111115; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); box-shadow: inset 0 0 20px rgba(0,0,0,0.6);">
-                
-                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-                    <div>Nivel: <span id="trivia-level" style="color:#fff;">1</span>/3</div>
-                    <div style="color: var(--gteen-red);"><i class="fa-solid fa-clock"></i> <span id="trivia-timer">30</span>s</div>
-                </div>
+                <div
+                    style="background: #111115; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); box-shadow: inset 0 0 20px rgba(0,0,0,0.6);">
 
-                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
-                    <div id="time-bar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 1s linear, background-color 0.3s ease; border-radius: 10px;"></div>
-                </div>
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <div>Nivel: <span id="trivia-level" style="color:#fff;">1</span>/3</div>
+                        <div style="color: var(--gteen-red);"><i class="fa-solid fa-clock"></i> <span
+                                id="trivia-timer">30</span>s</div>
+                    </div>
 
-                <div class="trivia-pista" id="trivia-pista" style="font-size: 16px; min-height: 65px; display: flex; align-items: center; justify-content: center; color: #f4f4f5; font-style: normal; font-weight: 600; line-height: 1.6; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.02);">
-                    Presiona "Siguiente Desafío" para encender tus motores.
-                </div>
+                    <div
+                        style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
+                        <div id="time-bar"
+                            style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 1s linear, background-color 0.3s ease; border-radius: 10px;">
+                        </div>
+                    </div>
 
-                <div id="interactive-input-zone" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; max-width: 400px; margin-inline: auto;">
-                    <input type="text" id="user-guess" placeholder="Escribe el nombre aquí..." style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.08); background: #09090b; color: #fff; font-size: 15px; font-weight: bold; text-align: center; outline: none; transition: 0.2s;" onkeyup="if(event.key === 'Enter') verificarRespuesta()">
-                    <button class="btn-trivia" onclick="verificarRespuesta()" style="background: linear-gradient(135deg, #10b981, #059669); max-width: 100%; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);"><i class="fa-solid fa-circle-check"></i> Enviar Respuesta</button>
-                </div>
+                    <div class="trivia-pista" id="trivia-pista"
+                        style="font-size: 16px; min-height: 65px; display: flex; align-items: center; justify-content: center; color: #f4f4f5; font-style: normal; font-weight: 600; line-height: 1.6; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.02);">
+                        Presiona "Siguiente Desafío" para encender tus motores.
+                    </div>
 
-                <div class="trivia-respuesta" id="trivia-respuesta" style="font-size: 24px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 20px;"></div>
+                    <div id="interactive-input-zone"
+                        style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; max-width: 400px; margin-inline: auto;">
+                        <input type="text" id="user-guess" placeholder="Escribe el nombre aquí..."
+                            style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.08); background: #09090b; color: #fff; font-size: 15px; font-weight: bold; text-align: center; outline: none; transition: 0.2s;"
+                            onkeyup="if(event.key === 'Enter') verificarRespuesta()">
+                        <button class="btn-trivia" onclick="verificarRespuesta()"
+                            style="background: linear-gradient(135deg, #10b981, #059669); max-width: 100%; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);"><i
+                                class="fa-solid fa-circle-check"></i> Enviar Respuesta</button>
+                    </div>
 
-                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-trivia" id="btn-main-action" onclick="generarTrivia()"><i class="fa-solid fa-play"></i> Iniciar Reto</button>
-                    <button class="btn-trivia" id="btn-reveal-action" onclick="mostrarRespuesta()" style="background: rgba(227, 0, 15, 0.15); border: 1px solid var(--gteen-red); color: white; display: none;"><i class="fa-solid fa-eye"></i> Rendirse (-5 XP)</button>
-                </div>
-                
-                <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold;">
-                    <div style="color: var(--text-muted);">Score: <span id="marcador-puntos" style="color: var(--gteen-blue); font-size: 16px;">0</span> XP ⚡</div>
-                    <div style="color: var(--text-muted);">Rango: <span id="rango-gamer" style="color: var(--inter-yellow); font-size: 12px; text-transform: uppercase;">Recluta</span> 🛡️</div>
+                    <div class="trivia-respuesta" id="trivia-respuesta"
+                        style="font-size: 24px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 20px;"></div>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn-trivia" id="btn-main-action" onclick="generarTrivia()"><i
+                                class="fa-solid fa-play"></i> Iniciar Reto</button>
+                        <button class="btn-trivia" id="btn-reveal-action" onclick="mostrarRespuesta()"
+                            style="background: rgba(227, 0, 15, 0.15); border: 1px solid var(--gteen-red); color: white; display: none;"><i
+                                class="fa-solid fa-eye"></i> Rendirse (-5 XP)</button>
+                    </div>
+
+                    <div
+                        style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold;">
+                        <div style="color: var(--text-muted);">Score: <span id="marcador-puntos"
+                                style="color: var(--gteen-blue); font-size: 16px;">0</span> XP ⚡</div>
+                        <div style="color: var(--text-muted);">Rango: <span id="rango-gamer"
+                                style="color: var(--inter-yellow); font-size: 12px; text-transform: uppercase;">Recluta</span>
+                            🛡️</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PLAYLIST MULTIMEDIA SEGURO -->
-<div class="video-grid">
+        <!-- PLAYLIST MULTIMEDIA SEGURO -->
+        <div class="video-grid">
             <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/AE4KVtyxc2c')">
                 <img src="logo.jpg" alt="Canto 1">
                 <div class="video-overlay-title">Canto lema "Soy un guerrero"</div>
             </div>
-            
+
             <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/ahUOckp2Tfo')">
                 <img src="logo.jpg" alt="Canto 2" style="filter: hue-rotate(90deg);">
                 <div class="video-overlay-title">Toma el Control</div>
             </div>
-            
+
             <div class="video-card" onclick="abrirYoutubeModal('https://www.youtube.com/embed/fswoAX1GBvg')">
                 <img src="logo.jpg" alt="Canto 3" style="filter: hue-rotate(180deg);">
                 <div class="video-overlay-title">Yo soy Misionero</div>
@@ -1327,335 +1369,339 @@
             </div>
         </div>
 
-    <!-- PORTAL DIRECTIVA PRIVADO -->
-    <section class="seccion-oscura" id="lideres" style="border-top: 2px solid var(--gteen-red);">
-        <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de
-            <span>Directiva</span></h2>
-        <p class="section-subtitle">Acceso restringido para maestros, directores y administradores de la base.</p>
+        <!-- PORTAL DIRECTIVA PRIVADO -->
+        <section class="seccion-oscura" id="lideres" style="border-top: 2px solid var(--gteen-red);">
+            <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de
+                <span>Directiva</span>
+            </h2>
+            <p class="section-subtitle">Acceso restringido para maestros, directores y administradores de la base.</p>
 
-        <div class="lideres-login" id="leader-login">
-            <i class="fa-solid fa-user-shield"
-                style="font-size: 36px; color: var(--gteen-red); margin-bottom: 15px; display:block;"></i>
-            <h3 style="color: white; margin-bottom: 15px; font-size: 18px;">Autenticación Obligatoria</h3>
-            <input type="password" id="leader-pass" placeholder="Clave de Gestión">
-            <button class="btn-accion" style="width: 100%; padding: 12px; justify-content: center;"
-                onclick="unlockLeaders()">Autorizar Ingreso</button>
-        </div>
-
-        <div class="lideres-content" id="leader-content">
-            <div
-                style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                    <h4 style="color: white; font-size: 15px;"><i class="fa-solid fa-file-pdf"
-                            style="color: var(--gteen-red);"></i> Manual Trimestral de Base e Intermediarios.pdf</h4>
-                    <button class="btn-accion"
-                        style="background: var(--gteen-blue); padding: 6px 14px; font-size: 12px;"
-                        onclick="proyectarPdf()"><i class="fa-solid fa-expand"></i> Pantalla Completa</button>
-                </div>
-                <iframe src="desafio.pdf" class="pdf-visor" id="pdf-frame" title="Material Directiva"></iframe>
+            <div class="lideres-login" id="leader-login">
+                <i class="fa-solid fa-user-shield"
+                    style="font-size: 36px; color: var(--gteen-red); margin-bottom: 15px; display:block;"></i>
+                <h3 style="color: white; margin-bottom: 15px; font-size: 18px;">Autenticación Obligatoria</h3>
+                <input type="password" id="leader-pass" placeholder="Clave de Gestión">
+                <button class="btn-accion" style="width: 100%; padding: 12px; justify-content: center;"
+                    onclick="unlockLeaders()">Autorizar Ingreso</button>
             </div>
+
+            <div class="lideres-content" id="leader-content">
+                <div
+                    style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                        <h4 style="color: white; font-size: 15px;"><i class="fa-solid fa-file-pdf"
+                                style="color: var(--gteen-red);"></i> Manual Trimestral de Base e Intermediarios.pdf
+                        </h4>
+                        <button class="btn-accion"
+                            style="background: var(--gteen-blue); padding: 6px 14px; font-size: 12px;"
+                            onclick="proyectarPdf()"><i class="fa-solid fa-expand"></i> Pantalla Completa</button>
+                    </div>
+                    <iframe src="desafio.pdf" class="pdf-visor" id="pdf-frame" title="Material Directiva"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            style="text-align: center; padding: 40px 5%; background: #050507; border-top: 1px solid rgba(255,255,255,0.04);">
+            <h2 style="margin-bottom: 10px; font-weight: 900; color: white; font-size: 22px;">#VoyX<span
+                    style="color: var(--gteen-red);">Jesús</span></h2>
+            <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia
+                Adventista
+                del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por
+                <strong>mgservicios</strong>
+            </p>
+            <div style="display:flex; justify-content:center; gap:15px; font-size:12px; color: #64748b;">
+                <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596"
+                        target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
+            </div>
+        </footer>
+
+        <!-- MENÚ APP MÓVIL LOWER BAR -->
+        <nav class="mobile-nav">
+            <a href="#inicio" class="active" onclick="setMobileActive(this)"><i class="fa-solid fa-house"></i>Inicio</a>
+            <a href="#leccion" onclick="setMobileActive(this)"><i class="fa-solid fa-book-open"></i>Lecciones</a>
+            <a href="#intermediarios" onclick="setMobileActive(this)"><i class="fa-solid fa-user-group"></i>Inter</a>
+            <a href="#juegos" onclick="setMobileActive(this)"><i class="fa-solid fa-gamepad"></i>Juegos</a>
+            <a href="#cantos" onclick="setMobileActive(this)"><i class="fa-solid fa-play"></i>Adoración</a>
+        </nav>
+
+        <!-- MODAL DE YOUTUBE -->
+        <div id="videoModal" class="video-modal">
+            <button class="cerrar-modal" onclick="cerrarVideoModal()">✖</button>
+            <iframe id="youtubePlayer" src="" allow="autoplay; fullscreen; encrypted-media"></iframe>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer
-        style="text-align: center; padding: 40px 5%; background: #050507; border-top: 1px solid rgba(255,255,255,0.04);">
-        <h2 style="margin-bottom: 10px; font-weight: 900; color: white; font-size: 22px;">#VoyX<span
-                style="color: var(--gteen-red);">Jesús</span></h2>
-        <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia Adventista
-            del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por
-            <strong>mgservicios</strong></p>
-        <div style="display:flex; justify-content:center; gap:15px; font-size:12px; color: #64748b;">
-            <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596"
-                    target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
-        </div>
-    </footer>
-
-    <!-- MENÚ APP MÓVIL LOWER BAR -->
-    <nav class="mobile-nav">
-        <a href="#inicio" class="active" onclick="setMobileActive(this)"><i class="fa-solid fa-house"></i>Inicio</a>
-        <a href="#leccion" onclick="setMobileActive(this)"><i class="fa-solid fa-book-open"></i>Lecciones</a>
-        <a href="#intermediarios" onclick="setMobileActive(this)"><i class="fa-solid fa-user-group"></i>Inter</a>
-        <a href="#juegos" onclick="setMobileActive(this)"><i class="fa-solid fa-gamepad"></i>Juegos</a>
-        <a href="#cantos" onclick="setMobileActive(this)"><i class="fa-solid fa-play"></i>Adoración</a>
-    </nav>
-
-    <!-- MODAL DE YOUTUBE -->
-    <div id="videoModal" class="video-modal">
-        <button class="cerrar-modal" onclick="cerrarVideoModal()">✖</button>
-        <iframe id="youtubePlayer" src="" allow="autoplay; fullscreen; encrypted-media"></iframe>
-    </div>
-
-    <!-- SISTEMA LOGIC JAVASCRIPT -->
-    <script>
-        // Gestor de Navegación Móvil Activa
-        function setMobileActive(element) {
-            document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        // Toasts Modernos Reutilizables
-        function lanzarToast(msg, tipo) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `modern-toast ${tipo}`;
-            const icon = tipo === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
-            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span style="font-size:13px;">${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        // Validación de Directiva e Interconexión con el Panel del Carrusel
-        function unlockLeaders() {
-            const pass = document.getElementById('leader-pass').value.toLowerCase();
-            if (pass === 'iasdsf') { // Clave de acceso guardada del sistema
-                document.getElementById('leader-login').style.display = 'none';
-                document.getElementById('leader-content').style.display = 'block';
-
-                // Muestra el panel de edición de fotos arriba en la tarjeta
-                document.getElementById('editorCarruselPanel').style.display = 'block';
-
-                lanzarToast('Directiva Autorizada. Panel de edición activado arriba.', 'success');
-            } else {
-                lanzarToast('Código de gestión inválido.', 'error');
-                document.getElementById('leader-pass').value = '';
-            }
-        }
-
-        // LÓGICA DINÁMICA DEL CARRUSEL DE ACTIVIDADES
-        let currentSlide = 0;
-        const totalSlides = 2;
-
-        function cambiarSlide(direccion) {
-            currentSlide += direccion;
-            if (currentSlide >= totalSlides) { currentSlide = 0; }
-            if (currentSlide < 0) { currentSlide = totalSlides - 1; }
-
-            const track = document.getElementById('carruselTrack');
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        // Actualización en tiempo real (Live Sync) desde el panel administrativo
-        function actualizarFotosLive() {
-            const url1 = document.getElementById('inputUrl1').value;
-            const tag1 = document.getElementById('inputTag1').value;
-            const url2 = document.getElementById('inputUrl2').value;
-            const tag2 = document.getElementById('inputTag2').value;
-
-            // Inyección instantánea en el DOM del carrusel
-            document.getElementById('imgSlide1').src = url1;
-            document.getElementById('tagSlide1').innerText = tag1;
-            document.getElementById('imgSlide2').src = url2;
-            document.getElementById('tagSlide2').innerText = tag2;
-        }
-
-        function proyectarPdf() {
-            const frame = document.getElementById("pdf-frame");
-            if (frame.requestFullscreen) { frame.requestFullscreen(); }
-        }
-
-        // Función Compartir Links (API Nativa Android / Fallback Clipboard)
-        function compartirURL(url) {
-            if (navigator.share) {
-                navigator.share({ title: 'Compartido desde Base G-Teen', text: 'Repasa el folleto de estudio sabático:', url: url });
-            } else {
-                navigator.clipboard.writeText(url);
-                lanzarToast('Enlace copiado al portapapeles.', 'success');
-            }
-        }
-
-// Controles de Apertura Multimedia con Bypass de Restricción integrado
-// Controles de Apertura Multimedia con Redirección Nativa de Seguridad
-// Controles de Apertura Multimedia con Bypass de Seguridad para Android
-        function abrirYoutubeModal(url) {
-            // DETECCIÓN Y APERTURA INMEDIATA PARA EL VIDEO 4 PROTEGIDO
-            if (url.includes('_8dOMKNKiIQ')) {
-                lanzarToast('Cargando reproductor oficial de YouTube...', 'success');
-                
-                const videoId = '_8dOMKNKiIQ';
-                // URL universal que despierta el intent profundo de Android sin bloquear el WebView
-                const urlSeguraYouTube = `https://www.youtube.com/watch?v=${videoId}`;
-                
-                // Creamos un nodo de enlace fantasma en memoria para forzar la salida limpia
-                const enlaceBypass = document.createElement('a');
-                enlaceBypass.href = urlSeguraYouTube;
-                enlaceBypass.target = '_blank';
-                enlaceBypass.rel = 'noopener noreferrer';
-                
-                // Añadimos, gatillamos y removemos para evitar basura en el DOM
-                document.body.appendChild(enlaceBypass);
-                enlaceBypass.click();
-                document.body.removeChild(enlaceBypass);
-                
-                return; // Cortamos la ejecución para que no intente abrir el modal congelado
+        <!-- SISTEMA LOGIC JAVASCRIPT -->
+        <script>
+            // Gestor de Navegación Móvil Activa
+            function setMobileActive(element) {
+                document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
+                element.classList.add('active');
             }
 
-            // LOS VIDEOS 1, 2 Y 3 SE ABREN PERFECTAMENTE EN EL MODAL FLOTANTE
-            const modal = document.getElementById("videoModal");
-            const player = document.getElementById("youtubePlayer");
-            player.src = url + "?autoplay=1&rel=0";
-            modal.style.display = "flex";
-        }
+            // Toasts Modernos Reutilizables
+            function lanzarToast(msg, tipo) {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `modern-toast ${tipo}`;
+                const icon = tipo === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+                toast.innerHTML = `<i class="fa-solid ${icon}"></i><span style="font-size:13px;">${msg}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3500);
+            }
 
-        // Cierre Seguro del Modal
-        function cerrarVideoModal() {
-            const modal = document.getElementById("videoModal");
-            const player = document.getElementById("youtubePlayer");
-            player.src = ""; // Limpiamos el buffer para cortar el audio por completo
-            modal.style.display = "none";
-        }
+            // Validación de Directiva e Interconexión con el Panel del Carrusel
+            function unlockLeaders() {
+                const pass = document.getElementById('leader-pass').value.toLowerCase();
+                if (pass === 'iasdsf') { // Clave de acceso guardada del sistema
+                    document.getElementById('leader-login').style.display = 'none';
+                    document.getElementById('leader-content').style.display = 'block';
 
-        // --- LÓGICA ARCADE JUEGO "¿QUIÉN SOY?" ---
-        const basePreguntas = [
-            { pista: "Fui vendido por envidia de mis hermanos y terminé siendo gobernador en Egipto.", respuesta: "José", level: 1 },
-            { pista: "Vencí a un gigante guerrero filisteo usando solo una onda y una pequeña piedra.", respuesta: "David", level: 1 },
-            { pista: "Intenté huir del mandato del Señor y terminé tres días dentro de un gran pez.", respuesta: "Jonás", level: 1 },
-            { pista: "Interpreté los sueños del rey de Babilonia y sobreviví ileso al foso de los leones.", respuesta: "Daniel", level: 2 },
-            { pista: "Fui elegida reina de Persia y puse en juego mi corona para salvar al pueblo judío.", respuesta: "Ester", level: 2 },
-            { pista: "Perseguía a los cristianos, pero vi una gran luz camino a Damasco y escribí muchas cartas de la Biblia.", respuesta: "Pablo", level: 3 }
-        ];
+                    // Muestra el panel de edición de fotos arriba en la tarjeta
+                    document.getElementById('editorCarruselPanel').style.display = 'block';
 
-        let preguntaActual = null;
-        let puntos = 0;
-        let countdown = null;
-        let tiempoRestante = 30;
+                    lanzarToast('Directiva Autorizada. Panel de edición activado arriba.', 'success');
+                } else {
+                    lanzarToast('Código de gestión inválido.', 'error');
+                    document.getElementById('leader-pass').value = '';
+                }
+            }
 
-        function generarTrivia() {
-            clearInterval(countdown);
-            
-            // UI Reset
-            const container = document.getElementById('arcade-container');
-            container.classList.remove('anim-shake', 'anim-glow');
-            document.getElementById('trivia-respuesta').style.display = 'none';
-            document.getElementById('user-guess').value = '';
-            document.getElementById('user-guess').style.borderColor = 'rgba(255,255,255,0.08)';
-            
-            // Activar Modo interactivo
-            document.getElementById('interactive-input-zone').style.display = 'flex';
-            document.getElementById('btn-reveal-action').style.display = 'inline-block';
-            document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-rotate"></i> Saltar Reto';
+            // LÓGICA DINÁMICA DEL CARRUSEL DE ACTIVIDADES
+            let currentSlide = 0;
+            const totalSlides = 2;
 
-            // Filtrado Dinámico por Nivel
-            let currentLevel = puntos >= 50 ? 3 : (puntos >= 25 ? 2 : 1);
-            document.getElementById('trivia-level').innerText = currentLevel;
+            function cambiarSlide(direccion) {
+                currentSlide += direccion;
+                if (currentSlide >= totalSlides) { currentSlide = 0; }
+                if (currentSlide < 0) { currentSlide = totalSlides - 1; }
 
-            const filtradas = basePreguntas.filter(p => p.level === currentLevel);
-            const index = Math.floor(Math.random() * filtradas.length);
-            preguntaActual = filtradas[index];
+                const track = document.getElementById('carruselTrack');
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
 
-            document.getElementById('trivia-pista').innerText = `"${preguntaActual.pista}"`;
-            
-            // Lógica y barra de progreso de tiempo Arcade
-            tiempoRestante = 30;
-            document.getElementById('trivia-timer').innerText = tiempoRestante;
-            
-            const timeBar = document.getElementById('time-bar');
-            timeBar.style.width = '100%';
-            timeBar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+            // Actualización en tiempo real (Live Sync) desde el panel administrativo
+            function actualizarFotosLive() {
+                const url1 = document.getElementById('inputUrl1').value;
+                const tag1 = document.getElementById('inputTag1').value;
+                const url2 = document.getElementById('inputUrl2').value;
+                const tag2 = document.getElementById('inputTag2').value;
 
-            countdown = setInterval(() => {
-                tiempoRestante--;
+                // Inyección instantánea en el DOM del carrusel
+                document.getElementById('imgSlide1').src = url1;
+                document.getElementById('tagSlide1').innerText = tag1;
+                document.getElementById('imgSlide2').src = url2;
+                document.getElementById('tagSlide2').innerText = tag2;
+            }
+
+            function proyectarPdf() {
+                const frame = document.getElementById("pdf-frame");
+                if (frame.requestFullscreen) { frame.requestFullscreen(); }
+            }
+
+            // Función Compartir Links (API Nativa Android / Fallback Clipboard)
+            function compartirURL(url) {
+                if (navigator.share) {
+                    navigator.share({ title: 'Compartido desde Base G-Teen', text: 'Repasa el folleto de estudio sabático:', url: url });
+                } else {
+                    navigator.clipboard.writeText(url);
+                    lanzarToast('Enlace copiado al portapapeles.', 'success');
+                }
+            }
+
+            // Controles de Apertura Multimedia con Bypass de Restricción integrado
+            // Controles de Apertura Multimedia con Redirección Nativa de Seguridad
+            // Controles de Apertura Multimedia con Bypass de Seguridad para Android
+            function abrirYoutubeModal(url) {
+                // DETECCIÓN Y APERTURA INMEDIATA PARA EL VIDEO 4 PROTEGIDO
+                if (url.includes('_8dOMKNKiIQ')) {
+                    lanzarToast('Cargando reproductor oficial de YouTube...', 'success');
+
+                    const videoId = '_8dOMKNKiIQ';
+                    // URL universal que despierta el intent profundo de Android sin bloquear el WebView
+                    const urlSeguraYouTube = `https://www.youtube.com/watch?v=${videoId}`;
+
+                    // Creamos un nodo de enlace fantasma en memoria para forzar la salida limpia
+                    const enlaceBypass = document.createElement('a');
+                    enlaceBypass.href = urlSeguraYouTube;
+                    enlaceBypass.target = '_blank';
+                    enlaceBypass.rel = 'noopener noreferrer';
+
+                    // Añadimos, gatillamos y removemos para evitar basura en el DOM
+                    document.body.appendChild(enlaceBypass);
+                    enlaceBypass.click();
+                    document.body.removeChild(enlaceBypass);
+
+                    return; // Cortamos la ejecución para que no intente abrir el modal congelado
+                }
+
+                // LOS VIDEOS 1, 2 Y 3 SE ABREN PERFECTAMENTE EN EL MODAL FLOTANTE
+                const modal = document.getElementById("videoModal");
+                const player = document.getElementById("youtubePlayer");
+                player.src = url + "?autoplay=1&rel=0";
+                modal.style.display = "flex";
+            }
+
+            // Cierre Seguro del Modal
+            function cerrarVideoModal() {
+                const modal = document.getElementById("videoModal");
+                const player = document.getElementById("youtubePlayer");
+                player.src = ""; // Limpiamos el buffer para cortar el audio por completo
+                modal.style.display = "none";
+            }
+
+            // --- LÓGICA ARCADE JUEGO "¿QUIÉN SOY?" ---
+            const basePreguntas = [
+                { pista: "Fui vendido por envidia de mis hermanos y terminé siendo gobernador en Egipto.", respuesta: "José", level: 1 },
+                { pista: "Vencí a un gigante guerrero filisteo usando solo una onda y una pequeña piedra.", respuesta: "David", level: 1 },
+                { pista: "Intenté huir del mandato del Señor y terminé tres días dentro de un gran pez.", respuesta: "Jonás", level: 1 },
+                { pista: "Interpreté los sueños del rey de Babilonia y sobreviví ileso al foso de los leones.", respuesta: "Daniel", level: 2 },
+                { pista: "Fui elegida reina de Persia y puse en juego mi corona para salvar al pueblo judío.", respuesta: "Ester", level: 2 },
+                { pista: "Perseguía a los cristianos, pero vi una gran luz camino a Damasco y escribí muchas cartas de la Biblia.", respuesta: "Pablo", level: 3 }
+            ];
+
+            let preguntaActual = null;
+            let puntos = 0;
+            let countdown = null;
+            let tiempoRestante = 30;
+
+            function generarTrivia() {
+                clearInterval(countdown);
+
+                // UI Reset
+                const container = document.getElementById('arcade-container');
+                container.classList.remove('anim-shake', 'anim-glow');
+                document.getElementById('trivia-respuesta').style.display = 'none';
+                document.getElementById('user-guess').value = '';
+                document.getElementById('user-guess').style.borderColor = 'rgba(255,255,255,0.08)';
+
+                // Activar Modo interactivo
+                document.getElementById('interactive-input-zone').style.display = 'flex';
+                document.getElementById('btn-reveal-action').style.display = 'inline-block';
+                document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-rotate"></i> Saltar Reto';
+
+                // Filtrado Dinámico por Nivel
+                let currentLevel = puntos >= 50 ? 3 : (puntos >= 25 ? 2 : 1);
+                document.getElementById('trivia-level').innerText = currentLevel;
+
+                const filtradas = basePreguntas.filter(p => p.level === currentLevel);
+                const index = Math.floor(Math.random() * filtradas.length);
+                preguntaActual = filtradas[index];
+
+                document.getElementById('trivia-pista').innerText = `"${preguntaActual.pista}"`;
+
+                // Lógica y barra de progreso de tiempo Arcade
+                tiempoRestante = 30;
                 document.getElementById('trivia-timer').innerText = tiempoRestante;
-                
-                // Reducir barra de progreso visualmente
-                let porcentaje = (tiempoRestante / 30) * 100;
-                timeBar.style.width = `${porcentaje}%`;
 
-                // Alertas de color de barra de peligro
-                if (tiempoRestante <= 10) {
-                    timeBar.style.background = 'linear-gradient(90deg, #e3000f, #ff4d4d)';
-                } else if (tiempoRestante <= 20) {
-                    timeBar.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+                const timeBar = document.getElementById('time-bar');
+                timeBar.style.width = '100%';
+                timeBar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+
+                countdown = setInterval(() => {
+                    tiempoRestante--;
+                    document.getElementById('trivia-timer').innerText = tiempoRestante;
+
+                    // Reducir barra de progreso visualmente
+                    let porcentaje = (tiempoRestante / 30) * 100;
+                    timeBar.style.width = `${porcentaje}%`;
+
+                    // Alertas de color de barra de peligro
+                    if (tiempoRestante <= 10) {
+                        timeBar.style.background = 'linear-gradient(90deg, #e3000f, #ff4d4d)';
+                    } else if (tiempoRestante <= 20) {
+                        timeBar.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+                    }
+
+                    if (tiempoRestante <= 0) {
+                        clearInterval(countdown);
+                        document.getElementById('arcade-container').classList.add('anim-shake');
+                        lanzarToast("¡Tiempo agotado! Fin del multiplicador.", "error");
+                        ocultarZonaEntrada();
+                        mostrarRespuestaInmediata(false);
+                    }
+                }, 1000);
+            }
+
+            function verificarRespuesta() {
+                if (!preguntaActual) return;
+
+                const intentoUsuario = document.getElementById('user-guess').value.trim().toLowerCase();
+
+                if (intentoUsuario === "") {
+                    lanzarToast("¡Escribe algo antes de enviar!", "error");
+                    return;
                 }
 
-                if (tiempoRestante <= 0) {
-                    clearInterval(countdown);
+                // Sanitizar acentos y normalizar cadenas
+                const respuestasValidas = preguntaActual.alternativas.map(r => r.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+                const intentoSanitizado = intentoUsuario.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                clearInterval(countdown);
+                ocultarZonaEntrada();
+
+                if (respuestasValidas.includes(intentoSanitizado)) {
+                    // Ganador: Bonificación Pro por Velocidad
+                    document.getElementById('arcade-container').classList.add('anim-glow');
+                    let xpGanados = tiempoRestante > 15 ? 25 : 15;
+                    puntos += xpGanados;
+
+                    mostrarRespuestaInmediata(true, `¡Es correcto! Ganaste +${xpGanados} XP ⚡`);
+                    lanzarToast('¡Desafío superado de forma impecable!', 'success');
+                } else {
+                    // Error: Sacudida de pantalla
                     document.getElementById('arcade-container').classList.add('anim-shake');
-                    lanzarToast("¡Tiempo agotado! Fin del multiplicador.", "error");
-                    ocultarZonaEntrada();
-                    mostrarRespuestaInmediata(false);
+                    puntos = Math.max(0, puntos - 5); // Penalización min
+                    mostrarRespuestaInmediata(false, `¡Incorrecto! La respuesta era ${preguntaActual.respuesta}.`);
+                    lanzarToast('Pista fallida. ¡Sigue estudiando!', 'error');
                 }
-            }, 1000);
-        }
 
-        function verificarRespuesta() {
-            if (!preguntaActual) return;
-            
-            const intentoUsuario = document.getElementById('user-guess').value.trim().toLowerCase();
-            
-            if (intentoUsuario === "") {
-                lanzarToast("¡Escribe algo antes de enviar!", "error");
-                return;
+                actualizarScoreboard();
             }
 
-            // Sanitizar acentos y normalizar cadenas
-            const respuestasValidas = preguntaActual.alternativas.map(r => r.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-            const intentoSanitizado = intentoUsuario.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-            clearInterval(countdown);
-            ocultarZonaEntrada();
-
-            if (respuestasValidas.includes(intentoSanitizado)) {
-                // Ganador: Bonificación Pro por Velocidad
-                document.getElementById('arcade-container').classList.add('anim-glow');
-                let xpGanados = tiempoRestante > 15 ? 25 : 15;
-                puntos += xpGanados;
-                
-                mostrarRespuestaInmediata(true, `¡Es correcto! Ganaste +${xpGanados} XP ⚡`);
-                lanzarToast('¡Desafío superado de forma impecable!', 'success');
-            } else {
-                // Error: Sacudida de pantalla
-                document.getElementById('arcade-container').classList.add('anim-shake');
-                puntos = Math.max(0, puntos - 5); // Penalización min
-                mostrarRespuestaInmediata(false, `¡Incorrecto! La respuesta era ${preguntaActual.respuesta}.`);
-                lanzarToast('Pista fallida. ¡Sigue estudiando!', 'error');
+            function mostrarRespuesta() {
+                if (!preguntaActual) return;
+                clearInterval(countdown);
+                ocultarZonaEntrada();
+                puntos = Math.max(0, puntos - 5);
+                mostrarRespuestaInmediata(false, `Te rendiste. Era ${preguntaActual.respuesta}.`);
+                actualizarScoreboard();
+                lanzarToast('Penalización de escape aplicada: -5 XP', 'error');
             }
-            
-            actualizarScoreboard();
-        }
 
-        function mostrarRespuesta() {
-            if (!preguntaActual) return;
-            clearInterval(countdown);
-            ocultarZonaEntrada();
-            puntos = Math.max(0, puntos - 5);
-            mostrarRespuestaInmediata(false, `Te rendiste. Era ${preguntaActual.respuesta}.`);
-            actualizarScoreboard();
-            lanzarToast('Penalización de escape aplicada: -5 XP', 'error');
-        }
+            function mostrarRespuestaInmediata(isCorrect, mensajePersonalizado) {
+                const respDiv = document.getElementById('trivia-respuesta');
+                respDiv.innerText = mensajePersonalizado || `La respuesta es: ${preguntaActual.respuesta}`;
+                respDiv.style.color = isCorrect ? 'var(--inter-purple)' : 'var(--gteen-red)';
+                respDiv.style.display = 'block';
+                preguntaActual = null;
+            }
 
-        function mostrarRespuestaInmediata(isCorrect, mensajePersonalizado) {
-            const respDiv = document.getElementById('trivia-respuesta');
-            respDiv.innerText = mensajePersonalizado || `La respuesta es: ${preguntaActual.respuesta}`;
-            respDiv.style.color = isCorrect ? 'var(--inter-purple)' : 'var(--gteen-red)';
-            respDiv.style.display = 'block';
-            preguntaActual = null;
-        }
+            function ocultarZonaEntrada() {
+                document.getElementById('interactive-input-zone').style.display = 'none';
+                document.getElementById('btn-reveal-action').style.display = 'none';
+                document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-forward"></i> Siguiente Desafío';
+            }
 
-        function ocultarZonaEntrada() {
-            document.getElementById('interactive-input-zone').style.display = 'none';
-            document.getElementById('btn-reveal-action').style.display = 'none';
-            document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-forward"></i> Siguiente Desafío';
-        }
+            function actualizarScoreboard() {
+                document.getElementById('marcador-puntos').innerText = puntos;
 
-        function actualizarScoreboard() {
-            document.getElementById('marcador-puntos').innerText = puntos;
-            
-            // Cálculo Dinámico de Rango Gamer
-            let rango = "Recluta";
-            if (puntos >= 60) rango = "Gran Maestro 👑";
-            else if (puntos >= 40) rango = "Guerrero Elite ⚔️";
-            else if (puntos >= 20) rango = "Explorador";
-            
-            document.getElementById('rango-gamer').innerText = rango;
-        }
-    
-    </script>
+                // Cálculo Dinámico de Rango Gamer
+                let rango = "Recluta";
+                if (puntos >= 60) rango = "Gran Maestro 👑";
+                else if (puntos >= 40) rango = "Guerrero Elite ⚔️";
+                else if (puntos >= 20) rango = "Explorador";
+
+                document.getElementById('rango-gamer').innerText = rango;
+            }
+
+        </script>
 </body>
 
 </html>
