@@ -190,35 +190,52 @@
                 </div>
             </section>
 
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white p-6 sm:p-10">
-                <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    <div class="inline-flex items-center gap-2 bg-white/20 border border-white/30 backdrop-blur-sm px-4 py-1 rounded-full uppercase tracking-[0.15em] text-[10px] font-black mb-5">
-                        <i class="fas fa-campground"></i> Club de Aventureros Gedeones
-                    </div>
-                    <div class="w-24 h-24 sm:w-28 sm:h-28 mb-4 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-2xl p-2 border border-white/20 shadow-lg">
-                        <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain" onerror="this.src='https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=150'">
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight">Aventureros</h2>
-                    
-                    <div class="my-4 w-full">
-                        <div class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-950 font-black text-xs sm:text-sm px-4 py-2 rounded-xl shadow-md uppercase tracking-wide">
-                            ¡Actividad Regular! Sábado 30 de Mayo
-                        </div>
-                    </div>
+<section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white p-4 sm:p-6 md:p-10">
+    <!-- Capa de fondo limpia para mejorar contraste y evitar el efecto difuminado tosco en móviles -->
+    <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
 
-                    <div class="w-full max-w-xs sm:max-w-sm">
-                        <div class="bg-white text-slate-800 rounded-2xl p-5 shadow-2xl border-b-4 border-gray-200">
-                            <p class="font-bold text-slate-400 uppercase tracking-wider text-[10px] mb-1">Horario Oficial</p>
-                            <p class="font-black uppercase text-xl text-slate-800">Actividad de Club</p>
-                            <p class="font-black uppercase flex items-center justify-center gap-1.5 mt-2 text-red-700">
-                                <span class="text-xs text-slate-500">A partir de las</span>
-                                <span class="text-3xl tracking-tighter font-black">16:00</span>
-                                <span class="text-xs text-slate-500">hrs</span>
-                            </p>
-                        </div>
-                    </div>
+    <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
+        
+        <!-- Insignia superior: Ajustada con texto flexible (text-[9px] a text-xs) para que NUNCA se rompa en dos líneas -->
+        <div class="inline-flex items-center gap-1.5 bg-black/20 border border-white/20 px-3 py-1 rounded-full uppercase tracking-wider text-[9px] sm:text-xs font-black mb-4 max-w-full">
+            <i class="fas fa-campground text-adventist-gold"></i> 
+            <span class="truncate">Club de Aventureros Gedeones</span>
+        </div>
+        
+        <!-- Contenedor del Logo: Escalado responsivo ideal para pantallas compactas -->
+        <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mb-3 flex items-center justify-center bg-white rounded-2xl p-2 shadow-md border border-white/20">
+            <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain" onerror="this.src='https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=150'">
+        </div>
+        
+        <!-- Título principal: Ajustado con un tamaño más amigable en celulares (text-2xl a text-5xl) -->
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight mb-2 drop-shadow-md">
+            Aventureros
+        </h2>
+        
+        <!-- Estado de actividad: Modificado a bloque flexible que se adapta al ancho disponible automáticamente -->
+        <div class="my-3 w-full px-1">
+            <div class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-950 font-black text-[10px] sm:text-xs px-3 py-1.5 rounded-xl shadow-md uppercase tracking-wide max-w-full text-center">
+                ¡Actividad Regular! Sábado 30 de Mayo
+            </div>
+        </div>
+
+        <!-- Bloque de Horario: Optimizado el padding interno y los tamaños para evitar desbordes de texto -->
+        <div class="w-full max-w-xs sm:max-w-sm px-1">
+            <div class="bg-white text-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl border-b-4 border-gray-200">
+                <p class="font-bold text-slate-400 uppercase tracking-wider text-[9px] sm:text-[10px] mb-0.5">Horario Oficial</p>
+                <p class="font-black uppercase text-lg sm:text-xl text-slate-800 tracking-tight">Actividad de Club</p>
+                
+                <!-- Contenedor de hora fluido: evita saltos de línea extraños en pantallas angostas -->
+                <div class="flex flex-wrap items-center justify-center gap-1 mt-1.5 text-red-700 font-black uppercase">
+                    <span class="text-[10px] sm:text-xs text-slate-500 font-bold">A partir de las</span>
+                    <span class="text-2xl sm:text-3xl tracking-tighter font-black">16:00</span>
+                    <span class="text-[10px] sm:text-xs text-slate-500 font-bold">hrs</span>
                 </div>
-            </section>
+            </div>
+        </div>
+
+    </div>
+</section>
 
             <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-black text-white p-6 sm:p-10">
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
