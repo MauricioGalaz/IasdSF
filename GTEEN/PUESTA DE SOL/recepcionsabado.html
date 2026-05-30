@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepción del Sábado | IASD San Francisco de Limache</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-sacred {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-bg {
+            /* SE REEMPLAZÓ EL ENLACE DE UNSPLASH POR mayor.jpg */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.9)), url('mayor.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Animaciones personalizadas */
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-amber-600 selection:text-white">
+
+    <nav class="absolute top-0 w-full z-40 py-4 px-6 md:px-12 flex justify-between items-center text-white border-b border-white/10 backdrop-blur-sm">
+        <div class="flex items-center gap-4">
+            <img src="logo.jpg" alt="Logo Iglesia Adventista" class="h-10 w-auto rounded-md">
+            <div class="flex flex-col">
+                <span class="font-bold text-sm tracking-widest uppercase hidden sm:block">Iglesia Adventista</span>
+                <span class="font-bold text-sm tracking-widest uppercase sm:hidden">IASD</span>
+                <span class="text-xs text-amber-400">San Francisco de Limache</span>
+            </div>
+        </div>
+        
+        <div class="hidden lg:flex gap-8 text-sm font-semibold tracking-wider uppercase">
+            <a href="../../index.html" class="hover:text-amber-400 transition duration-300">Inicio</a>
+            <a href="#meditaciones" class="hover:text-amber-400 transition duration-300">El Libro</a>
+            <a href="#pacto" class="hover:text-amber-400 transition duration-300">Pacto</a>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <a href="es_puesta_del_sol_2026.pdf" download class="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-2 rounded-full font-bold transition">
+                <i class="fa-solid fa-download"></i> PDF
+            </a>
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white focus:outline-none p-2" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-30 hidden flex-col justify-center items-center gap-8 text-white text-xl uppercase tracking-widest font-semibold transition-all">
+        <a href="#inicio" class="mobile-link hover:text-amber-400 transition">Inicio</a>
+        <a href="#meditaciones" class="mobile-link hover:text-amber-400 transition">El Libro</a>
+        <a href="#pacto" class="mobile-link hover:text-amber-400 transition">Pacto</a>
+        <a href="es_puesta_del_sol_2026.pdf" download class="mt-4 bg-amber-600 px-8 py-3 rounded-full text-sm flex items-center gap-2">
+            <i class="fa-solid fa-download"></i> Descargar PDF
+        </a>
+    </div>
+
+    <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900"></div>
+        <div class="relative z-10 max-w-5xl mx-auto mt-24">
+            <span class="fade-in-up text-amber-400 font-semibold tracking-[0.3em] uppercase text-sm md:text-base mb-4 block">
+                Recepción del Santo Sábado
+            </span>
+            <h1 class="fade-in-up delay-100 font-sacred text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-6 leading-tight text-glow">
+                Todo por Amor <br> a Él
+            </h1>
+            <p class="fade-in-up delay-200 text-gray-300 text-lg md:text-2xl mb-10 font-light max-w-3xl mx-auto leading-relaxed">
+                Meditaciones para la Puesta del Sol 2026. Únete en familia para recibir la paz del sábado, haciendo de tu hogar un altar.
+            </p>
+            <div class="fade-in-up delay-300 flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <button onclick="openViewer()" class="bg-amber-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-amber-500 transition shadow-xl shadow-amber-600/40 flex items-center justify-center gap-3 w-full sm:w-auto">
+                    <i class="fa-solid fa-book-open-reader"></i> Leer Libro Virtual
+                </button>
+                <a href="es_puesta_del_sol_2026.pdf" download class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition flex items-center justify-center gap-3 w-full sm:w-auto">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Descargar PDF
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div id="bookViewerModal" class="fixed inset-0 z-50 bg-slate-950 hidden opacity-0 transition-opacity duration-300 flex flex-col">
+        <div class="bg-slate-900 border-b border-slate-800 h-20 px-4 md:px-6 flex justify-between items-center text-white shadow-lg">
+            <div class="flex items-center gap-3 md:gap-4">
+                <i class="fa-solid fa-book-bible text-xl md:text-2xl text-amber-500"></i>
+                <div>
+                    <h3 class="font-sacred text-lg md:text-xl font-bold truncate w-48 md:w-auto">Puesta del Sol 2026</h3>
+                    <p class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">Autor: Josanan Alves</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 md:gap-4">
+                <a href="es_puesta_del_sol_2026.pdf" download class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i> <span class="hidden sm:inline">Guardar</span>
+                </a>
+                <button onclick="closeViewer()" class="text-slate-400 hover:text-white transition p-2" aria-label="Cerrar visor">
+                    <i class="fa-solid fa-xmark text-2xl md:text-3xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="md:hidden bg-amber-100 text-amber-900 text-xs text-center py-2 px-4">
+            ¿No puedes ver el libro? <a href="es_puesta_del_sol_2026.pdf" download class="font-bold underline">Descárgalo aquí</a>.
+        </div>
+
+        <div class="w-full flex-grow bg-slate-800 p-0 md:p-6 overflow-hidden flex justify-center">
+            <div class="w-full h-full max-w-5xl bg-white md:shadow-2xl md:rounded-lg overflow-hidden relative">
+                <iframe src="es_puesta_del_sol_2026.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-0" title="Libro Virtual Puesta del Sol"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <section id="meditaciones" class="py-24 px-6 md:px-16 max-w-7xl mx-auto bg-gray-50">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute inset-0 bg-amber-600 rounded-3xl transform translate-x-4 translate-y-4 opacity-20 transition-transform duration-500"></div>
+                <img src="mayor.jpg" alt="Detalle Puesta del Sol" class="relative rounded-3xl shadow-xl object-cover h-[500px] w-full z-10 hover:-translate-y-2 transition-transform duration-500">
+                <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl z-20 border border-gray-100 hidden md:block">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-file-pdf text-4xl text-red-500"></i>
+                        <div>
+                            <p class="font-bold text-slate-900">Edición 2026</p>
+                            <p class="text-sm text-gray-500">Formato Digital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="inline-block bg-amber-100 text-amber-800 px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
+                    Material Oficial IASD
+                </div>
+                <h2 class="font-sacred text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+                    ¡Viviendo para la <br><span class="text-amber-600">Gloria de Dios!</span>
+                </h2>
+                <div class="w-20 h-1 bg-amber-600 rounded"></div>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Las Meditaciones para la puesta del sol ofrecen una reflexión semanal, que nos lleva a contemplar la preciosidad del tiempo, la importancia de cultivar la satisfacción, el valor de la gratitud y la necesidad de reconocer la soberanía de Dios.
+                </p>
+                
+                <ul class="space-y-4 text-gray-700 font-medium">
+                    <li class="flex items-start gap-3">
+                        <div class="bg-amber-100 p-1.5 rounded-full mt-0.5"><i class="fa-solid fa-check text-amber-600 text-sm"></i></div>
+                        <span>Reflexiones para cada semana del año.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-amber-100 p-1.5 rounded-full mt-0.5"><i class="fa-solid fa-check text-amber-600 text-sm"></i></div>
+                        <span>Ideal para el culto familiar y personal.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-amber-100 p-1.5 rounded-full mt-0.5"><i class="fa-solid fa-check text-amber-600 text-sm"></i></div>
+                        <span>Disponible para lectura virtual o descarga directa.</span>
+                    </li>
+                </ul>
+
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <button onclick="openViewer()" class="bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition text-center">
+                        Leer Ahora
+                    </button>
+                    <a href="es_puesta_del_sol_2026.pdf" download class="border-2 border-slate-200 text-slate-700 px-8 py-3 rounded-full font-semibold hover:border-slate-400 hover:bg-slate-100 transition text-center">
+                        Descargar Archivo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pacto" class="py-24 px-6 relative bg-slate-900 text-white">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <i class="fa-solid fa-hands-praying text-5xl text-amber-500 mb-6"></i>
+            <h2 class="font-sacred text-4xl md:text-5xl font-bold mb-6">Nuestro Pacto Sabático</h2>
+            <div class="w-16 h-1 bg-amber-600 mx-auto mb-8 rounded"></div>
+            <p class="text-lg md:text-xl text-gray-300 leading-relaxed font-light mb-8">
+                Al recibir las horas sagradas, renovamos nuestro compromiso de apartar este día para el descanso, la adoración y la comunión familiar. Que cada puesta de sol del viernes marque el inicio de un encuentro especial con nuestro Creador.
+            </p>
+            <p class="font-sacred text-2xl text-amber-400 italic">
+                "Acuérdate del día de reposo para santificarlo." <br>
+                <span class="text-sm font-sans text-gray-400 not-italic uppercase tracking-widest mt-2 block">- Éxodo 20:8 -</span>
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-16 px-6 text-center border-t border-white/10 relative">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <img src="logo.jpg" alt="Logo IASD" class="h-12 w-auto mb-6 opacity-80 hover:opacity-100 transition rounded-md">
+            <h2 class="font-sacred text-2xl text-white font-bold mb-4 tracking-widest">TODO POR AMOR A ÉL</h2>
+            <div class="w-12 h-0.5 bg-amber-600 mx-auto mb-8"></div>
+            <p class="text-gray-500 text-sm mb-2">
+                &copy; 2026 Iglesia Adventista del Séptimo Día - San Francisco de Limache.
+            </p>
+            <p class="text-gray-600 text-xs">Diseñado por Mauricio Galaz.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica del Visor Modal
+        const modal = document.getElementById('bookViewerModal');
+        const body = document.body;
+
+        function openViewer() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
+            body.style.overflow = 'hidden'; 
+        }
+
+        function closeViewer() {
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); 
+            body.style.overflow = 'auto'; 
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeViewer();
+            }
+        });
+
+        // Lógica del Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let menuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                body.style.overflow = 'hidden';
+            } else {
+                closeMobileMenu();
+            }
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            body.style.overflow = 'auto';
+            menuOpen = false;
+        }
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
+</body>
+</html>
