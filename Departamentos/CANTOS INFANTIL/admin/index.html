@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin | Cantos Infantiles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-950 text-white font-['Quicksand'] min-h-screen">
+  <main class="max-w-6xl mx-auto px-5 py-8">
+    <div class="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mb-8">
+      <div>
+        <h1 class="font-['Montserrat'] font-black text-3xl md:text-5xl uppercase text-yellow-400">Panel Admin</h1>
+        <p class="text-white/60 font-bold uppercase tracking-widest text-xs mt-2">Subir y administrar cantos infantiles</p>
+      </div>
+      <a href="../index.html" class="bg-white/10 hover:bg-yellow-400 hover:text-blue-950 px-5 py-3 rounded-2xl font-black uppercase text-xs">Volver al sitio</a>
+    </div>
+
+    <section id="loginBox" class="bg-white/10 border border-white/10 rounded-[2rem] p-6 max-w-md">
+      <h2 class="font-black text-2xl mb-4">Ingresar como administrador</h2>
+      <input id="email" class="input" type="email" placeholder="Correo admin">
+      <input id="password" class="input" type="password" placeholder="Contraseña">
+      <button onclick="login()" class="btn-primary w-full mt-3">Entrar</button>
+      <p id="loginMsg" class="text-red-300 font-bold mt-3 text-sm"></p>
+    </section>
+
+    <section id="adminBox" class="hidden grid lg:grid-cols-[420px_1fr] gap-6">
+      <form onsubmit="guardarCanto(event)" class="bg-white/10 border border-white/10 rounded-[2rem] p-6 h-fit">
+        <h2 class="font-black text-2xl mb-4">Nuevo canto</h2>
+        <input id="titulo" class="input" placeholder="Título del canto" required>
+        <select id="categoria" class="input" required>
+          <option value="cuna">Cuna</option>
+          <option value="infantes">Infantes</option>
+          <option value="primarios">Primarios</option>
+          <option value="adolescentes">Adolescentes</option>
+        </select>
+        <input id="edad" class="input" placeholder="Edad sugerida: 0 a 3 años">
+        <input id="tema" class="input" placeholder="Tema: Amor, obediencia, oración...">
+        <input id="videoId" class="input" placeholder="ID YouTube, ejemplo: NEehhwm2YeI" required>
+        <input id="imagen" class="input" placeholder="URL imagen opcional">
+        <label class="flex items-center gap-3 font-bold my-3"><input id="destacado" type="checkbox"> Destacado</label>
+        <button class="btn-primary w-full">Guardar canto</button>
+        <button type="button" onclick="logout()" class="btn-secondary w-full mt-3">Cerrar sesión</button>
+        <p id="msg" class="text-green-300 font-bold mt-3 text-sm"></p>
+      </form>
+
+      <div class="bg-white/10 border border-white/10 rounded-[2rem] p-6">
+        <h2 class="font-black text-2xl mb-4">Cantos guardados</h2>
+        <div id="listaAdmin" class="space-y-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .input{width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:14px;margin-bottom:10px;outline:none;font-weight:800;color:white}.input::placeholder{color:rgba(255,255,255,.45)}.input option{background:#020617}.btn-primary{background:#fec325;color:#00305e;padding:14px;border-radius:18px;font-weight:900;text-transform:uppercase}.btn-secondary{background:rgba(255,255,255,.1);padding:14px;border-radius:18px;font-weight:900;text-transform:uppercase}.item{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);padding:14px;border-radius:18px;display:flex;justify-content:space-between;gap:12px;align-items:center}.danger{background:#dc2626;padding:10px 14px;border-radius:14px;font-weight:900;font-size:12px;text-transform:uppercase}
+  </style>
+
+  <script type="module" src="../js/firebase-config.js"></script>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

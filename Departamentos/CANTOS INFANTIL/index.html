@@ -1,0 +1,241 @@
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Plataforma MinisterioInfantil</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00305e">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              adventist: {
+                blue: '#00305e',
+                gold: '#fec325',
+                dark: '#061526',
+                sky: '#00bcd4',
+                pink: '#ec4899'
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body class="bg-[#061526] text-white font-['Quicksand'] overflow-x-hidden">
+
+    <!-- SPLASH -->
+    <div id="splashApp" class="fixed inset-0 z-[2000] bg-[#061526] flex items-center justify-center">
+      <div class="text-center animate-pulse">
+        <img src="logo.jpg" class="w-32 h-32 mx-auto rounded-full border-4 border-[#fec325] shadow-2xl object-cover">
+        <h1 class="mt-6 text-[#fec325] font-black text-2xl uppercase">Ministerio Infantil</h1>
+        <p class="text-white/60 text-xs tracking-[0.3em] mt-2 uppercase">IASD San Francisco de Limache</p>
+      </div>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader" class="fixed inset-0 z-[999] bg-adventist-dark flex items-center justify-center">
+      <div class="text-center">
+        <img src="logo.jpg" class="w-28 h-28 mx-auto rounded-full border-4 border-adventist-gold shadow-2xl object-cover animate-bounce">
+        <h1 class="font-['Montserrat'] font-black text-3xl text-adventist-gold uppercase mt-5">Ministerio Infantil</h1>
+        <p class="text-white/60 font-bold uppercase tracking-[0.3em] text-xs mt-3">Cargando cantos...</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+
+        <div class="flex items-center gap-3">
+          <img src="logo.jpg" alt="Logo IASD"
+              class="w-12 h-12 rounded-full object-cover border-2 border-adventist-gold shadow-lg hover:scale-110 transition">
+
+          <div>
+            <h1 class="font-['Montserrat'] font-black text-sm md:text-xl uppercase leading-tight">
+              Plataforma Ministerio Infantil
+            </h1>
+            <p class="text-[10px] md:text-xs text-adventist-gold font-black uppercase tracking-widest">
+              
+            </p>
+          </div>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-2 bg-white/10 rounded-full p-1">
+          <button onclick="filtrarCategoria('todos')" class="nav-pill active" data-cat="todos">Todos</button>
+          <button onclick="filtrarCategoria('cuna')" class="nav-pill" data-cat="cuna">Cuna</button>
+          <button onclick="filtrarCategoria('infantes')" class="nav-pill" data-cat="infantes">Infantes</button>
+          <button onclick="filtrarCategoria('primarios')" class="nav-pill" data-cat="primarios">Primarios</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="toggleFavoritos()" class="icon-btn">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+
+          <a href="admin/index.html" class="hidden md:flex icon-btn">
+            <i class="fa-solid fa-user-shield"></i>
+          </a>
+
+          <button onclick="toggleMenuMobile()" class="lg:hidden icon-btn">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="menuMobile" class="hidden lg:hidden px-4 pb-4 grid grid-cols-2 gap-2">
+        <button onclick="filtrarCategoria('todos')" class="mobile-pill">Todos</button>
+        <button onclick="filtrarCategoria('cuna')" class="mobile-pill">Cuna</button>
+        <button onclick="filtrarCategoria('infantes')" class="mobile-pill">Infantes</button>
+        <button onclick="filtrarCategoria('primarios')" class="mobile-pill">Primarios</button>
+        <a href="admin/index.html" class="mobile-pill text-center">Admin</a>
+      </div>
+    </nav>
+
+    <!-- HEADER CON FONDO.JPG -->
+    <header class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+
+      <div class="absolute inset-0 bg-[url('fondo.jpg')] bg-cover bg-center bg-no-repeat"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#061526]/95 via-[#061526]/75 to-[#061526]/20"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#061526] via-transparent to-black/40"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-5 w-full grid lg:grid-cols-2 gap-10 items-center">
+
+        <div>
+          <span class="inline-flex items-center gap-2 bg-adventist-gold text-adventist-blue px-5 py-2 rounded-full font-black uppercase text-xs tracking-widest shadow-xl">
+            <i class="fa-solid fa-star"></i> Ministerio Infantil y del adolescente <br> de la IASD San Francisco de Limache
+          </span>
+
+                <h2 class="font-['Montserrat'] font-black uppercase text-5xl md:text-7xl lg:text-8xl leading-[0.92] mt-7 drop-shadow-2xl">
+            Cantos para <span class="text-adventist-gold">Escuela Sabática</span>
+          </h2>
+
+          <p class="text-white/90 text-lg md:text-xl max-w-2xl mt-6 font-semibold drop-shadow-lg">
+            Plataforma visual para proyectar cantos de Cuna, Infantes y Primarios en la Iglesia Adventista del Séptimo Día de San Francisco de Limache.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button onclick="scrollToColeccion()" class="hero-btn-primary">
+              <i class="fa-solid fa-play"></i> Ver colección
+            </button>
+
+            <button onclick="modoProyector()" class="hero-btn-secondary">
+              <i class="fa-solid fa-display"></i> Modo proyector
+            </button>
+          </div>
+        </div>
+
+        <div class="hidden lg:block">
+          <div class="glass-card p-7 rotate-2">
+            <div class="aspect-video rounded-[2rem] overflow-hidden bg-black shadow-2xl border-4 border-white/10">
+              <iframe class="w-full h-full"
+                src="https://www.youtube-nocookie.com/embed/WU6P6y04Sx8?controls=0&mute=1&autoplay=1&loop=1&playlist=WU6P6y04Sx8"
+                allow="autoplay; encrypted-media" allowfullscreen>
+              </iframe>
+            </div>
+
+            <div class="mt-5 flex items-center justify-between">
+              <div>
+                <p class="font-black text-adventist-gold uppercase text-xs tracking-widest">Destacado</p>
+                <h3 class="font-['Montserrat'] font-black text-2xl">Cantos con alegría</h3>
+              </div>
+              <div class="text-4xl">🎶</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- COLECCIÓN -->
+    <main id="coleccion" class="relative z-10 -mt-16 pb-24"><br><br><br>  
+
+      <section class="max-w-7xl mx-auto px-5 mb-8">
+        <div> 
+          <class="glass-card p-4 md:p-5 flex flex-col md:flex-row gap-3 items-center">
+          <class="relative flex-1 w-full">
+            <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-white/40"></i>
+            <input id="busqueda"
+                  oninput="renderizar()"
+                  type="text"
+                  placeholder="Buscar canto, tema, categoría o edad..."
+                  class="search-input">
+          
+          
+
+          <select id="orden" onchange="renderizar()" class="select-input">
+            <option value="reciente">Más recientes</option>
+            <option value="titulo">Orden alfabético</option>
+            <option value="edad">Por edad</option>
+          </select>
+        
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-5 space-y-14" id="contenedorCantos"></section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/50 border-t border-white/10 py-10 text-center">
+      <img src="logo.jpg" class="w-20 h-20 mx-auto rounded-full border-4 border-adventist-gold object-cover shadow-xl">
+
+      <h3 class="font-['Montserrat'] font-black text-adventist-gold uppercase mt-5">
+        IASD San Francisco de Limache
+      </h3>
+
+      <p class="text-white/50 text-xs uppercase tracking-[0.25em] mt-2">
+        Ministerio Infantil · 2026
+      </p>
+
+      <p class="text-white/30 text-[10px] mt-4">
+        Creado por Mauricio Galaz
+      </p>
+    </footer>
+
+    <!-- MODAL VIDEO -->
+    <div id="videoModal" class="hidden fixed inset-0 z-[800] bg-black flex items-center justify-center">
+      <button onclick="cerrarVideo()"
+              class="absolute top-4 right-4 z-[810] bg-white/10 hover:bg-red-600 w-12 h-12 rounded-full text-3xl font-black">
+        ×
+      </button>
+
+      <button onclick="salirPantallaCompleta()"
+              class="absolute top-4 left-4 z-[810] bg-white/10 hover:bg-adventist-gold hover:text-adventist-blue px-4 h-12 rounded-full font-black uppercase text-xs">
+        Salir proyector
+      </button>
+
+      <iframe id="iframeVideo"
+              class="w-screen h-screen"
+              src=""
+              frameborder="0"
+              allow="autoplay; encrypted-media; fullscreen"
+              allowfullscreen>
+      </iframe>
+    </div>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/app.js"></script>
+
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const splash = document.getElementById("splashApp");
+          if (splash) splash.style.display = "none";
+        }, 2500);
+      });
+    </script>
+
+  </body>
+  </html>
