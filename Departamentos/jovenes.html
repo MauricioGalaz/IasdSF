@@ -81,17 +81,30 @@
         }
 
         @keyframes shine {
-            0% {
-                left: -75%;
-            }
+            0% { left: -75%; }
+            50% { left: 100%; }
+            100% { left: -75%; }
+        }
 
-            50% {
-                left: 100%;
-            }
-
-            100% {
-                left: -75%;
-            }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: btnShine 3s infinite linear;
+        }
+        @keyframes btnShine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
         }
     </style>
 </head>
@@ -133,11 +146,18 @@
             <p class="max-w-xl mx-auto text-blue-100 text-lg mb-10 leading-relaxed font-medium">
                 Un espacio para conectar, crecer y transformar San Francisco de Limache con el amor de Jesús.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
                 <a href="#noticias"
                     class="bg-adventist-gold text-adventist-blue px-8 py-4 rounded-xl font-bold hover:scale-105 transition shadow-xl uppercase text-sm">
                     Ver Actividades
                 </a>
+                
+                <!-- NUEVO BOTÓN HACIA CANTOS JA -->
+                <a href="CANTOS JA/index.html"
+                    class="bg-blue-600 text-white border border-blue-400 px-8 py-4 rounded-xl font-bold hover:bg-blue-500 hover:scale-105 transition shadow-xl uppercase text-sm flex items-center gap-2 btn-shine">
+                    <i class="fas fa-play-circle"></i> Cantos JA
+                </a>
+
                 <button onclick="alternarMute(event)" id="audio-btn"
                     class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 transition">
                     <i id="audio-icon" class="fas fa-volume-mute"></i> <span id="audio-text">Activar Sonido</span>
@@ -197,7 +217,7 @@
                 ¿Qué está pasando?
             </h2>
 
-            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+            <div class="grid md:grid-cols-3 gap-8 items-stretch mb-12">
 
                 <div
                     class="bg-white rounded-3xl shadow-xl border border-slate-200 transition-all duration-300 hover:ring-4 hover:ring-adventist-gold/50 card-hover overflow-hidden flex flex-col">
@@ -272,27 +292,45 @@
                 </div>
 
             </div>
-        </div>
 
-        <div
-            class="glass p-6 md:p-10 border-l-8 border-green-500 bg-gradient-to-r from-green-900/20 to-transparent my-8 animate-pop">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="text-center md:text-left">
-                    <span
-                        class="bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                        Desafío Juvenil
-                    </span>
-                    <h2 class="text-3xl md:text-4xl font-black text-white mt-2 uppercase italic">BiblioPlayLim</h2>
-                    <p class="text-slate-400 font-bold mt-1">¿Cuánto sabes de las historias de la Biblia? ¡Entra y
-                        juega!</p>
+            <!-- NUEVO BANNER: ADVENTIST STREAM PRO (CANTOS JA) -->
+            <div class="glass p-6 md:p-10 border-l-8 border-blue-600 bg-gradient-to-r from-blue-900/10 to-transparent my-8 bg-white shadow-xl rounded-2xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                            Plataforma Premium
+                        </span>
+                        <h2 class="text-3xl md:text-4xl font-black text-adventist-blue mt-2 uppercase italic">Adventist Stream Pro</h2>
+                        <p class="text-slate-600 font-medium mt-1">Explora nuestro repertorio de alabanzas, adoración y karaokes JA, listos para proyectar en los programas.</p>
+                    </div>
+                    <button onclick="window.location.href='../CANTOS JA/index.html'"
+                        class="card-btn bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-blue-900/40 uppercase tracking-widest text-lg btn-shine whitespace-nowrap transition-transform hover:-translate-y-1">
+                        <i class="fas fa-music mr-2"></i> IR A CANTOS
+                    </button>
                 </div>
-                <button onclick="window.location.href='../BiblioPlayLim.html'"
-                    class="card-btn bg-green-500 hover:bg-green-400 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-green-900/40 uppercase tracking-widest text-lg btn-shine">
-                    ¡JUGAR AHORA!
-                </button>
             </div>
+
+            <!-- BANNER: BIBLIOPLAY -->
+            <div class="glass p-6 md:p-10 border-l-8 border-green-500 bg-gradient-to-r from-green-900/20 to-transparent my-8 animate-pop bg-adventist-dark rounded-2xl">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                            Desafío Juvenil
+                        </span>
+                        <h2 class="text-3xl md:text-4xl font-black text-white mt-2 uppercase italic">BiblioPlayLim</h2>
+                        <p class="text-slate-400 font-bold mt-1">¿Cuánto sabes de las historias de la Biblia? ¡Entra y
+                            juega!</p>
+                    </div>
+                    <button onclick="window.location.href='../BiblioPlayLim.html'"
+                        class="card-btn bg-green-500 hover:bg-green-400 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-green-900/40 uppercase tracking-widest text-lg btn-shine whitespace-nowrap transition-transform hover:-translate-y-1">
+                        ¡JUGAR AHORA!
+                    </button>
+                </div>
+            </div>
+
         </div>
     </section>
+
     <footer class="bg-adventist-dark text-white pt-16 pb-8 border-t-4 border-adventist-gold text-center">
         <div class="container mx-auto px-6">
             <img src="../imagenes/logo.jpg" class="h-16 w-16 rounded-full mx-auto mb-6">

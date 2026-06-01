@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventist Stream Pro | IASD San Francisco</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #09090d;
+            --bg-2: #111119;
+            --panel: rgba(18, 18, 27, 0.96);
+            --card: #1b1b27;
+            --accent: #ffcc00;
+            --accent-2: #ffd84d;
+            --text: #ffffff;
+            --muted: #bbbbca;
+            --success: #1ec97f;
+            --danger: #ff6363;
+            --shadow: 0 18px 45px rgba(0, 0, 0, 0.36);
+            --header-h: 82px;
+            --container: min(94%, 1600px);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, rgba(255, 204, 0, 0.08), transparent 16%), linear-gradient(180deg, #06060a 0%, #0b0b11 30%, #111119 100%);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: var(--container);
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-h);
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.20));
+            backdrop-filter: blur(8px);
+            transition: 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(9, 9, 14, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            min-width: 0;
+        }
+
+        .logo-box {
+            display: flex;
+            border-radius: 70%;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .logo-box img {
+            width: 96px;
+            height: 86px;
+            object-fit: cover;
+            border-radius: 60%;
+            border: 2px solid rgba(255, 204, 0, 0.32);
+            box-shadow: 0 0 22px rgba(255, 204, 0, 0.14);
+            background: #111;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: 'Bebas Neue', cursive;
+            color: var(--accent);
+            font-size: 2rem;
+            line-height: 1;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        .brand p {
+            margin: 4px 0 0;
+            color: #d9d9e5;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f2f2f6;
+            opacity: 0.88;
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pill-btn {
+            border: none;
+            min-height: 44px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+
+        .pill-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .pill-btn.gold {
+            color: #111;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 12px 24px rgba(255, 204, 0, 0.18);
+        }
+
+        .pill-btn.gold:hover {
+            filter: brightness(1.03);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* MENU MÓVIL */
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-h);
+            right: -100%;
+            width: min(88vw, 360px);
+            height: calc(100vh - var(--header-h));
+            background: rgba(10, 10, 16, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 998;
+            border-left: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.32s ease;
+            padding: 22px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a,
+        .mobile-menu button {
+            width: 100%;
+            margin-bottom: 12px;
+            text-align: center;
+            display: block;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: flex-end;
+            padding-top: calc(var(--header-h) + 10px);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(9, 9, 13, 1) 8%, rgba(9, 9, 13, 0.55) 36%, rgba(9, 9, 13, 0.16) 100%), linear-gradient(to right, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.52) 40%, rgba(0, 0, 0, 0.10) 100%), url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            transform: scale(1.04);
+            animation: heroZoom 18s ease-in-out infinite alternate;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 204, 0, 0.10), transparent 18%);
+            pointer-events: none;
+        }
+
+        @keyframes heroZoom {
+            from {
+                transform: scale(1.03);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: var(--container);
+            margin: 0 auto;
+            padding: 65px 0 70px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 999px;
+            background: rgba(255, 204, 0, 0.12);
+            border: 1px solid rgba(255, 204, 0, 0.18);
+            color: #ffe88f;
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 18px;
+        }
+
+        .hero h2 {
+            margin: 0;
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3.3rem, 8vw, 7rem);
+            line-height: 0.94;
+            letter-spacing: 1px;
+            max-width: 820px;
+            text-shadow: 0 10px 26px rgba(0, 0, 0, 0.60);
+        }
+
+        .hero p {
+            max-width: 760px;
+            font-size: clamp(1rem, 2vw, 1.18rem);
+            line-height: 1.75;
+            color: #f0f0f5;
+            margin: 18px 0 26px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-btn {
+            min-height: 54px;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 0 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.25s ease;
+        }
+
+        .hero-btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #111;
+            box-shadow: 0 16px 28px rgba(255, 204, 0, 0.18);
+        }
+
+        .hero-btn.secondary {
+            background: rgba(255, 255, 255, 0.10);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* SECCIÓN ADMIN LOCAL (Buscador eliminado) */
+        .tools-bar {
+            position: relative;
+            z-index: 5;
+            margin-top: -24px;
+        }
+
+        .login-card,
+        .admin-card {
+            display: none;
+            margin: 0 auto;
+            max-width: 800px;
+            background: linear-gradient(180deg, rgba(24, 24, 35, 0.98), rgba(17, 17, 24, 0.98));
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+
+        .login-card.active,
+        .admin-card.active {
+            display: block;
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin: 0 0 18px;
+        }
+
+        .login-grid,
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .login-grid input,
+        .admin-grid input,
+        .admin-grid select {
+            width: 100%;
+            height: 52px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            outline: none;
+            padding: 0 15px;
+        }
+
+        .login-grid input:focus,
+        .admin-grid input:focus,
+        .admin-grid textarea:focus {
+            border-color: rgba(255, 204, 0, 0.4);
+            box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.08);
+        }
+
+        .admin-grid textarea {
+            grid-column: 1 / -1;
+            min-height: 100px;
+            resize: vertical;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            outline: none;
+            padding: 15px;
+        }
+
+        .panel-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .tool-btn {
+            height: 52px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 800;
+            padding: 0 18px;
+            transition: 0.25s ease;
+        }
+
+        .tool-btn.dark {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .tool-btn.gold {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #111;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .status-msg {
+            margin-top: 12px;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        /* GRILLAS DE VIDEOS */
+        main {
+            padding: 34px 0 70px;
+        }
+
+        .section {
+            margin-top: 38px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: clamp(1.2rem, 2vw, 1.85rem);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 6px;
+            height: 30px;
+            border-radius: 999px;
+            background: linear-gradient(to bottom, var(--accent), #ffae00);
+        }
+
+        .section-note {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: linear-gradient(180deg, rgba(27, 27, 38, 0.98), rgba(17, 17, 25, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s ease;
+            position: relative;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 204, 0, 0.18);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(180deg, rgba(34, 34, 47, 0.98), rgba(20, 20, 30, 0.98));
+        }
+
+        .video-thumb {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #0f0f15;
+        }
+
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.35s ease;
+        }
+
+        .video-card:hover .video-thumb img {
+            transform: scale(1.08);
+            filter: brightness(0.76);
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-ring {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: 1.6rem;
+            opacity: 0;
+            transform: scale(0.82);
+            transition: 0.3s ease;
+        }
+
+        .video-card:hover .play-ring {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .badge-row {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .badge {
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: white;
+        }
+
+        .fav-btn {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.62);
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.25s ease;
+        }
+
+        .fav-btn.active {
+            background: rgba(255, 204, 0, 0.95);
+            color: #111;
+        }
+
+        .video-body {
+            padding: 14px;
+        }
+
+        .video-body h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            line-height: 1.4;
+            min-height: 2.8em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-body p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .meta-pill {
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ececf5;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .hidden-card {
+            display: none !important;
+        }
+
+        /* ==================================================== */
+        /* MODAL Y REPRODUCTOR A PRUEBA DE FALLOS (INFANTIL)    */
+        /* ==================================================== */
+        #videoModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 2147483647;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        #videoModal.active {
+            display: flex;
+        }
+
+        .modal-btn-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 2147483650;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .modal-btn-close:hover {
+            background: var(--danger);
+            transform: scale(1.1);
+        }
+
+        #iframeVideo {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.22);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 0 50px;
+        }
+
+        .footer-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 14px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-box strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 992px) {
+
+            .nav-links,
+            .nav-right .pill-btn {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                min-height: 78vh;
+            }
+
+            .login-grid,
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-h: 74px;
+            }
+
+            .logo-box img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .brand h1 {
+                font-size: 1.5rem;
+            }
+
+            .brand p {
+                font-size: 0.65rem;
+                letter-spacing: 0.13em;
+            }
+
+            .hero-content {
+                padding: 45px 0 50px;
+            }
+
+            .hero-actions,
+            .panel-actions {
+                flex-direction: column;
+            }
+
+            .hero-btn,
+            .tool-btn {
+                width: 100%;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+                gap: 16px;
+            }
+
+            .footer-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .modal-btn-close {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 2rem;
+            }
+        }
+
+        /* ESTILOS DEL BUSCADOR */
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            /* Centrado con margen inferior */
+            z-index: 10;
+        }
+
+        .search-container input {
+            width: 100%;
+            height: 60px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(18, 18, 27, 0.85);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 0 24px 0 60px;
+            /* Espacio extra a la izquierda para el ícono */
+            font-size: 1.1rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: rgba(255, 204, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(18, 18, 27, 0.98);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            /* Color dorado/amarillo */
+            font-size: 1.2rem;
+            pointer-events: none;
+            /* Evita que el ícono bloquee el clic en el input */
+        }
+
+        /* BOTÓN VOLVER */
+        .back-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            height: 44px; 
+            padding: 0 18px; 
+            border-radius: 999px; 
+            background: rgba(255, 255, 255, 0.08); 
+            color: white; 
+            font-weight: 700; 
+            transition: 0.25s ease; 
+            margin-right: 12px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+        }
+        .back-btn:hover { 
+            background: rgba(255, 255, 255, 0.15); 
+            transform: translateY(-2px); 
+        }
+        @media (max-width: 768px) { 
+            .back-btn span { display: none; } 
+            .back-btn { padding: 0; width: 44px; border-radius: 50%; } 
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="navbar">
+        <div class="container nav">
+            <div class="nav-left">
+
+                <!-- NUEVO BOTÓN VOLVER -->
+                <a href="../jovenes.html" class="back-btn" title="Volver al Departamento JA">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver</span>
+                </a>
+
+                <div class="logo-box">
+                    <img src="logo.jpg" alt="Logo IASD">
+                    <div class="brand">
+                        <h1>IASD SAN FRANCISCO</h1>
+                        <p>Culto de Jóvenes 2026</p>
+                    </div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#karaoke">Karaoke</a>
+                    <a href="#general">General</a>
+                    <a href="#adoracion">Adoración</a>
+                    <a href="#jovenes">JA</a>
+                    <a href="#trimestrales">Coritos</a>
+                </nav>
+            </div>
+            <div class="nav-right">
+                <button class="pill-btn" onclick="toggleLogin()">Admin</button>
+                <button class="pill-btn gold" onclick="mostrarFavoritos()">Mis Favoritos</button>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <aside class="mobile-menu" id="mobileMenu">
+        <!-- BOTÓN VOLVER EN MÓVIL -->
+        <a class="pill-btn" style="background: rgba(255,255,255,0.15); margin-bottom: 24px; color: white;"
+            href="javascript:history.back()">
+            <i class="fas fa-arrow-left mr-2"></i> Volver al Depto JA
+        </a>
+
+        <button class="pill-btn" onclick="toggleLogin()">Admin Login</button>
+        <a class="pill-btn" href="#karaoke">Karaoke</a>
+        <a class="pill-btn" href="#general">General</a>
+        <a class="pill-btn" href="#adoracion">Adoración</a>
+        <a class="pill-btn" href="#jovenes">JA</a>
+        <a class="pill-btn" href="#trimestrales">Coritos</a>
+        <button class="pill-btn gold" onclick="mostrarFavoritos()">Ver favoritos</button>
+    </aside>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Colecciones de Cantos</div>
+            <h2>REPERTORIO JA<br>PROYECCIÓN 2026</h2>
+            <p>
+                Plataforma premium para alabanzas, adoración, cantos y karaokes.
+                Todos los videos quedan visibles por sección para seleccionar rápido
+                y abrirlos de inmediato en modo proyección.
+            </p>
+            <div class="hero-actions">
+                <button class="hero-btn primary"
+                    onclick="abrirReproductor('1PE3LvLdWkBIcIpM_07EHDnmFivNoH8NS', 'drive')">
+                    ▶ Reproducir destacado
+                </button>
+                <button class="hero-btn secondary" onclick="mostrarFavoritos()">★ Ver favoritos</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-bar" id="content-start">
+        <div class="container">
+            <div class="login-card" id="loginCard">
+                <h3 class="panel-title">Ingreso visual de administrador</h3>
+                <div class="login-grid">
+                    <input type="text" id="adminUser" placeholder="Usuario">
+                    <input type="password" id="adminPass" placeholder="Contraseña">
+                </div>
+                <div class="panel-actions">
+                    <button class="tool-btn gold" onclick="loginAdmin()">Ingresar</button>
+                    <button class="tool-btn dark" onclick="toggleLogin()">Cerrar panel</button>
+                </div>
+                <div class="status-msg" id="loginStatus"></div>
+            </div>
+
+            <div class="admin-card" id="adminCard">
+                <h3 class="panel-title">Panel admin local</h3>
+                <div class="admin-grid">
+                    <input type="text" id="nuevoTitulo" placeholder="Título del video">
+                    <input type="text" id="nuevoSubtitulo" placeholder="Subtítulo">
+                    <input type="text" id="nuevoId" placeholder="ID del video o archivo">
+                    <select id="nuevoTipo">
+                        <option value="youtube">YouTube</option>
+                        <option value="drive">Google Drive</option>
+                        <option value="youtube_externo">YouTube Externo</option>
+                    </select>
+                    <select id="nuevaCategoria">
+                        <option value="karaoke">Karaoke</option>
+                        <option value="general">General</option>
+                        <option value="adoracion">Adoración</option>
+                        <option value="jovenes">Jóvenes</option>
+                        <option value="trimestrales">Coritos</option>
+                    </select>
+                    <textarea id="adminNota" placeholder="Notas internas o descripción opcional"></textarea>
+                </div>
+                <div class="panel-actions">
+                    <button class="tool-btn gold" onclick="agregarVideoAdmin()">Agregar video local</button>
+                    <button class="tool-btn dark" onclick="exportarJSON()">Exportar JSON</button>
+                    <button class="tool-btn dark" onclick="cerrarSesionAdmin()">Cerrar sesión</button>
+                </div>
+                <div class="status-msg" id="adminStatus"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-container">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" id="buscadorInput" placeholder="Buscar canto por nombre o subtítulo..."
+            onkeyup="aplicarFiltros()">
+    </div>
+
+    <main>
+        <div class="container">
+            <section class="section" id="section-karaoke">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title" id="karaoke">Karaoke para Jóvenes</h3>
+                        <div class="section-note">Todos visibles para selección rápida y proyección inmediata.</div>
+                    </div>
+                </div>
+                <div class="video-grid" id="fila-karaoke"></div>
+            </section>
+
+            <section class="section" id="section-general">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title" id="general">Colección General de Cantos</h3>
+                        <div class="section-note">Repertorio amplio para programas y cultos especiales.</div>
+                    </div>
+                </div>
+                <div class="video-grid" id="fila-general"></div>
+            </section>
+
+            <section class="section" id="section-adoracion">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title" id="adoracion">Adoración JA</h3>
+                        <div class="section-note">Momentos reverentes y espirituales listos para proyectar.</div>
+                    </div>
+                </div>
+                <div class="video-grid" id="fila-adoracion"></div>
+            </section>
+
+            <section class="section" id="section-jovenes">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title" id="jovenes">Alabanzas JA</h3>
+                        <div class="section-note">Selección juvenil dinámica para culto joven y reuniones.</div>
+                    </div>
+                </div>
+                <div class="video-grid" id="fila-jovenes"></div>
+            </section>
+
+            <section class="section" id="section-trimestrales">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title" id="trimestrales">Cantos y Coritos JA</h3>
+                        <div class="section-note">Complemento ideal para repertorio de iglesia.</div>
+                    </div>
+                </div>
+                <div class="video-grid" id="fila-trimestrales"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="videoModal">
+        <button onclick="cerrarVideo()" class="modal-btn-close">&times;</button>
+        <iframe id="iframeVideo" src=""
+            allow="autoplay; encrypted-media; fullscreen; accelerometer; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+
+    <footer>
+        <div class="container footer-box">
+            <div>Iglesia Adventista del Séptimo Día | San Francisco de Limache</div>
+            <div>Desarrollado por <strong>Mauricio Galaz</strong> | <strong>MGservices Chile 2026</strong></div>
+        </div>
+    </footer>
+
+    <script>
+        let miColeccion = [
+            { id: "1PE3LvLdWkBIcIpM_07EHDnmFivNoH8NS", tipo: "drive", categoria: "adoracion", titulo: "Mirad cual amor", subtitulo: "JA San Francisco" },
+            { id: "1MzTTSIdzUIZt8-gDdMidyP41CU_XfHMb", tipo: "drive", categoria: "adoracion", titulo: "Eres mi protector", subtitulo: "JA San Francisco" },
+            { id: "1W6-S7SYTrUq4usMxVw933vx8Fj7D6QMZ", tipo: "drive", categoria: "adoracion", titulo: "He decidido seguir a Cristo", subtitulo: "JA San Francisco" },
+            { id: "1O8EV0YWizHkmqyXoW5SM7vYp_nSBwklB", tipo: "drive", categoria: "adoracion", titulo: "El espíritu de Dios", subtitulo: "JA San Francisco" },
+            { id: "1FGhGgGvSMoJ_bc3p8gxVW3jLAZk7JTpx", tipo: "drive", categoria: "adoracion", titulo: "Cristo nombre glorioso", subtitulo: "JA San Francisco" },
+            { id: "1D-Wfib7juLpdI5OKaB5LUB86oQwNNqZc", tipo: "drive", categoria: "adoracion", titulo: "Siento la presencia del Señor", subtitulo: "JA San Francisco" },
+            { id: "1tjhM2mfE2bkGLmVOX_97dDLJ0h5FAeWw", tipo: "drive", categoria: "adoracion", titulo: "Sea exaltado", subtitulo: "JA San Francisco" },
+            { id: "1M5yWNz3NvEtl5efdBJhHMedaGFpkZXqK", tipo: "drive", categoria: "jovenes", titulo: "Medley", subtitulo: "JA San Francisco" },
+            { id: "1hU3bwTfjWKR-jruS5rvF0lt7knsqrPS8", tipo: "drive", categoria: "jovenes", titulo: "Dios nos ha dado promesa", subtitulo: "JA San Francisco" },
+            { id: "16fov7kjHwiu_C9RtpwOEpLhCI31_mtJU", tipo: "drive", categoria: "trimestrales", titulo: "Salvador a ti me rindo", subtitulo: "JA San Francisco" },
+            { id: "1tp2VpiahDZOK7vXEajbLFPFQow-ZFo25", tipo: "drive", categoria: "trimestrales", titulo: "No me olvide de ti", subtitulo: "JA San Francisco" },
+            { id: "1o1IikERx-hxKlnwnmi2leHMq7NOg4ZGL", tipo: "drive", categoria: "trimestrales", titulo: "Dulce comunión", subtitulo: "JA San Francisco" },
+            { id: "12cM0G1n1RIpA-oTeEjN9nFk_A-KDJEV3", tipo: "drive", categoria: "trimestrales", titulo: "Contendamos siempre por nuestra fe", subtitulo: "JA San Francisco" },
+            { id: "1XgTzmTkgvns5PpL0K8QD5yHc-0GHVN2g", tipo: "drive", categoria: "trimestrales", titulo: "Como el ciervo", subtitulo: "JA San Francisco" },
+            { id: "LDXdAWGYQCo", tipo: "youtube", categoria: "general", titulo: "Canto General 1", subtitulo: "YouTube" },
+            { id: "NT5GuxneIf8", tipo: "youtube", categoria: "general", titulo: "Canto General 2", subtitulo: "YouTube" },
+            { id: "ZPh96p9zqxo", tipo: "youtube", categoria: "general", titulo: "Canto General 3", subtitulo: "YouTube" },
+            { id: "9NRBhVAHj1I", tipo: "youtube", categoria: "general", titulo: "Canto General 4", subtitulo: "YouTube" },
+            { id: "F-0DopQmuw4", tipo: "youtube", categoria: "general", titulo: "Canto General 5", subtitulo: "YouTube" },
+            { id: "rTEcmoZcxpQ", tipo: "youtube", categoria: "general", titulo: "Canto General 6", subtitulo: "YouTube" },
+            { id: "iC8mHobxUOw", tipo: "youtube", categoria: "general", titulo: "Canto General 7", subtitulo: "YouTube" },
+            { id: "sColJ6fn6ss", tipo: "youtube", categoria: "general", titulo: "Canto General 8", subtitulo: "YouTube" },
+            { id: "64zBK3nDrJk", tipo: "youtube", categoria: "general", titulo: "Canto General 9", subtitulo: "YouTube" },
+            { id: "KrI6C24Ywp0", tipo: "youtube", categoria: "general", titulo: "Canto General 11", subtitulo: "YouTube" },
+            { id: "pmdZfbnlHpo", tipo: "youtube", categoria: "general", titulo: "Canto General 12", subtitulo: "YouTube" },
+            { id: "oBn25PnI2uE", tipo: "youtube", categoria: "general", titulo: "Canto General 13", subtitulo: "YouTube" },
+            { id: "qmAldCFP3-E", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 14", subtitulo: "YouTube" },
+            { id: "OdlnH1OLpew", tipo: "youtube", categoria: "general", titulo: "Canto General 15", subtitulo: "YouTube" },
+            { id: "imRWbd6JO4g", tipo: "youtube", categoria: "general", titulo: "Canto General 16", subtitulo: "YouTube" },
+            { id: "FwrWwqtMKIo", tipo: "youtube", categoria: "general", titulo: "Canto General 17", subtitulo: "YouTube" },
+            { id: "pm8lltQu3sY", tipo: "youtube", categoria: "general", titulo: "Canto General 18", subtitulo: "YouTube" },
+            { id: "vhhDDR4GIw0", tipo: "youtube", categoria: "general", titulo: "Canto General 19", subtitulo: "YouTube" },
+            { id: "JiUPGsQoyNo", tipo: "youtube", categoria: "general", titulo: "Canto General 20", subtitulo: "YouTube" },
+            { id: "9GKtbp0u-yI", tipo: "youtube", categoria: "general", titulo: "Canto General 21", subtitulo: "YouTube" },
+            { id: "Vbk95QCZVBY", tipo: "youtube", categoria: "general", titulo: "Canto General 22", subtitulo: "YouTube" },
+            { id: "6zltEznyffc", tipo: "youtube", categoria: "general", titulo: "Canto General 23", subtitulo: "YouTube" },
+            { id: "OWAq9xhYwiQ", tipo: "youtube", categoria: "general", titulo: "Canto General 24", subtitulo: "YouTube" },
+            { id: "ttSfx8Y8w1Y", tipo: "youtube", categoria: "general", titulo: "Canto General 25", subtitulo: "YouTube" },
+            { id: "Ke2B9wf5Bw4", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 26", subtitulo: "YouTube" },
+            { id: "omz7u551_7k", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 27", subtitulo: "YouTube" },
+            { id: "7A9xJD6meUU", tipo: "youtube", categoria: "general", titulo: "Canto General 28", subtitulo: "YouTube" },
+            { id: "n7lVogfWMSs", tipo: "youtube", categoria: "general", titulo: "Canto General 29", subtitulo: "YouTube" },
+            { id: "fMMlnGfAy4g", tipo: "youtube", categoria: "general", titulo: "Canto General 30", subtitulo: "YouTube" },
+            { id: "MkCN3NzDhIc", tipo: "youtube", categoria: "general", titulo: "Canto General 31", subtitulo: "YouTube" },
+            { id: "seBG2Qdp6t8", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 32", subtitulo: "YouTube" },
+            { id: "jCmF2n6Tg7A", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 33", subtitulo: "YouTube" },
+            { id: "CVMifGITnE0", tipo: "youtube", categoria: "general", titulo: "Canto General 34", subtitulo: "YouTube" },
+            { id: "b1bfyhpsz7M", tipo: "youtube", categoria: "general", titulo: "Canto General 35", subtitulo: "YouTube" },
+            { id: "2wro5-IgDcM", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 36", subtitulo: "YouTube" },
+            { id: "UBrrYWeGdcU", tipo: "youtube", categoria: "general", titulo: "Canto General 37", subtitulo: "YouTube" },
+            { id: "boAGM88bjdc", tipo: "youtube", categoria: "general", titulo: "Canto General 38", subtitulo: "YouTube" },
+            { id: "dYWe3zcz40g", tipo: "youtube", categoria: "general", titulo: "Canto General 39", subtitulo: "YouTube" },
+            { id: "ZqlF-GDT7a0", tipo: "youtube", categoria: "general", titulo: "Canto General 40", subtitulo: "YouTube" },
+            { id: "0NTjTV3ypHI", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 41", subtitulo: "YouTube" },
+            { id: "Ch4J9904BDs", tipo: "youtube", categoria: "general", titulo: "Canto General 42", subtitulo: "YouTube" },
+            { id: "68nGPMtvtwo", tipo: "youtube", categoria: "general", titulo: "Canto General 43", subtitulo: "YouTube" },
+            { id: "2PW5PinXj1k", tipo: "youtube", categoria: "general", titulo: "Canto General 44", subtitulo: "YouTube" },
+            { id: "CpCO2VlVRcg", tipo: "youtube", categoria: "general", titulo: "Canto General 45", subtitulo: "YouTube" },
+            { id: "LlBw2xw9fU0", tipo: "youtube", categoria: "general", titulo: "Canto General 46", subtitulo: "YouTube" },
+            { id: "7QNoGDMuZL4", tipo: "youtube", categoria: "general", titulo: "Canto General 47", subtitulo: "YouTube" },
+            { id: "BpF8mVcLMcw", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 1", subtitulo: "Para Jóvenes" },
+            { id: "gFOZLuBZ4rE", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 2", subtitulo: "Para Jóvenes" },
+            { id: "dMK4QEcr7YA", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 3", subtitulo: "Para Jóvenes" },
+            { id: "BWV2q6xTezc", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 4", subtitulo: "Para Jóvenes" },
+            { id: "iETzRQjo23k", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 5", subtitulo: "Para Jóvenes" },
+            { id: "mIVEZwm8Z_k", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 6", subtitulo: "Para Jóvenes" },
+            { id: "WVOmf4Bp-0I", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 7", subtitulo: "Para Jóvenes" },
+            { id: "1DfPAi6rUow", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 8", subtitulo: "Para Jóvenes" },
+            { id: "p6ParqNto1Q", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 11", subtitulo: "Para Jóvenes" },
+            { id: "G16x5Nnz6pw", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 12", subtitulo: "Para Jóvenes" },
+            { id: "OzQ5jH9UB8g", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 13", subtitulo: "Para Jóvenes" },
+            { id: "7bMWKxRNBb4", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 14", subtitulo: "Para Jóvenes" },
+            { id: "kTa-j02SKEg", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 15", subtitulo: "Para Jóvenes" },
+            { id: "o-YmheW-Tic", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 16", subtitulo: "Para Jóvenes" },
+            { id: "MoYGvTluS2E", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 17", subtitulo: "Para Jóvenes" },
+            { id: "D-4VMKndoJI", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 18", subtitulo: "Para Jóvenes" },
+            { id: "4xmyfVVrQoM", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 19", subtitulo: "Para Jóvenes" },
+            { id: "QHKhMGC0UI8", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 20", subtitulo: "Para Jóvenes" },
+            { id: "fNGrnf8Y3n8", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 21", subtitulo: "Para Jóvenes" },
+            { id: "bfDJ4D3a2WE", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 22", subtitulo: "Para Jóvenes" },
+            { id: "oNCPl3Qdm6o", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 23", subtitulo: "Para Jóvenes" },
+            { id: "ugo8lDMow7g", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 24", subtitulo: "Para Jóvenes" },
+            { id: "I4aWJg7lzHY", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 25", subtitulo: "Para Jóvenes" },
+            { id: "3E_WNmPCxqU", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 26", subtitulo: "Para Jóvenes" },
+            { id: "e-7lcT-Ckkc", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 27", subtitulo: "Para Jóvenes" },
+            { id: "aV8K9F91XYg", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 28", subtitulo: "Para Jóvenes" },
+            { id: "b4y_mK-JxEY", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 29", subtitulo: "Para Jóvenes" },
+            { id: "-86I2FAjZx0", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 30", subtitulo: "Para Jóvenes" },
+            { id: "JHSeELhxhDY", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 31", subtitulo: "Para Jóvenes" },
+            { id: "A9l2itADkGI", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 32", subtitulo: "Para Jóvenes" },
+            { id: "L5nYCkj4D0M", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 33", subtitulo: "Para Jóvenes" },
+            { id: "UpGLzPuOyb8", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 34", subtitulo: "Para Jóvenes" },
+            { id: "jmeYqV2Lx44", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 35", subtitulo: "Para Jóvenes" },
+            { id: "XrMh9z0FD3k", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 36", subtitulo: "Para Jóvenes" },
+            { id: "o2cdGUmwVRQ", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 37", subtitulo: "Para Jóvenes" },
+            { id: "oliMMjaeJ2A", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 38", subtitulo: "Para Jóvenes" },
+            { id: "wT_Y8SoxoAc", tipo: "youtube_externo", categoria: "karaoke", titulo: "Karaoke 39", subtitulo: "Para Jóvenes" },
+            { id: "CqEl636tKuA", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 40", subtitulo: "Para Jóvenes" },
+            { id: "7bPoNadnp6k", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 41", subtitulo: "Para Jóvenes" },
+            { id: "-NX2hfSaFdo", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 42", subtitulo: "Para Jóvenes" },
+            { id: "3ff5Gksb_cM", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 43", subtitulo: "Para Jóvenes" },
+            { id: "1scQBY3PAx4", tipo: "youtube", categoria: "karaoke", titulo: "Karaoke 44", subtitulo: "Para Jóvenes" }
+        ];
+
+        const filas = {
+            adoracion: document.getElementById('fila-adoracion'),
+            jovenes: document.getElementById('fila-jovenes'),
+            trimestrales: document.getElementById('fila-trimestrales'),
+            general: document.getElementById('fila-general'),
+            karaoke: document.getElementById('fila-karaoke')
+        };
+
+        const backupImages = [
+            "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=900&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=900&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=900&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&auto=format&fit=crop&q=80"
+        ];
+
+        let mostrandoFavoritos = false;
+        let adminActivo = false;
+
+        function guardarColeccionLocal() { localStorage.setItem('adventistStreamColeccion', JSON.stringify(miColeccion)); }
+        function cargarColeccionLocal() {
+            const guardada = localStorage.getItem('adventistStreamColeccion');
+            if (guardada) { try { miColeccion = JSON.parse(guardada); } catch (e) { console.warn('Error al cargar'); } }
+        }
+
+        function getFavoritos() { return JSON.parse(localStorage.getItem('adventistFavoritos') || '[]'); }
+        function setFavoritos(arr) { localStorage.setItem('adventistFavoritos', JSON.stringify(arr)); }
+        function esFavorito(id) { return getFavoritos().includes(id); }
+        function toggleFavorito(id) {
+            let favs = getFavoritos();
+            if (favs.includes(id)) { favs = favs.filter(x => x !== id); } else { favs.push(id); }
+            setFavoritos(favs); renderizarVideos(); aplicarFiltrosFav();
+        }
+
+        function obtenerMiniatura(video, index) {
+            if (video.tipo === 'youtube' || video.tipo === 'youtube_externo') { return `https://img.youtube.com/vi/${video.id}/mqdefault.jpg`; }
+            return backupImages[index % backupImages.length];
+        }
+
+        function capitalizar(texto) { return texto.charAt(0).toUpperCase() + texto.slice(1); }
+
+        function crearTarjeta(video, index) {
+            const thumb = obtenerMiniatura(video, index);
+            const tipoLabel = video.tipo === 'drive' ? 'Drive' : video.tipo === 'youtube_externo' ? 'Externo' : 'YouTube';
+            const favClass = esFavorito(video.id) ? 'active' : '';
+
+            return `
+                <article class="video-card" data-id="${video.id}">
+                    <div class="video-thumb" onclick="abrirReproductor('${video.id}', '${video.tipo}')">
+                        <img src="${thumb}" alt="${video.titulo}" loading="lazy">
+                        <div class="video-overlay"><div class="play-ring">▶</div></div>
+                        <div class="badge-row">
+                            <span class="badge">${tipoLabel}</span>
+                            <button class="fav-btn ${favClass}" onclick="event.stopPropagation(); toggleFavorito('${video.id}')">★</button>
+                        </div>
+                    </div>
+                    <div class="video-body" onclick="abrirReproductor('${video.id}', '${video.tipo}')">
+                        <h3>${video.titulo}</h3>
+                        <p>${video.subtitulo}</p>
+                        <div class="video-meta">
+                            <span class="meta-pill">${capitalizar(video.categoria)}</span>
+                            <span class="meta-pill">${tipoLabel}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderizarVideos() {
+            Object.values(filas).forEach(fila => fila.innerHTML = '');
+            miColeccion.forEach((video, index) => {
+                if (filas[video.categoria]) { filas[video.categoria].insertAdjacentHTML('beforeend', crearTarjeta(video, index)); }
+            });
+        }
+
+        // =========================================================================
+        // REPRODUCTOR ACTUALIZADO TIPO MINISTERIO INFANTIL
+        // =========================================================================
+        function abrirReproductor(id, tipo) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('iframeVideo');
+
+            if (tipo === 'drive') {
+                iframe.src = `https://drive.google.com/file/d/${id}/preview?autoplay=1`;
+            } else {
+                // Modo compatible con parámetros optimizados para proyección
+                // Soporta videos de YouTube sin restricciones de cookies
+                iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&iv_load_policy=3&rel=0&modestbranding=1&playsinline=0`;
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Intenta poner pantalla completa automáticamente con mejor compatibilidad
+            try {
+                const requestFs = modal.requestFullscreen
+                    || modal.webkitRequestFullscreen
+                    || modal.webkitEnterFullscreen
+                    || modal.mozRequestFullScreen
+                    || modal.msRequestFullscreen;
+
+                if (requestFs) requestFs.call(modal).catch(() => { });
+            } catch (e) { }
+        }
+
+        function cerrarVideo() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('iframeVideo');
+
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = 'auto';
+
+            if (document.fullscreenElement && document.exitFullscreen) {
+                document.exitFullscreen().catch(() => { });
+            } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') cerrarVideo();
+        });
+
+        // =========================================================================
+        // UTILIDADES Y FILTROS LIMITADOS A FAVORITOS
+        // =========================================================================
+
+        function aplicarFiltrosFav() {
+            const cards = document.querySelectorAll('.video-card');
+            cards.forEach(card => {
+                const id = card.dataset.id || '';
+                let visible = true;
+                if (mostrandoFavoritos && !esFavorito(id)) visible = false;
+                card.classList.toggle('hidden-card', !visible);
+            });
+        }
+
+        function mostrarFavoritos() {
+            mostrandoFavoritos = !mostrandoFavoritos;
+            aplicarFiltrosFav();
+            if (mostrandoFavoritos) document.getElementById('content-start').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleLogin() { document.getElementById('loginCard').classList.toggle('active'); }
+
+        function loginAdmin() {
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value.trim();
+            const msg = document.getElementById('loginStatus');
+
+            msg.style.color = 'var(--success)';
+            if (user === 'admin' && pass === '1234') {
+                adminActivo = true;
+                document.getElementById('adminCard').classList.add('active');
+                msg.textContent = 'Ingreso correcto. Panel admin activado.';
+            } else {
+                msg.style.color = 'var(--danger)';
+                msg.textContent = 'Credenciales incorrectas. Usa admin / 1234';
+            }
+        }
+
+        function cerrarSesionAdmin() {
+            adminActivo = false;
+            document.getElementById('adminCard').classList.remove('active');
+            document.getElementById('loginCard').classList.remove('active');
+            document.getElementById('loginStatus').textContent = '';
+            document.getElementById('adminStatus').textContent = '';
+            document.getElementById('adminUser').value = '';
+            document.getElementById('adminPass').value = '';
+        }
+
+        function agregarVideoAdmin() {
+            if (!adminActivo) return;
+            const titulo = document.getElementById('nuevoTitulo').value.trim();
+            const subtitulo = document.getElementById('nuevoSubtitulo').value.trim();
+            const id = document.getElementById('nuevoId').value.trim();
+            const tipo = document.getElementById('nuevoTipo').value;
+            const categoria = document.getElementById('nuevaCategoria').value;
+            const estado = document.getElementById('adminStatus');
+
+            if (!titulo || !subtitulo || !id) {
+                estado.style.color = 'var(--danger)';
+                estado.textContent = 'Completa título, subtítulo e ID.';
+                return;
+            }
+
+            miColeccion.unshift({ id, tipo, categoria, titulo, subtitulo });
+            guardarColeccionLocal(); renderizarVideos(); aplicarFiltrosFav();
+
+            document.getElementById('nuevoTitulo').value = '';
+            document.getElementById('nuevoSubtitulo').value = '';
+            document.getElementById('nuevoId').value = '';
+            document.getElementById('adminNota').value = '';
+
+            estado.style.color = 'var(--success)';
+            estado.textContent = 'Video agregado localmente con éxito.';
+        }
+
+        function exportarJSON() {
+            const blob = new Blob([JSON.stringify(miColeccion, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'coleccion-adventist-stream.json';
+            a.click(); URL.revokeObjectURL(url);
+        }
+
+        function configurarHeader() {
+            window.addEventListener('scroll', () => {
+                document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+            });
+        }
+
+        function configurarMenuMovil() {
+            const toggle = document.getElementById('menuToggle');
+            const mobile = document.getElementById('mobileMenu');
+            toggle.addEventListener('click', () => { mobile.classList.toggle('active'); });
+            document.addEventListener('click', (e) => {
+                if (!mobile.contains(e.target) && !toggle.contains(e.target)) { mobile.classList.remove('active'); }
+            });
+        }
+
+        function scrollToTopContent() { document.getElementById('content-start').scrollIntoView({ behavior: 'smooth' }); }
+
+        window.onload = () => {
+            cargarColeccionLocal();
+            renderizarVideos();
+            configurarHeader();
+            configurarMenuMovil();
+            aplicarFiltrosFav();
+        };
+
+        // LÓGICA DEL BUSCADOR
+        function aplicarFiltros() {
+            // 1. Obtenemos lo que el usuario escribió (en minúsculas para evitar problemas de mayúsculas)
+            const textoBuscado = (document.getElementById('buscadorInput').value || '').toLowerCase();
+
+            // 2. Seleccionamos todas las tarjetas de video renderizadas en el DOM
+            const cards = document.querySelectorAll('.video-card');
+
+            // 3. Recorremos cada tarjeta una por una
+            cards.forEach(card => {
+                // Obtenemos el texto del título (h3) y subtítulo (p) dentro de la tarjeta
+                const titulo = card.querySelector('h3').textContent.toLowerCase();
+                const subtitulo = card.querySelector('p').textContent.toLowerCase();
+
+                let visible = true;
+
+                // Si hay algo escrito en el buscador, verificamos si coincide con título o subtítulo
+                if (textoBuscado && !titulo.includes(textoBuscado) && !subtitulo.includes(textoBuscado)) {
+                    visible = false; // No hay coincidencia, la tarjeta debe ocultarse
+                }
+
+                // Agregamos o quitamos la clase CSS 'hidden-card' (que tiene display: none)
+                card.classList.toggle('hidden-card', !visible);
+            });
+        }
+    </script>
+</body>
+
+</html>
