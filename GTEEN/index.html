@@ -9,7 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Base G-Teen & Intermediarios | San Francisco de Limache</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -71,12 +73,24 @@
             border-left: 5px solid var(--gteen-blue);
         }
 
-        .modern-toast.error { border-left-color: var(--gteen-red); }
-        .modern-toast.success { border-left-color: #10b981; }
+        .modern-toast.error {
+            border-left-color: var(--gteen-red);
+        }
+
+        .modern-toast.success {
+            border-left-color: #10b981;
+        }
 
         @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         /* --- NAVEGACIÓN DESKTOP --- */
@@ -123,7 +137,9 @@
             letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover { color: var(--gteen-blue); }
+        .nav-links a:hover {
+            color: var(--gteen-blue);
+        }
 
         .btn-accion {
             background: var(--gteen-red);
@@ -175,9 +191,20 @@
             width: 18%;
         }
 
-        .mobile-nav a i { font-size: 20px; transition: 0.3s; }
-        .mobile-nav a.active, .mobile-nav a:hover { color: var(--gteen-blue); }
-        .mobile-nav a.active i { transform: translateY(-4px); color: var(--gteen-red); }
+        .mobile-nav a i {
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .mobile-nav a.active,
+        .mobile-nav a:hover {
+            color: var(--gteen-blue);
+        }
+
+        .mobile-nav a.active i {
+            transform: translateY(-4px);
+            color: var(--gteen-red);
+        }
 
         /* --- HERO --- */
         .hero {
@@ -204,8 +231,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         .iglesia-tag {
@@ -230,7 +264,10 @@
             letter-spacing: -1px;
         }
 
-        .hero h1 span { color: var(--gteen-blue); }
+        .hero h1 span {
+            color: var(--gteen-blue);
+        }
+
         .hero p {
             font-size: clamp(14px, 2vw, 16px);
             color: var(--text-muted);
@@ -240,10 +277,24 @@
         }
 
         /* --- SECCIONES ESTRUCTURALES --- */
-        section { padding: 80px 5%; width: 100%; overflow-x: hidden; }
-        .seccion-oscura { background: var(--bg-dark); }
-        .seccion-clara { background: #0c0c10; border-top: 1px solid rgba(255, 255, 255, 0.02); }
-        .seccion-intermediarios { background: linear-gradient(180deg, #0c0c10 0%, #120e1e 100%); }
+        section {
+            padding: 80px 5%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .seccion-oscura {
+            background: var(--bg-dark);
+        }
+
+        .seccion-clara {
+            background: #0c0c10;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .seccion-intermediarios {
+            background: linear-gradient(180deg, #0c0c10 0%, #120e1e 100%);
+        }
 
         .section-title {
             text-align: center;
@@ -253,8 +304,14 @@
             text-transform: uppercase;
             letter-spacing: -0.5px;
         }
-        .section-title span { color: var(--gteen-red); }
-        .section-title.inter-title span { color: var(--inter-yellow); }
+
+        .section-title span {
+            color: var(--gteen-red);
+        }
+
+        .section-title.inter-title span {
+            color: var(--inter-yellow);
+        }
 
         .section-subtitle {
             text-align: center;
@@ -285,8 +342,13 @@
             gap: 20px;
         }
 
-        .leccion-box.teen-box { border-top: 4px solid var(--gteen-blue); }
-        .leccion-box.inter-box { border-top: 4px solid var(--inter-purple); }
+        .leccion-box.teen-box {
+            border-top: 4px solid var(--gteen-blue);
+        }
+
+        .leccion-box.inter-box {
+            border-top: 4px solid var(--inter-purple);
+        }
 
         .video-wrapper {
             width: 100%;
@@ -300,11 +362,25 @@
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .leccion-info h3 { font-size: 19px; font-weight: 800; margin-bottom: 6px; color: #fff; }
-        .leccion-info p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+        .leccion-info h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .leccion-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
 
         /* --- CONFIGURACIÓN ESTRUCTURA DEL CARRUSEL --- */
         .carrusel-container {
@@ -369,9 +445,17 @@
             transition: 0.2s;
         }
 
-        .carrusel-btn:hover { background: var(--inter-purple); }
-        .carrusel-btn.prev { left: 10px; }
-        .carrusel-btn.next { right: 10px; }
+        .carrusel-btn:hover {
+            background: var(--inter-purple);
+        }
+
+        .carrusel-btn.prev {
+            left: 10px;
+        }
+
+        .carrusel-btn.next {
+            right: 10px;
+        }
 
         .editor-carrusel-panel {
             display: none;
@@ -389,109 +473,463 @@
             margin-bottom: 10px;
         }
 
-        .editor-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-
-        /* --- TIMELINE DE ACTIVIDADES --- */
-        .timeline { max-width: 800px; margin: 0 auto; position: relative; }
-        .timeline::before {
-            content: ''; position: absolute; width: 4px; background: rgba(255, 255, 255, 0.04);
-            top: 0; bottom: 0; left: 30px; border-radius: 10px;
+        .editor-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .timeline-item { display: flex; align-items: flex-start; margin-bottom: 30px; position: relative; }
+        /* --- TIMELINE DE ACTIVIDADES --- */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            top: 0;
+            bottom: 0;
+            left: 30px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
         .timeline-icon {
-            width: 40px; height: 40px; background: var(--bg-dark); border: 3px solid var(--gteen-blue);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            position: absolute; left: 12px; top: 4px; color: var(--gteen-red); font-size: 14px; z-index: 2;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-dark);
+            border: 3px solid var(--gteen-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 12px;
+            top: 4px;
+            color: var(--gteen-red);
+            font-size: 14px;
+            z-index: 2;
         }
 
         .timeline-content {
-            background: var(--bg-card); padding: 22px; border-radius: 20px;
-            width: calc(100% - 65px); margin-left: 65px; border: 1px solid rgba(255, 255, 255, 0.03);
+            background: var(--bg-card);
+            padding: 22px;
+            border-radius: 20px;
+            width: calc(100% - 65px);
+            margin-left: 65px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
             transition: 0.2s;
         }
-        .timeline-content:hover { background: var(--bg-card-hover); transform: translateX(4px); }
-        .timeline-content h3 {
-            font-size: 16px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase;
-            display: flex; justify-content: space-between; align-items: center;
+
+        .timeline-content:hover {
+            background: var(--bg-card-hover);
+            transform: translateX(4px);
         }
-        .timeline-time-badge { background: rgba(0, 160, 227, 0.15); color: var(--gteen-blue); font-size: 11px; padding: 3px 10px; border-radius: 20px; }
-        .timeline-content p { color: var(--text-muted); font-size: 13px; }
-        .timeline-time-desktop { display: none; }
+
+        .timeline-content h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-time-badge {
+            background: rgba(0, 160, 227, 0.15);
+            color: var(--gteen-blue);
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .timeline-time-desktop {
+            display: none;
+        }
 
         /* --- GRID DE TARJETAS FLYER --- */
-        .flyer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
-        .flyer-card { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4/5; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.04); background: var(--bg-card); }
-        .flyer-bg { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; transition: transform 0.4s ease; }
-        .flyer-card:hover .flyer-bg { transform: scale(1.06); }
-        .flyer-overlay { position: absolute; inset: 0; background: linear-gradient(to top, #09090b 18%, rgba(9, 9, 11, 0.3) 65%, transparent 100%); z-index: 2; }
-        .flyer-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; z-index: 3; }
-        .flyer-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--gteen-blue); display: flex; justify-content: center; align-items: center; font-size: 16px; color: white; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 160, 227, 0.4); }
-        .flyer-content h3 { font-size: 22px; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 8px; }
-        .flyer-content p { color: #d4d4d8; font-size: 13px; line-height: 1.5; }
+        .flyer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .flyer-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: var(--bg-card);
+        }
+
+        .flyer-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            z-index: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .flyer-card:hover .flyer-bg {
+            transform: scale(1.06);
+        }
+
+        .flyer-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #09090b 18%, rgba(9, 9, 11, 0.3) 65%, transparent 100%);
+            z-index: 2;
+        }
+
+        .flyer-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            z-index: 3;
+        }
+
+        .flyer-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gteen-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: white;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 160, 227, 0.4);
+        }
+
+        .flyer-content h3 {
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .flyer-content p {
+            color: #d4d4d8;
+            font-size: 13px;
+            line-height: 1.5;
+        }
 
         /* --- JUEGOS Y TRIVIAS --- */
-        .juegos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 900px; margin: 0 auto; }
-        .juego-card { background: rgba(20, 20, 25, 0.7); padding: 35px 25px; border-radius: 24px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.04); text-decoration: none; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .juego-card:hover { border-color: var(--gteen-blue); transform: translateY(-4px); background: var(--bg-card-hover); }
-        .juego-icon { font-size: 45px; color: var(--gteen-blue); margin-bottom: 5px; }
-        .juego-interactivo { background: var(--bg-card); border: 2px dashed rgba(139, 92, 246, 0.3); border-radius: 24px; padding: 35px 20px; margin-top: 45px; text-align: center; max-width: 750px; margin-inline: auto; }
-        .trivia-pista { font-size: 17px; font-weight: 600; color: #f4f4f5; margin-bottom: 25px; min-height: 50px; font-style: italic; line-height: 1.6; }
-        .trivia-respuesta { font-size: 26px; font-weight: 900; color: var(--inter-yellow); margin-bottom: 25px; display: none; text-transform: uppercase; text-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
-        .btn-trivia { background: var(--gradient-gteen); border: none; padding: 12px 25px; color: white; font-size: 13px; font-weight: 700; border-radius: 30px; cursor: pointer; width: 100%; max-width: 200px; transition: 0.2s; }
-        .btn-trivia:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .juegos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .juego-card {
+            background: rgba(20, 20, 25, 0.7);
+            padding: 35px 25px;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .juego-card:hover {
+            border-color: var(--gteen-blue);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        .juego-icon {
+            font-size: 45px;
+            color: var(--gteen-blue);
+            margin-bottom: 5px;
+        }
+
+        .juego-interactivo {
+            background: var(--bg-card);
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 35px 20px;
+            margin-top: 45px;
+            text-align: center;
+            max-width: 750px;
+            margin-inline: auto;
+        }
+
+        .trivia-pista {
+            font-size: 17px;
+            font-weight: 600;
+            color: #f4f4f5;
+            margin-bottom: 25px;
+            min-height: 50px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .trivia-respuesta {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--inter-yellow);
+            margin-bottom: 25px;
+            display: none;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-trivia {
+            background: var(--gradient-gteen);
+            border: none;
+            padding: 12px 25px;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            transition: 0.2s;
+        }
+
+        .btn-trivia:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
 
         /* --- ADORACIÓN MEDIA --- */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; margin-top: 30px; }
-        .video-card { position: relative; cursor: pointer; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.04); transition: transform 0.2s; aspect-ratio: 16/10; }
-        .video-card:hover { transform: scale(1.03); border-color: var(--gteen-blue); }
-        .video-card img { width: 100%; height: 100%; object-fit: cover; }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: transform 0.2s;
+            aspect-ratio: 16/10;
+        }
+
+        .video-card:hover {
+            transform: scale(1.03);
+            border-color: var(--gteen-blue);
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         /* --- PORTAL DIRECTIVA --- */
-        .lideres-login { max-width: 380px; margin: 0 auto; background: var(--bg-card); padding: 35px 25px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.04); text-align: center; }
-        .lideres-login input { width: 100%; padding: 14px; font-size: 15px; text-align: center; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); background: var(--bg-dark); color: white; margin-bottom: 20px; outline: none; }
-        .lideres-login input:focus { border-color: var(--gteen-red); }
-        .lideres-content { display: none; }
-        .pdf-visor { width: 100%; height: 65vh; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); margin-top: 15px; }
+        .lideres-login {
+            max-width: 380px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
+        }
+
+        .lideres-login input {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--bg-dark);
+            color: white;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .lideres-login input:focus {
+            border-color: var(--gteen-red);
+        }
+
+        .lideres-content {
+            display: none;
+        }
+
+        .pdf-visor {
+            width: 100%;
+            height: 65vh;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 15px;
+        }
 
         /* --- MODAL DE REPRODUCCIÓN --- */
-        .video-modal { display: none; position: fixed; z-index: 99999; inset: 0; background: rgba(0, 0, 0, 0.96); justify-content: center; align-items: center; }
-        .video-modal iframe { width: 90%; height: 75vh; border: none; border-radius: 16px; }
-        .cerrar-modal { position: absolute; top: 25px; right: 25px; background: var(--gteen-red); color: white; border: none; font-size: 20px; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.96);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-modal iframe {
+            width: 90%;
+            height: 75vh;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--gteen-red);
+            color: white;
+            border: none;
+            font-size: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (min-width: 769px) {
-            .mobile-nav { display: none !important; }
-            body { padding-bottom: 0; }
-            .timeline::before { left: 110px; }
-            .timeline-icon { left: 90px; }
-            .timeline-content { width: calc(100% - 150px); margin-left: 150px; }
-            .timeline-time-badge { display: none; }
-            .timeline-time-desktop { display: block; position: absolute; left: 0; top: 12px; width: 75px; text-align: right; color: var(--gteen-blue); font-weight: 800; font-size: 14px; }
+            .mobile-nav {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            .timeline::before {
+                left: 110px;
+            }
+
+            .timeline-icon {
+                left: 90px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 150px);
+                margin-left: 150px;
+            }
+
+            .timeline-time-badge {
+                display: none;
+            }
+
+            .timeline-time-desktop {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 12px;
+                width: 75px;
+                text-align: right;
+                color: var(--gteen-blue);
+                font-weight: 800;
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 768px) {
-            nav.desktop-nav { display: none; }
-            .mobile-nav { display: flex; }
-            .hero { padding-top: 90px; }
-            section { padding: 55px 4%; }
+            nav.desktop-nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: 90px;
+            }
+
+            section {
+                padding: 55px 4%;
+            }
         }
 
         @media (max-width: 480px) {
-            .logo-nav span { display: none; }
+            .logo-nav span {
+                display: none;
+            }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-8px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(8px);
+            }
         }
+
         @keyframes glowSuccess {
-            0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.6); border-color: #10b981; }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(16, 185, 129, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+                border-color: #10b981;
+            }
         }
-        .anim-shake { animation: shake 0.4s ease-in-out; }
-        .anim-glow { animation: glowSuccess 0.6s ease-in-out 2; }
+
+        .anim-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .anim-glow {
+            animation: glowSuccess 0.6s ease-in-out 2;
+        }
     </style>
 </head>
 
@@ -501,7 +939,8 @@
 
     <nav class="desktop-nav">
         <div class="logo-nav">
-            <img src="logo.jpg" alt="G-Teen Logo" onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
+            <img src="logo.jpg" alt="G-Teen Logo"
+                onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
             <span style="font-weight: 900; letter-spacing: 0.5px;">BASE G-TEEN</span>
         </div>
         <div class="nav-links">
@@ -519,15 +958,19 @@
     </nav>
 
     <section class="hero" id="inicio">
-        <img src="logo.jpg" alt="Generación Teen" class="hero-logo" onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
+        <img src="logo.jpg" alt="Generación Teen" class="hero-logo"
+            onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
         <div class="iglesia-tag"><i class="fa-solid fa-church"></i> San Francisco de Limache</div>
         <h1>#VoyX<span>Jesús</span></h1>
-        <p>No somos una simple clase de sábado; somos una Base unificada de discipulado, identidad y acción. Prepárate para vivir una experiencia de fe integral junto a tus amigos.</p>
+        <p>No somos una simple clase de sábado; somos una Base unificada de discipulado, identidad y acción. Prepárate
+            para vivir una experiencia de fe integral junto a tus amigos.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; width: 100%;">
-            <a href="https://instagram.com/" target="_blank" class="btn-accion" style="padding: 14px 30px; font-size: 14px; background: var(--gradient-ig);">
+            <a href="https://instagram.com/" target="_blank" class="btn-accion"
+                style="padding: 14px 30px; font-size: 14px; background: var(--gradient-ig);">
                 <i class="fa-brands fa-instagram"></i> @GTeenLimache
             </a>
-            <a href="#intermediarios" class="btn-accion" style="padding: 14px 30px; font-size: 14px; background: var(--gradient-inter);">
+            <a href="#intermediarios" class="btn-accion"
+                style="padding: 14px 30px; font-size: 14px; background: var(--gradient-inter);">
                 <i class="fa-solid fa-user-group"></i> Intermediarios Hub
             </a>
         </div>
@@ -535,23 +978,29 @@
 
     <section class="seccion-clara" id="leccion">
         <h2 class="section-title">Escuela <span>Sabática</span></h2>
-        <p class="section-subtitle">Repasa y estudia el folleto con los videos oficiales e interactivos de esta semana.</p>
+        <p class="section-subtitle">Repasa y estudia el folleto con los videos oficiales e interactivos de esta semana.
+        </p>
 
         <div class="leccion-container">
             <div class="leccion-box teen-box">
                 <div class="leccion-info">
-                    <span style="color: var(--gteen-blue); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Generación Teen</span>
+                    <span
+                        style="color: var(--gteen-blue); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Generación
+                        Teen</span>
                     <h3>Lección de Adolescentes</h3>
                     <p>Estudio interactivo de la Escuela Sabática para jóvenes y adolescentes de la Base.</p>
                 </div>
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/aZeJBVw2fFY?rel=0" title="Lección G-Teen Semanal" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/aZeJBVw2fFY?rel=0" title="Lección G-Teen Semanal"
+                        allowfullscreen></iframe>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <a href="https://www.youtube.com/@Lecci%C3%B3nGPTeens" target="_blank" class="btn-accion" style="flex: 1; justify-content: center; background: #ef4444;">
+                    <a href="https://www.youtube.com/@Lecci%C3%B3nGPTeens" target="_blank" class="btn-accion"
+                        style="flex: 1; justify-content: center; background: #ef4444;">
                         <i class="fa-brands fa-youtube"></i> Canal Oficial
                     </a>
-                    <button onclick="compartirURL('https://www.youtube.com/watch?v=aZeJBVw2fFY')" class="btn-accion" style="background: var(--gteen-blue);">
+                    <button onclick="compartirURL('https://www.youtube.com/watch?v=aZeJBVw2fFY')" class="btn-accion"
+                        style="background: var(--gteen-blue);">
                         <i class="fa-solid fa-share-nodes"></i>
                     </button>
                 </div>
@@ -559,15 +1008,18 @@
 
             <div class="leccion-box inter-box" id="leccion-intermediarios">
                 <div class="leccion-info">
-                    <span style="color: var(--inter-yellow); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Intermediarios</span>
+                    <span
+                        style="color: var(--inter-yellow); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Intermediarios</span>
                     <h3>Actividades & Noticias</h3>
                     <p>Entérate de lo que pasa cada sábado en nuestra base y revisa los próximos eventos.</p>
                 </div>
 
                 <div class="carrusel-container">
-                    <button class="carrusel-btn prev" onclick="cambiarSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="carrusel-btn next" onclick="cambiarSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
-                    
+                    <button class="carrusel-btn prev" onclick="cambiarSlide(-1)"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carrusel-btn next" onclick="cambiarSlide(1)"><i
+                            class="fa-solid fa-chevron-right"></i></button>
+
                     <div class="carrusel-track" id="carruselTrack">
                         <div class="carrusel-slide">
                             <img src="logo.jpg" alt="Actividad">
@@ -577,40 +1029,57 @@
                 </div>
 
                 <div class="editor-carrusel-panel" id="editorCarruselPanel">
-                    <h4 style="font-size: 12px; text-transform: uppercase; color: var(--inter-yellow); margin-bottom: 8px;"><i class="fa-solid fa-images"></i> Administrador de Fotos Ilimitadas</h4>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Ingresa una foto por línea: <strong>ruta_o_url, Etiqueta</strong></p>
-                    <div class="editor-row">
-                        <textarea id="textareaFotosIlimitadas" rows="4" style="width: 100%; background: #09090b; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: #fff; font-size: 12px; font-family: monospace; resize: vertical;" oninput="guardarYActualizarCarruselLive()">logo.jpg, Estudio Base&#10;logo.jpg, Dinámicas</textarea>
-                    </div>
+                    <h4
+                        style="font-size: 12px; text-transform: uppercase; color: var(--inter-yellow); margin-bottom: 8px;">
+                        <i class="fa-solid fa-images"></i> Administrador de Fotos Ilimitadas</h4>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Ingresa una foto por
+                        línea: <strong>ruta_o_url, Etiqueta</strong></p>
+                    <textarea id="textareaFotosIlimitadas" rows="4"
+                        style="width: 100%; background: #09090b; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: #fff; font-size: 12px; font-family: monospace; resize: vertical;"
+                        oninput="guardarYActualizarCarruselLive()">puesta_de_sol/foto1.jpeg, Actividad 1
+                puesta_de_sol/foto2.jpeg, Actividad 2
+                puesta_de_sol/foto3.jpeg, Actividad 3
+                puesta_de_sol/foto4.jpeg, Actividad 4
+                puesta_de_sol/foto5.jpeg, Actividad 5
+                puesta_de_sol/foto6.jpeg, Actividad 6</textarea>
                 </div>
 
-                <div style="background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 16px; border: 1px solid rgba(245, 158, 11, 0.15); display: flex; flex-direction: column; gap: 10px;">
-                    <h4 style="font-size: 13px; color: var(--inter-yellow); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
+                <div
+                    style="background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 16px; border: 1px solid rgba(245, 158, 11, 0.15); display: flex; flex-direction: column; gap: 10px;">
+                    <h4
+                        style="font-size: 13px; color: var(--inter-yellow); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
                         <i class="fa-solid fa-bullhorn"></i> Boletín de la Base
                     </h4>
                     <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;">
                         <li style="display: flex; gap: 8px; align-items: flex-start;">
-                            <i class="fa-solid fa-calendar-day" style="color: var(--inter-purple); margin-top: 4px;"></i>
+                            <i class="fa-solid fa-calendar-day"
+                                style="color: var(--inter-purple); margin-top: 4px;"></i>
                             <span><strong>Próximo Sábado:</strong> Tendremos la fotografía grupal de la Base.</span>
                         </li>
-                        <li style="display: flex; gap: 8px; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        <li
+                            style="display: flex; gap: 8px; align-items: flex-start; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
                             <i class="fa-solid fa-cake-candles" style="color: var(--gteen-red); margin-top: 3px;"></i>
-                            <span><strong>Cumpleaños:</strong> ¡Felicidades a los cumpleañeros de este mes! Lorena y Eudice. <br> Tendremos un momento especial.</span>
+                            <span><strong>Cumpleaños:</strong> ¡Felicidades a los cumpleañeros de este mes! Lorena y
+                                Eudice. <br> Tendremos un momento especial.</span>
                         </li>
                     </ul>
                 </div>
 
-                <div style="background: rgba(139, 92, 246, 0.08); padding: 15px; border-radius: 16px; border: 1px dashed rgba(139, 92, 246, 0.25); text-align: center; font-size: 12px; display: flex; flex-direction: column; gap: 12px;">
-                    <span style="color: var(--text-muted); display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                <div
+                    style="background: rgba(139, 92, 246, 0.08); padding: 15px; border-radius: 16px; border: 1px dashed rgba(139, 92, 246, 0.25); text-align: center; font-size: 12px; display: flex; flex-direction: column; gap: 12px;">
+                    <span
+                        style="color: var(--text-muted); display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
                         <i class="fa-solid fa-graduation-cap"></i> Material de Estudio Sabático
                     </span>
 
-                        <a href="https://drive.google.com/file/d/15u4JVopG77iBwDvZbm0v1fiPXCOSF7WQ/view?usp=drive_link" target="_blank" style="color: #34d399; font-weight: 700; text-decoration: none; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02);">
-                            <i class="fa-solid fa-key"></i> Explorar Llave Maestra (PDF)
-                        </a>
-                    </div>
+                    <a href="https://drive.google.com/file/d/15u4JVopG77iBwDvZbm0v1fiPXCOSF7WQ/view?usp=drive_link"
+                        target="_blank"
+                        style="color: #34d399; font-weight: 700; text-decoration: none; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.02);">
+                        <i class="fa-solid fa-key"></i> Explorar Llave Maestra (PDF)
+                    </a>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -623,7 +1092,8 @@
                 <div class="timeline-time-desktop">09:30 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-door-open"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Recepción</span> <span class="timeline-time-badge">09:30 AM</span></h3>
+                    <h3><span style="color: var(--gteen-blue);">Recepción</span> <span class="timeline-time-badge">09:30
+                            AM</span></h3>
                     <p>Registro de asistencia en el tótem digital, entrega de materiales y bienvenida formal.</p>
                 </div>
             </div>
@@ -631,7 +1101,8 @@
                 <div class="timeline-time-desktop">09:45 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-red);">Alabanza & Adoración</span> <span class="timeline-time-badge">09:45 AM</span></h3>
+                    <h3><span style="color: var(--gteen-red);">Alabanza & Adoración</span> <span
+                            class="timeline-time-badge">09:45 AM</span></h3>
                     <p>Espacio musical para sintonizar el corazón mediante cantos lema y reflexiones.</p>
                 </div>
             </div>
@@ -639,7 +1110,8 @@
                 <div class="timeline-time-desktop">10:00 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-person-praying"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Dinámica de Oración</span> <span class="timeline-time-badge">10:00 AM</span></h3>
+                    <h3><span style="color: var(--gteen-blue);">Dinámica de Oración</span> <span
+                            class="timeline-time-badge">10:00 AM</span></h3>
                     <p>Cadena de peticiones y agradecimientos grupales en la pizarra interactiva.</p>
                 </div>
             </div>
@@ -647,7 +1119,8 @@
                 <div class="timeline-time-desktop">10:15 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-earth-americas"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-red);">Misión Global</span> <span class="timeline-time-badge">10:15 AM</span></h3>
+                    <h3><span style="color: var(--gteen-red);">Misión Global</span> <span
+                            class="timeline-time-badge">10:15 AM</span></h3>
                     <p>Relato animado de la recolección de ofrendas mundiales y el impacto misionero actual.</p>
                 </div>
             </div>
@@ -655,7 +1128,8 @@
                 <div class="timeline-time-desktop">10:30 AM</div>
                 <div class="timeline-icon"><i class="fa-solid fa-book-bible"></i></div>
                 <div class="timeline-content">
-                    <h3><span style="color: var(--gteen-blue);">Repaso de Lección</span> <span class="timeline-time-badge">10:30 AM</span></h3>
+                    <h3><span style="color: var(--gteen-blue);">Repaso de Lección</span> <span
+                            class="timeline-time-badge">10:30 AM</span></h3>
                     <p>Análisis interactivo por unidades, debates dinámicos y resolución de dudas.</p>
                 </div>
             </div>
@@ -664,17 +1138,21 @@
 
     <section class="seccion-intermediarios" id="intermediarios">
         <h2 class="section-title inter-title">Espacio de <span>Intermediarios</span></h2>
-        <p class="section-subtitle">Un espacio interactivo de crecimiento, descarga de materiales y multimedia para preadolescentes.</p>
+        <p class="section-subtitle">Un espacio interactivo de crecimiento, descarga de materiales y multimedia para
+            preadolescentes.</p>
 
         <div class="flyer-grid">
             <div class="flyer-card" style="border-radius: 20px;">
                 <img src="logo.jpg" alt="Folleto" class="flyer-bg" style="filter: hue-rotate(50deg); opacity: 0.2;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--inter-purple);"><i class="fa-solid fa-book-bible"></i></div>
+                    <div class="flyer-icon" style="background: var(--inter-purple);"><i
+                            class="fa-solid fa-book-bible"></i></div>
                     <h3 style="color: var(--inter-yellow);">Guía de Estudio</h3>
-                    <p style="margin-bottom: 15px;">Accede al folleto digital oficial de la clase de Intermediarios para tu lectura y repaso de la semana.</p>
-                    <a href="https://www.adventistas.org/es/infantiles/" target="_blank" class="btn-accion" style="padding: 6px 15px; font-size: 11px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);">
+                    <p style="margin-bottom: 15px;">Accede al folleto digital oficial de la clase de Intermediarios para
+                        tu lectura y repaso de la semana.</p>
+                    <a href="https://www.adventistas.org/es/infantiles/" target="_blank" class="btn-accion"
+                        style="padding: 6px 15px; font-size: 11px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);">
                         <i class="fa-solid fa-download"></i> Leer Folleto Digital
                     </a>
                 </div>
@@ -684,23 +1162,29 @@
                 <img src="logo.jpg" alt="Misión" class="flyer-bg" style="filter: hue-rotate(120deg); opacity: 0.2;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
-                    <div class="flyer-icon" style="background: var(--inter-yellow); color:#000;"><i class="fa-solid fa-globe"></i></div>
+                    <div class="flyer-icon" style="background: var(--inter-yellow); color:#000;"><i
+                            class="fa-solid fa-globe"></i></div>
                     <h3 style="color: white;">Misión Global</h3>
-                    <p style="margin-bottom: 15px;">Conoce los testimonios reales de fe, proyectos sociales e historias de preadolescentes alrededor del mundo.</p>
-                    <a href="https://www.youtube.com/@NuevoTiempoKids" target="_blank" class="btn-accion" style="padding: 6px 15px; font-size: 11px; background: #ef4444;">
+                    <p style="margin-bottom: 15px;">Conoce los testimonios reales de fe, proyectos sociales e historias
+                        de preadolescentes alrededor del mundo.</p>
+                    <a href="https://www.youtube.com/@NuevoTiempoKids" target="_blank" class="btn-accion"
+                        style="padding: 6px 15px; font-size: 11px; background: #ef4444;">
                         <i class="fa-brands fa-youtube"></i> Contenido Multimedia
                     </a>
                 </div>
             </div>
 
             <div class="flyer-card" style="border-radius: 20px;">
-                <img src="logo.jpg" alt="Actividades" class="flyer-bg" style="filter: hue-rotate(270deg); opacity: 0.2;">
+                <img src="logo.jpg" alt="Actividades" class="flyer-bg"
+                    style="filter: hue-rotate(270deg); opacity: 0.2;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
                     <div class="flyer-icon" style="background: #10b981;"><i class="fa-solid fa-puzzle-piece"></i></div>
                     <h3 style="color: var(--inter-purple);">Actividades Base</h3>
-                    <p style="margin-bottom: 15px;">Descarga mapas dinámicos, cuadernillos de actividades y proyectos de aplicación de fe en la comunidad.</p>
-                    <a href="https://www.adventistas.org/es/infantiles/proyecto/vivos-en-jesus/" target="_blank" class="btn-accion" style="padding: 6px 15px; font-size: 11px; background: #10b981;">
+                    <p style="margin-bottom: 15px;">Descarga mapas dinámicos, cuadernillos de actividades y proyectos de
+                        aplicación de fe en la comunidad.</p>
+                    <a href="https://www.adventistas.org/es/infantiles/proyecto/vivos-en-jesus/" target="_blank"
+                        class="btn-accion" style="padding: 6px 15px; font-size: 11px; background: #10b981;">
                         <i class="fa-solid fa-scissors"></i> Descargar Guías
                     </a>
                 </div>
@@ -710,7 +1194,8 @@
 
     <section class="seccion-clara" id="desafios">
         <h2 class="section-title">Desafíos <span>G-Teen</span></h2>
-        <p class="section-subtitle">Nuestras metas estratégicas de equipo para consolidar la unión, fe y servicio comunitario.</p>
+        <p class="section-subtitle">Nuestras metas estratégicas de equipo para consolidar la unión, fe y servicio
+            comunitario.</p>
 
         <div class="flyer-grid">
             <div class="flyer-card">
@@ -735,7 +1220,8 @@
                 <img src="logo.jpg" alt="Misión" class="flyer-bg" style="filter: brightness(0.6); opacity: 0.4;">
                 <div class="flyer-overlay"></div>
                 <div class="flyer-content">
-                    <div class="flyer-icon" style="background: #10b981;"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <div class="flyer-icon" style="background: #10b981;"><i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
                     <h3>Impacto Limache</h3>
                     <p>Organizar proyectos de apoyo solidario y urbano en sectores necesitados de nuestra comuna.</p>
                 </div>
@@ -745,57 +1231,83 @@
 
     <section class="seccion-oscura" id="juegos">
         <h2 class="section-title">Zona de <span>Juegos</span></h2>
-        <p class="section-subtitle">Competiciones y evaluaciones divertidas en tiempo real durante la lección sabática.</p>
+        <p class="section-subtitle">Competiciones y evaluaciones divertidas en tiempo real durante la lección sabática.
+        </p>
 
         <div class="juegos-grid">
             <a href="https://kahoot.it/" target="_blank" class="juego-card">
                 <div class="juego-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
                 <h3>Biblia Kahoot!</h3>
-                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Ingresa el PIN de sala proyectado por tu profesor en la pantalla general.</p>
+                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Ingresa el PIN de sala proyectado por
+                    tu profesor en la pantalla general.</p>
             </a>
-            <a href="https://quizizz.com/join" target="_blank" class="juego-card" style="border-bottom: 3px solid var(--gteen-red);">
+            <a href="https://quizizz.com/join" target="_blank" class="juego-card"
+                style="border-bottom: 3px solid var(--gteen-red);">
                 <div class="juego-icon" style="color: var(--gteen-red);"><i class="fa-solid fa-bolt"></i></div>
                 <h3>Quizizz Hub</h3>
-                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Desafía tu rapidez mental respondiendo el cuestionario de la semana.</p>
+                <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Desafía tu rapidez mental respondiendo
+                    el cuestionario de la semana.</p>
             </a>
         </div>
 
-<!-- REPRODUCTOR ARCADE PRO -->
+        <!-- REPRODUCTOR ARCADE PRO -->
         <div class="juego-interactivo" id="arcade-container" style="transition: all 0.3s ease;">
-            <h3 style="color: var(--inter-yellow); font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);">
+            <h3
+                style="color: var(--inter-yellow); font-size: 24px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);">
                 <i class="fa-solid fa-gamepad"></i> ¿Quién Soy Bíblico? JuegoGteen Edition
             </h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 13px;">Analiza rápido las pistas. Escribe tu respuesta antes de que la barra colapse.</p>
+            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 13px;">Analiza rápido las pistas.
+                Escribe tu respuesta antes de que la barra colapse.</p>
 
-            <div style="background: #111115; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); box-shadow: inset 0 0 20px rgba(0,0,0,0.6);">
-                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+            <div
+                style="background: #111115; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); box-shadow: inset 0 0 20px rgba(0,0,0,0.6);">
+                <div
+                    style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
                     <div>Nivel: <span id="trivia-level" style="color:#fff;">1</span>/3</div>
-                    <div style="color: var(--gteen-red);"><i class="fa-solid fa-clock"></i> <span id="trivia-timer">30</span>s</div>
+                    <div style="color: var(--gteen-red);"><i class="fa-solid fa-clock"></i> <span
+                            id="trivia-timer">30</span>s</div>
                 </div>
 
-                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
-                    <div id="time-bar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 1s linear, background-color 0.3s ease; border-radius: 10px;"></div>
+                <div
+                    style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
+                    <div id="time-bar"
+                        style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 1s linear, background-color 0.3s ease; border-radius: 10px;">
+                    </div>
                 </div>
 
-                <div class="trivia-pista" id="trivia-pista" style="font-size: 16px; min-height: 65px; display: flex; align-items: center; justify-content: center; color: #f4f4f5; font-style: normal; font-weight: 600; line-height: 1.6; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.02);">
+                <div class="trivia-pista" id="trivia-pista"
+                    style="font-size: 16px; min-height: 65px; display: flex; align-items: center; justify-content: center; color: #f4f4f5; font-style: normal; font-weight: 600; line-height: 1.6; background: rgba(255,255,255,0.02); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.02);">
                     Presiona "Iniciar Reto" para encender tus motores.
                 </div>
 
-                <div id="interactive-input-zone" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; max-width: 400px; margin-inline: auto;">
-                    <input type="text" id="user-guess" placeholder="Escribe el nombre aquí..." style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.08); background: #09090b; color: #fff; font-size: 15px; font-weight: bold; text-align: center; outline: none; transition: 0.2s;" onkeyup="if(event.key === 'Enter') verificarRespuesta()">
-                    <button class="btn-trivia" onclick="verificarRespuesta()" style="background: linear-gradient(135deg, #10b981, #059669); max-width: 100%; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);"><i class="fa-solid fa-circle-check"></i> Enviar Respuesta</button>
+                <div id="interactive-input-zone"
+                    style="display: none; flex-direction: column; gap: 12px; margin-bottom: 20px; max-width: 400px; margin-inline: auto;">
+                    <input type="text" id="user-guess" placeholder="Escribe el nombre aquí..."
+                        style="width: 100%; padding: 12px 16px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.08); background: #09090b; color: #fff; font-size: 15px; font-weight: bold; text-align: center; outline: none; transition: 0.2s;"
+                        onkeyup="if(event.key === 'Enter') verificarRespuesta()">
+                    <button class="btn-trivia" onclick="verificarRespuesta()"
+                        style="background: linear-gradient(135deg, #10b981, #059669); max-width: 100%; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);"><i
+                            class="fa-solid fa-circle-check"></i> Enviar Respuesta</button>
                 </div>
 
-                <div class="trivia-respuesta" id="trivia-respuesta" style="font-size: 24px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 20px;"></div>
+                <div class="trivia-respuesta" id="trivia-respuesta"
+                    style="font-size: 24px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 20px;"></div>
 
                 <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-trivia" id="btn-main-action" onclick="generarTrivia()"><i class="fa-solid fa-play"></i> Iniciar Reto</button>
-                    <button class="btn-trivia" id="btn-reveal-action" onclick="mostrarRespuesta()" style="background: rgba(227, 0, 15, 0.15); border: 1px solid var(--gteen-red); color: white; display: none;"><i class="fa-solid fa-eye"></i> Rendirse (-5 XP)</button>
+                    <button class="btn-trivia" id="btn-main-action" onclick="generarTrivia()"><i
+                            class="fa-solid fa-play"></i> Iniciar Reto</button>
+                    <button class="btn-trivia" id="btn-reveal-action" onclick="mostrarRespuesta()"
+                        style="background: rgba(227, 0, 15, 0.15); border: 1px solid var(--gteen-red); color: white; display: none;"><i
+                            class="fa-solid fa-eye"></i> Rendirse (-5 XP)</button>
                 </div>
-                
-                <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold;">
-                    <div style="color: var(--text-muted);">Score: <span id="marcador-puntos" style="color: var(--gteen-blue); font-size: 16px;">0</span> XP ⚡</div>
-                    <div style="color: var(--text-muted);">Rango: <span id="rango-gamer" style="color: var(--inter-yellow); font-size: 12px; text-transform: uppercase;">Recluta</span> 🛡️</div>
+
+                <div
+                    style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold;">
+                    <div style="color: var(--text-muted);">Score: <span id="marcador-puntos"
+                            style="color: var(--gteen-blue); font-size: 16px;">0</span> XP ⚡</div>
+                    <div style="color: var(--text-muted);">Rango: <span id="rango-gamer"
+                            style="color: var(--inter-yellow); font-size: 12px; text-transform: uppercase;">Recluta</span>
+                        🛡️</div>
                 </div>
             </div>
         </div>
@@ -821,33 +1333,46 @@
     </section>
 
     <section class="seccion-oscura" id="lideres" style="border-top: 2px solid var(--gteen-red);">
-        <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de <span>Directiva</span></h2>
+        <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de
+            <span>Directiva</span></h2>
         <p class="section-subtitle">Acceso restringido para maestros, directores y administradores de la base.</p>
 
         <div class="lideres-login" id="leader-login">
-            <i class="fa-solid fa-user-shield" style="font-size: 36px; color: var(--gteen-red); margin-bottom: 15px; display:block;"></i>
+            <i class="fa-solid fa-user-shield"
+                style="font-size: 36px; color: var(--gteen-red); margin-bottom: 15px; display:block;"></i>
             <h3 style="color: white; margin-bottom: 15px; font-size: 18px;">Autenticación Obligatoria</h3>
             <input type="password" id="leader-pass" placeholder="Clave de Gestión">
-            <button class="btn-accion" style="width: 100%; padding: 12px; justify-content: center;" onclick="unlockLeaders()">Autorizar Ingreso</button>
+            <button class="btn-accion" style="width: 100%; padding: 12px; justify-content: center;"
+                onclick="unlockLeaders()">Autorizar Ingreso</button>
         </div>
 
         <div class="lideres-content" id="leader-content">
-            <div style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                    <h4 style="color: white; font-size: 15px;"><i class="fa-solid fa-file-pdf" style="color: var(--gteen-red);"></i> Manual Trimestral de Base e Intermediarios.pdf</h4>
-                    <button class="btn-accion" style="background: var(--gteen-blue); padding: 6px 14px; font-size: 12px;" onclick="proyectarPdf()"><i class="fa-solid fa-expand"></i> Pantalla Completa</button>
+            <div
+                style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h4 style="color: white; font-size: 15px;"><i class="fa-solid fa-file-pdf"
+                            style="color: var(--gteen-red);"></i> Manual Trimestral de Base e Intermediarios.pdf</h4>
+                    <button class="btn-accion"
+                        style="background: var(--gteen-blue); padding: 6px 14px; font-size: 12px;"
+                        onclick="proyectarPdf()"><i class="fa-solid fa-expand"></i> Pantalla Completa</button>
                 </div>
                 <iframe src="desafio.pdf" class="pdf-visor" id="pdf-frame" title="Material Directiva"></iframe>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px 5%; background: #050507; border-top: 1px solid rgba(255,255,255,0.04);">
-        <h2 style="margin-bottom: 10px; font-weight: 900; color: white; font-size: 22px;">#VoyX<span style="color: var(--gteen-red);">Jesús</span></h2>
-        <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia Adventista del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por <strong>mgservicios</strong></p>
+    <footer
+        style="text-align: center; padding: 40px 5%; background: #050507; border-top: 1px solid rgba(255,255,255,0.04);">
+        <h2 style="margin-bottom: 10px; font-weight: 900; color: white; font-size: 22px;">#VoyX<span
+                style="color: var(--gteen-red);">Jesús</span></h2>
+        <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia Adventista
+            del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por
+            <strong>mgservicios</strong></p>
         <div style="display:flex; justify-content:center; gap:15px; font-size:12px; color: #64748b;">
-            <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596" target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
+            <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596"
+                    target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
         </div>
     </footer>
 
@@ -873,7 +1398,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             // Cargar datos cacheados del carrusel si existen en la memoria local
             const savedData = localStorage.getItem('baseGteen_carruselData');
-            if(savedData) {
+            if (savedData) {
                 document.getElementById('textareaFotosIlimitadas').value = savedData;
             }
             actualizarCarruselIlimitadoLive();
@@ -903,10 +1428,10 @@
             currentSlide += direccion;
             if (currentSlide >= totalSlides) { currentSlide = 0; }
             if (currentSlide < 0) { currentSlide = totalSlides - 1; }
-            
+
             const track = document.getElementById('carruselTrack');
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
+
             // Si el usuario presiona un botón, reiniciamos el reloj para que no salte de golpe
             iniciarAutoRunCarrusel();
         }
@@ -914,7 +1439,7 @@
         function iniciarAutoRunCarrusel() {
             clearInterval(carruselTimer);
             carruselTimer = setInterval(() => {
-                if(totalSlides > 1) {
+                if (totalSlides > 1) {
                     cambiarSlide(1);
                 }
             }, 5000); // Forzado estricto cada 5 segundos
@@ -924,7 +1449,7 @@
         function actualizarCarruselIlimitadoLive() {
             const contenidoTexto = document.getElementById('textareaFotosIlimitadas').value;
             const track = document.getElementById('carruselTrack');
-            
+
             track.innerHTML = '';
             const lineas = contenidoTexto.split('\n');
             let contadorSlides = 0;
@@ -974,7 +1499,7 @@
 
         function unlockLeaders() {
             const pass = document.getElementById('leader-pass').value.toLowerCase();
-            if (pass === 'iasdsf') { 
+            if (pass === 'iasdsf') {
                 document.getElementById('leader-login').style.display = 'none';
                 document.getElementById('leader-content').style.display = 'block';
                 document.getElementById('editorCarruselPanel').style.display = 'block';
@@ -1071,7 +1596,7 @@
             container.classList.remove('anim-shake', 'anim-glow');
             document.getElementById('trivia-respuesta').style.display = 'none';
             document.getElementById('user-guess').value = '';
-            
+
             document.getElementById('interactive-input-zone').style.display = 'flex';
             document.getElementById('btn-reveal-action').style.display = 'inline-block';
             document.getElementById('btn-main-action').innerHTML = '<i class="fa-solid fa-rotate"></i> Saltar Reto';
@@ -1084,7 +1609,7 @@
             preguntaActual = filtradas[index];
 
             document.getElementById('trivia-pista').innerText = `"${preguntaActual.pista}"`;
-            
+
             tiempoRestante = 30;
             document.getElementById('trivia-timer').innerText = tiempoRestante;
             const timeBar = document.getElementById('time-bar');
