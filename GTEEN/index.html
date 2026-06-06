@@ -1031,17 +1031,20 @@
                 <div class="editor-carrusel-panel" id="editorCarruselPanel">
                     <h4
                         style="font-size: 12px; text-transform: uppercase; color: var(--inter-yellow); margin-bottom: 8px;">
-                        <i class="fa-solid fa-images"></i> Administrador de Fotos Ilimitadas</h4>
+                        <i class="fa-solid fa-images"></i> Administrador de Fotos Ilimitadas
+                    </h4>
                     <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Ingresa una foto por
                         línea: <strong>ruta_o_url, Etiqueta</strong></p>
-                    <textarea id="textareaFotosIlimitadas" rows="4"
-                        style="width: 100%; background: #09090b; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: #fff; font-size: 12px; font-family: monospace; resize: vertical;"
-                        oninput="guardarYActualizarCarruselLive()">puesta_de_sol/foto1.jpeg, Actividad 1
-                puesta_de_sol/foto2.jpeg, Actividad 2
-                puesta_de_sol/foto3.jpeg, Actividad 3
-                puesta_de_sol/foto4.jpeg, Actividad 4
-                puesta_de_sol/foto5.jpeg, Actividad 5
-                puesta_de_sol/foto6.jpeg, Actividad 6</textarea>
+                    <textarea id="textareaFotosIlimitadas" rows="6"
+                        style="width:100%;background:#09090b;border:1px solid rgba(255,255,255,0.1);padding:10px;border-radius:8px;color:#fff;font-size:12px;font-family:monospace;resize:vertical;"
+                        oninput="guardarYActualizarCarruselLive()">
+                        imagenes/foto1.jpeg, Dinámicas
+                        imagenes/foto2.jpeg, Actividad Especial
+                        imagenes/foto3.jpeg, Escuela Sabática
+                        imagenes/foto4.jpeg, Compartiendo
+                        imagenes/foto5.jpeg, Juegos
+                        imagenes/foto6.jpeg, Base GTeen
+                    </textarea>
                 </div>
 
                 <div
@@ -1334,7 +1337,8 @@
 
     <section class="seccion-oscura" id="lideres" style="border-top: 2px solid var(--gteen-red);">
         <h2 class="section-title"><i class="fa-solid fa-lock" style="color: var(--gteen-red);"></i> Portal de
-            <span>Directiva</span></h2>
+            <span>Directiva</span>
+        </h2>
         <p class="section-subtitle">Acceso restringido para maestros, directores y administradores de la base.</p>
 
         <div class="lideres-login" id="leader-login">
@@ -1369,7 +1373,8 @@
         <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto 20px;">Iglesia Adventista
             del Séptimo Día<br>Distrito San Francisco de Limache, Chile.</p>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">&copy; 2026 Diseñado por
-            <strong>mgservicios</strong></p>
+            <strong>mgservicios</strong>
+        </p>
         <div style="display:flex; justify-content:center; gap:15px; font-size:12px; color: #64748b;">
             <span><i class="fab fa-whatsapp" style="color:#25D366;"></i> <a href="https://wa.me/56998797596"
                     target="_blank" style="color:#25D366; text-decoration:none;">+56 9 9879 7596</a></span>
@@ -1492,10 +1497,52 @@
 
         // Guarda cambios en LocalStorage para evitar pérdidas al recargar
         function guardarYActualizarCarruselLive() {
-            const contenidoTexto = document.getElementById('textareaFotosIlimitadas').value;
-            localStorage.setItem('baseGteen_carruselData', contenidoTexto);
-            actualizarCarruselIlimitadoLive();
+            const texto = document.getElementById("textareaFotosIlimitadas").value;
+            const track = document.getElementById("carruselTrack");
+
+            const lineas = texto.split("\n").filter(linea => linea.trim() !== "");
+
+            let html = "";
+
+            lineas.forEach(linea => {
+                const partes = linea.split(",");
+
+                if (partes.length >= 2) {
+                    const foto = partes[0].trim();
+                    const etiqueta = partes.slice(1).join(",").trim();
+
+                    html += `
+                <div class="carrusel-slide">
+                    <img
+                        src="${foto}"
+                        alt="${etiqueta}"
+                        loading="lazy"
+                        onerror="this.src='logo.jpg'"
+                    >
+                    <span class="carrusel-tag-slide">
+                        ${etiqueta}
+                    </span>
+                </div>
+            `;
+                }
+            });
+
+            track.innerHTML = html;
+
+            localStorage.setItem(
+                "fotosCarruselIlimitado",
+                texto
+            );
         }
+        document.addEventListener("DOMContentLoaded", () => {
+            const guardado = localStorage.getItem("fotosCarruselIlimitado");
+
+            if (guardado) {
+                document.getElementById("textareaFotosIlimitadas").value = guardado;
+            }
+
+            guardarYActualizarCarruselLive();
+        });
 
         function unlockLeaders() {
             const pass = document.getElementById('leader-pass').value.toLowerCase();
