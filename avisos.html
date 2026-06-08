@@ -8,7 +8,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <meta name="theme-color" content="#00305e">
@@ -36,79 +38,335 @@
     </script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body {
-            width: 100%; max-width: 100%; overflow-x: hidden;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at top right, rgba(254, 195, 37, 0.10), transparent 25%),
-                        radial-gradient(circle at bottom left, rgba(0, 48, 94, 0.08), transparent 25%),
-                        linear-gradient(to bottom, #f8fafc, #eef4ff);
+                radial-gradient(circle at bottom left, rgba(0, 48, 94, 0.08), transparent 25%),
+                linear-gradient(to bottom, #f8fafc, #eef4ff);
             color: #0f172a;
         }
 
         /* TIPOGRAFÍA FLUIDA OPTIMIZADA */
-        .t-hero { font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1.1; }
-        .t-title { font-size: clamp(1.75rem, 4vw, 3.5rem); line-height: 1.1; }
-        .t-subtitle { font-size: clamp(1rem, 2vw, 1.75rem); }
-        .t-body { font-size: clamp(1rem, 1.5vw, 1.5rem); }
-        
-        p, h1, h2, h3, h4, span, div { overflow-wrap: break-word; word-break: break-word; hyphens: none; }
-        .auto-text { text-wrap: balance; line-height: 1.5; }
+        .t-hero {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            line-height: 1.1;
+        }
 
-        .glass { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, .45); }
-        .hover-card { transition: transform .35s ease, box-shadow .35s ease, border .35s ease; }
-        @media (hover:hover) { .hover-card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px rgba(0, 0, 0, .15); } }
+        .t-title {
+            font-size: clamp(1.75rem, 4vw, 3.5rem);
+            line-height: 1.1;
+        }
 
-        .animate-fade { animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1); }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+        .t-subtitle {
+            font-size: clamp(1rem, 2vw, 1.75rem);
+        }
+
+        .t-body {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+        }
+
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        span,
+        div {
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: none;
+        }
+
+        .auto-text {
+            text-wrap: balance;
+            line-height: 1.5;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, .45);
+        }
+
+        .hover-card {
+            transition: transform .35s ease, box-shadow .35s ease, border .35s ease;
+        }
+
+        @media (hover:hover) {
+            .hover-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 25px 50px rgba(0, 0, 0, .15);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* AJUSTE DE TARJETAS */
-        .card-style { border-radius: 1.25rem; overflow: hidden; position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
-        @media (min-width: 1024px) { .card-style { border-radius: 2rem; } }
+        .card-style {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            .card-style {
+                border-radius: 2rem;
+            }
+        }
 
         /* MURO DINÁMICO FIREBASE (Ajustado a 1 columna) */
-        #contenedor-avisos-dinamicos { 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 1.25rem; 
+        #contenedor-avisos-dinamicos {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
         }
-        @media(min-width:768px) { #contenedor-avisos-dinamicos { gap: 1.5rem; } }
-        @media(min-width:1280px) { #contenedor-avisos-dinamicos { gap: 2.5rem; } }
 
-        .aviso-card { position: relative; border-radius: 1.25rem; overflow: hidden; display: flex; flex-direction: column; height: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        @media (min-width: 1024px) { .aviso-card { border-radius: 2rem; } }
-        .aviso-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #00305e, #fec325); z-index: 10; }
-        
-        .aviso-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; }
-        .departamento-box { flex: 1; min-width: 0; display: flex; align-items: center; gap: .75rem; background: linear-gradient(135deg, #00305e, #0a4d91); color: white; padding: .75rem 1rem; border-radius: 1rem; box-shadow: 0 10px 20px rgba(0, 48, 94, .15); }
-        @media (min-width: 1024px) { .departamento-box { padding: 1rem 1.25rem; border-radius: 1.25rem; } }
-        
-        .departamento-logo { width: clamp(40px, 5vw, 60px); height: clamp(40px, 5vw, 60px); min-width: clamp(40px, 5vw, 60px); border-radius: 0.75rem; overflow: hidden; background: white; padding: .2rem; border: 2px solid rgba(255, 255, 255, .5); }
-        .departamento-logo img { width: 100%; height: 100%; object-fit: contain; }
-        
-        .departamento-texto { display: flex; flex-direction: column; min-width: 0; justify-content: center; }
-        .departamento-texto small { font-size: clamp(0.6rem, 1vw, 0.75rem); text-transform: uppercase; letter-spacing: .15em; opacity: .8; line-height: 1; }
-        .departamento-texto strong { font-size: clamp(0.9rem, 1.5vw, 1.25rem); line-height: 1.2; font-weight: 800; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 0.1rem; }
+        @media(min-width:768px) {
+            #contenedor-avisos-dinamicos {
+                gap: 1.5rem;
+            }
+        }
 
-        .mensaje-aviso { margin-top: 1.25rem; background: #ffffff; border: 1px solid rgba(254, 195, 37, 0.4); border-radius: 1rem; padding: clamp(1rem, 2vw, 1.75rem); font-size: clamp(1.05rem, 1.8vw, 1.75rem); line-height: 1.5; color: #0f172a; font-weight: 600; white-space: pre-wrap; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); text-align: center; }
-        
-        .aviso-img-box { margin-top: 1.25rem; overflow: hidden; border-radius: 1rem; border: 1px solid rgba(203, 213, 225, .4); background: white; width: 100%; aspect-ratio: 16/9; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .aviso-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-        .aviso-img-box:hover img { transform: scale(1.03); }
+        @media(min-width:1280px) {
+            #contenedor-avisos-dinamicos {
+                gap: 2.5rem;
+            }
+        }
 
-        .responsable-box { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid rgba(203, 213, 225, .5); width: 100%; }
-        .responsable-avatar { width: clamp(40px, 4vw, 55px); height: clamp(40px, 4vw, 55px); min-width: clamp(40px, 4vw, 55px); border-radius: 50%; background: linear-gradient(135deg, #fec325, #ffdc70); display: flex; align-items: center; justify-content: center; color: #00305e; font-weight: 900; font-size: clamp(1rem, 1.5vw, 1.25rem); box-shadow: 0 4px 10px rgba(254, 195, 37, .3); }
+        .aviso-card {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
 
-        .btn-delete { width: 40px; height: 40px; min-width: 40px; border-radius: 50%; border: none; background: #fff1f2; color: #dc2626; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .25s ease; box-shadow: 0 4px 10px rgba(220, 38, 38, .15); }
-        .btn-delete:hover { background: #fee2e2; transform: scale(1.1); }
+        @media (min-width: 1024px) {
+            .aviso-card {
+                border-radius: 2rem;
+            }
+        }
+
+        .aviso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #00305e, #fec325);
+            z-index: 10;
+        }
+
+        .aviso-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .departamento-box {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            background: linear-gradient(135deg, #00305e, #0a4d91);
+            color: white;
+            padding: .75rem 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 48, 94, .15);
+        }
+
+        @media (min-width: 1024px) {
+            .departamento-box {
+                padding: 1rem 1.25rem;
+                border-radius: 1.25rem;
+            }
+        }
+
+        .departamento-logo {
+            width: clamp(40px, 5vw, 60px);
+            height: clamp(40px, 5vw, 60px);
+            min-width: clamp(40px, 5vw, 60px);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: white;
+            padding: .2rem;
+            border: 2px solid rgba(255, 255, 255, .5);
+        }
+
+        .departamento-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .departamento-texto {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            justify-content: center;
+        }
+
+        .departamento-texto small {
+            font-size: clamp(0.6rem, 1vw, 0.75rem);
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            opacity: .8;
+            line-height: 1;
+        }
+
+        .departamento-texto strong {
+            font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+            line-height: 1.2;
+            font-weight: 800;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0.1rem;
+        }
+
+        .mensaje-aviso {
+            margin-top: 1.25rem;
+            background: #ffffff;
+            border: 1px solid rgba(254, 195, 37, 0.4);
+            border-radius: 1rem;
+            padding: clamp(1rem, 2vw, 1.75rem);
+            font-size: clamp(1.05rem, 1.8vw, 1.75rem);
+            line-height: 1.5;
+            color: #0f172a;
+            font-weight: 600;
+            white-space: pre-wrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .aviso-img-box {
+            margin-top: 1.25rem;
+            overflow: hidden;
+            border-radius: 1rem;
+            border: 1px solid rgba(203, 213, 225, .4);
+            background: white;
+            width: 100%;
+            aspect-ratio: 16/9;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .aviso-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .aviso-img-box:hover img {
+            transform: scale(1.03);
+        }
+
+        .responsable-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(203, 213, 225, .5);
+            width: 100%;
+        }
+
+        .responsable-avatar {
+            width: clamp(40px, 4vw, 55px);
+            height: clamp(40px, 4vw, 55px);
+            min-width: clamp(40px, 4vw, 55px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fec325, #ffdc70);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00305e;
+            font-weight: 900;
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            box-shadow: 0 4px 10px rgba(254, 195, 37, .3);
+        }
+
+        .btn-delete {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #fff1f2;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .25s ease;
+            box-shadow: 0 4px 10px rgba(220, 38, 38, .15);
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+            transform: scale(1.1);
+        }
 
         /* MENÚ DESPLEGABLE MÓVIL */
-        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        #mobile-menu.open { max-height: 300px; }
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #00305e; border-radius: 20px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        #mobile-menu.open {
+            max-height: 300px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00305e;
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
     </style>
 </head>
 
@@ -117,12 +375,16 @@
     <nav class="sticky top-0 z-50 bg-adventist-blue text-white shadow-2xl border-b border-white/10">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 lg:gap-4 min-w-0">
-                <div class="w-10 h-10 lg:w-14 lg:h-14 rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg flex-shrink-0">
+                <div
+                    class="w-10 h-10 lg:w-14 lg:h-14 rounded-full overflow-hidden border-2 border-adventist-gold shadow-lg flex-shrink-0">
                     <img src="imagenes/logo.jpg" class="w-full h-full object-cover" alt="IASD Logo">
                 </div>
                 <div class="leading-tight min-w-0">
-                    <p class="font-heading font-black uppercase text-[11px] lg:text-sm tracking-widest truncate">IASD San Francisco</p>
-                    <p class="text-adventist-gold uppercase text-[10px] lg:text-xs tracking-[0.25em] lg:tracking-[0.3em] truncate">de Limache</p>
+                    <p class="font-heading font-black uppercase text-[11px] lg:text-sm tracking-widest truncate">IASD
+                        San Francisco</p>
+                    <p
+                        class="text-adventist-gold uppercase text-[10px] lg:text-xs tracking-[0.25em] lg:tracking-[0.3em] truncate">
+                        de Limache</p>
                 </div>
             </a>
 
@@ -130,253 +392,346 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            <div class="hidden md:flex items-center gap-6 lg:gap-10 uppercase font-black tracking-widest text-xs lg:text-sm">
+            <div
+                class="hidden md:flex items-center gap-6 lg:gap-10 uppercase font-black tracking-widest text-xs lg:text-sm">
                 <a href="index.html" class="hover:text-adventist-gold transition">Inicio</a>
                 <a href="cronograma.html" class="hover:text-adventist-gold transition">Cronograma</a>
-                <a href="contactoaviso.html" class="bg-adventist-gold text-adventist-blue px-5 py-2 lg:px-6 lg:py-2.5 rounded-full shadow-xl hover:bg-white hover:text-adventist-blue transition duration-300">Contacto</a>
+                <a href="contactoaviso.html"
+                    class="bg-adventist-gold text-adventist-blue px-5 py-2 lg:px-6 lg:py-2.5 rounded-full shadow-xl hover:bg-white hover:text-adventist-blue transition duration-300">Contacto</a>
             </div>
         </div>
 
-        <div id="mobile-menu" class="md:hidden bg-[#002244] px-6 flex flex-col text-center font-bold uppercase border-t border-white/5">
+        <div id="mobile-menu"
+            class="md:hidden bg-[#002244] px-6 flex flex-col text-center font-bold uppercase border-t border-white/5">
             <a href="index.html" class="py-3.5 border-b border-white/5 text-sm">Inicio</a>
             <a href="cronograma.html" class="py-3.5 border-b border-white/5 text-sm">Cronograma</a>
             <a href="contactoaviso.html" class="py-3.5 text-adventist-gold text-sm">Contacto</a>
         </div>
     </nav>
 
-    <header class="relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-slate-950 text-white text-center py-12 lg:py-24 px-4 shadow-2xl">
+    <header
+        class="relative overflow-hidden bg-gradient-to-br from-adventist-blue via-blue-950 to-slate-950 text-white text-center py-12 lg:py-24 px-4 shadow-2xl">
         <div class="absolute inset-0 opacity-10 flex items-center justify-end pointer-events-none">
             <i class="fas fa-church text-[12rem] lg:text-[28rem] translate-x-10 translate-y-10"></i>
         </div>
         <div class="relative z-10 max-w-[1200px] mx-auto flex flex-col items-center">
-            <div class="inline-flex items-center gap-2 lg:gap-3 bg-white/10 border border-white/10 px-4 py-1.5 lg:px-6 lg:py-2 rounded-full uppercase tracking-[0.2em] text-[10px] lg:text-sm font-black text-adventist-gold mb-4 lg:mb-8">
+            <div
+                class="inline-flex items-center gap-2 lg:gap-3 bg-white/10 border border-white/10 px-4 py-1.5 lg:px-6 lg:py-2 rounded-full uppercase tracking-[0.2em] text-[10px] lg:text-sm font-black text-adventist-gold mb-4 lg:mb-8">
                 <i class="fas fa-bullhorn lg:text-base"></i> Panel Oficial de Avisos
             </div>
             <h1 class="t-hero font-heading font-black uppercase tracking-tight">Avisos de Iglesia</h1>
-            <div class="inline-block mt-6 lg:mt-10 bg-adventist-gold text-adventist-blue px-6 py-2.5 lg:px-10 lg:py-4 rounded-2xl lg:rounded-3xl shadow-xl">
-                <p class="font-black uppercase tracking-widest text-sm lg:text-xl">Sábado 06 de Junio 2026</p>
+            <div
+                class="inline-block mt-6 lg:mt-10 bg-adventist-gold text-adventist-blue px-6 py-2.5 lg:px-10 lg:py-4 rounded-2xl lg:rounded-3xl shadow-xl">
+                <p class="font-black uppercase tracking-widest text-sm lg:text-xl">Sábado 13 de Junio 2026</p>
             </div>
         </div>
     </header>
 
     <main class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-16">
-        
+
         <div id="contenedor-avisos-dinamicos" class="mb-10 lg:mb-16"></div>
 
         <div class="grid grid-cols-1 gap-6 lg:gap-10 mb-10 lg:mb-16">
-            
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white p-6 lg:p-12 w-full">
+
+            <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white p-6 lg:p-12 w-full">
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    <div class="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/20 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-xs font-black text-blue-200 mb-5 lg:mb-8">
+                    <div
+                        class="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/20 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-xs font-black text-blue-200 mb-5 lg:mb-8">
                         <i class="fas fa-book-open"></i> Campaña Anual
                     </div>
-                    <div class="w-24 h-24 lg:w-32 lg:h-32 rounded-2xl bg-white shadow-xl mb-4 lg:mb-6 border-4 border-adventist-gold p-1 overflow-hidden">
-                        <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones" class="w-full h-full object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=150'">
+                    <div
+                        class="w-24 h-24 lg:w-32 lg:h-32 rounded-2xl bg-white shadow-xl mb-4 lg:mb-6 border-4 border-adventist-gold p-1 overflow-hidden">
+                        <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones"
+                            class="w-full h-full object-cover rounded-xl"
+                            onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=150'">
                     </div>
-                    <h3 class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-sm mb-1 lg:mb-2">Ministerio de Publicaciones</h3>
-                    <h2 class="t-title font-heading font-black uppercase tracking-tight">Suscripción <span class="block text-adventist-gold">2027</span></h2>
-                    
+                    <h3
+                        class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-sm mb-1 lg:mb-2">
+                        Ministerio de Publicaciones</h3>
+                    <h2 class="t-title font-heading font-black uppercase tracking-tight">Suscripción <span
+                            class="block text-adventist-gold">2027</span></h2>
+
                     <div class="mt-6 lg:mt-10 w-full max-w-sm lg:max-w-2xl">
-                        <div class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-2xl text-slate-800 border-b-4 lg:border-b-8 border-gray-200">
-                            <p class="font-bold text-slate-400 uppercase tracking-wider text-[10px] lg:text-sm mb-1 lg:mb-2">Reserva tu material con:</p>
+                        <div
+                            class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-2xl text-slate-800 border-b-4 lg:border-b-8 border-gray-200">
+                            <p
+                                class="font-bold text-slate-400 uppercase tracking-wider text-[10px] lg:text-sm mb-1 lg:mb-2">
+                                Reserva tu material con:</p>
                             <p class="font-black uppercase text-lg lg:text-4xl text-slate-800">Hna. Bárbara Beltrán</p>
                             <div class="mt-4 lg:mt-6 flex justify-center gap-2 lg:gap-4">
-                                <span class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Matinales</span>
-                                <span class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Lecciones</span>
+                                <span
+                                    class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Matinales</span>
+                                <span
+                                    class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Lecciones</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white p-6 lg:p-12 w-full">
+            <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white p-6 lg:p-12 w-full">
                 <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
 
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    
-                    <div class="inline-flex items-center gap-2 bg-black/20 border border-white/20 px-4 py-1.5 rounded-full uppercase tracking-wider text-[10px] lg:text-sm font-black mb-4 lg:mb-6 max-w-full">
-                        <i class="fas fa-campground text-adventist-gold"></i> 
+
+                    <div
+                        class="inline-flex items-center gap-2 bg-black/20 border border-white/20 px-4 py-1.5 rounded-full uppercase tracking-wider text-[10px] lg:text-sm font-black mb-4 lg:mb-6 max-w-full">
+                        <i class="fas fa-campground text-adventist-gold"></i>
                         <span class="truncate">Club de Aventureros Gedeones</span>
                     </div>
-                    
-                    <div class="w-20 h-20 lg:w-32 lg:h-32 mb-3 lg:mb-6 flex items-center justify-center bg-white rounded-2xl lg:rounded-3xl p-2 lg:p-3 shadow-md border border-white/20">
-                        <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain" onerror="this.src='https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=150'">
+
+                    <div
+                        class="w-20 h-20 lg:w-32 lg:h-32 mb-3 lg:mb-6 flex items-center justify-center bg-white rounded-2xl lg:rounded-3xl p-2 lg:p-3 shadow-md border border-white/20">
+                        <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain"
+                            onerror="this.src='https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=150'">
                     </div>
-                    
+
                     <h2 class="t-title font-heading font-black uppercase tracking-tight mb-2 lg:mb-4 drop-shadow-md">
                         Aventureros
                     </h2>
-                    
+
                     <div class="my-3 lg:my-5 w-full px-2">
-                        <div class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-950 font-black text-[11px] lg:text-lg px-4 py-2 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl shadow-md uppercase tracking-wide max-w-full text-center">
-                            ¡SUSPENDIDO! <br> Sábado 06 de jUnio 2026
+                        <div
+                            class="inline-block bg-gradient-to-r from-adventist-gold to-yellow-400 text-red-950 font-black text-[11px] lg:text-lg px-4 py-2 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl shadow-md uppercase tracking-wide max-w-full text-center">
+                            ¡ACTIVIDADES REGULARES! <br> Sábado 13 de jUnio 2026
                         </div>
                     </div>
 
-                    <div class="w-full max-w-sm lg:max-w-2xl px-2">
-                        <div class="bg-white text-slate-800 rounded-2xl lg:rounded-3xl p-4 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-gray-200">
-                            <p class="font-bold text-slate-400 uppercase tracking-wider text-[10px] lg:text-sm mb-1">Horario Oficial</p>
-                            <p class="font-black uppercase text-lg lg:text-3xl text-slate-800 tracking-tight">Actividad de Club próximo sábado</p>
-                            
-                            <div class="flex flex-wrap items-center justify-center gap-1.5 lg:gap-3 mt-2 lg:mt-6 text-red-700 font-black uppercase">
-                                <!-- <span class="text-[10px] lg:text-base text-slate-500 font-bold">A partir de las</span> -->
-                                <!-- <span class="text-3xl lg:text-6xl tracking-tighter font-black">16:00</span> -->
-                                <!-- <span class="text-[10px] lg:text-base text-slate-500 font-bold">hrs</span> -->
-                            </div>
+                    <div class="mt-6 lg:mt-12 w-full max-w-xs lg:max-w-md">
+                        <div
+                            class="bg-gradient-to-r from-adventist-gold to-yellow-400 text-adventist-blue p-4 lg:p-8 rounded-2xl lg:rounded-3xl shadow-md border-b-4 lg:border-b-8 border-yellow-600">
+                            <p
+                                class="font-bold uppercase text-[10px] lg:text-base tracking-widest text-slate-700 mb-0.5 lg:mb-2">
+                                !Te Espermos!</p>
+                            <p class="font-black text-xl lg:text-4xl uppercase">Hoy Sábado</p>
+                            <p class="font-extrabold text-base lg:text-3xl tracking-wider text-slate-800 mt-1 lg:mt-3">
+                                16:00 HRS</p>
                         </div>
                     </div>
 
                 </div>
             </section>
 
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-black text-white p-6 lg:p-12 w-full">
+            <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-black text-white p-6 lg:p-12 w-full">
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    <div class="w-20 h-20 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6 bg-gradient-to-br from-adventist-gold to-yellow-600 rounded-full shadow-lg flex items-center justify-center">
+                    <div
+                        class="w-20 h-20 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6 bg-gradient-to-br from-adventist-gold to-yellow-600 rounded-full shadow-lg flex items-center justify-center">
                         <i class="fas fa-hands-praying text-white text-3xl lg:text-6xl"></i>
                     </div>
-                    <p class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-base mb-2 lg:mb-4">Ministerio de Oración</p>
+                    <p
+                        class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-base mb-2 lg:mb-4">
+                        Ministerio de Oración</p>
                     <h2 class="t-title font-heading font-black uppercase tracking-tight">Oración Intercesora</h2>
-                    <p class="mt-2 lg:mt-6 text-blue-200 font-medium italic text-xs lg:text-xl max-w-xs lg:max-w-2xl mx-auto">"Hay un poder inmenso cuando la iglesia se une de rodillas."</p>
-                    
+                    <p
+                        class="mt-2 lg:mt-6 text-blue-200 font-medium italic text-xs lg:text-xl max-w-xs lg:max-w-2xl mx-auto">
+                        "Hay un poder inmenso cuando la iglesia se une de rodillas."</p>
+
                     <div class="mt-6 lg:mt-12 w-full max-w-xs lg:max-w-md">
-                        <div class="bg-gradient-to-r from-adventist-gold to-yellow-400 text-adventist-blue p-4 lg:p-8 rounded-2xl lg:rounded-3xl shadow-md border-b-4 lg:border-b-8 border-yellow-600">
-                            <p class="font-bold uppercase text-[10px] lg:text-base tracking-widest text-slate-700 mb-0.5 lg:mb-2">Reunión Especial</p>
+                        <div
+                            class="bg-gradient-to-r from-adventist-gold to-yellow-400 text-adventist-blue p-4 lg:p-8 rounded-2xl lg:rounded-3xl shadow-md border-b-4 lg:border-b-8 border-yellow-600">
+                            <p
+                                class="font-bold uppercase text-[10px] lg:text-base tracking-widest text-slate-700 mb-0.5 lg:mb-2">
+                                Reunión Especial</p>
                             <p class="font-black text-xl lg:text-4xl uppercase">Hoy Sábado</p>
-                            <p class="font-extrabold text-base lg:text-3xl tracking-wider text-slate-800 mt-1 lg:mt-3">16:00 HRS</p>
+                            <p class="font-extrabold text-base lg:text-3xl tracking-wider text-slate-800 mt-1 lg:mt-3">
+                                16:00 HRS</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white p-6 lg:p-12 w-full">
+            <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white p-6 lg:p-12 w-full">
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    <div class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/40 text-orange-300 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black mb-4 lg:mb-6">
+                    <div
+                        class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/40 text-orange-300 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black mb-4 lg:mb-6">
                         <i class="fas fa-snowflake lg:text-base"></i> Campaña de Invierno
                     </div>
-                    <div class="w-20 h-20 lg:w-32 lg:h-32 rounded-2xl lg:rounded-3xl bg-white shadow-md mb-4 lg:mb-6 border-2 lg:border-4 border-orange-400 overflow-hidden">
-                        <img src="imagenes/asa.jpg" alt="Logo ASA" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=150'">
+                    <div
+                        class="w-20 h-20 lg:w-32 lg:h-32 rounded-2xl lg:rounded-3xl bg-white shadow-md mb-4 lg:mb-6 border-2 lg:border-4 border-orange-400 overflow-hidden">
+                        <img src="imagenes/asa.jpg" alt="Logo ASA" class="w-full h-full object-cover"
+                            onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=150'">
                     </div>
                     <h2 class="t-title font-heading font-black uppercase tracking-tight">Acción Solidaria</h2>
-                    <p class="mt-2 lg:mt-6 text-slate-300 text-xs lg:text-xl max-w-sm lg:max-w-2xl auto-text">Solicitamos su colaboración para los meses fríos que se aproximan.</p>
-                    
+                    <p class="mt-2 lg:mt-6 text-slate-300 text-xs lg:text-xl max-w-sm lg:max-w-2xl auto-text">
+                        Solicitamos su colaboración para los meses fríos que se aproximan.</p>
+
                     <div class="my-5 lg:my-10 w-full">
-                        <p class="text-[10px] lg:text-base uppercase tracking-wider text-orange-300 font-bold mb-1.5 lg:mb-4">Recolección Urgente:</p>
-                        <div class="inline-block bg-gradient-to-r from-orange-400 to-red-500 text-white font-black text-lg lg:text-4xl py-2 px-6 lg:py-5 lg:px-12 rounded-xl lg:rounded-2xl border-b-4 lg:border-b-8 border-orange-700 max-w-full">
+                        <p
+                            class="text-[10px] lg:text-base uppercase tracking-wider text-orange-300 font-bold mb-1.5 lg:mb-4">
+                            Recolección Urgente:</p>
+                        <div
+                            class="inline-block bg-gradient-to-r from-orange-400 to-red-500 text-white font-black text-lg lg:text-4xl py-2 px-6 lg:py-5 lg:px-12 rounded-xl lg:rounded-2xl border-b-4 lg:border-b-8 border-orange-700 max-w-full">
                             LEGUMBRES Y CAFÉ
                         </div>
                     </div>
-                    <p class="text-adventist-gold font-bold text-xs lg:text-lg mt-1 lg:mt-2">🙏 Dios bendiga al dador alegre.</p>
+                    <p class="text-adventist-gold font-bold text-xs lg:text-lg mt-1 lg:mt-2">🙏 Dios bendiga al dador
+                        alegre.</p>
                 </div>
             </section>
-            
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-black text-white p-8 lg:p-16 w-full">
+
+            <!-- <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-black text-white p-8 lg:p-16 w-full">
                 <div class="relative w-full flex flex-col items-center z-10 text-center">
-                    <div class="w-24 h-24 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 lg:border-8 border-yellow-400 shadow-xl bg-white mb-4 lg:mb-8">
-                        <img src="imagenes/musica.png" alt="Cuarteto" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=150'">
+                    <div
+                        class="w-24 h-24 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 lg:border-8 border-yellow-400 shadow-xl bg-white mb-4 lg:mb-8">
+                        <img src="imagenes/musica.png" alt="Cuarteto" class="w-full h-full object-cover"
+                            onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=150'">
                     </div>
                     <h2 class="t-subtitle font-black uppercase text-yellow-400 tracking-wide">Concierto de</h2>
                     <h1 class="t-title font-black uppercase text-white -mt-1 lg:mt-2">Alabanza y Adoración</h1>
-                    <p class="mt-2 lg:mt-6 text-yellow-300 font-bold uppercase text-xs lg:text-2xl tracking-widest">Cuarteto Unidos en Cristo</p>
+                    <p class="mt-2 lg:mt-6 text-yellow-300 font-bold uppercase text-xs lg:text-2xl tracking-widest">
+                        Cuarteto Unidos en Cristo</p>
 
                     <div id="youtube-player" class="hidden"></div>
 
-                    <div class="mt-6 lg:mt-12 flex flex-col sm:flex-row justify-center gap-3 lg:gap-8 w-full max-w-sm lg:max-w-2xl">
-                        <button id="btnMusica" onclick="reproducirMusica()" class="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black font-black uppercase px-5 py-3 lg:px-10 lg:py-5 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-xl">▶ Reproducir</button>
-                        <button onclick="detenerMusica()" class="flex-1 bg-gradient-to-r from-red-600 to-red-400 text-white font-black uppercase px-5 py-3 lg:px-10 lg:py-5 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-xl">⏹ Detener</button>
+                    <div
+                        class="mt-6 lg:mt-12 flex flex-col sm:flex-row justify-center gap-3 lg:gap-8 w-full max-w-sm lg:max-w-2xl">
+                        <button id="btnMusica" onclick="reproducirMusica()"
+                            class="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black font-black uppercase px-5 py-3 lg:px-10 lg:py-5 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-xl">▶
+                            Reproducir</button>
+                        <button onclick="detenerMusica()"
+                            class="flex-1 bg-gradient-to-r from-red-600 to-red-400 text-white font-black uppercase px-5 py-3 lg:px-10 lg:py-5 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-xl">⏹
+                            Detener</button>
                     </div>
 
-                    <div class="mt-8 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-10 w-full max-w-lg lg:max-w-4xl">
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl lg:rounded-3xl p-5 lg:p-10">
+                    <div
+                        class="mt-8 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-10 w-full max-w-lg lg:max-w-4xl">
+                        <div
+                            class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl lg:rounded-3xl p-5 lg:p-10">
                             <p class="text-yellow-400 text-[10px] lg:text-base font-bold uppercase">📅 Fecha Evento</p>
                             <p class="text-xl lg:text-4xl font-black mt-1">Sábado 6 Jun 2026</p>
-                            <p class="text-[10px] lg:text-base text-yellow-300 font-bold uppercase tracking-wider mt-1.5 lg:mt-4">Hora: 17:30 hrs</p>
+                            <p
+                                class="text-[10px] lg:text-base text-yellow-300 font-bold uppercase tracking-wider mt-1.5 lg:mt-4">
+                                Hora: 17:30 hrs</p>
                         </div>
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl lg:rounded-3xl p-5 lg:p-10 flex flex-col justify-center">
-                            <p class="text-yellow-400 text-[10px] lg:text-base font-bold uppercase">📍 Ubicación Base</p>
+                        <div
+                            class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl lg:rounded-3xl p-5 lg:p-10 flex flex-col justify-center">
+                            <p class="text-yellow-400 text-[10px] lg:text-base font-bold uppercase">📍 Ubicación Base
+                            </p>
                             <p class="text-lg lg:text-3xl font-black uppercase mt-1">Iglesia San Francisco</p>
                             <p class="text-xs lg:text-lg text-slate-300 mt-1.5 lg:mt-4">Calle Carrera 131</p>
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
         </div>
 
         <div class="grid grid-cols-1 gap-6 lg:gap-12 w-full mb-10 lg:mb-16">
-            
-            <div class="text-center p-6 lg:p-12 bg-gradient-to-br from-black via-slate-900 to-black rounded-2xl lg:rounded-3xl shadow-2xl border-b-4 lg:border-b-8 border-adventist-gold">
-                <h2 class="t-title font-heading font-black uppercase text-white tracking-wide"><i class="fas fa-camera-retro text-adventist-gold mr-2 lg:mr-3"></i> Renovación del Templo</h2>
-                <p class="text-gray-300 font-bold text-xs lg:text-xl mt-2 lg:mt-4 uppercase tracking-widest auto-text">El antes y el después de nuestro proyecto de butacas</p>
+
+            <div
+                class="text-center p-6 lg:p-12 bg-gradient-to-br from-black via-slate-900 to-black rounded-2xl lg:rounded-3xl shadow-2xl border-b-4 lg:border-b-8 border-adventist-gold">
+                <h2 class="t-title font-heading font-black uppercase text-white tracking-wide"><i
+                        class="fas fa-camera-retro text-adventist-gold mr-2 lg:mr-3"></i> Renovación del Templo</h2>
+                <p class="text-gray-300 font-bold text-xs lg:text-xl mt-2 lg:mt-4 uppercase tracking-widest auto-text">
+                    El antes y el después de nuestro proyecto de butacas</p>
             </div>
-            
-            <section class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
-                <img src="imagenes/templo1.jpeg" alt="Bancas de madera atrás" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-                <div class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
-                    <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">En la actualidad</p>
-                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Posterior (Hoy)</p>
+
+            <section
+                class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
+                <img src="imagenes/templo1.jpeg" alt="Bancas de madera atrás"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div
+                    class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
+                    <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">
+                        En la actualidad</p>
+                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Posterior (Hoy)
+                    </p>
                 </div>
             </section>
 
-            <section class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
-                <img src="imagenes/templo2.jpeg" alt="Bancas de madera frente" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-                <div class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
-                    <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">En la actualidad</p>
-                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Frontal (Hoy)</p>
+            <section
+                class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
+                <img src="imagenes/templo2.jpeg" alt="Bancas de madera frente"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div
+                    class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
+                    <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">
+                        En la actualidad</p>
+                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Frontal (Hoy)
+                    </p>
                 </div>
             </section>
 
-            <section class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
-                <img src="imagenes/templo3.jpeg" alt="Butacas rojas frente" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-                <div class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
-                    <p class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">Lo proyectado</p>
-                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevas Butacas (Vista Futura)</p>
+            <section
+                class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
+                <img src="imagenes/templo3.jpeg" alt="Butacas rojas frente"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div
+                    class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
+                    <p
+                        class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">
+                        Lo proyectado</p>
+                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevas Butacas (Vista
+                        Futura)</p>
                 </div>
             </section>
 
-            <section class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
-                <img src="imagenes/templo4.jpeg" alt="Butacas rojas atrás" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-                <div class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
-                    <p class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">Lo proyectado</p>
-                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevo Espacio (Vista Futura)</p>
+            <section
+                class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
+                <img src="imagenes/templo4.jpeg" alt="Butacas rojas atrás"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div
+                    class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
+                    <p
+                        class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">
+                        Lo proyectado</p>
+                    <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevo Espacio (Vista
+                        Futura)</p>
                 </div>
             </section>
 
-            
-            <section class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white p-6 lg:p-12">
+
+            <section
+                class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white p-6 lg:p-12">
                 <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                    <div class="inline-flex items-center gap-2 lg:gap-3 bg-red-900/50 border border-red-500/30 px-4 py-1.5 lg:px-6 lg:py-2.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black text-adventist-gold mb-4 lg:mb-6">
+                    <div
+                        class="inline-flex items-center gap-2 lg:gap-3 bg-red-900/50 border border-red-500/30 px-4 py-1.5 lg:px-6 lg:py-2.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black text-adventist-gold mb-4 lg:mb-6">
                         <i class="fas fa-hammer lg:text-base"></i> Proyecto Iglesia 2026
                     </div>
                     <h2 class="t-title font-heading font-black uppercase">Nuevas Sillas</h2>
-                    <h3 class="t-subtitle font-heading font-extrabold text-adventist-gold uppercase tracking-wide mt-0.5 lg:mt-2">Butacas</h3>
-                    
+                    <h3
+                        class="t-subtitle font-heading font-extrabold text-adventist-gold uppercase tracking-wide mt-0.5 lg:mt-2">
+                        Butacas</h3>
+
                     <div class="mt-6 lg:mt-10 w-full max-w-sm lg:max-w-3xl">
-                        <div class="bg-white text-slate-800 rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-gray-200">
-                            <p class="font-black uppercase tracking-wider text-red-800 text-[10px] lg:text-sm mb-1 lg:mb-2">Acumulado Actual</p>
+                        <div
+                            class="bg-white text-slate-800 rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-gray-200">
+                            <p
+                                class="font-black uppercase tracking-wider text-red-800 text-[10px] lg:text-sm mb-1 lg:mb-2">
+                                Acumulado Actual</p>
                             <p class="font-black text-3xl lg:text-6xl text-red-900">$613.105</p>
 
                             <div class="w-full mt-4 lg:mt-8">
-                                <div class="flex justify-between text-[9px] lg:text-sm font-black uppercase tracking-wider text-slate-400 mb-1.5 lg:mb-3">
+                                <div
+                                    class="flex justify-between text-[9px] lg:text-sm font-black uppercase tracking-wider text-slate-400 mb-1.5 lg:mb-3">
                                     <span>20,44% Completado</span>
                                     <span>Meta: $3M</span>
                                 </div>
-                                <div class="w-full h-4 lg:h-8 bg-gray-200 rounded-full overflow-hidden p-0.5 lg:p-1 border border-gray-300">
-                                    <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full" style="width: 16.96%;"></div>
+                                <div
+                                    class="w-full h-4 lg:h-8 bg-gray-200 rounded-full overflow-hidden p-0.5 lg:p-1 border border-gray-300">
+                                    <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full"
+                                        style="width: 16.96%;"></div>
                                 </div>
                             </div>
-                            <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase mt-3 lg:mt-6">Faltan por recaudar: <span class="text-red-700 font-black">$2.386.895</span></p>
+                            <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase mt-3 lg:mt-6">Faltan por
+                                recaudar: <span class="text-red-700 font-black">$2.386.895</span></p>
                         </div>
                     </div>
                 </div>
             </section>
 
-                    </div>
+        </div>
 
 
         <div class="grid grid-cols-1 gap-8 lg:gap-14">
-            
+
             <section class="aviso-card animate-fade hover-card shadow-2xl p-6 lg:p-12 border border-white/50 w-full">
                 <div class="flex flex-col h-full w-full max-w-6xl mx-auto">
-                    
+
                     <div class="aviso-header justify-center lg:justify-start">
                         <div class="departamento-box w-full sm:w-auto sm:min-w-[300px]">
                             <div class="departamento-logo">
@@ -388,45 +743,61 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="mensaje-aviso auto-text text-center lg:text-left mt-6 lg:mt-10 lg:text-3xl border-2 border-gray-200 shadow-md">
-                        Invitamos a los Preadolescentes y Adolescentes a participar de Escuela Sabática Gteen, cada sábado desde las 9:30 a 10:30 horas.
+
+                    <div
+                        class="mensaje-aviso auto-text text-center lg:text-left mt-6 lg:mt-10 lg:text-3xl border-2 border-gray-200 shadow-md">
+                        Invitamos a los Preadolescentes y Adolescentes a participar de Escuela Sabática Gteen, cada
+                        sábado desde las 9:30 a 10:30 horas.
                     </div>
-                    
-                    <div class="aviso-img-box shadow-xl mt-6 lg:mt-10 mx-auto w-full max-w-5xl h-[40vh] lg:h-[55vh] border-2 border-gray-200">
-                        <img src="imagenes/gteen_actividad.jpg" alt="Actividad Gteen" class="w-full h-full object-cover object-center" onerror="this.parentElement.style.display='none'">
+
+                    <div
+                        class="aviso-img-box shadow-xl mt-6 lg:mt-10 mx-auto w-full max-w-5xl h-[40vh] lg:h-[55vh] border-2 border-gray-200">
+                        <img src="imagenes/gteen_actividad.jpg" alt="Actividad Gteen"
+                            class="w-full h-full object-cover object-center"
+                            onerror="this.parentElement.style.display='none'">
                     </div>
-                    
+
                     <div class="responsable-box mt-6 lg:mt-10">
-                        <div class="responsable-avatar bg-gradient-to-br from-adventist-gold to-yellow-500 text-adventist-blue">
+                        <div
+                            class="responsable-avatar bg-gradient-to-br from-adventist-gold to-yellow-500 text-adventist-blue">
                             V
                         </div>
                         <div class="flex flex-col min-w-0 text-left">
-                            <span class="text-[10px] lg:text-sm uppercase tracking-wider text-slate-400 font-bold">Responsable</span>
-                            <span class="font-bold text-slate-700 text-base lg:text-2xl truncate">Viviana y Mauricio</span>
+                            <span
+                                class="text-[10px] lg:text-sm uppercase tracking-wider text-slate-400 font-bold">Responsable</span>
+                            <span class="font-bold text-slate-700 text-base lg:text-2xl truncate">Viviana y
+                                Mauricio</span>
                         </div>
                     </div>
 
                 </div>
             </section>
 
-            <section class="hover-card card-style shadow-xl glass p-6 lg:p-12 border-t-[6px] lg:border-t-[10px] border-yellow-500 text-center flex flex-col justify-center">
-                <div class="w-24 h-24 lg:w-40 lg:h-40 rounded-2xl lg:rounded-3xl bg-gray-200 shadow-xl mx-auto mb-4 lg:mb-8 overflow-hidden border-2 lg:border-4 border-white">
-                    <img src="imagenes/anciano.jpg" alt="Anciano" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'">
+            <section
+                class="hover-card card-style shadow-xl glass p-6 lg:p-12 border-t-[6px] lg:border-t-[10px] border-yellow-500 text-center flex flex-col justify-center">
+                <div
+                    class="w-24 h-24 lg:w-40 lg:h-40 rounded-2xl lg:rounded-3xl bg-gray-200 shadow-xl mx-auto mb-4 lg:mb-8 overflow-hidden border-2 lg:border-4 border-white">
+                    <img src="imagenes/anciano.jpg" alt="Anciano" class="w-full h-full object-cover"
+                        onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'">
                 </div>
-                <p class="text-adventist-blue font-black uppercase tracking-widest text-xs lg:text-lg">Anciano de Turno</p>
-                <h2 class="text-xl lg:text-4xl font-heading font-black uppercase text-slate-800 mt-1 lg:mt-3">Hno. Victor Recabarren</h2>
+                <p class="text-adventist-blue font-black uppercase tracking-widest text-xs lg:text-lg">Anciano de Turno
+                </p>
+                <h2 class="text-xl lg:text-4xl font-heading font-black uppercase text-slate-800 mt-1 lg:mt-3">Hno.
+                    Victor Recabarren</h2>
             </section>
         </div>
 
         <section class="mt-12 lg:mt-20 flex flex-col items-center px-4 w-full">
-            <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-adventist-blue font-bold uppercase tracking-widest text-xs lg:text-sm p-3 lg:p-4 transition">
+            <button onclick="toggleAdminPanel()"
+                class="text-slate-400 hover:text-adventist-blue font-bold uppercase tracking-widest text-xs lg:text-sm p-3 lg:p-4 transition">
                 <i class="fa-solid fa-gear"></i> Gestión de Muro
             </button>
             <div id="admin-panel" class="hidden mt-3 lg:mt-4 w-full max-w-xs lg:max-w-md">
                 <div class="glass p-5 lg:p-8 rounded-2xl lg:rounded-3xl shadow-xl space-y-3 lg:space-y-5">
-                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY" class="w-full bg-slate-100 border border-slate-200 p-3 lg:p-4 rounded-xl lg:rounded-2xl text-center font-bold outline-none text-sm lg:text-base">
-                    <button onclick="activarEdicion()" class="w-full bg-adventist-blue hover:bg-blue-950 transition text-white py-3 lg:py-4 rounded-xl lg:rounded-2xl font-black uppercase text-xs lg:text-sm tracking-wider shadow-md">
+                    <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
+                        class="w-full bg-slate-100 border border-slate-200 p-3 lg:p-4 rounded-xl lg:rounded-2xl text-center font-bold outline-none text-sm lg:text-base">
+                    <button onclick="activarEdicion()"
+                        class="w-full bg-adventist-blue hover:bg-blue-950 transition text-white py-3 lg:py-4 rounded-xl lg:rounded-2xl font-black uppercase text-xs lg:text-sm tracking-wider shadow-md">
                         Validar Acceso
                     </button>
                 </div>
@@ -437,36 +808,53 @@
     <footer class="bg-adventist-dark text-white pt-12 pb-10 lg:pt-20 lg:pb-16 w-full">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <div class="flex justify-center gap-6 lg:gap-10 mb-6 lg:mb-10">
-                <a href="https://www.facebook.com/" target="_blank" class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.youtube.com/" target="_blank" class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.facebook.com/" target="_blank"
+                    class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/" target="_blank"
+                    class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i class="fab fa-youtube"></i></a>
             </div>
-            <img src="imagenes/logo.jpg" class="h-14 w-14 lg:h-20 lg:w-20 rounded-full mx-auto mb-4 lg:mb-6 border-2 border-adventist-gold p-1 shadow-lg" alt="Logo Footer" onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
-            <p class="text-slate-500 uppercase tracking-widest text-[10px] lg:text-sm">&copy; 2026 IASD San Francisco de Limache</p>
-            <p class="mt-2 lg:mt-4 text-slate-500 uppercase tracking-wider text-[11px] lg:text-sm">By <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span></p>
+            <img src="imagenes/logo.jpg"
+                class="h-14 w-14 lg:h-20 lg:w-20 rounded-full mx-auto mb-4 lg:mb-6 border-2 border-adventist-gold p-1 shadow-lg"
+                alt="Logo Footer"
+                onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
+            <p class="text-slate-500 uppercase tracking-widest text-[10px] lg:text-sm">&copy; 2026 IASD San Francisco de
+                Limache</p>
+            <p class="mt-2 lg:mt-4 text-slate-500 uppercase tracking-wider text-[11px] lg:text-sm">By <span
+                    class="text-adventist-gold font-bold">Mauricio Galaz Estay</span></p>
         </div>
     </footer>
 
-    <nav class="mobile-nav lg:hidden flex justify-around bg-white fixed bottom-0 w-full border-t border-gray-200 pb-safe pt-2 px-2 z-50">
-        <a href="index.html" class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition active" onclick="setMobileActive(this)"><i class="fa-solid fa-house text-lg mb-1"></i>Inicio</a>
-        <a href="#contenedor-avisos-dinamicos" class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition" onclick="setMobileActive(this)"><i class="fa-solid fa-bullhorn text-lg mb-1"></i>Muro</a>
-        <a href="cronograma.html" class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition" onclick="setMobileActive(this)"><i class="fa-solid fa-calendar-days text-lg mb-1"></i>Ruta</a>
-        <a href="contactoaviso.html" class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition" onclick="setMobileActive(this)"><i class="fa-solid fa-envelope text-lg mb-1"></i>Contacto</a>
+    <nav
+        class="mobile-nav lg:hidden flex justify-around bg-white fixed bottom-0 w-full border-t border-gray-200 pb-safe pt-2 px-2 z-50">
+        <a href="index.html"
+            class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition active"
+            onclick="setMobileActive(this)"><i class="fa-solid fa-house text-lg mb-1"></i>Inicio</a>
+        <a href="#contenedor-avisos-dinamicos"
+            class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
+            onclick="setMobileActive(this)"><i class="fa-solid fa-bullhorn text-lg mb-1"></i>Muro</a>
+        <a href="cronograma.html"
+            class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
+            onclick="setMobileActive(this)"><i class="fa-solid fa-calendar-days text-lg mb-1"></i>Ruta</a>
+        <a href="contactoaviso.html"
+            class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
+            onclick="setMobileActive(this)"><i class="fa-solid fa-envelope text-lg mb-1"></i>Contacto</a>
     </nav>
-    <div class="h-16 lg:hidden"></div> 
+    <div class="h-16 lg:hidden"></div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         let player;
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', { 
-                height: '0', 
-                width: '0', 
-                videoId: '4tvmk5lKjhg', 
-                playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '4tvmk5lKjhg' } 
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: '4tvmk5lKjhg',
+                playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '4tvmk5lKjhg' }
             });
         }
         function reproducirMusica() {
-            if(player && player.playVideo) {
+            if (player && player.playVideo) {
                 player.playVideo();
                 const boton = document.getElementById("btnMusica");
                 boton.innerHTML = "🎵 Sonando...";
@@ -474,7 +862,7 @@
             }
         }
         function detenerMusica() {
-            if(player && player.pauseVideo) {
+            if (player && player.pauseVideo) {
                 player.pauseVideo();
                 const boton = document.getElementById("btnMusica");
                 boton.innerHTML = "▶ Reproducir";
@@ -501,7 +889,7 @@
 
         const menuBtn = document.getElementById("menu-btn");
         const mobileMenu = document.getElementById("mobile-menu");
-        
+
         menuBtn.addEventListener("click", () => {
             mobileMenu.classList.toggle("open");
         });
