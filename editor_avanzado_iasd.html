@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Avanzado de Anuncios - IASD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    .fuente-poppins { font-family: 'Poppins', sans-serif; }
+    .fuente-montserrat { font-family: 'Montserrat', sans-serif; }
+    .fuente-merriweather { font-family: 'Merriweather', serif; }
+    
+    [contenteditable="true"]:hover {
+      outline: 2px dashed #3b82f6;
+      background-color: rgba(59, 130, 246, 0.05);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 min-h-screen flex flex-col xl:flex-row items-center justify-center p-4 gap-6 xl:gap-12 fuente-poppins text-slate-100">
+
+  <!-- PANEL DE CONFIGURACIÓN (Izquierda) -->
+  <div class="w-full max-w-md bg-slate-800 p-6 rounded-2xl shadow-2xl border border-slate-700 space-y-5 overflow-y-auto max-h-[95vh]">
+    <div>
+      <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-gears"></i> Panel de Control Pro
+      </h2>
+      <p class="text-xs text-slate-400 mt-1">Personaliza el formato, diseño y contenido del afiche.</p>
+    </div>
+
+    <!-- 1. Formato de Salida -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold uppercase tracking-wider text-slate-400">1. Formato del Afiche</label>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="cambiarFormato('vertical')" id="btn-f-vert" class="bg-blue-600 text-white py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-mobile-screen"></i> Vertical (Historias 9:16)
+        </button>
+        <button onclick="cambiarFormato('cuadrado')" id="btn-f-cuad" class="bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-square"></i> Cuadrado (Feeds 1:1)
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Tipo de Contenido (6 Plantillas) -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold uppercase tracking-wider text-slate-400">2. Tipo de Anuncio</label>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button onclick="cargarPlantilla('clima')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-cloud-showers-heavy text-blue-400"></i> Clima / Suspensión
+        </button>
+        <button onclick="cargarPlantilla('oracion')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-hands-praying text-amber-400"></i> Culto de Oración
+        </button>
+        <button onclick="cargarPlantilla('santacena')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-wine-glass text-purple-400"></i> Santa Cena
+        </button>
+        <button onclick="cargarPlantilla('jovenes')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-bolt text-yellow-400"></i> Sociedad de Jóvenes
+        </button>
+        <button onclick="cargarPlantilla('sabatica')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-book-open text-emerald-400"></i> Escuela Sabática
+        </button>
+        <button onclick="cargarPlantilla('solidario')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded-xl text-left font-medium flex items-center gap-2">
+          <i class="fa-solid fa-heart text-red-400"></i> Acción Solidaria
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Estilo Visual (Estilo de Letra y Tono de Fondo) -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">3. Tipografía</label>
+        <select onchange="cambiarTipografía(this.value)" class="w-full bg-slate-700 text-white rounded-xl p-2 text-xs border border-slate-600 outline-none">
+          <option value="fuente-poppins">Poppins (Moderna)</option>
+          <option value="fuente-montserrat">Montserrat (Llamativa)</option>
+          <option value="fuente-merriweather">Merriweather (Solemne)</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">4. Modo de Fondo</label>
+        <div class="grid grid-cols-2 gap-1">
+          <button onclick="cambiarModoFondo('claro')" id="btn-m-claro" class="bg-blue-600 text-white py-2 rounded-xl text-[11px] font-bold">Claro</button>
+          <button onclick="cambiarModoFondo('oscuro')" id="btn-m-oscuro" class="bg-slate-700 hover:bg-slate-600 text-slate-300 py-2 rounded-xl text-[11px] font-bold">Oscuro</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Paleta de Colores Corporativos -->
+    <div class="space-y-2">
+      <label class="text-xs font-bold uppercase tracking-wider text-slate-400">5. Color de Acento Institucional</label>
+      <div class="flex gap-2.5 bg-slate-900/50 p-2.5 rounded-xl justify-around">
+        <button onclick="cambiarColorAcento('#0f3460', 'bg-[#0f3460]')" class="w-7 h-7 rounded-full bg-[#0f3460] border border-white"></button>
+        <button onclick="cambiarColorAcento('#1e3a8a', 'bg-blue-900')" class="w-7 h-7 rounded-full bg-blue-900"></button>
+        <button onclick="cambiarColorAcento('#065f46', 'bg-emerald-800')" class="w-7 h-7 rounded-full bg-emerald-800"></button>
+        <button onclick="cambiarColorAcento('#b45309', 'bg-amber-700')" class="w-7 h-7 rounded-full bg-amber-700"></button>
+        <button onclick="cambiarColorAcento('#7c2d12', 'bg-orange-950')" class="w-7 h-7 rounded-full bg-orange-950"></button>
+        <button onclick="cambiarColorAcento('#581c87', 'bg-purple-900')" class="w-7 h-7 rounded-full bg-purple-900"></button>
+      </div>
+    </div>
+
+    <!-- Botón Exportar -->
+    <button onclick="exportarAfiche()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-sm">
+      <i class="fa-solid fa-file-image"></i> Exportar Imagen en Alta Definición
+    </button>
+  </div>
+
+  <!-- LONA DEL AFICHE (Derecha) -->
+  <div id="afiche-contenedor" class="w-full max-w-[420px] bg-white text-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col justify-between border border-gray-200 transition-all duration-300 state-claro fuente-poppins" style="aspect-ratio: 9/16;">
+    
+<!-- Franja Superior de Identificación (ACTUALIZADA CON LOGO) -->
+    <div id="header-corporate" class="bg-[#0f3460] py-4 px-6 flex items-center justify-center transition-colors cursor-pointer" onclick="editarImagenHeader()">
+      <img id="logo-header" src="logo1ig.png" alt="Logo de la Iglesia" class="h-20 w-auto object-contain">
+    </div>
+
+    <!-- Banner Operativo / Tipo de Alerta -->
+    <div id="badge-container" class="bg-red-600 text-white text-center py-1.5 px-4 font-bold text-[10px] uppercase tracking-wider flex items-center justify-center gap-2">
+      <i id="icon-badge" class="fa-solid fa-triangle-exclamation cursor-pointer" onclick="editarIcono('icon-badge')"></i>
+      <span contenteditable="true" id="badge-text" class="outline-none">Aviso Importante</span>
+    </div>
+
+    <!-- Bloque de Contenido Central -->
+    <div class="flex-1 p-5 flex flex-col justify-around gap-2 text-center">
+      
+      <!-- Título Principal -->
+      <h1 contenteditable="true" id="main-title" class="text-xl md:text-2xl font-extrabold text-[#0f3460] leading-tight uppercase outline-none">
+        Suspensión de<br>Reunión Presencial
+      </h1>
+
+      <!-- Ilustración Central Focalizada -->
+      <div class="flex justify-center items-center my-1">
+        <div id="icon-bg-circle" class="relative p-5 bg-slate-100 text-slate-700 rounded-full transition-colors">
+          <i id="icon-main" class="fa-solid fa-cloud-showers-heavy text-5xl text-blue-500 cursor-pointer" onclick="editarIcono('icon-main')"></i>
+          <span id="sub-badge-circle" class="absolute bottom-0 right-0 bg-red-100 text-red-600 rounded-full w-7 h-7 flex items-center justify-center border-2 border-white shadow">
+            <i id="icon-sub" class="fa-solid fa-ban text-xs cursor-pointer" onclick="editarIcono('icon-sub')"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Resumen Instructivo -->
+      <p contenteditable="true" id="main-desc" class="text-xs text-gray-600 font-medium leading-relaxed px-1 outline-none">
+        Debido a las condiciones climáticas adversas pronosticadas para este sábado 18 de julio de 2026, y para resguardar la seguridad de nuestros hermanos, se suspenden las actividades en el templo.
+      </p>
+
+      <!-- Tabla / Bloques de Datos de Canales -->
+      <div id="info-box" class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-left space-y-2.5 transition-colors">
+        <!-- Fila 1 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-blue-50 text-blue-600 p-2 rounded-lg text-xs" id="box-icon-1">
+            <i id="icon-det-1" class="fa-solid fa-laptop-house cursor-pointer" onclick="editarIcono('icon-det-1')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" id="title-det-1" class="text-[9px] font-bold uppercase text-gray-400 outline-none">Modalidad</h4>
+            <p contenteditable="true" id="desc-det-1" class="text-xs font-semibold text-gray-800 outline-none">La programación se realizará de manera ONLINE.</p>
+          </div>
+        </div>
+        <!-- Fila 2 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-green-50 text-green-600 p-2 rounded-lg text-xs" id="box-icon-2">
+            <i id="icon-det-2" class="fa-brands fa-whatsapp cursor-pointer" onclick="editarIcono('icon-det-2')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" id="title-det-2" class="text-[9px] font-bold uppercase text-gray-400 outline-none">Enlaces de Acceso</h4>
+            <p contenteditable="true" id="desc-det-2" class="text-xs text-gray-600 outline-none">Se compartirán oportunamente por nuestros grupos oficiales de WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Zócalo de Cierre (Inspiracional/Versículo) -->
+    <div id="footer-bg" class="p-3 bg-slate-100 border-t border-gray-200 text-center transition-colors">
+      <div id="verse-card" class="bg-white border border-slate-300 rounded-lg p-2.5 shadow-sm transition-colors">
+        <p contenteditable="true" id="verse-text" class="text-[11px] italic text-gray-600 font-medium outline-none">
+          "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."
+        </p>
+        <span contenteditable="true" id="verse-ref" class="block text-[9px] font-bold text-[#0f3460] mt-0.5 uppercase tracking-wider outline-none">— Salmo 46:1</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function editarImagenHeader() {
+      const nuevaUrl = prompt("Ingresa la URL o el nombre de archivo de la nueva imagen de portada:", "logo horizontal de iglesia sf_2.jpg");
+      if (nuevaUrl) {
+        document.getElementById('logo-header').src = nuevaUrl;
+      }
+    }
+
+    let acentoActualHex = "#0f3460";
+    let modoFondoActual = "claro";
+
+    const bancoPlantillas = {
+      clima: {
+        badge: "Aviso Importante", badgeBg: "bg-red-600", title: "Suspensión de<br>Reunión Presencial",
+        iconMain: "fa-cloud-showers-heavy text-blue-500", iconSub: "fa-ban text-red-600",
+        desc: "Debido a las condiciones climáticas adversas pronosticadas para este sábado 18 de julio de 2026, y para resguardar la seguridad de nuestros hermanos, se suspenden las actividades en el templo.",
+        t1: "Modalidad", d1: "La programación se realizará de manera ONLINE.", i1: "fa-laptop-house",
+        t2: "Enlaces de Acceso", d2: "Se compartirán oportunamente por nuestros grupos oficiales de WhatsApp.", i2: "fa-brands fa-whatsapp",
+        verse: '"Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."', ref: "— Salmo 46:1"
+      },
+      oracion: {
+        badge: "Culto de Adoración", badgeBg: "bg-amber-600", title: "Reunión de Oración<br>& Intercesión",
+        iconMain: "fa-hands-praying text-amber-500", iconSub: "fa-clock text-slate-500",
+        desc: "Hermanos, nos unimos este miércoles a mitad de semana para elevar nuestras peticiones, agradecer las bendiciones y estudiar la palabra.",
+        t1: "Plataforma", d1: "Transmisión en vivo por Google Meet y nuestro canal de YouTube.", i1: "fa-video",
+        t2: "Horario", d2: "Inicio general a partir de las 20:00 horas. ¡Te esperamos!", i2: "fa-clock",
+        verse: '"La oración eficaz del justo puede mucho."', ref: "— Santiago 5:16"
+      },
+      santacena: {
+        badge: "Servicio Solemne", badgeBg: "bg-purple-700", title: "Preparación para<br>La Santa Cena",
+        iconMain: "fa-wine-glass text-purple-500", iconSub: "fa-heart text-red-500",
+        desc: "Los invitamos a participar del servicio de preparación espiritual previo al rito de comunión y humildad que celebraremos juntos.",
+        t1: "Vía Virtual", d1: "Acceso disponible mediante la sala regular de videoconferencia.", i1: "fa-desktop",
+        t2: "Requerimiento", d2: "Se solicita tener listos los emblemas (pan sin levadura y jugo puro de uva).", i2: "fa-bread-slice",
+        verse: '"Examinándose, pues, cada uno a sí mismo, coma así del pan, y beba de la copa."', ref: "— 1 Corintios 11:28"
+      },
+      jovenes: {
+        badge: "Sociedad de Jóvenes", badgeBg: "bg-yellow-600", title: "Espacio Juvenil<br>Culto de Sábado",
+        iconMain: "fa-user-group text-orange-500", iconSub: "fa-bolt text-yellow-500",
+        desc: "¡Atención jóvenes! Este sábado nos encontramos para compartir alabanzas, dinámicas interactivas y una profunda reflexión bíblica.",
+        t1: "Punto de Encuentro", d1: "Enlace directo compartido en el grupo de la Sociedad de Jóvenes.", i1: "fa-comments",
+        t2: "Hora de Inicio", d2: "Damos inicio formal a las 17:30 horas. Invita a un amigo.", i2: "fa-circle-play",
+        verse: '"Ninguno tenga en poco tu juventud, sino sé ejemplo de los creyentes."', ref: "— 1 Timothy 4:12"
+      },
+      sabatica: {
+        badge: "Escuela Sabática", badgeBg: "bg-emerald-700", title: "Estudio Guiado del<br>Folleto Diario",
+        iconMain: "fa-book-open text-emerald-600", iconSub: "fa-graduation-cap text-slate-600",
+        desc: "Comenzamos el sábado repasando la lección en nuestras respectivas clases. No pierdas la oportunidad de repasar los comentarios bíblicos.",
+        t1: "Salas de Reunión", d1: "Cada clase dividida mantendrá sus códigos habituales de conexión.", i1: "fa-network-wired",
+        t2: "Cronograma", d2: "Recepción de hermanos a las 09:30 AM. Comienzo del repaso general.", i2: "fa-hourglass-start",
+        verse: '"Lámpara es a mis pies tu palabra, y lumbrera a mi camino."', ref: "— Salmo 119:105"
+      },
+      solidario: {
+        badge: "Acción Comunitaria", badgeBg: "bg-blue-700", title: "Campaña de Apoyo<br>Familiar Solidario",
+        iconMain: "fa-hand-holding-heart text-red-500", iconSub: "fa-house-chimney text-blue-600",
+        desc: "Nos movilizamos como iglesia para asistir a las familias afectadas por la contingencia actual en el sector de San Francisco de Limache.",
+        t1: "Centros de Acopio", d1: "Se recibirán alimentos no perecederos una vez habilitadas las vías.", i1: "fa-box-tissue",
+        t2: "Coordinación Directa", d2: "Comunicarse con el departamento de Acción Solidaria Adventista (ASA).", i2: "fa-phone",
+        verse: '"En cuanto lo hicisteis a uno de estos mis hermanos más pequeños, a mí lo hicisteis."', ref: "— Mateo 25:40"
+      }
+    };
+
+    function cambiarFormato(tipo) {
+      const canvas = document.getElementById('afiche-contenedor');
+      const bVert = document.getElementById('btn-f-vert');
+      const bCuad = document.getElementById('btn-f-cuad');
+      
+      if (tipo === 'cuadrado') {
+        canvas.style.aspectRatio = "1/1";
+        canvas.classList.remove('max-w-[420px]');
+        canvas.classList.add('max-w-[480px]');
+        bCuad.className = "bg-blue-600 text-white py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition";
+        bVert.className = "bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition";
+      } else {
+        canvas.style.aspectRatio = "9/16";
+        canvas.classList.remove('max-w-[480px]');
+        canvas.classList.add('max-w-[420px]');
+        bVert.className = "bg-blue-600 text-white py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition";
+        bCuad.className = "bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition";
+      }
+    }
+
+    function cambiarModoFondo(modo) {
+      modoFondoActual = modo;
+      const canvas = document.getElementById('afiche-contenedor');
+      const title = document.getElementById('main-title');
+      const desc = document.getElementById('main-desc');
+      const infobox = document.getElementById('info-box');
+      const footer = document.getElementById('footer-bg');
+      const vcard = document.getElementById('verse-card');
+      const circle = document.getElementById('icon-bg-circle');
+      
+      const bClaro = document.getElementById('btn-m-claro');
+      const bOscuro = document.getElementById('btn-m-oscuro');
+
+      if (modo === 'oscuro') {
+        canvas.className = canvas.className.replace('bg-white', 'bg-slate-900').replace('text-slate-800', 'text-slate-100');
+        title.style.color = "#f8fafc";
+        desc.className = desc.className.replace('text-gray-600', 'text-slate-300');
+        infobox.className = "bg-slate-800 border border-slate-700 rounded-xl p-3 text-left space-y-2.5 transition-colors text-slate-200";
+        footer.className = footer.className.replace('bg-slate-100', 'bg-slate-950').replace('border-gray-200', 'border-slate-800');
+        vcard.className = "bg-slate-900 border border-slate-700 rounded-lg p-2.5 shadow-sm transition-colors text-slate-300";
+        circle.className = "relative p-5 bg-slate-800 text-slate-200 rounded-full transition-colors";
+        
+        bOscuro.className = "bg-blue-600 text-white py-2 rounded-xl text-[11px] font-bold";
+        bClaro.className = "bg-slate-700 hover:bg-slate-600 text-slate-300 py-2 rounded-xl text-[11px] font-bold";
+      } else {
+        canvas.className = canvas.className.replace('bg-slate-900', 'bg-white').replace('text-slate-100', 'text-slate-800');
+        title.style.color = acentoActualHex;
+        desc.className = desc.className.replace('text-slate-300', 'text-gray-600');
+        infobox.className = "bg-slate-50 border border-slate-200 rounded-xl p-3 text-left space-y-2.5 transition-colors text-slate-800";
+        footer.className = footer.className.replace('bg-slate-950', 'bg-slate-100').replace('border-slate-800', 'border-gray-200');
+        vcard.className = "bg-white border border-slate-300 rounded-lg p-2.5 shadow-sm transition-colors text-slate-600";
+        circle.className = "relative p-5 bg-slate-100 text-slate-700 rounded-full transition-colors";
+
+        bClaro.className = "bg-blue-600 text-white py-2 rounded-xl text-[11px] font-bold";
+        bOscuro.className = "bg-slate-700 hover:bg-slate-600 text-slate-300 py-2 rounded-xl text-[11px] font-bold";
+      }
+    }
+
+    function cambiarColorAcento(hex, tailwindClass) {
+      acentoActualHex = hex;
+      document.getElementById('header-corporate').className = `${tailwindClass} text-white py-4 px-6 flex items-center justify-center gap-4 transition-colors`;
+      document.getElementById('verse-ref').style.color = hex;
+      if (modoFondoActual === 'claro') {
+        document.getElementById('main-title').style.color = hex;
+      }
+    }
+
+    function cambiarTipografía(fuente) {
+      const canvas = document.getElementById('afiche-contenedor');
+      canvas.classList.remove('fuente-poppins', 'fuente-montserrat', 'fuente-merriweather');
+      canvas.classList.add(fuente);
+    }
+
+    function editarIcono(id) {
+      const nuevo = prompt("Ingresa el identificador de clase FontAwesome para el ícono:", "fa-solid fa-star");
+      if (nuevo) {
+        const elemento = document.getElementById(id);
+        const clasesBase = Array.from(elemento.classList).filter(c => !c.startsWith('fa-'));
+        elemento.className = "";
+        nuevo.split(' ').forEach(c => elemento.classList.add(c));
+        clasesBase.forEach(c => elemento.classList.add(c));
+      }
+    }
+
+    function cargarPlantilla(tipo) {
+      const p = bancoPlantillas[tipo];
+      document.getElementById('badge-text').innerText = p.badge;
+      document.getElementById('badge-container').className = `${p.badgeBg} text-white text-center py-1.5 px-4 font-bold text-[10px] uppercase tracking-wider flex items-center justify-center gap-2`;
+      document.getElementById('main-title').innerHTML = p.title;
+      
+      document.getElementById('icon-main').className = `fa-solid ${p.iconMain} text-5xl cursor-pointer`;
+      document.getElementById('icon-sub').className = `fa-solid ${p.iconSub} text-xs cursor-pointer`;
+      
+      document.getElementById('main-desc').innerText = p.desc;
+      document.getElementById('title-det-1').innerText = p.t1;
+      document.getElementById('desc-det-1').innerText = p.d1;
+      document.getElementById('icon-det-1').className = `fa-solid ${p.i1} cursor-pointer`;
+      
+      document.getElementById('title-det-2').innerText = p.t2;
+      document.getElementById('desc-det-2').innerText = p.d2;
+      document.getElementById('icon-det-2').className = `fa-solid ${p.i2} cursor-pointer`;
+      
+      document.getElementById('verse-text').innerText = p.verse;
+      document.getElementById('verse-ref').innerText = p.ref;
+    }
+
+    function exportarAfiche() {
+      const elemento = document.getElementById('afiche-contenedor');
+      html2canvas(elemento, {
+        scale: 3, // Calidad Ultra HD
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
+        const descargo = document.createElement('a');
+        descargo.download = 'Comunicado_Oficial_IASD.jpg';
+        descargo.href = canvas.toDataURL('image/jpeg', 0.95);
+        descargo.click();
+      });
+    }
+  </script>
+</body>
+</html>

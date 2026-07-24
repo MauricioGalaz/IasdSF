@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador Profesional de Anuncios - IASD</title>
+  <!-- Tailwind CSS para diseño moderno -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Librería para convertir el diseño en imagen descargable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    [contenteditable="true"]:hover {
+      outline: 2px dashed #3b82f6;
+      background-color: rgba(59, 130, 246, 0.05);
+      border-radius: 4px;
+    }
+    [contenteditable="true"]:focus {
+      outline: 2px solid #2563eb;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 min-h-screen flex flex-col lg:flex-row items-center justify-center p-4 gap-6 lg:gap-12">
+
+  <!-- PANEL DE CONTROL (Izquierda) -->
+  <div class="w-full max-w-md bg-slate-800 text-white p-6 rounded-2xl shadow-xl border border-slate-700 space-y-6">
+    <div>
+      <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+        <i class="fa-solid fa-sliders"></i> Panel de Edición
+      </h2>
+      <p class="text-xs text-slate-400 mt-1">Modifica visualmente el anuncio antes de exportarlo.</p>
+    </div>
+
+    <!-- Selección de Plantilla -->
+    <div class="space-y-2">
+      <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">1. Seleccionar Tipo de Anuncio</label>
+      <div class="grid grid-cols-1 gap-2">
+        <button onclick="cargarPlantilla('clima')" class="bg-slate-700 hover:bg-blue-600 text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-3">
+          <i class="fa-solid fa-cloud-showers-heavy text-blue-400"></i> Suspensión por Clima
+        </button>
+        <button onclick="cargarPlantilla('oracion')" class="bg-slate-700 hover:bg-amber-600 text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-3">
+          <i class="fa-solid fa-hands-praying text-amber-400"></i> Reunión de Oración Online
+        </button>
+        <button onclick="cargarPlantilla('santacena')" class="bg-slate-700 hover:bg-purple-600 text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-3">
+          <i class="fa-solid fa-wine-glass text-purple-400"></i> Preparación Santa Cena
+        </button>
+      </div>
+    </div>
+
+    <!-- Personalización de Colores -->
+    <div class="space-y-2">
+      <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">2. Color del Encabezado</label>
+      <div class="flex gap-2">
+        <button onclick="cambiarColorEncabezado('#0f3460')" class="w-8 h-8 rounded-full bg-[#0f3460] border-2 border-white"></button>
+        <button onclick="cambiarColorEncabezado('#1e3a8a')" class="w-8 h-8 rounded-full bg-blue-900 border-2 border-transparent"></button>
+        <button onclick="cambiarColorEncabezado('#065f46')" class="w-8 h-8 rounded-full bg-emerald-800 border-2 border-transparent"></button>
+        <button onclick="cambiarColorEncabezado('#581c87')" class="w-8 h-8 rounded-full bg-purple-950 border-2 border-transparent"></button>
+        <button onclick="cambiarColorEncabezado('#111827')" class="w-8 h-8 rounded-full bg-gray-900 border-2 border-transparent"></button>
+      </div>
+    </div>
+
+    <!-- Instrucción rápida -->
+    <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600/50 text-xs text-slate-300 space-y-1">
+      <p>💡 <strong>Edición Directa:</strong> Haz clic en cualquier texto del afiche para cambiarlo.</p>
+      <p>✨ <strong>Íconos:</strong> Haz clic en cualquier ícono del afiche para reemplazarlo por otro.</p>
+    </div>
+
+    <!-- Botón de descarga masiva -->
+    <button onclick="descargarAnuncio()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-base">
+      <i class="fa-solid fa-download"></i> Guardar como Imagen (JPG)
+    </button>
+  </div>
+
+  <!-- AFICHE DIGITAL (Derecha / Proporción 9:16) -->
+  <div id="afiche-canvas" class="w-full max-w-[420px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col justify-between border border-gray-200" style="aspect-ratio: 9/16;">
+    
+    <!-- Encabezado Institucional -->
+    <div id="header-bg" class="bg-[#0f3460] text-white text-center py-5 px-4 flex flex-col items-center justify-center gap-1 transition-colors duration-300">
+      <i id="icon-top" class="fa-solid fa-church text-xl text-amber-400 cursor-pointer hover:scale-110 transition" onclick="cambiarIcono('icon-top')"></i>
+      <h2 contenteditable="true" class="text-[11px] uppercase tracking-widest font-semibold opacity-90 w-full outline-none">Iglesia Adventista del Séptimo Día</h2>
+      <p contenteditable="true" class="text-xs font-bold text-slate-200 w-full outline-none">San Francisco de Limache</p>
+    </div>
+
+    <!-- Etiqueta de Alerta/Tipo -->
+    <div id="badge-alert" class="bg-red-600 text-white text-center py-1.5 px-4 font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-2">
+      <i id="icon-badge-alert" class="fa-solid fa-triangle-exclamation cursor-pointer" onclick="cambiarIcono('icon-badge-alert')"></i>
+      <span contenteditable="true" id="text-badge" class="outline-none">Aviso Importante</span>
+    </div>
+
+    <!-- Cuerpo del Mensaje -->
+    <div class="flex-1 p-5 flex flex-col justify-around gap-3 text-center">
+      
+      <!-- Título -->
+      <h1 contenteditable="true" id="main-title" class="text-xl md:text-2xl font-extrabold text-[#0f3460] leading-tight uppercase outline-none">
+        Suspensión de<br>Reunión Presencial
+      </h1>
+
+      <!-- Ilustración con íconos vectoriales limpios -->
+      <div class="flex justify-center items-center my-1">
+        <div class="relative p-5 bg-slate-100 rounded-full text-slate-700">
+          <i id="icon-main" class="fa-solid fa-cloud-showers-heavy text-5xl text-blue-500 cursor-pointer hover:scale-105 transition" onclick="cambiarIcono('icon-main')"></i>
+          <span class="absolute bottom-0 right-0 bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center border-2 border-white shadow">
+            <i id="icon-sub" class="fa-solid fa-ban text-xs cursor-pointer" onclick="cambiarIcono('icon-sub')"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Párrafo Descriptivo -->
+      <p contenteditable="true" id="main-desc" class="text-xs text-gray-700 leading-relaxed px-2 outline-none">
+        Debido a las condiciones climáticas adversas pronosticadas para este sábado 18 de julio de 2026, y para resguardar la seguridad de nuestros hermanos, se suspenden las actividades en el templo.
+      </p>
+
+      <!-- Cuadro Informativo de Canales/Vías -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-left space-y-2.5">
+        <!-- Detalle 1 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-blue-50 text-blue-600 p-2 rounded-lg text-xs">
+            <i id="icon-det-1" class="fa-solid fa-laptop-house cursor-pointer" onclick="cambiarIcono('icon-det-1')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" id="title-det-1" class="text-[10px] font-bold uppercase text-gray-400 outline-none">Modalidad</h4>
+            <p contenteditable="true" id="desc-det-1" class="text-xs font-semibold text-gray-800 outline-none">La programación se realizará de manera ONLINE.</p>
+          </div>
+        </div>
+        <!-- Detalle 2 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-green-50 text-green-600 p-2 rounded-lg text-xs">
+            <i id="icon-det-2" class="fa-brands fa-whatsapp cursor-pointer" onclick="cambiarIcono('icon-det-2')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" id="title-det-2" class="text-[10px] font-bold uppercase text-gray-400 outline-none">Enlaces de Acceso</h4>
+            <p contenteditable="true" id="desc-det-2" class="text-xs text-gray-600 outline-none">Se compartirán oportunamente por nuestros grupos oficiales de WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pie de Página (Cita Bíblica) -->
+    <div class="p-3 bg-slate-100 border-t border-gray-200 text-center">
+      <div class="bg-white border border-slate-300 rounded-lg p-2.5 shadow-sm">
+        <p contenteditable="true" id="verse-text" class="text-[11px] italic text-gray-600 font-medium outline-none">
+          "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."
+        </p>
+        <span contenteditable="true" id="verse-ref" class="block text-[9px] font-bold text-[#0f3460] mt-0.5 uppercase tracking-wider outline-none">— Salmo 46:1</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MOTOR LÓGICO DE LA APLICACIÓN -->
+  <script>
+    // Cambiar dinámicamente el color del encabezado institucional
+    function cambiarColorEncabezado(color) {
+      document.getElementById('header-bg').style.backgroundColor = color;
+      document.getElementById('verse-ref').style.color = color;
+    }
+
+    // Cambiar íconos mediante ventana interactiva
+    function cambiarIcono(idElemento) {
+      const iconoActual = document.getElementById(idElemento).className;
+      const nuevoIcono = prompt("Escribe el nombre del ícono de FontAwesome (ej: fa-video, fa-clock, fa-calendar, fa-sun, fa-bible):", "fa-solid fa-star");
+      if (nuevoIcono) {
+        document.getElementById(idElemento).className = `fa-solid ${nuevoIcono} cursor-pointer hover:scale-110 transition`;
+      }
+    }
+
+    // Banco de datos para cambio rápido de plantillas (Clima, Oración, Santa Cena)
+    const plantillas = {
+      clima: {
+        badge: "Aviso Importante", badgeColor: "bg-red-600",
+        title: "Suspensión de<br>Reunión Presencial",
+        iconMain: "fa-cloud-showers-heavy text-blue-500", iconSub: "fa-ban text-red-600",
+        desc: "Debido a las condiciones climáticas adversas pronosticadas para este sábado 18 de julio de 2026, y para resguardar la seguridad de nuestros hermanos, se suspenden las actividades en el templo.",
+        det1_t: "Modalidad", det1_d: "La programación se realizará de manera ONLINE.", iconDet1: "fa-laptop-house",
+        det2_t: "Enlaces de Acceso", det2_d: "Se compartirán oportunamente por nuestros grupos oficiales de WhatsApp.", iconDet2: "fa-brands fa-whatsapp",
+        verse: '"Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."', ref: "— Salmo 46:1"
+      },
+      oracion: {
+        badge: "Convocatoria", badgeColor: "bg-amber-500",
+        title: "Reunión de Oración<br>& Alabanza",
+        iconMain: "fa-hands-praying text-amber-500", iconSub: "fa-video text-blue-500",
+        desc: "Les invitamos a unirse este miércoles a nuestro espacio especial de intercesión comunitaria y gratitud de manera virtual.",
+        det1_t: "Plataforma", det1_d: "Nos conectaremos vía ZOOM y Google Meet.", iconDet1: "fa-video",
+        det2_t: "Horario Especial", det2_d: "Inicio de la transmisión a las 20:00 horas en punto.", iconDet2: "fa-clock",
+        verse: '"Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá."', ref: "— Mateo 7:7"
+      },
+      santacena: {
+        badge: "Servicio Especial", badgeColor: "bg-purple-600",
+        title: "Preparación para<br>La Santa Cena",
+        iconMain: "fa-bible text-amber-600", iconSub: "fa-heart text-red-500",
+        desc: "Iniciamos el ciclo de reuniones espirituales orientadas a preparar nuestros corazones para el rito de comunión del próximo sábado.",
+        det1_t: "Transmisión", det1_d: "Disponible en vivo a través de nuestro canal de YouTube.", iconDet1: "fa-desktop",
+        det2_t: "Materiales", det2_d: "Ten listo tu pan sin levadura y el jugo de uva en el hogar.", iconDet2: "fa-wine-glass",
+        verse: '"Haced esto en memoria de mí."', ref: "— 1 Corintios 11:24"
+      }
+    };
+
+    function cargarPlantilla(tipo) {
+      const p = plantillas[tipo];
+      document.getElementById('text-badge').innerText = p.badge;
+      document.getElementById('badge-alert').className = `${p.badgeColor} text-white text-center py-1.5 px-4 font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-2`;
+      document.getElementById('main-title').innerHTML = p.title;
+      document.getElementById('icon-main').className = `fa-solid ${p.iconMain} text-5xl cursor-pointer hover:scale-105 transition`;
+      document.getElementById('icon-sub').className = `fa-solid ${p.iconSub} text-xs cursor-pointer`;
+      document.getElementById('main-desc').innerText = p.desc;
+      document.getElementById('title-det-1').innerText = p.det1_t;
+      document.getElementById('desc-det-1').innerText = p.det1_d;
+      document.getElementById('icon-det-1').className = `fa-solid ${p.iconDet1} cursor-pointer`;
+      document.getElementById('title-det-2').innerText = p.det2_t;
+      document.getElementById('desc-det-2').innerText = p.det2_d;
+      document.getElementById('icon-det-2').className = `fa-solid ${p.iconDet2} cursor-pointer`;
+      document.getElementById('verse-text').innerText = p.verse;
+      document.getElementById('verse-ref').innerText = p.ref;
+    }
+
+    // Función automatizada para transformar el HTML en imagen descargable real
+    function descargarAnuncio() {
+      const nodo = document.getElementById('afiche-canvas');
+      
+      // Ajustes técnicos para garantizar alta definición en la descarga
+      html2canvas(nodo, {
+        scale: 3, // Multiplica la calidad para que se vea nítido en pantallas 4K y celulares
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
+        const enlace = document.createElement('a');
+        enlace.download = 'Anuncio_IASD_Limache.jpg';
+        enlace.href = canvas.toDataURL('image/jpeg', 0.95);
+        enlace.click();
+      });
+    }
+  </script>
+</body>
+</html>

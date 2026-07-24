@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Anuncios IASD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    /* Indicador visual de que un elemento es editable al pasar el mouse */
+    [contenteditable="true"]:hover {
+      background-color: rgba(243, 244, 246, 0.7);
+      outline: 2px dashed #3b82f6;
+      border-radius: 4px;
+      cursor: text;
+    }
+    [contenteditable="true"]:focus {
+      background-color: #fff;
+      outline: 2px solid #2563eb;
+      color: #000 !important;
+    }
+    .editable-icon:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+      filter: brightness(1.2);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 flex flex-col justify-center items-center min-h-screen p-4 gap-4">
+
+  <!-- INSTRUCCIONES EN PANTALLA (No se verán en la captura final) -->
+  <div class="bg-slate-800 text-white text-xs p-3 rounded-xl max-w-[450px] w-full text-center shadow-lg border border-slate-700">
+    <p class="font-semibold text-amber-400">⚡ MODO EDITOR ACTIVO</p>
+    <p class="mt-1 opacity-80">Haz <strong>clic en cualquier texto</strong> para escribir. Haz <strong>clic en los íconos</strong> para cambiarlos.</p>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL (Proporción 9:16) -->
+  <div id="canvas-anuncio" class="w-full max-w-[450px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col justify-between border border-gray-200" style="aspect-ratio: 9/16;">
+    
+    <!-- 1. ENCABEZADO / LOGO -->
+    <div class="bg-[#0f3460] text-white text-center py-5 px-4 flex flex-col items-center justify-center gap-1 shadow-md">
+      <!-- Haz clic para cambiar este icono -->
+      <i id="icon-top" class="fa-solid fa-church text-2xl text-amber-400 editable-icon" onclick="cambiarIcono('icon-top', 'fa-church')"></i>
+      <h2 contenteditable="true" class="text-xs uppercase tracking-widest font-semibold opacity-90 w-full outline-none">Iglesia Adventista del Séptimo Día</h2>
+      <p contenteditable="true" class="text-sm font-bold text-slate-200 w-full outline-none">San Francisco de Limache</p>
+    </div>
+
+    <!-- 2. BARRA DE ALERTA -->
+    <div class="bg-red-600 text-white text-center py-2 px-4 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+      <i id="icon-alert" class="fa-solid fa-triangle-exclamation editable-icon" onclick="cambiarIcono('icon-alert', 'fa-triangle-exclamation')"></i>
+      <span contenteditable="true" class="outline-none">Aviso Importante</span>
+    </div>
+
+    <!-- CUERPO DEL ANUNCIO -->
+    <div class="flex-1 p-6 flex flex-col justify-around gap-4 text-center">
+      
+      <!-- TÍTULO PRINCIPAL -->
+      <h1 contenteditable="true" class="text-2xl md:text-3xl font-extrabold text-[#0f3460] leading-tight uppercase outline-none">
+        Suspensión de<br>Reunión Presencial
+      </h1>
+
+      <!-- ÍCONO CENTRAL GRANDE -->
+      <div class="flex justify-center items-center my-2">
+        <div class="relative p-6 bg-slate-100 rounded-full text-slate-700">
+          <i id="icon-main" class="fa-solid fa-cloud-showers-heavy text-5xl text-blue-500 editable-icon" onclick="cambiarIcono('icon-main', 'fa-cloud-showers-heavy')"></i>
+          
+          <span class="absolute bottom-1 right-1 bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center border-2 border-white shadow">
+            <i id="icon-badge" class="fa-solid fa-ban text-sm editable-icon" onclick="cambiarIcono('icon-badge', 'fa-ban')"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- TEXTO DESCRIPTIVO -->
+      <p contenteditable="true" class="text-sm text-gray-700 leading-relaxed px-2 outline-none">
+        Debido a las condiciones climáticas adversas pronosticadas para este sábado 18 de julio de 2026, y para resguardar la seguridad de nuestros hermanos, se suspenden las actividades en el templo.
+      </p>
+
+      <!-- SECCIÓN DE DETALLES -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left space-y-3">
+        
+        <!-- Fila 1 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-blue-100 text-blue-600 p-2 rounded-lg mt-0.5">
+            <i id="icon-detail-1" class="fa-solid fa-laptop-house text-sm editable-icon" onclick="cambiarIcono('icon-detail-1', 'fa-laptop-house')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" class="text-xs font-bold uppercase text-gray-500 outline-none">Modalidad</h4>
+            <p contenteditable="true" class="text-sm font-semibold text-gray-800 outline-none">La programación se realizará de manera ONLINE.</p>
+          </div>
+        </div>
+
+        <!-- Fila 2 -->
+        <div class="flex items-start gap-3">
+          <div class="bg-green-100 text-green-600 p-2 rounded-lg mt-0.5">
+            <i id="icon-detail-2" class="fa-brands fa-whatsapp text-sm editable-icon" onclick="cambiarIcono('icon-detail-2', 'fa-whatsapp')"></i>
+          </div>
+          <div class="flex-1">
+            <h4 contenteditable="true" class="text-xs font-bold uppercase text-gray-500 outline-none">Enlaces de Acceso</h4>
+            <p contenteditable="true" class="text-sm text-gray-600 outline-none">Se compartirán oportunamente a través de nuestros grupos oficiales de WhatsApp.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 3. PIE DE PÁGINA (VERSÍCULO) -->
+    <div class="p-4 bg-slate-100 border-t border-gray-200 text-center">
+      <div class="bg-white border border-slate-300 rounded-lg p-3 shadow-sm">
+        <p contenteditable="true" class="text-xs italic text-gray-600 font-medium outline-none">
+          "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."
+        </p>
+        <span contenteditable="true" class="block text-[10px] font-bold text-[#0f3460] mt-1 uppercase tracking-wider outline-none">— Salmo 46:1</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT PARA CAMBIAR ÍCONOS INTERACTIVAMENTE -->
+  <script>
+    function cambiarIcono(idElemento, claseActual) {
+      const nuevoIcono = prompt(
+        "Ingresa el nombre del ícono de FontAwesome que deseas usar:\n\nEjemplos:\n- fa-calendar-xmark (Calendario cancelado)\n- fa-video (Cámara/Meet)\n- fa-clock (Reloj)\n- fa-sun (Sol)\n- fa-user-group (Reunión)", 
+        claseActual
+      );
+      
+      if (nuevoIcono !== null && nuevoIcono.trim() !== "") {
+        const elemento = document.getElementById(idElemento);
+        // Mantiene las clases base estructurales y reemplaza la clase del icono
+        const clasesEstructurales = Array.from(elemento.classList).filter(c => !c.startsWith('fa-'));
+        elemento.className = ""; 
+        
+        // Aplica las clases de FontAwesome introducidas por el usuario
+        if(nuevoIcono.includes(' ')){
+          nuevoIcono.split(' ').forEach(c => elemento.classList.add(c));
+        } else {
+          elemento.classList.add('fa-solid', nuevoIcono);
+        }
+        
+        // Reestablece las clases estructurales de diseño
+        clasesEstructurales.forEach(c => elemento.classList.add(c));
+        
+        // Actualiza la función onclick con el nuevo valor por defecto
+        elemento.setAttribute("onclick", `cambiarIcono('${idElemento}', '${nuevoIcono}')`);
+      }
+    }
+  </script>
+</body>
+</html>
