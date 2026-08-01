@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="es" style="scroll-behavior: smooth;">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Avisos - IASD Limache</title>
+    <title>Proyección de Avisos - IASD San Francisco de Limache</title>
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <meta name="theme-color" content="#00305e">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <meta name="theme-color" content="#f1f5f9">
 
     <script>
         tailwind.config = {
@@ -23,9 +25,7 @@
                         adventist: {
                             blue: '#00305e',
                             gold: '#fec325',
-                            red: '#b71c1c',
-                            dark: '#0f172a',
-                            light: '#f8fafc'
+                            red: '#b71c1c'
                         }
                     },
                     fontFamily: {
@@ -38,1660 +38,575 @@
     </script>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
             width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
+            height: 100%;
+            overflow: hidden; /* El slider maneja el movimiento general */
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, rgba(254, 195, 37, 0.10), transparent 25%),
-                radial-gradient(circle at bottom left, rgba(0, 48, 94, 0.08), transparent 25%),
-                linear-gradient(to bottom, #f8fafc, #eef4ff);
-            color: #0f172a;
+            background-color: #e2e8f0; 
         }
 
-        /* TIPOGRAFÍA FLUIDA OPTIMIZADA */
-        .t-hero {
-            font-size: clamp(2rem, 5vw, 4.5rem);
-            line-height: 1.1;
-        }
-
-        .t-title {
-            font-size: clamp(1.75rem, 4vw, 3.5rem);
-            line-height: 1.1;
-        }
-
-        .t-subtitle {
-            font-size: clamp(1rem, 2vw, 1.75rem);
-        }
-
-        .t-body {
-            font-size: clamp(1rem, 1.5vw, 1.5rem);
-        }
-
-        p,
-        h1,
-        h2,
-        h3,
-        h4,
-        span,
-        div {
-            overflow-wrap: break-word;
-            word-break: break-word;
-            hyphens: none;
-        }
-
-        .auto-text {
-            text-wrap: balance;
-            line-height: 1.5;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, .45);
-        }
-
-        .hover-card {
-            transition: transform .35s ease, box-shadow .35s ease, border .35s ease;
-        }
-
-        @media (hover:hover) {
-            .hover-card:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 25px 50px rgba(0, 0, 0, .15);
-            }
-        }
-
-        .animate-fade {
-            animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1);
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(22px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* AJUSTE DE TARJETAS */
-        .card-style {
-            border-radius: 1.25rem;
-            overflow: hidden;
-            position: relative;
+        /* Swiper Container */
+        .swiper {
             width: 100%;
-            height: 100%;
+            height: 100dvh; /* Altura dinámica para celulares */
+        }
+
+        /* Slide Contenedor */
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            box-sizing: border-box;
+            background-image: radial-gradient(circle at 100% 0%, rgba(254, 195, 37, 0.08) 0%, transparent 40%), 
+                            radial-gradient(circle at 0% 100%, rgba(0, 48, 94, 0.08) 0%, transparent 40%);
+        }
+
+        /* Ajuste crucial para Celulares: Dejar espacio para el menú inferior */
+        @media (max-width: 1023px) {
+            .swiper-slide {
+                padding: 1rem 1rem 5rem 1rem; /* 5rem abajo para que no choque con el Nav */
+                align-items: flex-start; /* Permite que la tarjeta crezca hacia abajo */
+            }
+        }
+
+        /* Tarjeta de Proyección Inteligente */
+        .slide-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 1300px;
+            height: 100%; /* Llena el espacio disponible en el celular */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 48, 94, 0.1), 0 0 0 1px rgba(0,0,0,0.05);
+            overflow-y: auto; /* IMPORTANTE: Permite scroll interno si hay mucho texto */
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
-        }
-
-        @media (min-width: 1024px) {
-            .card-style {
-                border-radius: 2rem;
-            }
-        }
-
-        /* MURO DINÁMICO FIREBASE (Ajustado a 1 columna) */
-        #contenedor-avisos-dinamicos {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        @media(min-width:768px) {
-            #contenedor-avisos-dinamicos {
-                gap: 1.5rem;
-            }
-        }
-
-        @media(min-width:1280px) {
-            #contenedor-avisos-dinamicos {
-                gap: 2.5rem;
-            }
-        }
-
-        .aviso-card {
+            justify-content: flex-start; /* Alinea desde arriba en celulares */
             position: relative;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
         }
 
+        /* En Computadora / Proyector */
         @media (min-width: 1024px) {
-            .aviso-card {
-                border-radius: 2rem;
+            .slide-card {
+                border-radius: 2.5rem;
+                height: auto; /* Se adapta al contenido */
+                max-height: 88vh; /* Nunca se sale de la pantalla */
+                justify-content: center; /* Centrado perfecto en PC */
+                box-shadow: 0 15px 35px -5px rgba(0, 48, 94, 0.15), 0 0 0 1px rgba(0,0,0,0.05);
             }
         }
 
-        .aviso-card::before {
+        /* Barra decorativa superior */
+        .slide-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, #00305e, #fec325);
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #00305e, #fec325, #00305e);
             z-index: 10;
         }
 
-        .aviso-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            width: 100%;
-        }
+        /* Scrollbar elegante para la tarjeta */
+        .slide-card::-webkit-scrollbar { width: 6px; }
+        .slide-card::-webkit-scrollbar-track { background: transparent; }
+        .slide-card::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        .departamento-box {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-            background: linear-gradient(135deg, #00305e, #0a4d91);
-            color: white;
-            padding: .75rem 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 48, 94, .15);
-        }
-
-        @media (min-width: 1024px) {
-            .departamento-box {
-                padding: 1rem 1.25rem;
-                border-radius: 1.25rem;
-            }
-        }
-
-        .departamento-logo {
-            width: clamp(40px, 5vw, 60px);
-            height: clamp(40px, 5vw, 60px);
-            min-width: clamp(40px, 5vw, 60px);
-            border-radius: 0.75rem;
-            overflow: hidden;
-            background: white;
-            padding: .2rem;
-            border: 2px solid rgba(255, 255, 255, .5);
-        }
-
-        .departamento-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .departamento-texto {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            justify-content: center;
-        }
-
-        .departamento-texto small {
-            font-size: clamp(0.6rem, 1vw, 0.75rem);
-            text-transform: uppercase;
-            letter-spacing: .15em;
-            opacity: .8;
-            line-height: 1;
-        }
-
-        .departamento-texto strong {
-            font-size: clamp(0.9rem, 1.5vw, 1.25rem);
-            line-height: 1.2;
-            font-weight: 800;
-            text-transform: uppercase;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 0.1rem;
-        }
-
-        .mensaje-aviso {
-            margin-top: 1.25rem;
-            background: #ffffff;
-            border: 1px solid rgba(254, 195, 37, 0.4);
-            border-radius: 1rem;
-            padding: clamp(1rem, 2vw, 1.75rem);
-            font-size: clamp(1.05rem, 1.8vw, 1.75rem);
-            line-height: 1.5;
-            color: #0f172a;
-            font-weight: 600;
-            white-space: pre-wrap;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-            text-align: center;
-        }
-
-        .aviso-img-box {
-            margin-top: 1.25rem;
-            overflow: hidden;
-            border-radius: 1rem;
-            border: 1px solid rgba(203, 213, 225, .4);
-            background: white;
-            width: 100%;
-            aspect-ratio: 16/9;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        }
-
-        .aviso-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .5s ease;
-        }
-
-        .aviso-img-box:hover img {
-            transform: scale(1.03);
-        }
-
-        .responsable-box {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-top: auto;
-            padding-top: 1.25rem;
-            border-top: 1px solid rgba(203, 213, 225, .5);
-            width: 100%;
-        }
-
-        .responsable-avatar {
-            width: clamp(40px, 4vw, 55px);
-            height: clamp(40px, 4vw, 55px);
-            min-width: clamp(40px, 4vw, 55px);
+        /* Controles de Navegación */
+        .swiper-button-next, .swiper-button-prev {
+            color: #00305e !important;
+            background: rgba(255,255,255,0.95);
+            width: 50px !important;
+            height: 50px !important;
             border-radius: 50%;
-            background: linear-gradient(135deg, #fec325, #ffdc70);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00305e;
-            font-weight: 900;
-            font-size: clamp(1rem, 1.5vw, 1.25rem);
-            box-shadow: 0 4px 10px rgba(254, 195, 37, .3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .swiper-button-next::after, .swiper-button-prev::after { font-size: 20px !important; font-weight: bold; }
+        .swiper-pagination-bullet { background: #00305e !important; width: 8px; height: 8px; opacity: 0.2; }
+        .swiper-pagination-bullet-active { opacity: 1; background: #fec325 !important; transform: scale(1.4); }
+
+        @media (max-width: 1023px) {
+            .swiper-button-next, .swiper-button-prev { display: none !important; }
+            .swiper-pagination { bottom: 80px !important; } /* Sube los puntitos arriba del menú */
         }
 
+        /* Botón Eliminar Muro */
         .btn-delete {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            border-radius: 50%;
-            border: none;
-            background: #fff1f2;
-            color: #dc2626;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: .25s ease;
-            box-shadow: 0 4px 10px rgba(220, 38, 38, .15);
-        }
-
-        .btn-delete:hover {
-            background: #fee2e2;
-            transform: scale(1.1);
-        }
-
-        /* MENÚ DESPLEGABLE MÓVIL */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        #mobile-menu.open {
-            max-height: 300px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #00305e;
-            border-radius: 20px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-        }
-
-        /* ==========================================
-MEJORAS RESPONSIVE 2026
-========================================== */
-
-        .notice-card,
-        .hover-card,
-        .card-style {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .notice-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .t-hero {
-            font-size: clamp(2.8rem, 8vw, 7rem);
-        }
-
-        .t-title {
-            font-size: clamp(1.5rem, 4vw, 4rem);
-        }
-
-        .t-subtitle {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-        }
-
-        .card-style {
-            min-height: 520px;
-        }
-
-        @media (max-width:768px) {
-
-            .card-style {
-                min-height: 420px;
-            }
-
-        }
-
-        @media (min-width:1600px) {
-
-            .card-style {
-                min-height: 650px;
-            }
-
-        }
-
-        .hover-card {
-            transition: all .45s ease;
-        }
-
-        .hover-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .hero-btn {
-            transition: .3s;
-        }
-
-        .hero-btn:hover {
-            transform: scale(1.05);
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Grid uniforme */
-
-        .avisos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-        }
-
-        /* Efecto premium */
-
-        .glass-card {
-            background: rgba(255, 255, 255, .08);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, .15);
-        }
-
-        /* Animación */
-
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px rgba(255, 215, 0, .3);
-            }
-
-            50% {
-                box-shadow: 0 0 40px rgba(255, 215, 0, .8);
-            }
-
-            100% {
-                box-shadow: 0 0 10px rgba(255, 215, 0, .3);
-            }
-        }
-
-        .glow {
-            animation: glow 3s infinite;
+            width: 36px; height: 36px; border-radius: 50%; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #fca5a5; flex-shrink: 0;
         }
     </style>
 </head>
 
-<header class="relative min-h-[85vh] overflow-hidden flex items-center justify-center text-white">
+<body>
 
-    <!-- IMAGEN ADVENTISTA -->
-    <div class="absolute inset-0">
-
-        <img src="imagenes/fondo-adventista.jpg" alt="Iglesia Adventista" class="w-full h-full object-cover scale-105">
-
-        <!-- Overlay Oscuro -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#001233ee] via-[#002855dd] to-[#000814ee]">
-        </div>
-
-        <!-- Luz Dorada -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,193,7,0.35),transparent_45%)]">
-        </div>
-
-    </div>
-
-    <!-- LOGO GRANDE -->
-    <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none hidden lg:block">
-
-        <img src="imagenes/logo.png" class="w-[700px]">
-
-    </div>
-
-    <!-- CONTENIDO -->
-    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-
-        <!-- Badge -->
-        <div
-            class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-8 py-3 rounded-full uppercase tracking-[0.3em] font-black text-adventist-gold shadow-2xl">
-
-            <i class="fas fa-bullhorn"></i>
-            Panel Oficial de Avisos
-
-        </div>
-
-        <!-- TITULO -->
-        <h1 class="mt-8 text-5xl md:text-7xl xl:text-8xl font-black uppercase leading-none">
-
-            Avisos de
-
-            <span
-                class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-400 to-orange-500">
-
-                Iglesia
-
-            </span>
-
-        </h1>
-
-        <!-- Texto -->
-        <p class="mt-8 max-w-4xl mx-auto text-lg md:text-2xl lg:text-3xl text-slate-200 font-light">
-
-            Mantente informado de todas las actividades,
-            programas espirituales, reuniones de oración,
-            sociedad de jóvenes y eventos especiales de nuestra iglesia.
-
-        </p>
-
-        <!-- FECHA -->
-        <div
-            class="mt-10 inline-flex items-center gap-4 bg-adventist-gold text-adventist-blue px-8 py-5 rounded-3xl shadow-2xl">
-
-            <i class="fas fa-calendar-check text-2xl"></i>
-
-            <span class="font-black uppercase tracking-widest text-lg lg:text-2xl">
-
-                Sábado 01 de Agosto 2026
-
-            </span>
-
-        </div>
-
-        <!-- BOTONES -->
-        <div class="mt-12 flex flex-wrap justify-center gap-4">
-
-            <a href="index.html"
-                class="px-8 py-4 rounded-2xl bg-white text-adventist-blue font-black uppercase shadow-xl hover:scale-105 transition">
-
-                <i class="fas fa-home mr-2"></i>
-                Inicio
-
-            </a>
-
-            <a href="cronograma.html"
-                class="px-8 py-4 rounded-2xl bg-adventist-gold text-adventist-blue font-black uppercase shadow-xl hover:scale-105 transition">
-
-                <i class="fas fa-calendar-alt mr-2"></i>
-                Cronograma
-
-            </a>
-
-            <a href="contactoaviso.html"
-                class="px-8 py-4 rounded-2xl bg-red-600 text-white font-black uppercase shadow-xl hover:scale-105 transition">
-
-                <i class="fas fa-envelope mr-2"></i>
-                Contacto
-
-            </a>
-
-        </div>
-
-        <!-- Indicador -->
-        <div class="mt-16 animate-bounce">
-
-            <i class="fas fa-chevron-down text-3xl text-adventist-gold"></i>
-
-        </div>
-
-    </div>
-
-</header>
-
-<main class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-16">
-
-    <!-- ==========================================
-         ALERTA DE SUSPENSIÓN POR CLIMA (ESTÁTICO Y ELEGANTE)
-         ========================================== -->
-    <!-- <section class="mb-10 lg:mb-16 w-full shadow-2xl rounded-3xl overflow-hidden hover-card animate-fade">
-        <div class="bg-gradient-to-br from-red-800 via-red-900 to-slate-900 text-white p-8 lg:p-14 text-center border border-red-500/50 relative">
-            <div class="relative z-10">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full text-red-800 text-4xl mb-6 shadow-xl border-4 border-red-200">
-                    <i class="fas fa-cloud-showers-heavy"></i>
-                </div>
-
-                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-4 drop-shadow-lg">
-                    AVISO IMPORTANTE:<br>
-                    <span class="text-yellow-400 block mt-2">SUSPENSIÓN DE ENCUENTRO PRESENCIAL</span>
-                </h1>
-
-                <p class="text-lg md:text-2xl lg:text-3xl font-medium mt-6 mb-8 max-w-4xl mx-auto leading-relaxed text-red-50">
-                    Debido a condiciones climáticas adversas y cierres de calles en Limache, <strong class="text-white border-b-2 border-yellow-400">HOY no habrá reunión presencial</strong>.
-                </p>
-
-                <div class="bg-black/40 backdrop-blur-md rounded-3xl p-6 md:p-8 max-w-3xl mx-auto border border-white/10 shadow-2xl">
-                    <div class="text-5xl mb-4"><i class="fas fa-laptop-house text-yellow-400 animate-pulse"></i></div>
-                    <h2 class="text-2xl md:text-4xl font-black uppercase text-yellow-400 mb-4 tracking-wide">¡Nos Encontraremos Online! DESDE LAS 18:45 HRS. HOY Y MAÑANA VIERNES</h2>
-                    <p class="text-base md:text-xl font-medium text-slate-200">
-                        Se informará por grupos de WhatsApp las vías (Zoom, Meet, etc.) para las reuniones online de todos nuestros departamentos.
-                    </p>
-                </div>
-
-                <p class="mt-10 text-sm md:text-xl font-medium italic text-red-200 max-w-2xl mx-auto px-4">
-                    "¡Dios es nuestro refugio y fortaleza, nuestro pronto auxilio en las tribulaciones!"<br>
-                    <span class="text-yellow-500 not-italic uppercase font-bold tracking-widest mt-2 block">- Salmo 46:1</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <div id="contenedor-avisos-dinamicos" class="mb-10 lg:mb-16"></div>
-
-    <div class="grid grid-cols-1 gap-6 lg:gap-10 mb-10 lg:mb-16"> -->
+<!-- CONTENEDOR PRINCIPAL DEL SLIDER -->
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="main-slider-wrapper">
 
         <!-- ==========================================
-            REAGENDAMIENTO DE SANTA CENA
-        ========================================== -->
-        <!-- <section class="relative overflow-hidden rounded-3xl shadow-2xl hover-card w-full col-span-1">
+            1. PORTADA PRINCIPAL
+        =========================================== -->
+        <div class="swiper-slide !p-0 lg:!p-6">
+            <div class="slide-card !justify-center items-center text-center p-6 lg:p-16 h-full lg:h-auto border-none lg:border-solid rounded-none lg:rounded-[2.5rem]">
+                
+                <div class="inline-flex items-center gap-2 bg-blue-50 text-adventist-blue px-4 py-2 rounded-full uppercase tracking-widest font-black border border-blue-200 mb-6 lg:mb-8 text-[10px] lg:text-sm">
+                    <i class="fas fa-desktop"></i> Sistema de Avisos
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-heading font-black uppercase text-slate-900 leading-tight px-2">
+                    Iglesia Adventista <br>
+                    <span class="text-adventist-gold">Limache</span>
+                </h1>
+                
+                <p class="text-sm sm:text-base lg:text-2xl text-slate-600 mt-4 lg:mt-6 max-w-3xl mx-auto font-medium px-4">
+                    Bienvenidos. Deslice o use las flechas para ver los programas, ministerios y avisos correspondientes a esta semana.
+                </p>
 
-            <div class="absolute inset-0"> -->
-                <!-- <img src="imagenes/santacena.jpg" alt="Santa Cena" class="w-full h-full object-cover"> -->
-                <!-- <div class="absolute inset-0 bg-gradient-to-br from-blue-950/90 via-slate-900/85 to-black/95"></div>
+                <div class="mt-8 lg:mt-12 bg-adventist-blue text-white px-5 py-3 lg:px-10 lg:py-6 rounded-2xl lg:rounded-3xl shadow-xl flex items-center gap-3 border-b-4 border-adventist-gold mx-2">
+                    <i class="fas fa-calendar-check text-xl lg:text-4xl text-adventist-gold"></i>
+                    <span class="font-black uppercase tracking-widest text-[11px] sm:text-sm lg:text-3xl">
+                        Sáb. 01 de Agosto 2026
+                    </span>
+                </div>
+                
+                <p class="mt-8 text-slate-400 font-bold uppercase tracking-widest animate-pulse text-[10px] lg:text-sm">
+                    <i class="fas fa-hand-pointer lg:fa-arrow-right mr-2"></i> Deslice para continuar
+                </p>
             </div>
+        </div>
 
-            <div class="absolute inset-0">
-                <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,rgba(255,215,0,0.15),transparent_60%)]"></div>
-            </div>
+        <!-- ==========================================
+            ESPACIO PARA AVISOS DE FIREBASE
+        =========================================== -->
+        <div id="dynamic-anchor" class="hidden"></div>
 
-            <div class="relative z-10 px-6 py-10 md:px-10 md:py-16 lg:px-16 lg:py-20 border-t-8 border-yellow-500">
-
-                <div class="max-w-6xl mx-auto text-center">
-
-                    <div
-                        class="inline-flex items-center gap-3 bg-red-600 text-white px-6 py-3 rounded-full uppercase font-black tracking-widest shadow-xl animate-pulse border border-red-400">
-                        <i class="fas fa-calendar-alt"></i>
-                        Aviso de Santa Cena
-                    </div>
-
-                    <h1
-                        class="mt-8 text-4xl md:text-6xl lg:text-8xl font-black uppercase leading-tight text-white drop-shadow-2xl">
-                        Sabado 25 de Julio 2026
-                    </h1>
-
-                    <div class="mt-6 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-4 md:p-6 inline-block backdrop-blur-sm">
-                        <h2 class="text-lg md:text-2xl lg:text-3xl font-bold text-yellow-400 uppercase tracking-wide">
-                            Informamos a toda nuestra iglesia
+        <!-- ==========================================
+            2. MINISTERIO DE PUBLICACIONES
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 h-full items-center">
+                    <div class="flex flex-col justify-center text-center lg:text-left mt-2 lg:mt-0">
+                        <div class="inline-flex items-center gap-2 bg-blue-50 text-adventist-blue px-3 py-1.5 rounded-full uppercase tracking-widest font-black w-max border border-blue-200 mb-3 mx-auto lg:mx-0 text-[9px] lg:text-xs">
+                            <i class="fas fa-book-open"></i> Campaña Anual
+                        </div>
+                        <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-xs lg:text-xl">Ministerio de Publicaciones <br>IASD San Francisco de Limache</h3>
+                        <h2 class="text-2xl sm:text-3xl lg:text-6xl font-heading font-black uppercase text-slate-900 leading-none mt-1">
+                            Suscripción <br><span class="text-adventist-blue">2027</span>
                         </h2>
-                        <p class="mt-2 text-base md:text-xl text-white font-medium">
-                            Se realizará durante este sábado <br> <strong class="text-red-400"> </strong>
-                        </p>
+                        
+                        <div class="mt-5 lg:mt-10 bg-slate-50 border border-slate-200 rounded-2xl lg:rounded-3xl p-4 lg:p-10 shadow-sm">
+                            <p class="font-bold text-slate-500 uppercase tracking-widest mb-1 text-[10px] lg:text-sm">Reserva tu material con:</p>
+                            <p class="font-black uppercase text-lg sm:text-xl lg:text-4xl text-slate-900">Hna. Bárbara Beltrán</p>
+                            <div class="mt-4 lg:mt-6 flex flex-wrap justify-center lg:justify-start gap-2 lg:gap-3">
+                                <span class="bg-white border border-slate-300 text-adventist-blue font-black uppercase px-3 py-1.5 lg:px-6 lg:py-3 rounded-full shadow-sm text-[9px] lg:text-sm">📚 Matinales</span>
+                                <span class="bg-white border border-slate-300 text-adventist-blue font-black uppercase px-3 py-1.5 lg:px-6 lg:py-3 rounded-full shadow-sm text-[9px] lg:text-sm">📖 Lecciones</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div
-                        class="mt-10 bg-white/10 backdrop-blur-md border border-yellow-400/30 rounded-3xl p-6 lg:p-10 shadow-2xl">
-                        <p class="text-lg md:text-2xl lg:text-3xl italic font-medium text-slate-100 leading-relaxed">
-                            "Todas las veces que comiereis este pan, y bebiereis esta copa, la muerte del Señor anunciáis hasta que él venga"
-                        </p>
-                        <p class="mt-4 text-yellow-400 font-bold text-base md:text-xl uppercase tracking-widest">
-                            1 Corintios 11:26
-                        </p>
+                    <!-- Altura adaptativa de imagen -->
+                    <div class="w-full h-40 sm:h-56 lg:h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm border-2 lg:border-4 border-slate-100 mb-2 lg:mb-0">
+                        <img src="imagenes/publicaciones.jpg" class="w-full h-full object-cover" alt="Publicaciones">
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="mt-12 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                        <div class="bg-blue-900/80 backdrop-blur-md border border-blue-400/30 rounded-3xl p-8 shadow-xl">
-                            <div class="text-5xl mb-4 text-yellow-400"><i class="fas fa-book-reader"></i></div>
-                            <h3 class="text-xl lg:text-2xl font-black uppercase text-yellow-300">
-                                
-                            </h3>
-                            <p class="mt-4 text-lg lg:text-2xl font-bold text-white">Horario de culto</p>
-                            <p class="mt-2 text-slate-300 uppercase tracking-widest text-sm"></p>
-                        </div> -->
-
-                        <!-- <div class="bg-gradient-to-br from-yellow-400 to-yellow-500 text-slate-900 rounded-3xl p-8 shadow-2xl border-b-8 border-yellow-600 transform md:-translate-y-2">
-                            <div class="text-5xl mb-4">🍞🍇</div>
-                            <h3 class="text-xl lg:text-2xl font-black uppercase text-slate-800">
-                                Próximo Sábado
-                            </h3>
-                            <p class="text-4xl lg:text-6xl font-black mt-1 text-slate-900">25 JULIO</p>
-                            <p class="mt-4 text-lg lg:text-xl font-extrabold">
-                                Culto Divino · 11:00 Hrs.
-                            </p>
-                            <p class="mt-2 uppercase tracking-widest font-bold text-red-700 text-sm">
-                                NUEVA FECHA SANTA CENA
+        <!-- ==========================================
+            3. CLUB DE AVENTUREROS
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 h-full items-center">
+                    <div class="flex flex-col justify-center order-2 lg:order-1 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1.5 rounded-full uppercase tracking-widest font-black w-max border border-red-200 mb-3 mx-auto lg:mx-0 text-[9px] lg:text-xs">
+                            <i class="fas fa-campground"></i> Actividades regulares del Club
+                        </div>
+                        <h3 class="text-red-700 font-bold uppercase tracking-widest text-xs lg:text-xl">Club de Aventureros</h3>
+                        <h2 class="text-2xl sm:text-3xl lg:text-6xl font-heading font-black uppercase text-slate-900 leading-none mt-1">
+                            Gedeones <br><span class="text-adventist-blue">de Limache</span>
+                        </h2>
+                        
+                        <div class="mt-5 lg:mt-10 bg-red-50 border border-red-100 rounded-2xl lg:rounded-3xl p-4 lg:p-10 shadow-sm">
+                            <div class="text-2xl lg:text-5xl mb-2 lg:mb-4 text-red-600"><i class="fab fa-whatsapp"></i></div>
+                            <p class="text-xs sm:text-sm lg:text-2xl font-bold text-slate-800 leading-relaxed">
+                                En cuanto a horarios y programación, la información oficial se compartirá por la directiva, directamente en el grupo de WhatsApp de la iglesia y del club.
                             </p>
                         </div>
                     </div>
-
-                    <div class="mt-10 max-w-4xl mx-auto text-center">
-                        <p class="text-lg md:text-2xl lg:text-3xl font-medium text-white">
-                            En el mismo lugar y horario.
-                        </p>
-                        <p class="mt-2 text-base md:text-xl text-yellow-300 font-bold uppercase tracking-wider">
-                            Agradecemos su comprensión y oración.
-                        </p> -->
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-        <!-- MINISTERIO DE PUBLICACIONES -->
-        <section
-            class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-adventist-blue text-white p-6 lg:p-12 w-full">
-            <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                <div
-                    class="inline-flex items-center gap-2 bg-blue-800/40 border border-blue-400/20 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-xs font-black text-blue-200 mb-5 lg:mb-8">
-                    <i class="fas fa-book-open"></i> Campaña Anual
-                </div>
-                <div
-                    class="w-24 h-24 lg:w-32 lg:h-32 rounded-2xl bg-white shadow-xl mb-4 lg:mb-6 border-4 border-adventist-gold p-1 overflow-hidden">
-                    <img src="imagenes/publicaciones.jpg" alt="Logo Publicaciones"
-                        class="w-full h-full object-cover rounded-xl"
-                        onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=150'">
-                </div>
-                <h3
-                    class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-sm mb-1 lg:mb-2">
-                    Ministerio de Publicaciones</h3>
-                <h2 class="t-title font-heading font-black uppercase tracking-tight">Suscripción <span
-                        class="block text-adventist-gold">2027</span></h2>
-
-                <div class="mt-6 lg:mt-10 w-full max-w-sm lg:max-w-2xl">
-                    <div
-                        class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-2xl text-slate-800 border-b-4 lg:border-b-8 border-gray-200">
-                        <p
-                            class="font-bold text-slate-400 uppercase tracking-wider text-[10px] lg:text-sm mb-1 lg:mb-2">
-                            Reserva tu material con:</p>
-                        <p class="font-black uppercase text-lg lg:text-4xl text-slate-800">Hna. Bárbara Beltrán</p>
-                        <div class="mt-4 lg:mt-6 flex justify-center gap-2 lg:gap-4">
-                            <span
-                                class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Matinales</span>
-                            <span
-                                class="bg-blue-50 text-adventist-blue font-black text-[10px] lg:text-sm uppercase tracking-wider px-3 py-1.5 lg:px-6 lg:py-3 rounded-full border border-blue-100">Lecciones</span>
-                        </div>
+                    <div class="w-full h-40 sm:h-56 lg:h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm bg-white border-2 lg:border-4 border-slate-100 flex items-center justify-center p-4 lg:p-10 order-1 lg:order-2 mt-2 lg:mt-0">
+                        <img src="imagenes/avent.png" class="w-full h-full object-contain" alt="Aventureros">
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- AVISO DE AVENTUREROS (ONLINE) -->
-        <section
-            class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-600 to-red-950 text-white p-6 lg:p-12 w-full">
-            <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
-
-            <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-
-                <div
-                    class="inline-flex items-center gap-2 bg-black/20 border border-white/20 px-4 py-1.5 rounded-full uppercase tracking-wider text-[10px] lg:text-sm font-black mb-4 lg:mb-6 max-w-full">
-                    <i class="fas fa-campground text-adventist-gold"></i>
-                    <span class="truncate">Club de Aventureros Gedeones</span>
-                </div>
-
-                <div
-                    class="w-20 h-20 lg:w-32 lg:h-32 mb-3 lg:mb-6 flex items-center justify-center bg-white rounded-2xl lg:rounded-3xl p-2 lg:p-3 shadow-md border border-white/20">
-                    <img src="imagenes/avent.png" alt="Logo Aventureros" class="w-full h-full object-contain"
-                        onerror="this.src='https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=150'">
-                </div>
-
-                <h2 class="t-title font-heading font-black uppercase tracking-tight mb-2 lg:mb-4 drop-shadow-md">
-                    Aventureros
-                </h2>
-
-                <div class="my-4 lg:my-6 w-full px-4">
-                    <div
-                        class="inline-block bg-gradient-to-r from-red-700 to-red-900 text-white font-black text-[11px] lg:text-lg px-4 py-2 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl shadow-md uppercase tracking-wide max-w-full text-center border border-red-400">
-                        <br> EN CUANTO A HORARIOS Y PROGRAMACIÓN, ESTA INFORMACIÓN SERÁ COMPARTIDA AL WHATSSAP OFICIAL DE IGLESIA Y CLUB.<br> 
-                </div>
-
-                <!-- <div class="mt-6 lg:mt-12 w-full max-w-xs lg:max-w-md">
-                    <div
-                        class="bg-gradient-to-r from-adventist-gold to-yellow-400 text-adventist-blue p-4 lg:p-8 rounded-2xl lg:rounded-3xl shadow-md border-b-4 lg:border-b-8 border-yellow-600">
-                        <p
-                            class="font-bold uppercase text-[10px] lg:text-base tracking-widest text-slate-700 mb-0.5 lg:mb-2">
-                          </p>
-                        <p class="font-extrabold text-base lg:text-3xl tracking-wider text-slate-800 mt-1 lg:mt-3">
-                           </p>
-                    </div> -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SOCIEDAD DE JÓVENES (ONLINE) -->
-        <section
-            class="relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] shadow-2xl group min-h-fit flex flex-col justify-center items-center py-10 md:py-16 lg:py-20 w-full hover-card">
-
-            <div class="absolute inset-0">
-                <img src="imagenes/ja.jpg" alt="Jóvenes JA"
-                    class="w-full h-full object-cover transition duration-700 group-hover:scale-110 grayscale brightness-50">
-
-                <div class="absolute inset-0 bg-gradient-to-br from-black/85 via-red-950/75 to-blue-950/80">
-                </div>
-            </div>
-
-            <div
-                class="relative z-10 w-full flex flex-col justify-center items-center text-center p-4 sm:p-6 md:p-10 lg:p-16">
-
-                <!-- <div
-                    class="inline-flex items-center gap-2 sm:gap-3 bg-red-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-black uppercase tracking-wider sm:tracking-widest shadow-xl text-xs sm:text-sm md:text-base border border-red-400 mb-6">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    REVISAR INFORMACIÓN COMPARTIDA POR EL DEPARTAMENTO DE JÓVENES EN GRUPO DE WHATSAPP DE IGLESIA.
-                </div> -->
-
-                <h2
-                    class="mt-2 md:mt-4 text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase text-white drop-shadow-2xl leading-tight break-words w-full px-2">
-                    Sociedad
-                    <span class="block text-yellow-300">
-                        de Jóvenes
-                    </span>
-                </h2>
-
-                <p
-                    class="mt-4 md:mt-6 text-sm sm:text-xl md:text-3xl lg:text-4xl text-white max-w-4xl font-light italic auto-text px-2">
-                    "Nadie tenga en poco tu juventud;
-                    sino sé ejemplo de los creyentes."
-                </p>
-
-                <span class="mt-2 text-yellow-300 font-black tracking-widest uppercase text-xs sm:text-sm md:text-base">
-                    1 Timoteo 4:12
-                </span>
-
-                <div
-                    class="mt-6 md:mt-10 bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-8 sm:py-6 shadow-2xl max-w-full mx-4">
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-8">
-                        <div class="text-center sm:text-left">
-                            <p class="text-red-400 uppercase tracking-widest font-black text-sm sm:text-lg mb-2 text-center">
-                                EN CUANTO A HORARIOS Y PROGRAMACIÓN, ESTA INFORMACIÓN SERÁ COMPARTIDA AL WHATSSAP OFICIAL DE IGLESIA.
+        <!-- ==========================================
+            4. SOCIEDAD DE JÓVENES (JA)
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 h-full items-center">
+                    <div class="flex flex-col justify-center text-center lg:text-left mt-2 lg:mt-0">
+                        <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-xs lg:text-xl">Ministerio de Jóvenes] <br>IASD San Francisco de Limache</h3>
+                        <h2 class="text-2xl sm:text-3xl lg:text-6xl font-heading font-black uppercase text-slate-900 leading-none mt-1">
+                            Sociedad <br><span class="text-adventist-red">de Jóvenes (JA)</span>
+                        </h2>
+                        
+                        <div class="mt-5 lg:mt-8 border-l-4 lg:border-l-8 border-adventist-gold pl-4 lg:pl-6 py-1 lg:py-2 text-left">
+                            <p class="text-sm sm:text-base lg:text-3xl font-medium text-slate-700 italic leading-relaxed">
+                                "Nadie tenga en poco tu juventud; sino sé ejemplo de los creyentes."
                             </p>
-                            <h3 class="text-xl sm:text-3xl md:text-4xl font-black text-white leading-tight text-center">
-                              <br>
-                            </h3>
+                            <p class="mt-1 lg:mt-2 text-adventist-blue font-black uppercase tracking-widest text-[9px] lg:text-sm">1 Timoteo 4:12</p>
+                        </div>
+
+                        <div class="mt-5 lg:mt-10 bg-slate-50 border border-slate-200 rounded-2xl lg:rounded-3xl p-4 lg:p-8 shadow-sm flex flex-col sm:flex-row items-center gap-3 lg:gap-5 text-center sm:text-left">
+                            <i class="fas fa-info-circle text-2xl lg:text-5xl text-adventist-blue"></i>
+                            <p class="text-[11px] sm:text-sm lg:text-lg font-bold text-slate-700">
+                                En cuanto a horarios y programación, la información oficial se compartirá por la directiva, directamente en el grupo de WhatsApp de la iglesia y de Jóvenes.
+                            </p>
                         </div>
                     </div>
-                </div>
-
-                <div
-                    class="mt-6 md:mt-10 bg-gradient-to-r from-red-600 via-red-500 to-red-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl md:rounded-2xl shadow-2xl font-black uppercase text-sm sm:text-xl md:text-2xl tracking-wide">
-                  
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- MIÉRCOLES DE ORACIÓN -->
-        <section
-            class="relative overflow-hidden rounded-3xl shadow-2xl min-h-fit flex items-center py-10 md:py-16 lg:py-20 w-full hover-card">
-
-            <div class="absolute inset-0">
-                <img src="imagenes/miercoles.jpg" alt="Miércoles de Oración" class="w-full h-full object-cover">
-
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-950/95 via-indigo-900/85 to-black/90">
-                </div>
-            </div>
-
-            <div class="absolute inset-0">
-                <div
-                    class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,rgba(255,215,0,0.25),transparent_50%)]">
-                </div>
-            </div>
-
-            <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 text-center">
-
-                <div
-                    class="inline-flex items-center gap-2 sm:gap-3 bg-yellow-400 text-blue-950 px-4 py-2 sm:px-6 sm:py-3 rounded-full shadow-xl uppercase font-black tracking-wider sm:tracking-widest text-xs sm:text-sm">
-
-                    <i class="fas fa-praying-hands"></i>
-                    Tarde de Poder Espiritual
-
-                </div>
-
-                <h1
-                    class="mt-6 md:mt-8 text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase text-white drop-shadow-2xl leading-tight px-2 break-words w-full">
-
-                    Miércoles de Poder
-                    <span class="block text-yellow-300">
-                        con Oración
-                    </span>
-
-                </h1>
-
-                <div
-                    class="mt-6 md:mt-8 max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/20 p-4 sm:p-6 md:p-8 mx-4">
-
-                    <p
-                        class="text-sm sm:text-xl md:text-3xl lg:text-4xl font-light text-white leading-relaxed italic auto-text">
-
-                        "Clama a mí, y yo te responderé,
-                        y te enseñaré cosas grandes y ocultas
-                        que tú no conoces."
-
-                    </p>
-
-                    <p
-                        class="mt-3 md:mt-4 text-yellow-300 font-black uppercase tracking-widest text-xs sm:text-base md:text-lg">
-
-                        Jeremías 33:3
-
-                    </p>
-
-                </div>
-
-                <div class="mt-6 md:mt-10 max-w-4xl mx-auto px-2">
-
-                    <p class="text-sm sm:text-lg md:text-2xl lg:text-3xl text-slate-100 leading-relaxed auto-text">
-
-                        Cada miércoles es una nueva oportunidad para acercarnos más a Dios,
-                        fortalecer nuestra fe y presentar nuestras necesidades delante del Señor.
-
-                    </p>
-
-                    <p class="mt-4 md:mt-6 text-base sm:text-xl md:text-3xl font-black text-yellow-300 tracking-wide">
-
-                        ¡No luches solo, ora con nosotros!
-
-                    </p>
-
-                </div>
-
-                <div
-                    class="mt-6 md:mt-12 inline-block bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-blue-950 px-6 py-4 sm:px-10 sm:py-6 rounded-2xl sm:rounded-3xl shadow-2xl border-b-4 sm:border-b-8 border-yellow-600 max-w-full mx-4">
-
-                    <div class="text-3xl sm:text-5xl mb-1 md:mb-2">
-                        🕊️
+                    <div class="w-full h-40 sm:h-56 lg:h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm border-2 lg:border-4 border-slate-100 mb-2 lg:mb-0">
+                        <img src="imagenes/ja.jpg" class="w-full h-full object-cover" alt="Jóvenes">
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <p class="text-xs sm:text-sm md:text-lg uppercase tracking-widest font-bold">
-
-                        Todos los Miércoles
-
-                    </p>
-
-                    <h2 class="text-2xl sm:text-4xl md:text-6xl font-black leading-none mt-1">
-
-                        18:00 HRS
-
+        <!-- ==========================================
+            5. MIÉRCOLES DE PODER
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12">
+                <div class="flex flex-col h-full justify-center text-center max-w-5xl mx-auto mt-2 lg:mt-0">                    
+                    <h2 class="text-3xl sm:text-4xl lg:text-7xl font-heading font-black uppercase text-slate-900 leading-none">
+                        Miércoles<br><span class="text-adventist-blue">de Oración</span>
                     </h2>
 
-                </div>
-
-                <div
-                    class="mt-8 md:mt-10 bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/20 p-4 sm:p-6 max-w-3xl mx-4 sm:mx-auto text-center">
-
-                    <p class="text-yellow-300 uppercase font-black tracking-widest text-xs sm:text-sm">
-
-                        📍 Lugar de Encuentro
-
-                    </p>
-
-                    <h3 class="mt-1 sm:mt-2 text-lg sm:text-2xl md:text-4xl font-black text-white break-words">
-
-                        Iglesia Adventista del 7mo Día
-
-                    </h3>
-
-                    <p class="mt-1 text-sm sm:text-lg md:text-2xl text-slate-200">
-
-                        San Francisco de Limache
-                    </p>
-
-                    <p class="mt-1 text-xs sm:text-base md:text-xl text-slate-300">
-
-                        Calle Carrera Nº 131
-
-                    </p>
-
-                </div>
-
-                <div
-                    class="mt-8 md:mt-12 text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black text-yellow-300 px-2 break-words animate-pulse">
-
-                    !!TU MILAGRO PUEDE COMENZAR CON UNA ORACIÓN!!
-
-                </div>
-
-                <p class="mt-4 md:mt-6 text-sm sm:text-lg md:text-2xl text-white font-semibold px-2">
-
-                    ¡Te esperamos junto a tu familia!
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- --AVISO DE ORACION INTERCESORA (ACTUALIZADO ONLINE) -- -->
-        <section
-            class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-black text-white p-6 lg:p-12 w-full">
-            <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                <div
-                    class="inline-flex items-center gap-2 sm:gap-3 bg-red-600 text-white px-4 py-1.5 rounded-full font-black uppercase tracking-wider shadow-xl text-[10px] lg:text-sm border border-red-400 mb-4 lg:mb-6">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    CADA SÁBADO
-                </div>
-
-                <div
-                    class="w-20 h-20 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6 bg-gradient-to-br from-adventist-gold to-yellow-600 rounded-full shadow-lg flex items-center justify-center">
-                    <i class="fas fa-hands-praying text-white text-3xl lg:text-6xl"></i>
-                </div>
-                <p
-                    class="text-adventist-gold font-bold uppercase tracking-[0.2em] text-[11px] lg:text-base mb-2 lg:mb-4">
-                    Ministerio de Oración</p>
-                <h2 class="t-title font-heading font-black uppercase tracking-tight">Oración Intercesora</h2>
-                <p
-                    class="mt-2 lg:mt-4 text-blue-200 font-medium italic text-xs lg:text-xl max-w-xs lg:max-w-2xl mx-auto">
-                    "Hay un poder inmenso cuando la iglesia se une de rodillas."</p>
-
-                <div class="my-3 lg:my-5 w-full px-2">
-                    <div
-                        class="inline-block bg-gradient-to-r from-red-700 to-red-900 text-white font-black text-[11px] lg:text-lg px-4 py-2 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl shadow-md uppercase tracking-wide max-w-full text-center border border-red-400">
-                         <br> TODA INFORMACIÓN SERÁ COMPARTIDA AL WHATSSAP OFICIAL DE IGLESIA. <br><br>
+                    <div class="mt-6 lg:mt-12 bg-slate-50 border border-slate-200 rounded-2xl lg:rounded-[3rem] p-5 lg:p-12 shadow-inner mx-2 lg:mx-0">
+                        <p class="text-sm sm:text-base lg:text-4xl font-light text-slate-800 leading-relaxed italic">
+                            "Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces."
+                        </p>
+                        <p class="mt-3 lg:mt-6 text-adventist-gold font-black uppercase tracking-[0.2em] lg:tracking-[0.3em] text-[10px] lg:text-xl">Jeremías 33:3</p>
                     </div>
-                </div>
 
-                <div class="mt-4 lg:mt-8 w-full max-w-xs lg:max-w-md">
-                    <div
-                        class="bg-gradient-to-r from-adventist-gold to-yellow-400 text-adventist-blue p-4 lg:p-8 rounded-2xl lg:rounded-3xl shadow-md border-b-4 lg:border-b-8 border-yellow-600">
-                        <p
-                            class="font-bold uppercase text-[10px] lg:text-base tracking-widest text-slate-700 mb-0.5 lg:mb-2">
-                            </p>
-                        <p class="font-black text-xl lg:text-4xl uppercase"> <b>Sábado <br> 15:30 HRS. </b> <br> </p>
-                        <p class="font-extrabold text-base lg:text-3xl tracking-wider text-slate-800 mt-1 lg:mt-3">
-                            </p>
+                    <div class="mt-6 lg:mt-12 bg-adventist-blue text-white rounded-2xl lg:rounded-[3rem] p-5 lg:p-12 shadow-xl border-b-4 lg:border-b-8 border-adventist-gold flex flex-col items-center mx-2 lg:mx-0">
+                        <p class="uppercase tracking-widest font-bold text-[9px] lg:text-lg mb-1 lg:mb-2 text-adventist-gold">Todos los Miércoles en el templo</p>
+                        <p class="font-black text-4xl sm:text-5xl lg:text-8xl tracking-tight">18:00 HRS</p>
+                        <p class="mt-4 lg:mt-4 text-xs sm:text-sm lg:text-4xl font-medium px-2">¡Tu milagro puede comenzar con una oración!</p><br> 
+                        <p class="text-xs sm:text-sm lg:text-lg font-light text-slate-600">CARRERA #131 LIMACHE</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- AVISO DE ASA CAMPANA DE INVIERNO Y AYUDAS -->
-        <section
-            class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-adventist-blue text-white p-6 lg:p-12 w-full">
-            <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                <div
-                    class="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/40 text-orange-300 px-4 py-1.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black mb-4 lg:mb-6">
-                    <i class="fas fa-snowflake lg:text-base"></i> Campaña de Invierno
-                </div>
-                <div
-                    class="w-20 h-20 lg:w-32 lg:h-32 rounded-2xl lg:rounded-3xl bg-white shadow-md mb-4 lg:mb-6 border-2 lg:border-4 border-orange-400 overflow-hidden">
-                    <img src="imagenes/asa.jpg" alt="Logo ASA" class="w-full h-full object-cover"
-                        onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=150'">
-                </div>
-                <h2 class="t-title font-heading font-black uppercase tracking-tight">Acción Solidaria</h2>
-                <p class="mt-2 lg:mt-6 text-slate-300 text-xs lg:text-xl max-w-sm lg:max-w-2xl auto-text">
-                    Solicitamos su colaboración para los meses fríos que se aproximan.</p>
-
-                <div class="my-5 lg:my-10 w-full">
-                    <p
-                        class="text-[10px] lg:text-base uppercase tracking-wider text-orange-300 font-bold mb-1.5 lg:mb-4">
-                        Recolección Urgente:</p>
-                    <div
-                        class="inline-block bg-gradient-to-r from-orange-400 to-red-500 text-white font-black text-lg lg:text-4xl py-2 px-6 lg:py-5 lg:px-12 rounded-xl lg:rounded-2xl border-b-4 lg:border-b-8 border-orange-700 max-w-full">
-                        LEGUMBRES Y CAFÉ
-                    </div>
-                </div>
-                <p class="text-adventist-gold font-bold text-xs lg:text-lg mt-1 lg:mt-2">🙏 Dios bendiga al dador alegre.</p>
-            </div>
-        </section>
-
-        <!-- MINISTERIO DE DORCAS -->
-        <section
-            class="relative overflow-hidden rounded-3xl shadow-2xl min-h-fit flex items-center py-10 md:py-16 lg:py-20 w-full col-span-1 hover-card">
-            <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1584992231908-1f19f187a419?auto=format&fit=crop&q=80&w=1200"
-                    alt="Tejidos de Amor" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-950/95 via-blue-950/90 to-black/90"></div>
-            </div>
-            <div class="absolute inset-0">
-                <div
-                    class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,rgba(254,195,37,0.25),transparent_50%)]">
-                </div>
-            </div>
-
-            <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 text-center">
-                <div
-                    class="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-blue-950 px-4 py-2 sm:px-6 sm:py-3 rounded-full shadow-xl uppercase font-black tracking-wider sm:tracking-widest text-xs sm:text-sm">
-                    <i class="fas fa-heart text-red-700"></i>
-                    Ministerio de Dorcas
-                </div>
-                <h1
-                    class="mt-6 md:mt-8 text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase text-white drop-shadow-2xl leading-tight px-2 break-words w-full">
-                    Tejidos
-                    <span
-                        class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500">
-                        de Amor
-                    </span>
-                </h1>
-                <div
-                    class="mt-6 md:mt-8 max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/20 p-4 sm:p-6 md:p-8 mx-4">
-                    <p
-                        class="text-sm sm:text-xl md:text-2xl lg:text-3xl font-light text-slate-100 leading-relaxed italic auto-text">
-                        "Había entonces en Jope una discípula llamada Tabita, que traducido quiere decir Dorcas. Esta
-                        abundaba en buenas obras y en limosnas que hacía."
-                    </p>
-                    <p
-                        class="mt-3 md:mt-4 text-adventist-gold font-black uppercase tracking-widest text-xs sm:text-base md:text-lg">
-                        Hechos 9:36
-                    </p>
-                </div>
-                <div class="mt-6 md:mt-10 max-w-4xl mx-auto px-2">
-                    <p class="text-sm sm:text-lg md:text-2xl lg:text-3xl text-slate-200 leading-relaxed auto-text">
-                        Unidas con un solo propósito: abrigar corazones y extender el amor de Jesús a través de cada
-                        puntada. ¡Ven a compartir, tejer y bendecir!
-                    </p>
-                    <p
-                        class="mt-4 md:mt-6 text-base sm:text-xl md:text-3xl font-black text-yellow-300 tracking-wide uppercase">
-                        ¡Únete a ser parte de esta linda obra!
-                    </p>
-                </div>
-                <div
-                    class="mt-6 md:mt-12 inline-block bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-blue-950 px-6 py-4 sm:px-10 sm:py-6 rounded-2xl sm:rounded-3xl shadow-2xl border-b-4 sm:border-b-8 border-yellow-600 max-w-full mx-4">
-                    <div class="text-3xl sm:text-5xl mb-1 md:mb-2">
-                        🧶✨
-                    </div>
-                    <p class="text-xs sm:text-sm md:text-lg uppercase tracking-widest font-bold text-blue-900">
-                        Reunión - Todos los
-                    </p>
-                    <h2 class="text-2xl sm:text-4xl md:text-6xl font-black leading-none mt-1">
-                        MARTES <br> 16:00 HRS. <br> </h2>
-                </div>
-                <div
-                    class="mt-8 md:mt-10 bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-white/10 p-4 sm:p-6 max-w-3xl mx-4 sm:mx-auto text-center">
-                    <p class="text-yellow-300 uppercase font-black tracking-widest text-xs sm:text-sm">
-                        📍 Lugar de Encuentro
-                    </p>
-                    <h3 class="mt-1 sm:mt-2 text-lg sm:text-xl md:text-3xl font-black text-white break-words">
-                        Sala multiuso / Dependencias de la Iglesia
-                    </h3>   
-                    <p class="mt-1 text-xs sm:text-base md:text-lg text-slate-300">
-                        IASD San Francisco de Limache — Calle Carrera Nº 131
-                    </p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- ==========================================================
-     SEMANA EVANGELISMO FEMENINO 2026
-     Ministerio de la Mujer Adventista
-=========================================================== -->
-
-<section
-    class="relative overflow-hidden rounded-3xl shadow-2xl min-h-fit flex items-center py-12 md:py-20 w-full hover-card">
-
-    <!-- Fondo -->
-    <div class="absolute inset-0">
-
-        <img src="imagenes/fondo-evangelismo.jpg"
-            class="w-full h-full object-cover"
-            alt="Semana Evangelismo Femenino">
-
-        <div
-            class="absolute inset-0 bg-gradient-to-br from-pink-950/95 via-fuchsia-900/80 to-black/90">
         </div>
 
-    </div>
-
-    <!-- Luces -->
-    <div class="absolute inset-0">
-
-        <div
-            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,rgba(255,255,255,.15),transparent_55%)]">
-        </div>
-
-        <div
-            class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_bottom,rgba(255,192,203,.20),transparent_55%)]">
-        </div>
-
-    </div>
-
-    <!-- Contenido -->
-    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center w-full">
-
-        <!-- Badge -->
-
-        <div
-            class="inline-flex items-center gap-3 bg-pink-500 text-white px-7 py-3 rounded-full shadow-2xl uppercase tracking-widest font-black">
-
-            🌸 Ministerio de la Mujer Adventista
-
-        </div>
-
-        <!-- Titulo -->
-
-        <h1
-            class="mt-8 text-5xl md:text-7xl xl:text-8xl font-black uppercase text-white drop-shadow-2xl">
-
-            Semana
-
-            <span class="block text-pink-300">
-
-                Evangelismo Femenino
-
-            </span>
-
-            <span class="block text-yellow-300">
-
-                2026
-
-            </span>
-
-        </h1>
-
-        <!-- Texto -->
-
-        <div
-            class="mt-10 bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 p-8 max-w-5xl mx-auto">
-
-            <p
-                class="text-xl md:text-3xl italic text-white leading-relaxed">
-
-                "Ven y descubre el amor de Cristo,
-                renueva tu esperanza y fortalece tu fe
-                junto a nosotros."
-
-            </p>
-
-            <p
-                class="mt-5 text-pink-200 uppercase tracking-[5px] font-bold">
-
-                Todos son Bienvenidos
-
-            </p>
-
-        </div>
-
-        <!-- Programación -->
-
-        <div
-            class="grid lg:grid-cols-3 gap-8 mt-14">
-
-            <!-- Inicio -->
-
-            <div
-                class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-8 shadow-xl">
-
-                <div class="text-6xl">
-
-                    📅
-
-                </div>
-
-                <h2
-                    class="mt-5 text-3xl font-black text-yellow-300">
-
-                    Inicio
-
-                </h2>
-
-                <p class="mt-4 text-2xl text-white">
-
-                    Sábado 22
-
-                </p>
-
-                <p class="text-pink-200">
-
-                    Culto de la Mañana
-
-                </p>
-
-            </div>
-
-            <!-- Semana -->
-
-            <div
-                class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-8 shadow-xl">
-
-                <div class="text-6xl">
-
-                    ⏰
-
-                </div>
-
-                <h2
-                    class="mt-5 text-3xl font-black text-yellow-300">
-
-                    Lunes a Viernes
-
-                </h2>
-
-                <p
-                    class="mt-4 text-5xl font-black text-white">
-
-                    18:00
-
-                </p>
-
-                <p
-                    class="text-pink-200">
-
-                    Horas
-
-                </p>
-
-            </div>
-
-            <!-- Termino -->
-
-            <div
-                class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-8 shadow-xl">
-
-                <div class="text-6xl">
-
-                    🏁
-
-                </div>
-
-                <h2
-                    class="mt-5 text-3xl font-black text-yellow-300">
-
-                    Clausura
-
-                </h2>
-
-                <p class="mt-4 text-2xl text-white">
-
-                    Sábado 29
-
-                </p>
-
-                <p class="text-pink-200">
-
-                    Culto de la Mañana
-
-                </p>
-
-            </div>
-
-        </div>
-
-        <!-- Evento Especial -->
-
-        <div
-            class="mt-20 rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-xl border border-white/20">
-
-            <div
-                class="grid lg:grid-cols-2">
-
-                <!-- FOTO -->
-
-                <div>
-
-                    <img
-
-                        src="exodo.jpg"
-
-                        class="w-full h-full object-cover"
-
-                        alt="Cuarteto Éxodo">
-
-                </div>
-
-                <!-- Texto -->
-
-                <div
-                    class="flex flex-col justify-center p-12">
-
-                    <div
-                        class="inline-block bg-yellow-400 text-pink-950 px-6 py-3 rounded-full uppercase font-black tracking-widest">
-
-                        Evento Especial
-
-                    </div>
-
-                    <h2
-                        class="mt-8 text-6xl font-black text-white">
-
-                        Cuarteto
-
-                        <span
-                            class="block text-yellow-300">
-
-                            Éxodo
-
-                        </span>
-
+        <!-- ==========================================
+            6. ORACIÓN INTERCESORA
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 border-t-[6px] lg:border-t-[8px] border-red-600">
+                <div class="flex flex-col h-full justify-center text-center max-w-5xl mx-auto mt-2 lg:mt-0">
+                    
+                    <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-[10px] lg:text-xl mb-1">Ministerio de Oración IASD San Francisco de Limache</h3>
+                    <h2 class="text-3xl sm:text-4xl lg:text-7xl font-heading font-black uppercase text-slate-900 leading-none">
+                        Oración <span class="text-adventist-blue">Intercesora</span>
                     </h2>
 
-                    <div
-                        class="mt-8 text-3xl text-white">
-
-                        📅 Sábado 29
-
+                    <div class="mt-5 lg:mt-10 bg-slate-50 border border-slate-200 rounded-2xl lg:rounded-[3rem] p-5 lg:p-10 shadow-inner max-w-4xl mx-auto w-full">
+                        <p class="text-sm sm:text-base lg:text-3xl font-light text-slate-700 leading-relaxed italic">
+                            "Hay un poder inmenso cuando la iglesia se une de rodillas."
+                        </p>
+                        <div class="mt-4 lg:mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 bg-red-50 border border-red-200 text-red-800 px-3 py-2 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl font-bold uppercase tracking-wider text-[9px] sm:text-[10px] lg:text-base">
+                            <i class="fab fa-whatsapp text-green-600 text-base lg:text-3xl"></i> Toda información será compartida en el WhatsApp oficial de la Iglesia y grupos de oración.
+                        </div>
                     </div>
 
-                    <div
-                        class="mt-3 text-5xl font-black text-pink-300">
-
-                        17:30 HRS
-
+                    <div class="mt-5 lg:mt-10 bg-slate-900 text-white rounded-2xl lg:rounded-[3rem] p-5 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-adventist-gold flex flex-col items-center max-w-2xl mx-auto w-full">
+                        <p class="uppercase tracking-widest font-bold text-[9px] lg:text-lg mb-1 text-slate-400">Nos reunimos !!ESTE DÍA!!</p>
+                        <p class="font-black text-2xl sm:text-3xl lg:text-6xl tracking-tight text-adventist-gold leading-none">Sábado</p>
+                        <p class="font-black text-3xl sm:text-4xl lg:text-7xl tracking-tight mt-1 leading-none">15:30 HRS</p>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <p
-                        class="mt-8 text-xl text-pink-100">
+        <!-- ==========================================
+            7. ASA (ACCIÓN SOLIDARIA)
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 border-t-[6px] lg:border-t-[8px] border-orange-500">
+                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 h-full items-center">
+                    <div class="flex flex-col justify-center text-center lg:text-left mt-2 lg:mt-0">
+                        <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-800 px-3 py-1.5 rounded-full uppercase tracking-widest font-black w-max border border-orange-200 mb-3 mx-auto lg:mx-0 text-[9px] lg:text-xs">
+                            <i class="fas fa-snowflake"></i> Campaña de Invierno
+                        </div>
+                    <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-xs lg:text-xl">Ministerio de ASA <br>IASD San Francisco de Limache</h3>
+                        <h2 class="text-3xl sm:text-4xl lg:text-6xl font-heading font-black uppercase text-slate-900 leading-none mt-1">
+                            Acción <br><span class="text-orange-500">Solidaria</span>
+                        </h2>   
+                        
+                        <p class="text-xs sm:text-sm lg:text-2xl text-slate-600 mt-3 lg:mt-6 font-medium">
+                            Solicitamos a toda la hermandad su colaboración con alimentos no perecibles para apoyar a quienes más lo necesitan.
+                        </p>
 
-                        Una tarde especial de alabanza,
-                        esperanza y adoración.
+                        <div class="mt-5 lg:mt-10 bg-white border-2 border-orange-200 rounded-2xl lg:rounded-3xl p-4 lg:p-8 shadow-sm">
+                            <p class="font-bold text-slate-400 uppercase tracking-widest mb-2 text-[9px] lg:text-sm">Recolección Urgente:</p>
+                            <div class="bg-orange-500 text-white font-black text-lg sm:text-xl lg:text-5xl uppercase p-3 lg:p-6 rounded-xl lg:rounded-2xl text-center shadow-inner">
+                                LEGUMBRES Y CAFÉ
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full h-40 sm:h-56 lg:h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm border-2 lg:border-4 border-slate-100 mb-2 lg:mb-0">
+                        <img src="imagenes/asa.jpg" class="w-full h-full object-cover" alt="ASA" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=150'">
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- ==========================================
+            8. DORCAS (TEJIDOS DE AMOR)
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 border-t-[6px] lg:border-t-[8px] border-pink-500">
+                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 h-full items-center">
+                    <div class="flex flex-col justify-center order-2 lg:order-1 text-center lg:text-left mt-2 lg:mt-0">
+                    <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-xs lg:text-xl">Ministerio de Dorcas <br>IASD San Francisco de Limache</h3>
+                        <h2 class="text-3xl sm:text-4xl lg:text-6xl font-heading font-black uppercase text-slate-900 leading-none mt-1">
+                            Tejidos <br><span class="text-pink-600">de Amor</span>
+                        </h2>
+                        
+                        <p class="text-xs sm:text-sm lg:text-2xl text-slate-600 mt-3 lg:mt-6 font-medium">
+                            Abrigando corazones y extendiendo el amor de Jesús con cada puntada. Te invitamos a ser parte de esta obra.
+                        </p>
+
+                        <div class="mt-5 lg:mt-10 bg-slate-900 text-white rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-pink-500">
+                            <p class="text-pink-400 font-bold uppercase tracking-widest mb-1 text-[9px] lg:text-sm">Reunión Semanal</p>
+                            <p class="font-black text-2xl sm:text-3xl lg:text-6xl tracking-tight mb-2 lg:mb-4">Martes 16:00h</p>
+                            <div class="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-3 text-slate-300 font-medium text-[10px] lg:text-lg">
+                                <i class="fas fa-map-marker-alt text-sm lg:text-2xl text-pink-500 hidden lg:block"></i>
+                                Sala Multiuso · Iglesia Limache
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full h-40 sm:h-56 lg:h-[500px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm border-2 lg:border-4 border-slate-100 order-1 lg:order-2 mt-2 lg:mt-0">
+                        <img src="imagenes/dorcas.jpg" class="w-full h-full object-cover" alt="Dorcas">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+            9. SEMANA EVANGELISMO FEMENINO
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 relative overflow-hidden border-t-[6px] lg:border-t-[8px] border-fuchsia-600">
+                <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+                    <img src="imagenes/fondo-evangelismo.jpg" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10 flex flex-col h-full justify-center text-center max-w-6xl mx-auto w-full mt-2 lg:mt-0">
+                    <div class="inline-flex items-center gap-2 bg-fuchsia-50 text-fuchsia-800 px-3 py-1.5 lg:px-6 lg:py-2 rounded-full uppercase tracking-widest font-black mx-auto mb-3 lg:mb-6 border border-fuchsia-200 text-[9px] lg:text-sm">
+                    <h3 class="text-adventist-gold font-bold uppercase tracking-widest text-xs lg:text-xl">Ministerio de la Mujer <br>IASD San Francisco de Limache</h3>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl lg:text-7xl font-heading font-black uppercase text-slate-900 leading-tight">
+                        Semana Evangelismo <br><span class="text-fuchsia-600">Femenino 2026</span>
+                    </h2>
+
+                    <p class="mt-3 lg:mt-6 text-[11px] sm:text-sm lg:text-3xl text-slate-600 font-medium max-w-4xl mx-auto italic px-2">
+                        "Ven y descubre el amor de Cristo, renueva tu esperanza y fortalece tu fe."
                     </p>
 
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-6 mt-5 lg:mt-12 w-full px-2 lg:px-0">
+                        <div class="bg-white border-2 border-slate-100 rounded-2xl lg:rounded-[2rem] p-3 lg:p-8 shadow-sm flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-0">
+                            <div class="text-2xl lg:text-5xl sm:mb-4 text-fuchsia-500 w-10 sm:w-auto text-center"><i class="fas fa-calendar-day"></i></div>
+                            <div>
+                                <h3 class="text-xs lg:text-2xl font-black text-slate-900 uppercase">Inicio</h3>
+                                <p class="text-xs lg:text-xl font-bold text-slate-600 mt-0.5">Sábado 22</p>
+                            </div>
+                        </div>
+                        <div class="bg-fuchsia-600 text-white rounded-2xl lg:rounded-[2rem] p-3 lg:p-8 shadow-xl transform sm:-translate-y-4 border-b-4 lg:border-b-8 border-fuchsia-800 flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-0">
+                            <div class="text-2xl lg:text-5xl sm:mb-4 w-10 sm:w-auto text-center"><i class="fas fa-clock"></i></div>
+                            <div>
+                                <h3 class="text-xs lg:text-2xl font-black uppercase">Lun a Vie</h3>
+                                <p class="text-lg lg:text-5xl font-black mt-0.5">18:00h</p>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-slate-100 rounded-2xl lg:rounded-[2rem] p-3 lg:p-8 shadow-sm flex flex-row sm:flex-col items-center text-left sm:text-center gap-3 sm:gap-0">
+                            <div class="text-2xl lg:text-5xl sm:mb-4 text-fuchsia-500 w-10 sm:w-auto text-center"><i class="fas fa-flag-checkered"></i></div>
+                            <div>
+                                <h3 class="text-xs lg:text-2xl font-black text-slate-900 uppercase">Clausura</h3>
+                                <p class="text-xs lg:text-xl font-bold text-slate-600 mt-0.5">Sábado 29</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
 
-        <!-- Lugar -->
+        <!-- ==========================================
+            10. PROYECTO BUTACAS (META Y FONDOS)
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 border-t-[6px] lg:border-t-[8px] border-red-600">
+                <div class="flex flex-col h-full justify-center text-center max-w-5xl mx-auto w-full mt-2 lg:mt-0">
+                    <div class="inline-flex items-center gap-2 bg-red-50 text-red-800 px-3 lg:px-6 py-1.5 lg:py-2 rounded-full uppercase tracking-widest font-black mx-auto mb-3 lg:mb-6 border border-red-200 text-[9px] lg:text-sm">
+                        <i class="fas fa-hammer"></i> 
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-4xl lg:text-7xl font-heading font-black uppercase text-slate-900 leading-tight">
+                        Nuevas Butacas <br><span class="text-slate-500 text-sm sm:text-2xl lg:text-5xl block mt-1 lg:mt-2">Proyecto Iglesia 2026</span>
+                    </h2>
 
-        <div
-            class="mt-16 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-8 max-w-5xl mx-auto">
+                    <div class="mt-6 lg:mt-12 bg-slate-900 text-white rounded-2xl lg:rounded-[3rem] p-5 lg:p-16 shadow-2xl border-b-4 lg:border-b-8 border-adventist-gold w-full mb-2 lg:mb-0">
+                        <p class="font-bold uppercase tracking-widest text-slate-400 text-[10px] lg:text-xl mb-1 lg:mb-4">Acumulado Actual</p>
+                        <p class="font-black text-3xl sm:text-5xl lg:text-8xl text-adventist-gold">$822.125</p>
 
-            <p
-                class="uppercase tracking-[5px] text-pink-200 font-black">
-
-                Lugar
-
-            </p>
-
-            <h2
-                class="mt-3 text-4xl md:text-5xl font-black text-white">
-
-                Iglesia Adventista del Séptimo Día
-
-            </h2>
-
-            <h3
-                class="mt-2 text-3xl text-yellow-300 font-bold">
-
-                San Francisco de Limache
-
-            </h3>
-
-            <p
-                class="mt-4 text-xl text-white">
-
-                📍 Carrera #131 · Limache
-
-            </p>
-
-        </div>
-
-        <!-- Invitación -->
-
-        <div
-            class="mt-14">
-
-            <h2
-                class="text-4xl md:text-6xl font-black text-yellow-300 animate-pulse">
-
-                ¡TE ESPERAMOS!
-
-            </h2>
-
-            <p
-                class="mt-5 text-2xl text-white">
-
-                Comparte esta invitación con tu familia y amigos.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-    <!-- PROYECTO BUTACAS -->
-    <div class="grid grid-cols-1 gap-6 lg:gap-12 w-full mb-10 lg:mb-16">
-
-        <div
-            class="text-center p-6 lg:p-12 bg-gradient-to-br from-black via-slate-900 to-black rounded-2xl lg:rounded-3xl shadow-2xl border-b-4 lg:border-b-8 border-adventist-gold">
-            <h2 class="t-title font-heading font-black uppercase text-white tracking-wide"><i
-                    class="fas fa-camera-retro text-adventist-gold mr-2 lg:mr-3"></i> Renovación del Templo</h2>
-            <p class="text-gray-300 font-bold text-xs lg:text-xl mt-2 lg:mt-4 uppercase tracking-widest auto-text">
-                El antes y el después de nuestro proyecto de butacas</p>
-        </div>
-
-        <section
-            class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
-            <img src="imagenes/templo1.jpeg" alt="Bancas de madera atrás"
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div
-                class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
-                <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">
-                    En la actualidad</p>
-                <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Posterior (Hoy)
-                </p>
-            </div>
-        </section>
-
-        <section
-            class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-slate-700">
-            <img src="imagenes/templo2.jpeg" alt="Bancas de madera frente"
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div
-                class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-black/80 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl">
-                <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 lg:mb-1">
-                    En la actualidad</p>
-                <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Vista Frontal (Hoy)
-                </p>
-            </div>
-        </section>
-
-        <section
-            class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
-            <img src="imagenes/templo3.jpeg" alt="Butacas rojas frente"
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div
-                class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
-                <p class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">
-                    Lo proyectado</p>
-                <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevas Butacas (Vista
-                    Futura)</p>
-            </div>
-        </section>
-
-        <section
-            class="relative w-full h-[50vh] md:h-[65vh] xl:h-[75vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl group border-2 lg:border-4 border-red-700">
-            <img src="imagenes/templo4.jpeg" alt="Butacas rojas atrás"
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div
-                class="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 bg-gradient-to-r from-red-900/90 to-red-800/90 backdrop-blur-md text-white px-4 py-2 lg:px-8 lg:py-5 rounded-xl lg:rounded-2xl shadow-xl border-l-2 lg:border-l-4 border-adventist-gold">
-                <p class="text-[9px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest mb-0.5 lg:mb-1">
-                    Lo proyectado</p>
-                <p class="text-base lg:text-3xl font-black uppercase tracking-wide text-white">Nuevo Espacio (Vista
-                    Futura)</p>
-            </div>
-        </section>
-
-
-        <section
-            class="hover-card card-style shadow-xl relative overflow-hidden bg-gradient-to-br from-red-800 via-red-950 to-black text-white p-6 lg:p-12">
-            <div class="relative w-full flex flex-col items-center z-10 text-center my-auto">
-                <div
-                    class="inline-flex items-center gap-2 lg:gap-3 bg-red-900/50 border border-red-500/30 px-4 py-1.5 lg:px-6 lg:py-2.5 rounded-full uppercase tracking-[0.15em] text-[10px] lg:text-sm font-black text-adventist-gold mb-4 lg:mb-6">
-                    <i class="fas fa-hammer lg:text-base"></i> Proyecto Iglesia 2026
-                </div>
-                <h2 class="t-title font-heading font-black uppercase">Nuevas Sillas</h2>
-                <h3
-                    class="t-subtitle font-heading font-extrabold text-adventist-gold uppercase tracking-wide mt-0.5 lg:mt-2">
-                    Butacas</h3>
-
-                <div class="mt-6 lg:mt-10 w-full max-w-sm lg:max-w-3xl">
-                    <div
-                        class="bg-white text-slate-800 rounded-2xl lg:rounded-3xl p-5 lg:p-10 shadow-xl border-b-4 lg:border-b-8 border-gray-200">
-                        <p class="font-black uppercase tracking-wider text-red-800 text-[10px] lg:text-sm mb-1 lg:mb-2">
-                            Acumulado Actual</p>
-                        <p class="font-black text-3xl lg:text-6xl text-red-900">$822.125</p>
-
-                        <div class="w-full mt-4 lg:mt-8">
-                            <div
-                                class="flex justify-between text-[9px] lg:text-sm font-black uppercase tracking-wider text-slate-400 mb-1.5 lg:mb-3">
-                                <span>22,83% Completado</span>
+                        <div class="mt-5 lg:mt-12">
+                            <div class="flex flex-row justify-between text-[9px] lg:text-xl font-black uppercase tracking-widest text-white mb-1 lg:mb-4 px-1">
+                                <span>22,83% Logrado</span>
                                 <span>Meta: $3M</span>
                             </div>
-                            <div
-                                class="w-full h-4 lg:h-8 bg-gray-200 rounded-full overflow-hidden p-0.5 lg:p-1 border border-gray-300">
-                                <div class="h-full bg-gradient-to-r from-adventist-gold to-yellow-400 rounded-full"
-                                    style="width: 22.83%;"></div>
+                            <div class="w-full h-4 lg:h-10 bg-slate-800 rounded-full overflow-hidden p-1 border border-slate-700">
+                                <div class="h-full bg-adventist-gold rounded-full" style="width: 22.83%;"></div>
                             </div>
                         </div>
-                        <p class="text-[9px] lg:text-sm font-bold text-slate-400 uppercase mt-3 lg:mt-6">Faltan por
-                            recaudar: <span class="text-red-700 font-black">$2.177.875</span></p>
+                        <div class="mt-5 lg:mt-10 inline-block bg-white text-slate-900 px-4 py-2 lg:px-8 lg:py-4 rounded-full font-bold text-[10px] lg:text-lg uppercase tracking-wider shadow-sm border border-slate-200">
+                            Faltan: <span class="text-red-600 font-black">$2.177.875</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-    </div>
-
-    <!-- ANCIANO DE TURNO -->
-    <section
-        class="mt-10 lg:mt-16 hover-card card-style shadow-xl glass p-6 lg:p-12 border-t-[6px] lg:border-t-[10px] border-yellow-500 text-center flex flex-col justify-center">
-        <div
-            class="w-24 h-24 lg:w-40 lg:h-40 rounded-2xl lg:rounded-3xl bg-gray-200 shadow-xl mx-auto mb-4 lg:mb-8 overflow-hidden border-2 lg:border-4 border-white">
-            <img src="imagenes/anciano.jpg" alt="Anciano" class="w-full h-full object-cover"
-                onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'">
         </div>
-        <p class="text-adventist-blue font-black uppercase tracking-widest text-xs lg:text-lg">Anciano de Turno
-        </p>
-        <h2 class="text-xl lg:text-4xl font-heading font-black uppercase text-slate-800 mt-1 lg:mt-3">Hno.
-            Mauricio Galaz Sábados 1 y 8 </h2> <br>
-        <h2 class="text-xl lg:text-4xl font-heading font-black uppercase text-slate-800 mt-1 lg:mt-3">Hno.
-            Victor Recabarren Sábados 15, 22 y 29 </h2>    
-    </section>
 
-    <!-- ADMIN -->
-    <section class="mt-12 lg:mt-20 flex flex-col items-center px-4 w-full">
-        <button onclick="toggleAdminPanel()"
-            class="text-slate-400 hover:text-adventist-blue font-bold uppercase tracking-widest text-xs lg:text-sm p-3 lg:p-4 transition">
-            <i class="fa-solid fa-gear"></i> Gestión de Muro
-        </button>
-        <div id="admin-panel" class="hidden mt-3 lg:mt-4 w-full max-w-xs lg:max-w-md">
-            <div class="glass p-5 lg:p-8 rounded-2xl lg:rounded-3xl shadow-xl space-y-3 lg:space-y-5">
-                <input type="password" id="admin-pass" placeholder="VIRTUAL KEY"
-                    class="w-full bg-slate-100 border border-slate-200 p-3 lg:p-4 rounded-xl lg:rounded-2xl text-center font-bold outline-none text-sm lg:text-base">
-                <button onclick="activarEdicion()"
-                    class="w-full bg-adventist-blue hover:bg-blue-950 transition text-white py-3 lg:py-4 rounded-xl lg:rounded-2xl font-black uppercase text-xs lg:text-sm tracking-wider shadow-md">
-                    Validar Acceso
-                </button>
+        <!-- ==========================================
+             11. PROYECTO BUTACAS (FOTOS)
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 flex flex-col justify-start">
+                <div class="text-center mb-4 lg:mb-8 mt-2 lg:mt-0">
+                    <h2 class="text-xl sm:text-3xl lg:text-5xl font-heading font-black uppercase text-slate-900">
+                        Visión del Proyecto
+                    </h2>
+                    <p class="text-slate-500 uppercase font-bold tracking-widest mt-1 text-[9px] lg:text-base">El antes y el después</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 flex-1 w-full pb-2 lg:pb-0">
+                    <!-- Foto 1: Actual -->
+                    <div class="relative rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-sm border-2 lg:border-4 border-slate-200 w-full h-40 sm:h-56 lg:h-auto">
+                        <img src="imagenes/templo1.jpeg" class="w-full h-full object-cover" alt="Actual">
+                        <div class="absolute bottom-2 left-2 lg:bottom-6 lg:left-6 bg-white/95 backdrop-blur text-slate-900 px-3 py-2 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl shadow-sm text-left border border-slate-200">
+                            <p class="text-[8px] lg:text-sm font-bold text-slate-500 uppercase tracking-widest">Estado Actual</p>
+                            <p class="text-[11px] sm:text-sm lg:text-2xl font-black uppercase leading-tight">Bancas de Madera</p>
+                        </div>
+                    </div>
+                    <!-- Foto 2: Futuro -->
+                    <div class="relative rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-sm border-2 lg:border-4 border-adventist-gold w-full h-40 sm:h-56 lg:h-auto">
+                        <img src="imagenes/templo3.jpeg" class="w-full h-full object-cover" alt="Proyectado">
+                        <div class="absolute bottom-2 left-2 lg:bottom-6 lg:left-6 bg-adventist-blue/95 backdrop-blur text-white px-3 py-2 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl shadow-sm text-left border border-adventist-blue">
+                            <p class="text-[8px] lg:text-sm font-bold text-adventist-gold uppercase tracking-widest">Lo Proyectado</p>
+                            <p class="text-[11px] sm:text-sm lg:text-2xl font-black uppercase leading-tight">Nuevas Butacas</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-</main>
 
-<footer class="bg-adventist-dark text-white pt-12 pb-10 lg:pt-20 lg:pb-16 w-full">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-        <div class="flex justify-center gap-6 lg:gap-10 mb-6 lg:mb-10">
-            <a href="https://www.facebook.com/" target="_blank"
-                class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.youtube.com/" target="_blank"
-                class="hover:text-adventist-gold text-xl lg:text-3xl transition"><i class="fab fa-youtube"></i></a>
+        <!-- ==========================================
+             12. ANCIANOS DE TURNO
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-12 text-center flex flex-col justify-center border-t-[6px] lg:border-t-[12px] border-adventist-blue">
+                <div class="w-20 h-20 sm:w-28 sm:h-28 lg:w-48 lg:h-48 rounded-full bg-slate-100 shadow-xl mx-auto mb-3 lg:mb-8 overflow-hidden border-[3px] lg:border-[6px] border-slate-200 p-1 mt-2 lg:mt-0 flex-shrink-0">
+                    <img src="imagenes/anciano.jpg" alt="Anciano de Turno" class="w-full h-full object-cover rounded-full" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'">
+                </div>
+                <p class="text-slate-500 font-black uppercase tracking-widest lg:tracking-[0.3em] text-[10px] sm:text-sm lg:text-xl mb-4 lg:mb-8">Ancianos de Turno del Mes</p>
+                
+                <div class="bg-white border-2 border-slate-100 rounded-2xl lg:rounded-[3rem] p-5 lg:p-12 max-w-4xl mx-auto w-full shadow-sm mb-2 lg:mb-0">
+                    <h3 class="text-base sm:text-2xl lg:text-5xl font-heading font-black uppercase text-slate-900 mb-3 lg:mb-6 flex flex-col gap-1 lg:gap-2">
+                        Hno. Mauricio Galaz 
+                        <span class="text-adventist-blue font-bold text-[10px] sm:text-sm lg:text-2xl bg-blue-50 py-1 lg:py-2 px-3 lg:px-6 rounded-full w-max mx-auto border border-blue-100 mt-1">Sábados 1 y 8</span>
+                    </h3>
+                    <div class="w-1/2 h-px lg:h-1 bg-slate-200 mx-auto my-3 lg:my-8"></div>
+                    <h3 class="text-base sm:text-2xl lg:text-5xl font-heading font-black uppercase text-slate-900 flex flex-col gap-1 lg:gap-2">
+                        Hno. Víctor Recabarren 
+                        <span class="text-adventist-blue font-bold text-[10px] sm:text-sm lg:text-2xl bg-blue-50 py-1 lg:py-2 px-3 lg:px-6 rounded-full w-max mx-auto border border-blue-100 mt-1">Sábados 15, 22 y 29</span>
+                    </h3>
+                </div>
+            </div>
         </div>
-        <img src="imagenes/logo.jpg"
-            class="h-14 w-14 lg:h-20 lg:w-20 rounded-full mx-auto mb-4 lg:mb-6 border-2 border-adventist-gold p-1 shadow-lg"
-            alt="Logo Footer"
-            onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
-        <p class="text-slate-500 uppercase tracking-widest text-[10px] lg:text-sm">&copy; 2026 IASD San Francisco de
-            Limache</p>
-        <p class="mt-2 lg:mt-4 text-slate-500 uppercase tracking-wider text-[11px] lg:text-sm">By <span
-                class="text-adventist-gold font-bold">Mauricio Galaz Estay</span></p>
+
+        <!-- ==========================================
+             13. FOOTER / ADMIN FIN DE PROYECCIÓN
+        =========================================== -->
+        <div class="swiper-slide">
+            <div class="slide-card p-5 lg:p-16 flex flex-col justify-center items-center text-center bg-slate-900 text-white border-none">
+                <img src="imagenes/logo.jpg" class="h-16 w-16 sm:h-24 sm:w-24 lg:h-40 lg:w-40 rounded-2xl lg:rounded-[2rem] mx-auto mb-4 lg:mb-10 border-2 lg:border-4 border-adventist-gold p-1 shadow-xl bg-white mt-2 lg:mt-0 flex-shrink-0" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=150'">
+                
+                <h2 class="font-heading font-black text-xl sm:text-3xl lg:text-6xl uppercase mb-1 lg:mb-4 text-white">IASD San Francisco de Limache</h2>
+                <p class="text-slate-400 text-[10px] sm:text-sm lg:text-xl uppercase tracking-widest font-bold">Fin de los Avisos</p>
+                
+                <div class="flex justify-center gap-4 lg:gap-8 mt-5 lg:mt-10">
+                    <a href="#" class="w-10 h-10 lg:w-16 lg:h-16 bg-white text-blue-600 rounded-full flex items-center justify-center text-lg lg:text-3xl hover:scale-110 transition shadow-lg"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 lg:w-16 lg:h-16 bg-white text-red-600 rounded-full flex items-center justify-center text-lg lg:text-3xl hover:scale-110 transition shadow-lg"><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="mt-6 lg:mt-16 border-t border-slate-800 pt-5 lg:pt-8 w-full mb-2 lg:mb-0">
+                    <p class="text-slate-500 uppercase tracking-widest text-[8px] lg:text-sm">&copy; 2026 — Todos los derechos reservados</p>
+                    <p class="mt-1 lg:mt-2 text-slate-600 uppercase tracking-wider text-[8px] lg:text-xs">Sistema Proyectable por <span class="text-adventist-gold font-bold">Mauricio Galaz</span></p>
+                    
+                    <!-- Botón Admin -->
+                    <button onclick="toggleAdminPanel()" class="mt-5 lg:mt-8 text-slate-700 hover:text-white font-bold uppercase tracking-widest text-[9px] lg:text-xs p-2 transition flex items-center gap-2 mx-auto">
+                        <i class="fa-solid fa-lock"></i> Gestión de Muro
+                    </button>
+                    
+                    <div id="admin-panel" class="hidden mt-3 lg:mt-4 w-full max-w-[250px] lg:max-w-sm mx-auto pb-2 lg:pb-0">
+                        <div class="bg-slate-800 p-3 lg:p-6 rounded-2xl lg:rounded-3xl shadow-xl">
+                            <input type="password" id="admin-pass" placeholder="Clave de acceso" class="w-full bg-slate-900 text-white p-2 lg:p-4 rounded-xl text-center font-bold outline-none border border-slate-700 mb-2 lg:mb-3 text-[10px] lg:text-base">
+                            <button onclick="activarEdicion()" class="w-full bg-adventist-gold text-slate-900 py-2 lg:py-4 rounded-xl font-black uppercase tracking-wider text-[10px] lg:text-sm">
+                                Validar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</footer>
 
-<nav
-    class="mobile-nav lg:hidden flex justify-around bg-white fixed bottom-0 w-full border-t border-gray-200 pb-safe pt-2 px-2 z-50">
-    <a href="index.html"
-        class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition active"
-        onclick="setMobileActive(this)"><i class="fa-solid fa-house text-lg mb-1"></i>Inicio</a>
-    <a href="#contenedor-avisos-dinamicos"
-        class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
-        onclick="setMobileActive(this)"><i class="fa-solid fa-bullhorn text-lg mb-1"></i>Muro</a>
-    <a href="cronograma.html"
-        class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
-        onclick="setMobileActive(this)"><i class="fa-solid fa-calendar-days text-lg mb-1"></i>Ruta</a>
-    <a href="contactoaviso.html"
-        class="flex flex-col items-center p-2 text-gray-500 hover:text-adventist-blue text-[10px] font-bold uppercase transition"
-        onclick="setMobileActive(this)"><i class="fa-solid fa-envelope text-lg mb-1"></i>Contacto</a>
+    <!-- Controles Manuales del Swiper -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next hidden lg:flex"></div>
+    <div class="swiper-button-prev hidden lg:flex"></div>
+</div>
+
+<!-- MENÚ MÓVIL INFERIOR -->
+<nav class="lg:hidden flex justify-around bg-white border-t border-slate-200 py-3 px-2 fixed bottom-0 w-full z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+    <a href="index.html" class="flex flex-col items-center text-slate-400 hover:text-adventist-blue text-[10px] font-bold uppercase transition"><i class="fa-solid fa-house text-xl mb-1"></i>Inicio</a>
+    <a href="javascript:void(0)" class="flex flex-col items-center text-adventist-blue text-[10px] font-bold uppercase transition" onclick="swiper.slideTo(1)"><i class="fa-solid fa-bullhorn text-xl mb-1"></i>Avisos</a>
+    <a href="cronograma.html" class="flex flex-col items-center text-slate-400 hover:text-adventist-blue text-[10px] font-bold uppercase transition"><i class="fa-solid fa-calendar-days text-xl mb-1"></i>Ruta</a>
+    <a href="contactoaviso.html" class="flex flex-col items-center text-slate-400 hover:text-adventist-blue text-[10px] font-bold uppercase transition"><i class="fa-solid fa-envelope text-xl mb-1"></i>Contacto</a>
 </nav>
-<div class="h-16 lg:hidden"></div>
 
+<!-- REPRODUCTOR YOUTUBE OCULTO -->
+<div id="youtube-player" style="display:none;"></div>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
     let player;
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('youtube-player', {
-            height: '0',
-            width: '0',
-            videoId: '4tvmk5lKjhg',
+            height: '0', width: '0', videoId: '4tvmk5lKjhg',
             playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '4tvmk5lKjhg' }
         });
     }
-    function reproducirMusica() {
-        if (player && player.playVideo) {
-            player.playVideo();
-            const boton = document.getElementById("btnMusica");
-            boton.innerHTML = "🎵 Sonando...";
-            boton.className = "flex-1 bg-gradient-to-r from-green-500 to-green-400 text-white font-black uppercase px-5 py-3 lg:px-8 lg:py-4 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-lg";
-        }
-    }
-    function detenerMusica() {
-        if (player && player.pauseVideo) {
-            player.pauseVideo();
-            const boton = document.getElementById("btnMusica");
-            boton.innerHTML = "▶ Reproducir";
-            boton.className = "flex-1 bg-gradient-to-r from-yellow-500 to-yellow-300 text-black font-black uppercase px-5 py-3 lg:px-8 lg:py-4 rounded-full shadow-md hover:scale-105 transition duration-300 text-xs lg:text-lg";
-        }
-    }
 </script>
 
+<!-- SCRIPTS: SWIPER Y FIREBASE -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -1708,101 +623,88 @@ MEJORAS RESPONSIVE 2026
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const menuBtn = document.getElementById("menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    if(menuBtn) {
-        menuBtn.addEventListener("click", () => {
-            if(mobileMenu) mobileMenu.classList.toggle("open");
-        });
-    }
-
-    window.setMobileActive = (element) => {
-        document.querySelectorAll('.mobile-nav a').forEach(a => {
-            a.classList.remove('active', 'text-adventist-blue');
-            a.classList.add('text-gray-500');
-        });
-        element.classList.add('active', 'text-adventist-blue');
-        element.classList.remove('text-gray-500');
-    };
+    // INICIALIZACIÓN DEL SLIDER (CONTROL MANUAL)
+    window.swiper = new Swiper(".mySwiper", {
+        effect: "slide", 
+        speed: 600, 
+        loop: false, 
+        autoplay: false, 
+        pagination: { el: ".swiper-pagination", clickable: true, dynamicBullets: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        keyboard: { enabled: true }, 
+    });
 
     let modoEdicionActivo = false;
     const ADMIN_PASS = "iasdsf";
 
-    window.toggleAdminPanel = () => {
-        document.getElementById("admin-panel").classList.toggle("hidden");
-    };
+    window.toggleAdminPanel = () => document.getElementById("admin-panel").classList.toggle("hidden");
 
     window.activarEdicion = () => {
-        const pass = document.getElementById("admin-pass").value;
-        if (pass === ADMIN_PASS) {
+        if (document.getElementById("admin-pass").value === ADMIN_PASS) {
             modoEdicionActivo = true;
-            alert("✅ Gestión de muro activada con éxito.");
+            alert("✅ Gestión activada.");
             renderAvisos();
-            document.getElementById("admin-panel").classList.add("hidden");
-        } else {
-            alert("❌ Código de verificación incorrecto.");
-        }
+            toggleAdminPanel();
+        } else alert("❌ Clave incorrecta.");
     };
 
     window.eliminarAviso = async (id) => {
-        if (confirm("¿Estás seguro de que deseas eliminar permanentemente este aviso?")) {
-            await deleteDoc(doc(db, "avisos", id));
-        }
+        if (confirm("¿Eliminar permanentemente este aviso?")) await deleteDoc(doc(db, "avisos", id));
     };
 
     function renderAvisos() {
         const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
         onSnapshot(q, (snapshot) => {
-            const cont = document.getElementById("contenedor-avisos-dinamicos");
-            if (!cont) return;
-            cont.innerHTML = "";
+            document.querySelectorAll('.firebase-dynamic-slide').forEach(el => el.remove());
 
+            let slidesHTML = [];
             snapshot.forEach((d) => {
                 const data = d.data();
-                const card = document.createElement("section");
-                card.className = "aviso-card animate-fade glass shadow-xl p-5 lg:p-8 hover-card";
-
-                const logosDepartamentos = {
-                    "AVENTUREROS": "imagenes/avent.jpg", "ASA": "imagenes/asa.jpg", "MINISTERIO JOVEN": "imagenes/jovenes.jpg", "MAYORDOMÍA": "imagenes/mayor.jpg", "DIÁCONOS": "imagenes/diacono.jpg", "ESCUELA SABÁTICA": "imagenes/sabatica.jpg", "MINISTERIO INFANTIL": "imagenes/infantil.jpg", "ORACIÓN": "imagenes/oracion.jpg", "PUBLICACIONES": "imagenes/publicaciones.jpg", "MÚSICA": "imagenes/musica.jpg", "JÓVENES": "imagenes/ja.jpg", "MUJER": "imagenes/mujer.jpg", "MINISTERIO PERSONAL": "imagenes/personal.jpg", "SALUD": "imagenes/salud.jpg", "FAMILIA": "imagenes/familia.jpg", "DORCAS": "imagenes/dorcas.jpg", "GTEEN": "imagenes/gteen.jpeg",
+                const logos = {
+                    "AVENTUREROS": "imagenes/avent.jpg", "ASA": "imagenes/asa.jpg", "MINISTERIO JOVEN": "imagenes/jovenes.jpg", "DORCAS": "imagenes/dorcas.jpg", "ORACIÓN": "imagenes/oracion.jpg", "PUBLICACIONES": "imagenes/publicaciones.jpg"
                 };
+                const dep = data.departamento ? data.departamento.toUpperCase() : "GENERAL";
+                const logo = logos[dep] || "imagenes/logo.jpg";
+                const imgHTML = data.imagenUrl ? `<div class="mt-4 lg:mt-6 rounded-xl lg:rounded-3xl overflow-hidden border-2 border-slate-200 shadow-sm w-full aspect-video bg-slate-100 flex-shrink-0"><img src="${data.imagenUrl}" alt="Aviso" class="w-full h-full object-cover"></div>` : '';
 
-                const departamentoNombre = data.departamento ? data.departamento.toUpperCase() : "DEPARTAMENTO";
-                const logoDepartamento = logosDepartamentos[departamentoNombre] || "logos/default.png";
-                const imagenAvisoHtml = data.imagenUrl ? `<div class="aviso-img-box"><img src="${data.imagenUrl}" alt="Aviso" onerror="this.parentElement.style.display='none'"></div>` : '';
-
-                card.innerHTML = `
-                    <div class="aviso-header">
-                        <div class="departamento-box">
-                            <div class="departamento-logo">
-                                <img src="${logoDepartamento}" alt="Logo" onerror="this.src='imagenes/logo.jpg'">
+                slidesHTML.push(`
+                    <div class="swiper-slide firebase-dynamic-slide">
+                        <div class="slide-card p-5 lg:p-12 border-t-[6px] lg:border-t-[8px] border-adventist-blue">
+                            <div class="flex items-center justify-between gap-2 lg:gap-4 mb-3 lg:mb-8 pb-3 lg:pb-6 border-b border-slate-100 mt-2 lg:mt-0">
+                                <div class="flex items-center gap-2 lg:gap-4">
+                                    <div class="w-10 h-10 lg:w-16 lg:h-16 rounded-lg lg:rounded-xl border-2 border-slate-200 overflow-hidden flex-shrink-0"><img src="${logo}" class="w-full h-full object-cover" onerror="this.src='imagenes/logo.jpg'"></div>
+                                    <div class="flex flex-col text-left">
+                                        <span class="text-slate-400 font-bold uppercase text-[8px] lg:text-xs tracking-widest">Aviso Oficial</span>
+                                        <span class="text-slate-900 font-black uppercase text-sm sm:text-lg lg:text-2xl leading-none mt-0.5">${data.departamento || 'General'}</span>
+                                    </div>
+                                </div>
+                                ${modoEdicionActivo ? `<button onclick="eliminarAviso('${d.id}')" class="btn-delete"><i class="fas fa-trash-alt"></i></button>` : ''}
                             </div>
-                            <div class="departamento-texto">
-                                <small>Departamento</small>
-                                <strong>${data.departamento || 'General'}</strong>
+                            
+                            <div class="bg-slate-50 border border-slate-200 rounded-xl lg:rounded-3xl p-4 lg:p-8 text-xs sm:text-sm lg:text-2xl text-slate-800 font-medium leading-relaxed whitespace-pre-wrap shadow-inner text-left">
+                                ${data.mensaje || ''}
+                            </div>
+                            
+                            ${imgHTML}
+                            
+                            <div class="mt-auto pt-4 lg:pt-8 border-t border-slate-100 flex items-center justify-start gap-2 lg:gap-4 mb-2 lg:mb-0">
+                                <div class="w-8 h-8 lg:w-14 lg:h-14 bg-adventist-gold rounded-full flex items-center justify-center text-white font-black text-[10px] lg:text-xl shadow-md flex-shrink-0">${data.lider ? data.lider.charAt(0).toUpperCase() : 'I'}</div>
+                                <div class="flex flex-col text-left">
+                                    <span class="text-[8px] lg:text-xs uppercase tracking-widest text-slate-400 font-bold">Publicado por</span>
+                                    <span class="font-bold text-slate-800 text-[10px] lg:text-xl leading-none mt-0.5">${data.lider || 'Encargado'}</span>
+                                </div>
                             </div>
                         </div>
-                        ${modoEdicionActivo ? `<button onclick="eliminarAviso('${d.id}')" class="btn-delete"><i class="fas fa-trash-alt"></i></button>` : ''}
                     </div>
-                    <div class="mensaje-aviso auto-text">
-                        ${data.mensaje || 'Sin mensaje especificado.'}
-                    </div>
-                    ${imagenAvisoHtml}
-                    <div class="responsable-box">
-                        <div class="responsable-avatar">
-                            ${data.lider ? data.lider.charAt(0).toUpperCase() : 'I'}
-                        </div>
-                        <div class="flex flex-col min-w-0">
-                            <span class="text-[10px] lg:text-xs uppercase tracking-wider text-slate-400 font-bold">Responsable</span>
-                            <span class="font-bold text-slate-700 text-sm lg:text-lg truncate">${data.lider || 'Encargado'}</span>
-                        </div>
-                    </div>`;
-                cont.appendChild(card);
+                `);
             });
+
+            const anchor = document.getElementById("dynamic-anchor");
+            if(anchor) anchor.insertAdjacentHTML('afterend', slidesHTML.join(''));
+            
+            if(window.swiper) window.swiper.update();
         });
     }
-    renderAvisos();
 </script>
 </body>
-
 </html>
