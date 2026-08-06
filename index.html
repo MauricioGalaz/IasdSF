@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilos.css?v=1.2">
     <script src="js/main.js?v=1.2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -70,18 +72,31 @@
         }
 
         @keyframes shine-slow {
-            0% { left: -150%; }
-            20% { left: 250%; }
-            100% { left: 250%; }
+            0% {
+                left: -150%;
+            }
+
+            20% {
+                left: 250%;
+            }
+
+            100% {
+                left: 250%;
+            }
         }
 
         /* Eliminado el shimmer de secciones, imágenes y tarjetas */
-        .reveal, section, img, .glass-modal {
+        .reveal,
+        section,
+        img,
+        .glass-modal {
             position: relative;
             overflow: visible;
         }
 
-        .reveal::after, section::after, img::after {
+        .reveal::after,
+        section::after,
+        img::after {
             display: none !important;
         }
 
@@ -123,9 +138,17 @@
         }
 
         @keyframes shine-birthday {
-            0% { left: -100%; }
-            10% { left: 150%; }
-            100% { left: 150%; }
+            0% {
+                left: -100%;
+            }
+
+            10% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
         }
 
         /* SCROLL HORIZONTAL PARA MINISTERIOS */
@@ -154,8 +177,13 @@
         }
 
         @keyframes countdown {
-            from { width: 100%; }
-            to { width: 0%; }
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
         }
 
         .reveal {
@@ -188,26 +216,53 @@
         }
 
         @keyframes pulse-gold {
-            20% { box-shadow: 0 0 0 0 rgba(180, 83, 9, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(180, 83, 9, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(180, 83, 9, 0); }
+            20% {
+                box-shadow: 0 0 0 0 rgba(180, 83, 9, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(180, 83, 9, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(180, 83, 9, 0);
+            }
         }
 
-        .text-adventist-oro { color: #b45309; }
-        .bg-adventist-oro { background-color: #b45309; }
+        .text-adventist-oro {
+            color: #b45309;
+        }
 
-        .ken-burns { animation: kenburns 8s ease-out infinite alternate; }
+        .bg-adventist-oro {
+            background-color: #b45309;
+        }
+
+        .ken-burns {
+            animation: kenburns 8s ease-out infinite alternate;
+        }
 
         @keyframes kenburns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
 
-        .fade-in { animation: fadeIn 0.8s ease-in; }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         #invitacion-central,
@@ -243,16 +298,34 @@
             transform: translateY(0) !important;
         }
 
-        .-mt-10 { margin-top: -2.5rem; }
-        .hover\:-translate-y-2:hover { transform: translateY(-0.5rem); }
-        .object-cover { object-fit: cover; object-position: center; }
-
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        .-mt-10 {
+            margin-top: -2.5rem;
         }
 
-        .text-pink-600 { animation: pulse-soft 6s infinite; }
+        .hover\:-translate-y-2:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .object-cover {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        @keyframes pulse-soft {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .text-pink-600 {
+            animation: pulse-soft 6s infinite;
+        }
 
         .marquee-wrapper {
             background: #00305e;
@@ -275,8 +348,13 @@
         }
 
         @keyframes scroll-text {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         #app-header {
@@ -305,7 +383,9 @@
             padding: 0 10px;
         }
 
-        #modalMensaje { z-index: 9999 !important; }
+        #modalMensaje {
+            z-index: 9999 !important;
+        }
 
         #contenedor-mensajes-slide {
             min-height: 24px;
@@ -318,8 +398,14 @@
             filter: drop-shadow(0 8px 8px rgba(0, 48, 94, 0.1));
         }
 
-        #banner-cumple-hoy { height: auto !important; }
-        .hero-pattern { margin-top: -1px; background-attachment: fixed; }
+        #banner-cumple-hoy {
+            height: auto !important;
+        }
+
+        .hero-pattern {
+            margin-top: -1px;
+            background-attachment: fixed;
+        }
 
         /* NUEVA SECCIÓN DE MINISTERIOS (MEJORADA PREMIUM) */
         .ministerio-card {
@@ -371,13 +457,26 @@
             animation: shine-auto 4s infinite ease-in-out;
         }
 
-        .ministerio-card:nth-child(2n)::after { animation-delay: 1s; }
-        .ministerio-card:nth-child(3n)::after { animation-delay: 2s; }
+        .ministerio-card:nth-child(2n)::after {
+            animation-delay: 1s;
+        }
+
+        .ministerio-card:nth-child(3n)::after {
+            animation-delay: 2s;
+        }
 
         @keyframes shine-auto {
-            0% { left: -150%; }
-            20% { left: 150%; }
-            100% { left: 150%; }
+            0% {
+                left: -150%;
+            }
+
+            20% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
         }
 
         .card-overlay {
@@ -432,8 +531,13 @@
         }
 
         @keyframes countdown-jesus {
-            from { width: 100%; }
-            to { width: 0%; }
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
         }
 
         #scrollContainer img {
@@ -447,12 +551,15 @@
 
     <div id="banner-cumple-hoy" class="hidden animate__animated animate__backInDown relative z-[100] mb-4 w-full">
         <div class="bg-[#fec325] p-[2px] shadow-lg rounded-2xl overflow-hidden mx-2 sm:mx-0">
-            <div class="bg-[#00305e] py-4 px-4 sm:px-6 flex items-center justify-between flex-wrap sm:flex-nowrap gap-2">
+            <div
+                class="bg-[#00305e] py-4 px-4 sm:px-6 flex items-center justify-between flex-wrap sm:flex-nowrap gap-2">
                 <div class="flex items-center space-x-2 sm:space-x-4 max-w-[70%]">
                     <div class="text-2xl animate-bounce">🎂</div>
                     <div class="overflow-hidden">
-                        <p class="text-white font-black uppercase text-[10px] leading-none mb-1 truncate">¡Paramount Bendiciones en tu día!</p>
-                        <p id="nombre-cumple" class="text-[#fec325] font-black uppercase text-xs sm:text-base leading-tight break-words whitespace-normal">
+                        <p class="text-white font-black uppercase text-[10px] leading-none mb-1 truncate">¡Paramount
+                            Bendiciones en tu día!</p>
+                        <p id="nombre-cumple"
+                            class="text-[#fec325] font-black uppercase text-xs sm:text-base leading-tight break-words whitespace-normal">
                             Cargando...</p>
                     </div>
                 </div>
@@ -463,8 +570,10 @@
                 </button>
             </div>
 
-            <div class="bg-white/95 py-4 sm:py-6 flex items-center justify-center border-t border-[#fec325]/20 min-h-[80px] sm:min-h-[120px]">
-                <div id="contenedor-mensajes-slide" class="w-full flex flex-col items-center justify-center overflow-hidden px-2 sm:px-4 transition-all duration-500">
+            <div
+                class="bg-white/95 py-4 sm:py-6 flex items-center justify-center border-t border-[#fec325]/20 min-h-[80px] sm:min-h-[120px]">
+                <div id="contenedor-mensajes-slide"
+                    class="w-full flex flex-col items-center justify-center overflow-hidden px-2 sm:px-4 transition-all duration-500">
                     <p class="text-[#00305e]/50 text-xs sm:text-sm font-bold italic animate-pulse text-center">
                         Conectando con el muro de bendiciones...
                     </p>
@@ -473,10 +582,14 @@
         </div>
     </div>
 
-    <div id="modalMensaje" class="hidden fixed inset-0 bg-black/80 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-[2.5rem] w-[95%] sm:w-full max-w-sm p-6 sm:p-8 shadow-2xl animate__animated animate__zoomIn">
-            <h3 class="text-[#00305e] font-black text-center mb-2 uppercase tracking-tighter text-lg sm:text-xl">Regala una Oración</h3>
-            <p class="text-gray-400 text-[10px] text-center mb-6 uppercase font-bold">Tu mensaje aparecerá en el muro principal</p>
+    <div id="modalMensaje"
+        class="hidden fixed inset-0 bg-black/80 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div
+            class="bg-white rounded-[2.5rem] w-[95%] sm:w-full max-w-sm p-6 sm:p-8 shadow-2xl animate__animated animate__zoomIn">
+            <h3 class="text-[#00305e] font-black text-center mb-2 uppercase tracking-tighter text-lg sm:text-xl">Regala
+                una Oración</h3>
+            <p class="text-gray-400 text-[10px] text-center mb-6 uppercase font-bold">Tu mensaje aparecerá en el muro
+                principal</p>
 
             <div class="space-y-4">
                 <div>
@@ -490,8 +603,10 @@
                     <div class="relative">
                         <textarea id="textoMsg" maxlength="100" placeholder="Escribe aquí tu deseo..."
                             class="w-full p-3 sm:p-4 bg-gray-100 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#fec325] text-sm"
-                            rows="3" oninput="document.getElementById('charCount').innerText = this.value.length + '/100'"></textarea>
-                        <span id="charCount" class="absolute bottom-3 right-4 text-[9px] text-gray-400 font-bold">0/100</span>
+                            rows="3"
+                            oninput="document.getElementById('charCount').innerText = this.value.length + '/100'"></textarea>
+                        <span id="charCount"
+                            class="absolute bottom-3 right-4 text-[9px] text-gray-400 font-bold">0/100</span>
                     </div>
                 </div>
 
@@ -500,7 +615,8 @@
                         class="w-full bg-[#00305e] text-[#fec325] py-3 sm:py-4 rounded-2xl font-black shadow-xl hover:brightness-110 active:scale-95 transition-all text-xs sm:text-sm">
                         ENVIAR BENDICIÓN
                     </button>
-                    <button onclick="cerrarModal()" class="w-full text-gray-400 font-bold text-[10px] sm:text-xs py-2 uppercase tracking-widest">
+                    <button onclick="cerrarModal()"
+                        class="w-full text-gray-400 font-bold text-[10px] sm:text-xs py-2 uppercase tracking-widest">
                         Tal vez después
                     </button>
                 </div>
@@ -524,10 +640,12 @@
 
                     <div class="flex items-center gap-2 sm:gap-4 max-w-[75%] sm:max-w-none">
                         <a href="index.html" class="flex items-center space-x-2 sm:space-x-4 group overflow-hidden">
-                            <div class="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 bg-white rounded-full overflow-hidden border-2 sm:border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0">
+                            <div
+                                class="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 bg-white rounded-full overflow-hidden border-2 sm:border-4 border-[#fec325] shadow-[0_0_20px_rgba(254,195,37,0.5)] flex items-center justify-center transition-transform group-hover:scale-110 flex-shrink-0">
                                 <img src="imagenes/logo.jpg" class="h-full w-full object-cover">
                             </div>
-                            <span class="font-heading font-black text-[9px] sm:text-[11px] md:text-sm leading-tight uppercase tracking-wider md:tracking-[0.2em] text-white break-words whitespace-normal">
+                            <span
+                                class="font-heading font-black text-[9px] sm:text-[11px] md:text-sm leading-tight uppercase tracking-wider md:tracking-[0.2em] text-white break-words whitespace-normal">
                                 IASD <br> San Francisco<br>
                                 <span class="text-[#fec325]">Limache</span>
                             </span>
@@ -558,13 +676,15 @@
                         <a href="contactoaviso.html" class="hover:text-adventist-gold">Nosotros</a>
                         <a href="#horarios" class="hover:text-adventist-gold">Actividades</a>
                         <a href="#ministerios" class="hover:text-adventist-gold">Ministerios</a>
-                        <a href="avisos.html" class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg font-black shimmer-effect">
+                        <a href="avisos.html"
+                            class="bg-adventist-gold text-adventist-blue px-4 py-2 rounded-full flex items-center gap-2 shadow-lg font-black shimmer-effect">
                             <i class="fas fa-bell"></i> Avisos
                         </a>
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button onclick="abrirModalApp()" class="text-[9px] sm:text-[10px] font-bold bg-white/10 px-2 sm:px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition whitespace-nowrap">
+                        <button onclick="abrirModalApp()"
+                            class="text-[9px] sm:text-[10px] font-bold bg-white/10 px-2 sm:px-3 py-2 rounded-lg border border-white/20 hover:bg-white/20 transition whitespace-nowrap">
                             📱 APP
                         </button>
                         <button id="menu-button" class="lg:hidden p-2 text-xl">
@@ -573,7 +693,8 @@
                     </div>
                 </div>
 
-                <div id="mobile-menu" class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
+                <div id="mobile-menu"
+                    class="hidden bg-adventist-blue border-t border-white/10 p-6 flex flex-col gap-4 text-xs font-bold uppercase">
                     <a href="#inicio">Inicio</a>
                     <a href="transmisiones.html" class="text-red-500">En Vivo Ahora</a>
                     <button onclick="abrirHimnario()" class="text-left text-emerald-400 flex items-center gap-2">
@@ -582,7 +703,8 @@
                     <button onclick="abrirModalDoxo()" class="text-left text-blue-400 flex items-center gap-2">
                         <i class="fas fa-music"></i> Doxología (Con Clave)
                     </button>
-                    <a href="GTEEN/puesta _de_sol/recepcionsabado.html" class="text-amber-400 flex items-center gap-2 shimmer-effect w-fit">
+                    <a href="GTEEN/puesta _de_sol/recepcionsabado.html"
+                        class="text-amber-400 flex items-center gap-2 shimmer-effect w-fit">
                         <i class="fas fa-sun"></i> Libro: Puesta de Sol
                     </a>
                     <div class="w-full h-px bg-white/20 my-1"></div>
@@ -599,12 +721,18 @@
                         <div class="flex items-center space-x-2 sm:space-x-4">
                             <div class="text-2xl animate-bounce">🎂</div>
                             <div>
-                                <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!</p>
-                                <p id="nombre-cumple-2" class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none truncate max-w-[120px] sm:max-w-full">...</p>
+                                <p class="text-white font-black uppercase text-[10px] leading-none mb-1">¡Bendiciones!
+                                </p>
+                                <p id="nombre-cumple-2"
+                                    class="text-[#fec325] font-black uppercase text-sm sm:text-base leading-none truncate max-w-[120px] sm:max-w-full">
+                                    ...</p>
                             </div>
                         </div>
-                        <button onclick="abrirModalMensaje()" class="bg-[#fec325] text-[#00305e] font-black text-[9px] sm:text-[10px] px-2 sm:px-3 py-2 rounded shadow-lg">FELICITAR ✨</button>
-                        <button onclick="document.getElementById('banner-cumple-hoy-2').classList.add('hidden')" class="text-white text-xl ml-2">&times;</button>
+                        <button onclick="abrirModalMensaje()"
+                            class="bg-[#fec325] text-[#00305e] font-black text-[9px] sm:text-[10px] px-2 sm:px-3 py-2 rounded shadow-lg">FELICITAR
+                            ✨</button>
+                        <button onclick="document.getElementById('banner-cumple-hoy-2').classList.add('hidden')"
+                            class="text-white text-xl ml-2">&times;</button>
                     </div>
                     <div class="bg-white/90 py-1 h-8 flex items-center justify-center">
                         <div id="contenedor-mensajes-slide-2" class="w-full text-center px-2">
@@ -614,10 +742,12 @@
                 </div>
             </div>
 
-            <header id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4 pt-10 pb-10">
+            <header id="inicio"
+                class="hero-bg min-h-screen flex items-center justify-center text-center px-4 pt-10 pb-10">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-white flex flex-col items-center">
-                    <h1 class="font-heading text-4xl sm:text-5xl md:text-7xl font-black mb-8 sm:mb-10 leading-tight animate__animated animate__fadeIn break-words max-w-4xl mx-auto">
+                    <h1
+                        class="font-heading text-4xl sm:text-5xl md:text-7xl font-black mb-8 sm:mb-10 leading-tight animate__animated animate__fadeIn break-words max-w-4xl mx-auto">
                         UNA FAMILIA DE ESPERANZA
                     </h1>
 
@@ -629,11 +759,13 @@
                                 <i class="fas fa-birthday-cake mr-3 text-lg sm:text-xl group-hover:animate-bounce"></i>
 
                                 <div class="text-left">
-                                    <p class="text-[9px] sm:text-[10px] font-black uppercase leading-none opacity-80">Registro de</p>
+                                    <p class="text-[9px] sm:text-[10px] font-black uppercase leading-none opacity-80">
+                                        Registro de</p>
                                     <p class="text-base sm:text-lg font-bold uppercase tracking-tighter">CUMPLEAÑOS</p>
                                 </div>
 
-                                <i class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
+                                <i
+                                    class="fas fa-arrow-right ml-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all"></i>
 
                                 <div class="absolute inset-0 rounded-full overflow-hidden">
                                     <div class="shine-effect"></div>
@@ -657,15 +789,20 @@
         </header>
 
         <main class="w-full flex-grow">
-            
+
             <section class="py-12 bg-white reveal">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-                    <div class="bg-adventist-blue rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 text-center text-white shadow-2xl shimmer-effect">
-                        <h2 class="font-heading font-black text-xl sm:text-2xl md:text-4xl uppercase italic mb-4">Invitación para cada Sábado</h2>
-                        <p class="text-sm sm:text-lg italic text-blue-100 mb-6 break-words">"Vengan a mí todos ustedes que están cansados y agobiados..."</p>
-                        <div class="bg-white/10 p-4 sm:p-5 rounded-2xl border border-white/20 inline-block w-full sm:w-auto">
-                            <p class="font-black text-adventist-gold text-lg sm:text-xl tracking-widest leading-none">SÁBADOS 09:30 AM</p>
+                    <div
+                        class="bg-adventist-blue rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 text-center text-white shadow-2xl shimmer-effect">
+                        <h2 class="font-heading font-black text-xl sm:text-2xl md:text-4xl uppercase italic mb-4">
+                            Invitación para cada Sábado</h2>
+                        <p class="text-sm sm:text-lg italic text-blue-100 mb-6 break-words">"Vengan a mí todos ustedes
+                            que están cansados y agobiados..."</p>
+                        <div
+                            class="bg-white/10 p-4 sm:p-5 rounded-2xl border border-white/20 inline-block w-full sm:w-auto">
+                            <p class="font-black text-adventist-gold text-lg sm:text-xl tracking-widest leading-none">
+                                SÁBADOS 09:30 AM</p>
                         </div>
                     </div>
                 </div>
@@ -675,17 +812,20 @@
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
                     <div class="text-center mb-8">
-                        <h2 class="text-2xl sm:text-3xl font-black text-adventist-blue uppercase italic tracking-tighter">
+                        <h2
+                            class="text-2xl sm:text-3xl font-black text-adventist-blue uppercase italic tracking-tighter">
                             Nuestra <span class="text-adventist-gold">Iglesia</span>
                         </h2>
                     </div>
 
                     <div class="relative w-full mx-auto mb-12 group">
-                        <div class="relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] shadow-2xl border-4 sm:border-8 border-white shimmer-effect cursor-zoom-in" onclick="ampliarImagen()">
+                        <div class="relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] shadow-2xl border-4 sm:border-8 border-white shimmer-effect cursor-zoom-in"
+                            onclick="ampliarImagen()">
                             <img id="carousel" src="imagenes/fotos/foto1.jpg"
                                 class="w-full aspect-video object-cover transition-all duration-700 ease-in-out"
                                 style="opacity: 1; transform: scale(1);">
-                            <div class="absolute bottom-4 right-4 sm:right-6 bg-black/40 backdrop-blur-sm text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div
+                                class="absolute bottom-4 right-4 sm:right-6 bg-black/40 backdrop-blur-sm text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
                                 <i class="fas fa-search-plus mr-1"></i> Click para ampliar
                             </div>
                         </div>
@@ -701,17 +841,20 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                        <div class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-md">
+                        <div
+                            class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-md">
                             <i class="fas fa-sun text-adventist-gold text-3xl sm:text-4xl mb-4"></i>
                             <h3 class="font-black uppercase text-xs sm:text-sm mb-2 italic">Sábado Mañana</h3>
                             <p class="font-bold text-sm sm:text-base">09:30 AM — Esc. Sabática</p>
                         </div>
-                        <div class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-md">
+                        <div
+                            class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-oro text-center shadow-md">
                             <i class="fas fa-users text-adventist-blue text-3xl sm:text-4xl mb-4"></i>
                             <h3 class="font-black uppercase text-xs sm:text-sm mb-2 italic">Sábado Tarde</h3>
                             <p class="font-bold text-sm sm:text-base">16:00 PM — Oración Intercesora</p>
                         </div>
-                        <div class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-md">
+                        <div
+                            class="bg-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border-t-8 border-adventist-blue text-center shadow-md">
                             <i class="fas fa-moon text-adventist-gold text-3xl sm:text-4xl mb-4"></i>
                             <h3 class="font-black uppercase text-xs sm:text-sm mb-2 italic">Miércoles</h3>
                             <p class="font-bold text-sm sm:text-base">18:30 PM — Culto de Oración</p>
@@ -723,7 +866,8 @@
             <section id="ministerios" class="py-16 bg-gray-50 overflow-hidden">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl mb-10 text-center">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight break-words">
+                    <h2
+                        class="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-adventist-blue uppercase italic inline-block border-b-4 border-adventist-gold pb-2 tracking-tight break-words">
                         Nuestros Ministerios
                     </h2>
                 </div>
@@ -734,7 +878,8 @@
                         <i class="fas fa-chevron-left text-xl"></i>
                     </button>
 
-                    <div id="scrollContainer" class="flex overflow-x-auto gap-4 sm:gap-5 pb-12 no-scrollbar scroll-smooth snap-x">
+                    <div id="scrollContainer"
+                        class="flex overflow-x-auto gap-4 sm:gap-5 pb-12 no-scrollbar scroll-smooth snap-x">
                         <a href="Departamentos/jovenes.html" class="ministerio-card shimmer-auto snap-center">
                             <img src="imagenes/ja.jpg">
                             <div class="card-overlay">
@@ -838,28 +983,44 @@
             <section id="escuela-vacaciones" class="py-12 sm:py-16 bg-white reveal">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-                    <div class="bg-gray-100 p-4 sm:p-6 md:p-8 rounded-[2rem] sm:rounded-[3.5rem] shadow-xl border border-gray-200">
+                    <div
+                        class="bg-gray-100 p-4 sm:p-6 md:p-8 rounded-[2rem] sm:rounded-[3.5rem] shadow-xl border border-gray-200">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-                            <div class="hidden lg:block relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[400px]">
-                                <img src="imagenes/accion/ecv1.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 1">
+                            <div
+                                class="hidden lg:block relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[400px]">
+                                <img src="imagenes/accion/ecv1.jpeg"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="ECV Foto 1">
                             </div>
-                            <div class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[250px] sm:h-[300px] md:h-auto lg:h-[400px]">
-                                <img src="imagenes/accion/ecv2.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 2">
+                            <div
+                                class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[250px] sm:h-[300px] md:h-auto lg:h-[400px]">
+                                <img src="imagenes/accion/ecv2.jpeg"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="ECV Foto 2">
                             </div>
-                            <div class="lg:col-span-1 bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 flex flex-col justify-center text-center text-white shadow-2xl relative overflow-hidden">
-                                <span class="text-[#fec325] font-black text-[9px] uppercase mb-3 tracking-[0.2em] sm:tracking-[0.3em] block break-words">Aventuras en el Desierto</span>
-                                <h3 class="text-2xl sm:text-3xl font-black mb-4 uppercase italic leading-tight break-words">
+                            <div
+                                class="lg:col-span-1 bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 flex flex-col justify-center text-center text-white shadow-2xl relative overflow-hidden">
+                                <span
+                                    class="text-[#fec325] font-black text-[9px] uppercase mb-3 tracking-[0.2em] sm:tracking-[0.3em] block break-words">Aventuras
+                                    en el Desierto</span>
+                                <h3
+                                    class="text-2xl sm:text-3xl font-black mb-4 uppercase italic leading-tight break-words">
                                     Escuela Cristiana <br><span class="text-[#fec325]">de Vacaciones 2026</span>
                                 </h3>
                                 <p class="text-slate-400 mb-6 italic text-xs leading-relaxed break-words">
-                                    Revive los momentos de nuestra escuela cristiana de vacaciones 2026, compartiendo la fe con alegría.
+                                    Revive los momentos de nuestra escuela cristiana de vacaciones 2026, compartiendo la
+                                    fe con alegría.
                                 </p>
-                                <button onclick="playFullVideo()" class="bg-[#fec325] text-[#00305e] px-4 sm:px-6 py-3 sm:py-4 rounded-full font-black text-[9px] sm:text-[10px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center justify-center gap-2 w-full break-words">
+                                <button onclick="playFullVideo()"
+                                    class="bg-[#fec325] text-[#00305e] px-4 sm:px-6 py-3 sm:py-4 rounded-full font-black text-[9px] sm:text-[10px] uppercase shadow-xl hover:scale-105 active:scale-95 transition-all tracking-widest flex items-center justify-center gap-2 w-full break-words">
                                     <i class="fas fa-play-circle text-lg"></i> REPRODUCIR VIDEO LEMA
                                 </button>
                             </div>
-                            <div class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[250px] sm:h-[300px] md:h-auto lg:h-[400px]">
-                                <img src="imagenes/accion/ecv3.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ECV Foto 3">
+                            <div
+                                class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg group h-[250px] sm:h-[300px] md:h-auto lg:h-[400px]">
+                                <img src="imagenes/accion/ecv3.jpeg"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="ECV Foto 3">
                             </div>
                         </div>
                     </div>
@@ -869,13 +1030,17 @@
             <header class="bg-blue-900 text-white py-12 sm:py-20 shadow-lg">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-center">
-                    <h1 class="text-2xl sm:text-4xl font-bold break-words">!!Envía tu anuncio hasta día Jueves de cada semana!!</h1>
-                    <p class="mt-4 text-lg sm:text-xl text-blue-200 break-words">Sirviendo con amor en este nuevo año 2026</p>
+                    <h1 class="text-2xl sm:text-4xl font-bold break-words">!!Envía tu anuncio hasta día Jueves de cada
+                        semana!!</h1>
+                    <p class="mt-4 text-lg sm:text-xl text-blue-200 break-words">Sirviendo con amor en este nuevo año
+                        2026</p>
                     <div class="mt-8 sm:mt-10">
-                        <a href="Anuncios 2026.html" class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-3 sm:py-4 px-6 sm:px-8 rounded-full text-sm sm:text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto break-words">
+                        <a href="Anuncios 2026.html"
+                            class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-black py-3 sm:py-4 px-6 sm:px-8 rounded-full text-sm sm:text-lg shadow-2xl transition-all transform hover:scale-110 inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto break-words">
                             <i class="fas fa-bullhorn animate-bounce"></i> MURO DE ANUNCIOS LÍDERES
                         </a>
-                        <p class="text-[10px] sm:text-xs mt-3 text-blue-300 italic break-words">Acceso exclusivo para directores de departamentos</p>
+                        <p class="text-[10px] sm:text-xs mt-3 text-blue-300 italic break-words">Acceso exclusivo para
+                            directores de departamentos</p>
                     </div>
                 </div>
             </header>
@@ -883,9 +1048,12 @@
             <div class="py-6 sm:py-12 flex justify-center w-full">
                 <!-- Contenedor Estandarizado -->
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl flex justify-center">
-                    <button onclick="abrirModalAncianos()" class="w-full max-w-[90%] sm:max-w-sm bg-slate-950 text-white py-5 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] flex items-center justify-center gap-3 sm:gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
+                    <button onclick="abrirModalAncianos()"
+                        class="w-full max-w-[90%] sm:max-w-sm bg-slate-950 text-white py-5 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] flex items-center justify-center gap-3 sm:gap-4 active:scale-95 transition shadow-2xl shimmer-effect">
                         <i class="fas fa-user-shield text-adventist-gold text-xl sm:text-2xl"></i>
-                        <span class="font-black uppercase text-[10px] sm:text-xs tracking-widest italic leading-none break-words">Acceso Ancianos</span>
+                        <span
+                            class="font-black uppercase text-[10px] sm:text-xs tracking-widest italic leading-none break-words">Acceso
+                            Ancianos</span>
                     </button>
                 </div>
             </div>
@@ -895,17 +1063,25 @@
             <!-- Contenedor Estandarizado -->
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
                 <div class="flex flex-col items-center text-center">
-                    <img src="imagenes/logo.jpg" class="h-16 w-16 rounded-full mb-4 sm:mb-6 grayscale hover:grayscale-0 transition duration-700">
+                    <img src="imagenes/logo.jpg"
+                        class="h-16 w-16 rounded-full mb-4 sm:mb-6 grayscale hover:grayscale-0 transition duration-700">
                     <h2 class="text-adventist-gold font-bold break-words">Iglesia Adventista del Séptimo día</h2><br>
 
                     <div class="flex justify-center space-x-6 sm:space-x-8 mb-6 sm:mb-8">
-                        <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-facebook-f fa-2xl"></i></a>
-                        <a href="#" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-instagram fa-2xl"></i></a>
-                        <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg" class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i class="fab fa-youtube fa-2xl"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61586113753680&__tn__=-UC*F"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-facebook-f fa-2xl"></i></a>
+                        <a href="#"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-instagram fa-2xl"></i></a>
+                        <a href="https://www.youtube.com/channel/UCI3YIgU41Ue-d_yCYj20Klg"
+                            class="text-adventist-blue hover:text-adventist-gold transition-transform hover:-translate-y-1"><i
+                                class="fab fa-youtube fa-2xl"></i></a>
                     </div>
 
                     <div class="pt-6 sm:pt-8 border-t border-white/5 w-full">
-                        <p class="text-slate-600 text-[9px] sm:text-[10px] uppercase tracking-widest sm:tracking-[0.3em] break-words">
+                        <p
+                            class="text-slate-600 text-[9px] sm:text-[10px] uppercase tracking-widest sm:tracking-[0.3em] break-words">
                             © 2026 iasd San Francisco de Limache</p>
                     </div>
 
@@ -915,93 +1091,132 @@
                             <i class="fas fa-globe"></i> MG Servicios - Visitar sitio oficial
                         </a>
                     </div>
-                    <p class="mt-4 text-slate-400 text-[10px] sm:text-xs uppercase tracking-widest sm:tracking-[0.2em] break-words">
-                        By - <span class="text-adventist-gold font-bold">Mauricio Galaz Estay</span>
+                    <p class="text-xs text-slate-400 mt-3 max-w-xs mx-auto">
+                        Creado por <span class="font-bold text-adventist-blue">MG</span> - 2026. Todos los derechos
+                        reservados.
                     </p>
                 </div>
 
                 <div style="text-align: center; margin: 20px 0;" class="w-full sm:w-auto px-4 sm:px-0">
-                    <a href="tesoreria/index.html" style="background-color: #0a192f; color: #c5a059; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; border: 1px solid #c5a059; display: inline-flex; align-items: center; justify-content: center; gap: 8px;" class="w-full sm:w-auto">
+                    <a href="tesoreria/index.html"
+                        style="background-color: #0a192f; color: #c5a059; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; border: 1px solid #c5a059; display: inline-flex; align-items: center; justify-content: center; gap: 8px;"
+                        class="w-full sm:w-auto">
                         <i class="fas fa-lock"></i> Acceso Tesorería
                     </a>
                 </div>
             </div>
 
-            <button id="btnTop" class="hidden fixed bottom-[90px] sm:bottom-6 right-4 sm:right-6 bg-adventist-surface text-adventist-blue p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 transition z-[60]">
+            <button id="btnTop"
+                class="hidden fixed bottom-[90px] sm:bottom-6 right-4 sm:right-6 bg-adventist-surface text-adventist-blue p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 transition z-[60]">
                 <i class="fas fa-chevron-up"></i>
             </button>
         </footer>
     </div>
 
-    <div id="modalAncianos" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
-        <div class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center animate__animated animate__zoomIn shadow-2xl bg-white">
-            <div class="bg-adventist-blue w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+    <div id="modalAncianos"
+        class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
+        <div
+            class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center animate__animated animate__zoomIn shadow-2xl bg-white">
+            <div
+                class="bg-adventist-blue w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <i class="fas fa-user-shield text-adventist-gold text-xl sm:text-2xl"></i>
             </div>
-            <h2 class="text-lg sm:text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter">Liderazgo</h2>
-            <input id="claveAncianos" type="password" class="w-full p-3 sm:p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-sm sm:text-base" placeholder="Clave">
+            <h2 class="text-lg sm:text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter">
+                Liderazgo</h2>
+            <input id="claveAncianos" type="password"
+                class="w-full p-3 sm:p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-sm sm:text-base"
+                placeholder="Clave">
             <div class="flex flex-col gap-2">
-                <button onclick="validarAncianos()" class="w-full bg-adventist-blue text-white py-3 sm:py-4 rounded-2xl font-black uppercase text-xs shimmer-effect">Entrar</button>
-                <button onclick="cerrarModalAncianos()" class="text-gray-400 font-bold text-[10px] uppercase mt-2 sm:mt-4 underline">Cancelar</button>
+                <button onclick="validarAncianos()"
+                    class="w-full bg-adventist-blue text-white py-3 sm:py-4 rounded-2xl font-black uppercase text-xs shimmer-effect">Entrar</button>
+                <button onclick="cerrarModalAncianos()"
+                    class="text-gray-400 font-bold text-[10px] uppercase mt-2 sm:mt-4 underline">Cancelar</button>
             </div>
             <p id="errorAncianos" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
         </div>
     </div>
 
-    <div id="modalApp" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
-        <div class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center animate__animated animate__zoomIn shadow-2xl bg-white">
-            <h2 class="text-xl sm:text-2xl font-black text-adventist-blue mb-4 sm:mb-6 uppercase italic">Instalar App</h2>
-            <button onclick="instalarApp()" class="bg-adventist-gold text-adventist-blue w-full py-3 sm:py-4 rounded-2xl font-black uppercase text-[10px] sm:text-xs shadow-lg mb-4 shimmer-effect">Instalar Ahora</button>
-            <button onclick="document.getElementById('modalApp').classList.add('hidden')" class="text-gray-400 font-bold text-[9px] sm:text-[10px] uppercase underline leading-none">Cerrar</button>
+    <div id="modalApp"
+        class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
+        <div
+            class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center animate__animated animate__zoomIn shadow-2xl bg-white">
+            <h2 class="text-xl sm:text-2xl font-black text-adventist-blue mb-4 sm:mb-6 uppercase italic">Instalar App
+            </h2>
+            <button onclick="instalarApp()"
+                class="bg-adventist-gold text-adventist-blue w-full py-3 sm:py-4 rounded-2xl font-black uppercase text-[10px] sm:text-xs shadow-lg mb-4 shimmer-effect">Instalar
+                Ahora</button>
+            <button onclick="document.getElementById('modalApp').classList.add('hidden')"
+                class="text-gray-400 font-bold text-[9px] sm:text-[10px] uppercase underline leading-none">Cerrar</button>
         </div>
     </div>
 
-    <div id="modalDoxo" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
-        <div class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center shadow-2xl bg-white">
-            <div class="bg-blue-600 w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+    <div id="modalDoxo"
+        class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[11000] p-4 sm:p-6 backdrop-blur-sm">
+        <div
+            class="glass-modal rounded-[2.5rem] sm:rounded-[3rem] w-[95%] sm:w-full max-w-sm p-8 sm:p-12 text-center shadow-2xl bg-white">
+            <div
+                class="bg-blue-600 w-14 h-14 sm:w-16 sm:h-16 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <i class="fas fa-music text-white text-xl sm:text-2xl"></i>
             </div>
-            <h2 class="text-lg sm:text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter break-words">Acceso Doxología</h2>
-            <input id="claveDoxo" type="password" class="w-full p-3 sm:p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-lg sm:text-xl" placeholder="Ingrese Clave" />
+            <h2
+                class="text-lg sm:text-xl font-black text-adventist-blue mb-6 uppercase italic tracking-tighter break-words">
+                Acceso Doxología</h2>
+            <input id="claveDoxo" type="password"
+                class="w-full p-3 sm:p-4 bg-gray-50 border rounded-2xl mb-4 text-center font-bold text-lg sm:text-xl"
+                placeholder="Ingrese Clave" />
             <div class="flex flex-col gap-2">
-                <button onclick="validarDoxo()" class="w-full bg-blue-600 text-white py-3 sm:py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Entrar</button>
-                <button onclick="cerrarModalDoxo()" class="text-gray-400 font-bold text-[9px] uppercase mt-2 sm:mt-4 underline">Cancelar</button>
+                <button onclick="validarDoxo()"
+                    class="w-full bg-blue-600 text-white py-3 sm:py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Entrar</button>
+                <button onclick="cerrarModalDoxo()"
+                    class="text-gray-400 font-bold text-[9px] uppercase mt-2 sm:mt-4 underline">Cancelar</button>
             </div>
             <p id="errorDoxo" class="text-red-500 text-[10px] mt-4 hidden font-bold">❌ Clave Incorrecta</p>
         </div>
     </div>
 
-    <a href="https://wa.me/56990724209" target="_blank" class="fixed bottom-[85px] sm:bottom-10 right-4 sm:right-6 bg-[#25d366] text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl flex items-center justify-center z-[90] border-2 border-white shimmer-effect">
+    <a href="https://wa.me/56990724209" target="_blank"
+        class="fixed bottom-[85px] sm:bottom-10 right-4 sm:right-6 bg-[#25d366] text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl flex items-center justify-center z-[90] border-2 border-white shimmer-effect">
         <i class="fab fa-whatsapp text-2xl sm:text-3xl"></i>
     </a>
 
     <!-- SECCIÓN REGISTRO Y ESCANEO -->
     <div class="p-4 mx-auto max-w-[95%] sm:max-w-md">
-        <a href="Departamentos/secretaria.html" class="group block relative overflow-hidden bg-[#00305e] rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-7 shadow-2xl transition-all hover:scale-[1.01] border border-white/10 text-center">
+        <a href="Departamentos/secretaria.html"
+            class="group block relative overflow-hidden bg-[#00305e] rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-7 shadow-2xl transition-all hover:scale-[1.01] border border-white/10 text-center">
             <div class="absolute -top-24 -left-24 w-48 h-48 bg-[#fec325]/10 rounded-full blur-2xl"></div>
-            <div class="glass-modal p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border-l-4 border-adventist-gold shadow-2xl bg-white relative overflow-hidden">
+            <div
+                class="glass-modal p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border-l-4 border-adventist-gold shadow-2xl bg-white relative overflow-hidden">
                 <div class="flex flex-col items-center text-center">
                     <div class="bg-adventist-blue/10 p-2 sm:p-3 rounded-xl sm:rounded-2xl mb-2 sm:mb-3">
                         <i class="fas fa-users text-adventist-blue text-lg sm:text-xl"></i>
                     </div>
-                    <h3 id="ultimoConteo" class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] text-gray-400 break-words">Cargando...</h3>
+                    <h3 id="ultimoConteo"
+                        class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] text-gray-400 break-words">
+                        Cargando...</h3>
                     <div class="flex items-baseline gap-1 mt-1">
                         <span id="numeroGrande" class="text-4xl sm:text-5xl font-black text-adventist-blue">--</span>
                         <span class="text-[10px] sm:text-xs font-bold text-adventist-gold uppercase">Hnos</span>
                     </div>
-                    <p class="text-[8px] sm:text-[9px] font-bold text-gray-400 mt-1 sm:mt-2 uppercase tracking-tighter">Asistencia Total Sabática</p>
+                    <p class="text-[8px] sm:text-[9px] font-bold text-gray-400 mt-1 sm:mt-2 uppercase tracking-tighter">
+                        Asistencia Total Sabática</p>
                 </div>
             </div>
 
             <div class="relative z-10 py-3 sm:py-4 flex flex-col items-center justify-center">
-                <div class="relative p-1 bg-gradient-to-tr from-[#fec325] via-yellow-200 to-[#fec325] rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_25px_rgba(254,195,37,0.3)] transform transition-transform group-hover:scale-105 duration-500">
+                <div
+                    class="relative p-1 bg-gradient-to-tr from-[#fec325] via-yellow-200 to-[#fec325] rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_25px_rgba(254,195,37,0.3)] transform transition-transform group-hover:scale-105 duration-500">
                     <div class="bg-white p-2 sm:p-3 rounded-[1.3rem] sm:rounded-[1.8rem]">
-                        <img src="imagenes/qr.jpg" alt="QR Registro" class="w-24 h-24 sm:w-36 sm:h-36 rounded-xl sm:rounded-2xl border border-gray-100 shadow-inner object-cover">
+                        <img src="imagenes/qr.jpg" alt="QR Registro"
+                            class="w-24 h-24 sm:w-36 sm:h-36 rounded-xl sm:rounded-2xl border border-gray-100 shadow-inner object-cover">
                     </div>
                 </div>
                 <div class="mt-4 sm:mt-5 space-y-1">
-                    <p class="text-white font-black text-[10px] sm:text-xs uppercase tracking-widest sm:tracking-[0.3em] break-words">Escanea y Registra</p>
-                    <p class="text-[#fec325] font-bold text-[8px] sm:text-[9px] uppercase opacity-60 tracking-wider sm:tracking-widest break-words">Ingresa Datos Fidedignos</p>
+                    <p
+                        class="text-white font-black text-[10px] sm:text-xs uppercase tracking-widest sm:tracking-[0.3em] break-words">
+                        Escanea y Registra</p>
+                    <p
+                        class="text-[#fec325] font-bold text-[8px] sm:text-[9px] uppercase opacity-60 tracking-wider sm:tracking-widest break-words">
+                        Ingresa Datos Fidedignos</p>
                 </div>
             </div>
 
@@ -1009,13 +1224,19 @@
             <div class="flex items-center justify-between relative z-10 w-full overflow-hidden gap-2">
                 <div class="flex items-center gap-1 sm:gap-2.5 min-w-0">
                     <span class="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5 flex-shrink-0">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
                     </span>
-                    <span class="text-[8px] sm:text-[10px] font-bold text-white/40 uppercase tracking-tighter sm:tracking-[0.1em] truncate">Sincronización Activa</span>
+                    <span
+                        class="text-[8px] sm:text-[10px] font-bold text-white/40 uppercase tracking-tighter sm:tracking-[0.1em] truncate">Sincronización
+                        Activa</span>
                 </div>
-                <div class="flex items-center gap-1 sm:gap-2 text-[#fec325] opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0">
-                    <span class="text-[7px] sm:text-[8px] font-black uppercase tracking-tighter whitespace-nowrap">Ver Detalles</span>
+                <div
+                    class="flex items-center gap-1 sm:gap-2 text-[#fec325] opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0">
+                    <span class="text-[7px] sm:text-[8px] font-black uppercase tracking-tighter whitespace-nowrap">Ver
+                        Detalles</span>
                     <i class="fas fa-chevron-right text-xs sm:text-sm"></i>
                 </div>
             </div>
@@ -1024,7 +1245,7 @@
 
     <script>
         // --- FUNCIÓN GLOBAL DE MOVIMIENTO PARA LOS MINISTERIOS ---
-        window.scrollMinisterios = function(direccion) {
+        window.scrollMinisterios = function (direccion) {
             const container = document.getElementById('scrollContainer');
             if (container) {
                 container.scrollBy({ left: direccion, behavior: 'smooth' });
@@ -1042,7 +1263,7 @@
             if (invitacion) {
                 setTimeout(() => {
                     invitacion.classList.add('active');
-                    invitacion.style.display = 'flex'; 
+                    invitacion.style.display = 'flex';
 
                     setTimeout(() => {
                         invitacion.classList.remove('active');
@@ -1233,7 +1454,7 @@
                     banner.classList.remove('hidden', 'bg-adventist-blue');
                     banner.firstElementChild.className = "bg-slate-900 border-t-4 border-adventist-gold shadow-[0_0_30px_rgba(254,195,37,0.2)]";
 
-                    if (ahora.getDay() === 5) { 
+                    if (ahora.getDay() === 5) {
                         if (txtTitulo) txtTitulo.innerHTML = "✨ <span class='animate-pulse'>¡FELIZ SÁBADO!</span>";
                         if (txtNombre) txtNombre.innerHTML = "<i class='fas fa-star mr-2'></i> El séptimo día ha comenzado en Limache";
                     } else {
@@ -1491,7 +1712,7 @@
             const q = query(collection(db, "avisos"), orderBy("timestamp", "desc"));
             onSnapshot(q, (snapshot) => {
                 const cont = document.getElementById("contenedor-avisos-dinamicos");
-                if (!cont) return; 
+                if (!cont) return;
                 cont.innerHTML = "";
             });
         }
@@ -1503,12 +1724,15 @@
 
     <div id="modalHimnario" class="fixed inset-0 bg-black z-[20000] hidden flex-col">
         <div class="bg-adventist-blue p-2 flex justify-between items-center border-b border-adventist-gold">
-            <span class="text-white text-[10px] font-black uppercase ml-4 italic">Himnario Adventista Oficial - IASD San Francisco de Limache</span>
-            <button onclick="cerrarHimnario()" class="text-white bg-red-600 px-4 py-1 rounded-full font-bold text-xs uppercase shadow-md hover:bg-red-700">
+            <span class="text-white text-[10px] font-black uppercase ml-4 italic">Himnario Adventista Oficial - IASD San
+                Francisco de Limache</span>
+            <button onclick="cerrarHimnario()"
+                class="text-white bg-red-600 px-4 py-1 rounded-full font-bold text-xs uppercase shadow-md hover:bg-red-700">
                 Cerrar [X]
             </button>
         </div>
-        <iframe id="iframeHimnario" src="" class="w-full h-full border-none" allow="fullscreen; autoplay" allowfullscreen></iframe>
+        <iframe id="iframeHimnario" src="" class="w-full h-full border-none" allow="fullscreen; autoplay"
+            allowfullscreen></iframe>
     </div>
 </body>
 
