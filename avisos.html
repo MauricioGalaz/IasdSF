@@ -3,17 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Avisos Ultra Modernos - IASD Limache</title>
 
     <!-- Frameworks y Librerías -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Tipografía -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <meta name="theme-color" content="#020617">
@@ -61,36 +64,84 @@
         body {
             background-color: #020617;
             color: #f8fafc;
-            overflow: hidden; /* BLOQUEA CUALQUIER SCROLL EXTERNO */
+            overflow: hidden;
+            /* BLOQUEA CUALQUIER SCROLL EXTERNO */
             background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
         }
 
         .ambient-orb {
-            position: absolute; filter: blur(120px); z-index: 0; opacity: 0.4; transition: all 1s ease-out;
+            position: absolute;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.4;
+            transition: all 1s ease-out;
         }
 
         /* ===== TIPOGRAFÍA FLUIDA DEPENDIENTE DEL ALTO Y ANCHO (Previene Desbordes) ===== */
-        .t-hero { font-size: clamp(1.5rem, min(6vw, 6vh), 5.5rem); line-height: 1.05; letter-spacing: -0.03em; }
-        .t-h1 { font-size: clamp(1.3rem, min(4.5vw, 4.5vh), 4rem); line-height: 1.1; letter-spacing: -0.02em; }
-        .t-h2 { font-size: clamp(1rem, min(2.5vw, 3vh), 2.2rem); line-height: 1.2; letter-spacing: -0.01em; }
-        .t-body { font-size: clamp(0.75rem, min(1.2vw, 1.5vh), 1.15rem); line-height: 1.4; }
-        .t-badge { font-size: clamp(0.55rem, min(0.9vw, 1vh), 0.8rem); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 800; }
-        .t-money { font-size: clamp(1.8rem, min(8vw, 8vh), 6rem); line-height: 1; letter-spacing: -0.05em; }
-        .text-wrap-balance { text-wrap: balance; word-break: break-word; }
+        .t-hero {
+            font-size: clamp(1.5rem, min(6vw, 6vh), 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        .t-h1 {
+            font-size: clamp(1.3rem, min(4.5vw, 4.5vh), 4rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .t-h2 {
+            font-size: clamp(1rem, min(2.5vw, 3vh), 2.2rem);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .t-body {
+            font-size: clamp(0.75rem, min(1.2vw, 1.5vh), 1.15rem);
+            line-height: 1.4;
+        }
+
+        .t-badge {
+            font-size: clamp(0.55rem, min(0.9vw, 1vh), 0.8rem);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 800;
+        }
+
+        .t-money {
+            font-size: clamp(1.8rem, min(8vw, 8vh), 6rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+
+        .text-wrap-balance {
+            text-wrap: balance;
+            word-break: break-word;
+        }
 
         /* ===== SWIPER CORE ===== */
-        .swiper { width: 100vw; height: var(--app-height); position: relative; z-index: 10; }
-        
+        .swiper {
+            width: 100vw;
+            height: var(--app-height);
+            position: relative;
+            z-index: 10;
+        }
+
         .swiper-slide {
-            display: flex; justify-content: center; align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             /* Padding exterior ultra reducido para maximizar espacio interior */
             padding: clamp(0.25rem, 1vh, 2rem) clamp(0.5rem, 2vw, 2rem);
             padding-bottom: calc(clamp(0.25rem, 1vh, 2rem) + 3.5rem + var(--safe-bottom));
-            box-sizing: border-box; overflow: hidden;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
         @media (min-width: 1024px) {
-            .swiper-slide { padding-bottom: clamp(1rem, 3vh, 3rem); }
+            .swiper-slide {
+                padding-bottom: clamp(1rem, 3vh, 3rem);
+            }
         }
 
         /* ===== CRISTAL BENTO (GLASSMORPHISM) STRICT NO-SCROLL ===== */
@@ -102,117 +153,238 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: clamp(1rem, 2vh, 2.5rem);
             box-shadow: 0 40px 60px -15px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.02);
-            width: 100%; max-width: 1500px; height: 100%;
-            position: relative; z-index: 2;
-            overflow: hidden; /* CERO SCROLL INTERNO */
-            display: flex; flex-direction: column;
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            /* CERO SCROLL INTERNO */
+            display: flex;
+            flex-direction: column;
         }
 
         .bento-grid {
-            display: flex; flex-direction: column; flex-grow: 1; justify-content: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
             gap: clamp(0.5rem, 1.5vh, 2rem);
             padding: clamp(0.75rem, 2vh, 3rem) clamp(0.75rem, 2vw, 3rem);
-            height: 100%; /* Forzar ocupación total */
+            height: 100%;
+            /* Forzar ocupación total */
         }
 
         @media (min-width: 1024px) {
-            .bento-grid-lg { display: grid; grid-template-columns: repeat(12, 1fr); align-items: center; }
+            .bento-grid-lg {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                align-items: center;
+            }
         }
 
         /* ===== COMPONENTES UI ===== */
         .pill-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.25rem 0.75rem; border-radius: 999px;
-            backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            text-align: center; word-break: break-word;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            word-break: break-word;
         }
 
         /* IMÁGENES FLUIDAS: La magia para que no se corte nada */
         .img-mask-modern {
-            border-radius: clamp(0.75rem, 2vh, 2rem); overflow: hidden; position: relative;
-            background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex; flex-direction: column; flex: 1 1 0%; min-height: 0; /* SE ENCOGEN SI FALTA ESPACIO */
+            border-radius: clamp(0.75rem, 2vh, 2rem);
+            overflow: hidden;
+            position: relative;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+            min-height: 0;
+            /* SE ENCOGEN SI FALTA ESPACIO */
         }
-        .img-mask-modern img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+
+        .img-mask-modern img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
 
         .gradient-overlay {
-            position: absolute; inset: 0; pointer-events: none;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
             background: linear-gradient(to top, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.2) 50%, transparent 100%);
         }
 
         /* ===== FINTECH CARD ===== */
         .card-holographic {
             background: linear-gradient(120deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 1.25rem;
-            padding: clamp(1rem, 2vh, 2.5rem); position: relative; overflow: hidden; backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.25rem;
+            padding: clamp(1rem, 2vh, 2.5rem);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(25px);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            display: flex; flex-direction: column; justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
+
         .card-holographic::before {
-            content: ''; position: absolute; inset: 0; pointer-events: none;
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
             background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0.05) 60%, transparent 80%);
         }
 
         /* ===== PROGRESS BAR NEÓN ===== */
         .progress-neo-track {
-            width: 100%; height: clamp(0.75rem, 1.5vh, 1.5rem);
-            background: rgba(0, 0, 0, 0.6); border-radius: 999px;
-            padding: 2px; border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            height: clamp(0.75rem, 1.5vh, 1.5rem);
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 999px;
+            padding: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .progress-neo-fill {
-            height: 100%; border-radius: 999px; position: relative; overflow: hidden;
-            background: linear-gradient(90deg, #f59e0b, #fbbf24); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+            height: 100%;
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
         }
 
         /* ===== CONTROLES SWIPER MODERNOS ===== */
-        .swiper-button-next, .swiper-button-prev {
-            color: white !important; background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15);
-            width: 3.5rem !important; height: 3.5rem !important; border-radius: 50%;
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 3.5rem !important;
+            height: 3.5rem !important;
+            border-radius: 50%;
         }
-        .swiper-button-next::after, .swiper-button-prev::after {
-            font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 1.2rem !important;
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.2rem !important;
         }
-        .swiper-button-next::after { content: '\f061' !important; }
-        .swiper-button-prev::after { content: '\f060' !important; }
+
+        .swiper-button-next::after {
+            content: '\f061' !important;
+        }
+
+        .swiper-button-prev::after {
+            content: '\f060' !important;
+        }
 
         .swiper-pagination-bullets-dynamic {
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px);
-            padding: 4px 10px !important; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 4px 10px !important;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             bottom: calc(0.5rem + var(--safe-bottom)) !important;
         }
-        .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.4) !important; width: 5px; height: 5px; }
-        .swiper-pagination-bullet-active { background: #fff !important; width: 16px !important; border-radius: 999px !important; }
+
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.4) !important;
+            width: 5px;
+            height: 5px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #fff !important;
+            width: 16px !important;
+            border-radius: 999px !important;
+        }
 
         @media (max-width: 1023px) {
-            .swiper-button-next, .swiper-button-prev { display: none !important; }
-            .swiper-pagination { bottom: calc(4rem + var(--safe-bottom)) !important; }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
+            }
+
+            .swiper-pagination {
+                bottom: calc(4rem + var(--safe-bottom)) !important;
+            }
         }
 
         /* ===== NAV MÓVIL (FLOATING PILL) ===== */
         .mobile-pill-nav {
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 999px; padding: 0.25rem 0.5rem;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 0.25rem 0.5rem;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            left: 50%; transform: translateX(-50%); bottom: calc(0.25rem + var(--safe-bottom));
-            width: 96%; max-width: 400px; z-index: 100;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: calc(0.25rem + var(--safe-bottom));
+            width: 96%;
+            max-width: 400px;
+            z-index: 100;
         }
+
         .nav-item {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #94a3b8; font-weight: 700; font-size: 0.55rem; text-transform: uppercase;
-            letter-spacing: 0.05em; transition: all 0.3s; padding: 0.3rem 0; flex: 1; border-radius: 999px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            padding: 0.3rem 0;
+            flex: 1;
+            border-radius: 999px;
             text-align: center;
         }
-        .nav-item.active { background: rgba(255, 255, 255, 0.1); color: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
-        .nav-item i { font-size: 1rem; margin-bottom: 0.1rem; }
-        .nav-item.active i { transform: translateY(-1px); color: #f59e0b; }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-item i {
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .nav-item.active i {
+            transform: translateY(-1px);
+            color: #f59e0b;
+        }
 
         /* Cajas de Info Generales - Reducidas en altura */
         .info-box {
-            background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1rem; padding: clamp(0.75rem, 1.5vh, 1.25rem);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: clamp(0.75rem, 1.5vh, 1.25rem);
             word-break: break-word;
         }
     </style>
@@ -221,8 +393,11 @@
 <body>
 
     <!-- Orbes Animados Globales -->
-    <div id="orb1" class="ambient-orb w-[50vw] h-[50vw] rounded-full top-[-10%] left-[-10%] bg-blue-600 animate-blob"></div>
-    <div id="orb2" class="ambient-orb w-[60vw] h-[60vw] rounded-full bottom-[-10%] right-[-10%] bg-amber-600 animate-blob" style="animation-delay: 2s;"></div>
+    <div id="orb1" class="ambient-orb w-[50vw] h-[50vw] rounded-full top-[-10%] left-[-10%] bg-blue-600 animate-blob">
+    </div>
+    <div id="orb2"
+        class="ambient-orb w-[60vw] h-[60vw] rounded-full bottom-[-10%] right-[-10%] bg-amber-600 animate-blob"
+        style="animation-delay: 2s;"></div>
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -236,29 +411,37 @@
                         <div data-swiper-parallax="-300" data-swiper-parallax-opacity="0" class="mb-2 md:mb-6 shrink-0">
                             <div class="pill-badge text-amber-400 border-amber-500/30">
                                 <span class="relative flex h-2 w-2 mr-1">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
                                 </span>
                                 Avisos Digitales
                             </div>
                         </div>
 
-                        <h1 data-swiper-parallax="-500" class="t-hero font-heading font-black text-white uppercase mb-2 md:mb-4 shrink-0 text-wrap-balance">
+                        <h1 data-swiper-parallax="-500"
+                            class="t-hero font-heading font-black text-white uppercase mb-2 md:mb-4 shrink-0 text-wrap-balance">
                             Iglesia Adventista <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500">San Francisco Limache</span>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500">San
+                                Francisco Limache</span>
                         </h1>
 
-                        <p data-swiper-parallax="-400" data-swiper-parallax-opacity="0" class="t-body text-slate-300 max-w-2xl font-light mb-4 md:mb-8 mx-auto text-wrap-balance shrink-0">
-                            Bienvenidos a nuestra casa de adoración. Desliza para explorar los ministerios, programas y anuncios preparados para esta semana.
+                        <p data-swiper-parallax="-400" data-swiper-parallax-opacity="0"
+                            class="t-body text-slate-300 max-w-2xl font-light mb-4 md:mb-8 mx-auto text-wrap-balance shrink-0">
+                            Bienvenidos a nuestra casa de adoración. Desliza para explorar los ministerios, programas y
+                            anuncios preparados para esta semana.
                         </p>
 
-                        <div data-swiper-parallax="-200" class="info-box flex flex-row items-center justify-center gap-3 backdrop-blur-md max-w-sm mx-auto w-full shrink-0 p-2 md:p-3">
+                        <div data-swiper-parallax="-200"
+                            class="info-box flex flex-row items-center justify-center gap-3 backdrop-blur-md max-w-sm mx-auto w-full shrink-0 p-2 md:p-3">
                             <div class="bg-white/10 p-2 rounded-lg border border-white/10 shrink-0">
                                 <i class="fa-regular fa-calendar-days text-xl md:text-2xl text-amber-400"></i>
                             </div>
                             <div class="text-left overflow-hidden">
                                 <p class="t-badge text-slate-400">Programa Semanal</p>
-                                <p class="font-heading font-bold text-base md:text-lg text-white text-wrap-balance">Sábado 26 Septiembre, 2026</p>
+                                <p class="font-heading font-bold text-base md:text-lg text-white text-wrap-balance">
+                                    Sábado 26 Septiembre, 2026</p>
                             </div>
                         </div>
                     </div>
@@ -271,34 +454,46 @@
             <div class="swiper-slide" data-color1="#dc2626" data-color2="#16a34a">
                 <div class="glass-panel">
                     <div class="bento-grid bento-grid-lg p-0 h-full">
-                        <div class="flex flex-col justify-center p-4 md:p-8 order-2 lg:order-1 lg:col-span-6 z-10 shrink-0">
+                        <div
+                            class="flex flex-col justify-center p-4 md:p-8 order-2 lg:order-1 lg:col-span-6 z-10 shrink-0">
                             <div data-swiper-parallax="-200" class="mb-2 md:mb-4 self-start">
                                 <div class="pill-badge text-red-400 border-red-500/30 bg-red-950/30">
                                     <i class="fas fa-campground"></i> Aventureros
                                 </div>
                             </div>
-                            
-                            <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none text-wrap-balance mb-2">
+
+                            <h2 data-swiper-parallax="-400"
+                                class="t-h1 font-heading font-black text-white uppercase leading-none text-wrap-balance mb-2">
                                 Gedeones <br><span class="text-red-500">de Limache</span>
                             </h2>
-                            
-                            <p data-swiper-parallax="-300" class="t-body text-slate-300 font-light text-wrap-balance mb-4">
-                                Formando pequeños líderes para Cristo a través de la naturaleza, el servicio y el amor a Dios. Un ministerio dedicado a los más pequeños de la iglesia.
+
+                            <p data-swiper-parallax="-300"
+                                class="t-body text-slate-300 font-light text-wrap-balance mb-4">
+                                Formando pequeños líderes para Cristo a través de la naturaleza, el servicio y el amor a
+                                Dios. Un ministerio dedicado a los más pequeños de la iglesia.
                             </p>
 
-                            <div data-swiper-parallax="-150" class="info-box bg-green-950/20 border-green-800/30 flex flex-row items-center gap-3 text-left p-3">
+                            <div data-swiper-parallax="-150"
+                                class="info-box bg-green-950/20 border-green-800/30 flex flex-row items-center gap-3 text-left p-3">
                                 <i class="fab fa-whatsapp text-green-400 text-2xl md:text-3xl shrink-0"></i>
                                 <div>
-                                    <h4 class="font-heading font-bold text-white text-sm md:text-base">Canal Oficial</h4>
-                                    <p class="text-[0.65rem] md:text-xs text-slate-400 leading-tight text-wrap-balance mt-0.5">Información vía WhatsApp de la Iglesia y grupo de Aventureros.</p>
+                                    <h4 class="font-heading font-bold text-white text-sm md:text-base">Canal Oficial
+                                    </h4>
+                                    <p
+                                        class="text-[0.65rem] md:text-xs text-slate-400 leading-tight text-wrap-balance mt-0.5">
+                                        Información vía WhatsApp de la Iglesia y grupo de Aventureros.</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- ESTO ES MAGIA: flex-1 y min-h-0 hace que la imagen ceda espacio si la pantalla es enana -->
-                        <div class="flex-1 w-full order-1 lg:order-2 overflow-hidden relative lg:col-span-6 min-h-0 shrink">
-                            <img data-swiper-parallax="30%" src="imagenes/avent.png" alt="Aventureros" class="w-full h-full object-cover">
-                            <div class="gradient-overlay bg-gradient-to-t lg:bg-gradient-to-l from-base via-base/40 to-transparent"></div>
+                        <div
+                            class="flex-1 w-full order-1 lg:order-2 overflow-hidden relative lg:col-span-6 min-h-0 shrink">
+                            <img data-swiper-parallax="30%" src="imagenes/avent.png" alt="Aventureros"
+                                class="w-full h-full object-cover">
+                            <div
+                                class="gradient-overlay bg-gradient-to-t lg:bg-gradient-to-l from-base via-base/40 to-transparent">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -311,8 +506,11 @@
                 <div class="glass-panel">
                     <div class="bento-grid bento-grid-lg p-0 h-full">
                         <div class="flex-1 w-full overflow-hidden relative lg:col-span-6 min-h-0 shrink">
-                            <img data-swiper-parallax="30%" src="imagenes/ja.jpg" alt="Jóvenes" class="w-full h-full object-cover">
-                            <div class="gradient-overlay bg-gradient-to-t lg:bg-gradient-to-r from-base via-base/60 to-transparent"></div>
+                            <img data-swiper-parallax="30%" src="imagenes/ja.jpg" alt="Jóvenes"
+                                class="w-full h-full object-cover">
+                            <div
+                                class="gradient-overlay bg-gradient-to-t lg:bg-gradient-to-r from-base via-base/60 to-transparent">
+                            </div>
                         </div>
 
                         <div class="flex flex-col justify-center p-4 md:p-8 relative z-10 lg:col-span-6 shrink-0">
@@ -321,12 +519,14 @@
                                     <i class="fas fa-users"></i> Ministerio Joven
                                 </div>
                             </div>
-                            
-                            <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none text-wrap-balance mb-3">
+
+                            <h2 data-swiper-parallax="-400"
+                                class="t-h1 font-heading font-black text-white uppercase leading-none text-wrap-balance mb-3">
                                 Sociedad de <br><span class="text-yellow-500">Jóvenes</span>
                             </h2>
-                            
-                            <div data-swiper-parallax="-300" class="relative info-box bg-white/5 border-l-4 border-l-yellow-500 rounded-l-none border-t-0 border-r-0 border-b-0 py-2 px-4 mb-3">
+
+                            <div data-swiper-parallax="-300"
+                                class="relative info-box bg-white/5 border-l-4 border-l-yellow-500 rounded-l-none border-t-0 border-r-0 border-b-0 py-2 px-4 mb-3">
                                 <i class="fas fa-quote-left absolute -top-2 -left-2 text-2xl text-yellow-500/20"></i>
                                 <p class="t-body text-slate-200 font-medium italic relative z-10 text-wrap-balance">
                                     "Ninguno tenga en poco tu juventud, sino sé ejemplo de los creyentes..."
@@ -334,7 +534,8 @@
                                 <p class="t-badge text-yellow-500 mt-1 relative z-10">— 1 Timoteo 4:12</p>
                             </div>
 
-                            <div data-swiper-parallax="-150" class="flex flex-row items-center gap-2 bg-black/40 px-4 py-2 rounded-full border border-white/5 w-max">
+                            <div data-swiper-parallax="-150"
+                                class="flex flex-row items-center gap-2 bg-black/40 px-4 py-2 rounded-full border border-white/5 w-max">
                                 <i class="fab fa-whatsapp text-green-400 text-lg shrink-0"></i>
                                 <p class="text-xs md:text-sm text-slate-300 font-medium">Coordinación en grupo JA.</p>
                             </div>
@@ -349,7 +550,8 @@
             <div class="swiper-slide" data-color1="#0284c7" data-color2="#38bdf8">
                 <div class="glass-panel text-center">
                     <div class="bento-grid items-center relative h-full justify-center">
-                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30 z-0" style="mask-image: radial-gradient(circle, black, transparent);"></div>
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30 z-0"
+                            style="mask-image: radial-gradient(circle, black, transparent);"></div>
 
                         <div data-swiper-parallax="-200" class="mb-3 md:mb-4 relative z-10 shrink-0">
                             <div class="pill-badge text-sky-400 border-sky-500/30 bg-sky-950/30">
@@ -357,24 +559,34 @@
                             </div>
                         </div>
 
-                        <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase relative z-10 shrink-0 text-wrap-balance mb-2">
-                            Miércoles <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">de Oración</span>
+                        <h2 data-swiper-parallax="-400"
+                            class="t-h1 font-heading font-black text-white uppercase relative z-10 shrink-0 text-wrap-balance mb-2">
+                            Miércoles <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">de
+                                Oración</span>
                         </h2>
 
-                        <div data-swiper-parallax="-300" class="info-box bg-transparent border-none p-0 relative z-10 shrink-0 mb-4">
+                        <div data-swiper-parallax="-300"
+                            class="info-box bg-transparent border-none p-0 relative z-10 shrink-0 mb-4">
                             <p class="t-body text-slate-300 font-light italic max-w-lg mx-auto text-wrap-balance">
-                                "Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces."
+                                "Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no
+                                conoces."
                             </p>
                             <p class="t-badge text-sky-400 mt-1">— Jeremías 33:3</p>
                         </div>
 
-                        <div data-swiper-parallax="-150" class="p-5 md:p-8 rounded-[2rem] border border-sky-500/20 bg-black/40 relative overflow-hidden group z-10 shadow-xl w-full max-w-sm mx-auto shrink-0">
-                            <div class="absolute inset-0 bg-sky-500/10 blur-xl group-hover:bg-sky-500/20 transition duration-500"></div>
+                        <div data-swiper-parallax="-150"
+                            class="p-5 md:p-8 rounded-[2rem] border border-sky-500/20 bg-black/40 relative overflow-hidden group z-10 shadow-xl w-full max-w-sm mx-auto shrink-0">
+                            <div
+                                class="absolute inset-0 bg-sky-500/10 blur-xl group-hover:bg-sky-500/20 transition duration-500">
+                            </div>
                             <p class="t-badge text-slate-400 mb-1 relative z-10">Todos los Miércoles en el Templo</p>
-                            <p class="font-heading font-black text-5xl md:text-7xl text-white tracking-tighter relative z-10 leading-none">
+                            <p
+                                class="font-heading font-black text-5xl md:text-7xl text-white tracking-tighter relative z-10 leading-none">
                                 18:00<span class="text-xl md:text-2xl text-sky-400 font-bold ml-1">HRS</span>
                             </p>
-                            <div class="mt-3 flex flex-row justify-center items-center gap-1.5 text-slate-300 t-badge relative z-10 text-wrap-balance text-center">
+                            <div
+                                class="mt-3 flex flex-row justify-center items-center gap-1.5 text-slate-300 t-badge relative z-10 text-wrap-balance text-center">
                                 <i class="fas fa-map-marker-alt text-sky-500 text-base"></i> Carrera #131, Limache
                             </div>
                         </div>
@@ -388,32 +600,40 @@
             <div class="swiper-slide" data-color1="#ea580c" data-color2="#9a3412">
                 <div class="glass-panel">
                     <div class="bento-grid bento-grid-lg gap-3 p-4 md:p-8 h-full">
-                        <div class="lg:col-span-7 flex flex-col justify-center shrink-0 order-2 lg:order-1 relative z-10">
+                        <div
+                            class="lg:col-span-7 flex flex-col justify-center shrink-0 order-2 lg:order-1 relative z-10">
                             <div data-swiper-parallax="-200" class="mb-2 md:mb-3 self-start">
                                 <div class="pill-badge text-orange-400 border-orange-500/30 bg-orange-950/30">
                                     <i class="fas fa-hand-holding-heart"></i> Acción Solidaria
                                 </div>
                             </div>
-                            
-                            <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 text-wrap-balance">
+
+                            <h2 data-swiper-parallax="-400"
+                                class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 text-wrap-balance">
                                 Ministerio <span class="text-orange-500">ASA</span>
                             </h2>
-                            
-                            <p data-swiper-parallax="-300" class="t-body text-slate-300 font-light max-w-xl text-wrap-balance mb-3">
-                                Colabora con alimentos no perecibles para apoyar a quienes más lo necesitan en nuestra comunidad.
+
+                            <p data-swiper-parallax="-300"
+                                class="t-body text-slate-300 font-light max-w-xl text-wrap-balance mb-3">
+                                Colabora con alimentos no perecibles para apoyar a quienes más lo necesitan en nuestra
+                                comunidad.
                             </p>
-                            
-                            <div data-swiper-parallax="-150" class="bg-gradient-to-br from-orange-600/20 to-orange-900/40 border border-orange-500/30 rounded-2xl p-4 md:p-6 relative overflow-hidden shadow-xl">
-                                <i class="fas fa-shopping-basket absolute -right-2 -bottom-2 text-6xl text-orange-500/10"></i>
+
+                            <div data-swiper-parallax="-150"
+                                class="bg-gradient-to-br from-orange-600/20 to-orange-900/40 border border-orange-500/30 rounded-2xl p-4 md:p-6 relative overflow-hidden shadow-xl">
+                                <i
+                                    class="fas fa-shopping-basket absolute -right-2 -bottom-2 text-6xl text-orange-500/10"></i>
                                 <p class="t-badge text-orange-300 mb-1 relative z-10">Urgente este mes:</p>
-                                <h3 class="font-heading font-black text-2xl md:text-3xl lg:text-4xl text-white uppercase tracking-tighter relative z-10 text-wrap-balance leading-none">
+                                <h3
+                                    class="font-heading font-black text-2xl md:text-3xl lg:text-4xl text-white uppercase tracking-tighter relative z-10 text-wrap-balance leading-none">
                                     Legumbres y Café
                                 </h3>
                             </div>
                         </div>
 
                         <div class="lg:col-span-5 img-mask-modern flex-1 min-h-0 w-full order-1 lg:order-2 shrink">
-                            <img data-swiper-parallax="20%" src="imagenes/asa.jpg" alt="ASA" onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600'">
+                            <img data-swiper-parallax="20%" src="imagenes/asa.jpg" alt="ASA"
+                                onerror="this.src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600'">
                             <div class="gradient-overlay"></div>
                         </div>
                     </div>
@@ -426,7 +646,8 @@
             <div class="swiper-slide" data-color1="#db2777" data-color2="#f472b6">
                 <div class="glass-panel">
                     <div class="bento-grid bento-grid-lg gap-3 p-4 md:p-8 h-full">
-                        <div class="lg:col-span-5 img-mask-modern flex-1 min-h-0 w-full border-pink-500/20 shrink hidden sm:flex">
+                        <div
+                            class="lg:col-span-5 img-mask-modern flex-1 min-h-0 w-full border-pink-500/20 shrink hidden sm:flex">
                             <img data-swiper-parallax="20%" src="imagenes/dorcas.jpg" alt="Dorcas">
                             <div class="gradient-overlay"></div>
                         </div>
@@ -437,23 +658,30 @@
                                     <i class="fas fa-scissors"></i> Tejidos de Amor
                                 </div>
                             </div>
-                            
-                            <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 text-wrap-balance">
+
+                            <h2 data-swiper-parallax="-400"
+                                class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 text-wrap-balance">
                                 Ministerio <br><span class="text-pink-500">Dorcas Limache</span>
                             </h2>
-                            
-                            <p data-swiper-parallax="-300" class="t-body text-slate-300 font-light max-w-xl text-wrap-balance mb-3">
-                                Abrigando corazones y extendiendo el amor de Jesús con cada puntada. Te invitamos a ser parte de esta obra.
+
+                            <p data-swiper-parallax="-300"
+                                class="t-body text-slate-300 font-light max-w-xl text-wrap-balance mb-3">
+                                Abrigando corazones y extendiendo el amor de Jesús con cada puntada. Te invitamos a ser
+                                parte de esta obra.
                             </p>
-                            
+
                             <div data-swiper-parallax="-150" class="flex flex-row gap-3 w-full">
-                                <div class="info-box bg-white/5 border-pink-500/20 flex flex-col justify-center flex-1 relative overflow-hidden p-3 md:p-4">
-                                    <div class="absolute top-0 right-0 w-12 h-12 bg-pink-500/10 rounded-full blur-xl"></div>
+                                <div
+                                    class="info-box bg-white/5 border-pink-500/20 flex flex-col justify-center flex-1 relative overflow-hidden p-3 md:p-4">
+                                    <div class="absolute top-0 right-0 w-12 h-12 bg-pink-500/10 rounded-full blur-xl">
+                                    </div>
                                     <i class="fas fa-calendar-day text-pink-500 text-xl mb-1.5"></i>
                                     <p class="t-badge text-slate-400">Semanal</p>
-                                    <p class="font-heading font-bold text-base md:text-lg text-white">Martes 16:00<span class="text-[0.65rem] ml-0.5">h</span></p>
+                                    <p class="font-heading font-bold text-base md:text-lg text-white">Martes 16:00<span
+                                            class="text-[0.65rem] ml-0.5">h</span></p>
                                 </div>
-                                <div class="info-box bg-white/5 border-white/5 flex flex-col justify-center flex-1 p-3 md:p-4">
+                                <div
+                                    class="info-box bg-white/5 border-white/5 flex flex-col justify-center flex-1 p-3 md:p-4">
                                     <i class="fas fa-map-pin text-slate-400 text-xl mb-1.5"></i>
                                     <p class="t-badge text-slate-400">Lugar</p>
                                     <p class="font-heading font-bold text-base md:text-lg text-white">Sala Multiuso</p>
@@ -476,15 +704,19 @@
                             </div>
                         </div>
 
-                        <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none shrink-0 text-wrap-balance">
+                        <h2 data-swiper-parallax="-400"
+                            class="t-h1 font-heading font-black text-white uppercase leading-none shrink-0 text-wrap-balance">
                             Tarde Entre <span class="text-amber-500">Amigos</span>
                         </h2>
 
-                        <p data-swiper-parallax="-300" class="t-body text-slate-300 mt-2 md:mt-4 font-light italic max-w-xl mx-auto shrink-0 text-wrap-balance mb-4">
-                            "¡Te estaremos esperando para compartir una tarde especial de amistad, alabanza y comunión fraterna!"
+                        <p data-swiper-parallax="-300"
+                            class="t-body text-slate-300 mt-2 md:mt-4 font-light italic max-w-xl mx-auto shrink-0 text-wrap-balance mb-4">
+                            "¡Te estaremos esperando para compartir una tarde especial de amistad, alabanza y comunión
+                            fraterna!"
                         </p>
 
-                        <div data-swiper-parallax="-150" class="w-full max-w-2xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 shrink-0">
+                        <div data-swiper-parallax="-150"
+                            class="w-full max-w-2xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 shrink-0">
                             <div class="info-box bg-white/5 backdrop-blur-md p-3 md:p-5">
                                 <i class="fas fa-calendar-alt text-amber-500 text-2xl mb-1"></i>
                                 <p class="t-badge text-slate-400">Día</p>
@@ -495,13 +727,18 @@
                                 <p class="t-badge text-slate-400">Hora</p>
                                 <p class="font-heading font-bold text-white text-base md:text-xl">15:00 HRS</p>
                             </div>
-                            <div class="col-span-2 md:col-span-1 info-box bg-gradient-to-br from-amber-500 to-orange-600 border-none flex flex-col justify-center items-center shadow-lg transform md:-rotate-2 hover:rotate-0 p-3 md:p-5">
+                            <div
+                                class="col-span-2 md:col-span-1 info-box bg-gradient-to-br from-amber-500 to-orange-600 border-none flex flex-col justify-center items-center shadow-lg transform md:-rotate-2 hover:rotate-0 p-3 md:p-5">
                                 <i class="fas fa-user-plus text-white text-2xl md:text-3xl mb-1 md:mb-2"></i>
-                                <p class="font-heading font-black text-white uppercase tracking-widest text-[0.65rem] md:text-sm text-center">¡Trae un<br>invitado!</p>
+                                <p
+                                    class="font-heading font-black text-white uppercase tracking-widest text-[0.65rem] md:text-sm text-center">
+                                    ¡Trae un<br>invitado!</p>
                             </div>
-                            <div class="col-span-2 info-box bg-black/40 flex flex-row items-center justify-center gap-2 p-2 md:p-3">
+                            <div
+                                class="col-span-2 info-box bg-black/40 flex flex-row items-center justify-center gap-2 p-2 md:p-3">
                                 <i class="fas fa-map-marker-alt text-amber-500 text-base"></i>
-                                <p class="font-medium text-slate-200 text-xs md:text-sm text-wrap-balance text-center">Carrera #131, San Francisco Limache</p>
+                                <p class="font-medium text-slate-200 text-xs md:text-sm text-wrap-balance text-center">
+                                    Carrera #131, San Francisco Limache</p>
                             </div>
                         </div>
                     </div>
@@ -513,7 +750,8 @@
             =========================================== -->
             <div class="swiper-slide" data-color1="#8b5cf6" data-color2="#f59e0b">
                 <div class="glass-panel text-center relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-[0.02] pointer-events-none flex justify-center items-center scale-150 md:scale-[2]">
+                    <div
+                        class="absolute inset-0 opacity-[0.02] pointer-events-none flex justify-center items-center scale-150 md:scale-[2]">
                         <i class="fas fa-music text-[10rem] md:text-[15rem]"></i>
                     </div>
 
@@ -524,38 +762,54 @@
                             </div>
                         </div>
 
-                        <h2 data-swiper-parallax="-400" class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 shrink-0 text-wrap-balance">
+                        <h2 data-swiper-parallax="-400"
+                            class="t-h1 font-heading font-black text-white uppercase leading-none mb-2 md:mb-3 shrink-0 text-wrap-balance">
                             Concierto <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-amber-400 drop-shadow-sm">De Esperanza</span>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-amber-400 drop-shadow-sm">De
+                                Esperanza</span>
                         </h2>
 
-                        <p data-swiper-parallax="-300" class="t-body text-slate-300 font-light italic max-w-lg mx-auto mb-4 md:mb-6 shrink-0 text-wrap-balance">
-                            "Ven a disfrutar de una tarde inolvidable de alabanza, adoración y música que fortalecerá tu fe."
+                        <p data-swiper-parallax="-300"
+                            class="t-body text-slate-300 font-light italic max-w-lg mx-auto mb-4 md:mb-6 shrink-0 text-wrap-balance">
+                            "Ven a disfrutar de una tarde inolvidable de alabanza, adoración y música que fortalecerá tu
+                            fe."
                         </p>
 
-                        <div data-swiper-parallax="-150" class="w-full flex flex-row gap-2 md:gap-4 mb-3 md:mb-5 shrink-0">
-                            <div class="info-box flex-1 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center p-3 md:p-5 border-purple-500/20 relative overflow-hidden">
-                                <div class="absolute -left-6 -top-6 w-16 h-16 bg-purple-500/10 rounded-full blur-xl"></div>
-                                <i class="fas fa-calendar-alt text-purple-400 text-xl md:text-2xl mb-1.5 relative z-10"></i>
+                        <div data-swiper-parallax="-150"
+                            class="w-full flex flex-row gap-2 md:gap-4 mb-3 md:mb-5 shrink-0">
+                            <div
+                                class="info-box flex-1 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center p-3 md:p-5 border-purple-500/20 relative overflow-hidden">
+                                <div class="absolute -left-6 -top-6 w-16 h-16 bg-purple-500/10 rounded-full blur-xl">
+                                </div>
+                                <i
+                                    class="fas fa-calendar-alt text-purple-400 text-xl md:text-2xl mb-1.5 relative z-10"></i>
                                 <p class="t-badge text-slate-400 relative z-10 text-wrap-balance">Sáb 17 Oct 2026</p>
-                                <p class="font-heading font-black text-white text-2xl md:text-4xl mt-1 tracking-tighter relative z-10 leading-none">
+                                <p
+                                    class="font-heading font-black text-white text-2xl md:text-4xl mt-1 tracking-tighter relative z-10 leading-none">
                                     18:00 <span class="text-sm md:text-lg font-bold">HRS</span>
                                 </p>
                             </div>
-                            
-                            <div class="info-box flex-1 bg-gradient-to-br from-amber-500/20 to-purple-600/20 border-amber-500/30 flex flex-col items-center justify-center p-3 md:p-5 shadow-lg relative overflow-hidden group">
-                                <div class="absolute -right-2 -bottom-2 text-amber-500/10 text-5xl"><i class="fas fa-users"></i></div>
-                                <i class="fas fa-ticket-alt text-amber-400 text-xl md:text-2xl mb-1.5 relative z-10"></i>
+
+                            <div
+                                class="info-box flex-1 bg-gradient-to-br from-amber-500/20 to-purple-600/20 border-amber-500/30 flex flex-col items-center justify-center p-3 md:p-5 shadow-lg relative overflow-hidden group">
+                                <div class="absolute -right-2 -bottom-2 text-amber-500/10 text-5xl"><i
+                                        class="fas fa-users"></i></div>
+                                <i
+                                    class="fas fa-ticket-alt text-amber-400 text-xl md:text-2xl mb-1.5 relative z-10"></i>
                                 <p class="t-badge text-amber-300 relative z-10">Entrada Liberada</p>
-                                <p class="font-heading font-bold text-white text-sm md:text-lg mt-1 leading-tight relative z-10 text-wrap-balance">
+                                <p
+                                    class="font-heading font-bold text-white text-sm md:text-lg mt-1 leading-tight relative z-10 text-wrap-balance">
                                     ¡Trae a un amigo!
                                 </p>
                             </div>
                         </div>
 
-                        <div data-swiper-parallax="-50" class="info-box bg-black/40 w-full flex flex-row items-center justify-center gap-2 p-2 md:p-3 border-white/5 shrink-0">
+                        <div data-swiper-parallax="-50"
+                            class="info-box bg-black/40 w-full flex flex-row items-center justify-center gap-2 p-2 md:p-3 border-white/5 shrink-0">
                             <i class="fas fa-map-marker-alt text-purple-400 text-sm md:text-base"></i>
-                            <p class="font-medium text-slate-200 text-xs md:text-sm text-wrap-balance">Carrera #131, Limache</p>
+                            <p class="font-medium text-slate-200 text-xs md:text-sm text-wrap-balance">Carrera #131,
+                                Limache</p>
                         </div>
                     </div>
                 </div>
@@ -568,29 +822,46 @@
                 <div class="glass-panel text-center">
                     <div class="bento-grid overflow-hidden h-full">
                         <div data-swiper-parallax="-200" class="mb-2 md:mb-4 shrink-0 text-center">
-                            <div class="pill-badge text-emerald-400 border-emerald-500/30 bg-emerald-950/30 mb-1.5 md:mb-2">
+                            <div
+                                class="pill-badge text-emerald-400 border-emerald-500/30 bg-emerald-950/30 mb-1.5 md:mb-2">
                                 <i class="fas fa-eye"></i> Visión del Proyecto
                             </div>
-                            <h2 class="t-h2 font-heading font-black text-white uppercase tracking-tight leading-none text-wrap-balance">Campaña Nuevas Butacas</h2>
+                            <h2
+                                class="t-h2 font-heading font-black text-white uppercase tracking-tight leading-none text-wrap-balance">
+                                Campaña Nuevas Butacas</h2>
                         </div>
 
                         <!-- ESTO ASEGURA QUE LAS IMÁGENES SE ENCOJAN AL MÁXIMO -->
                         <div class="flex flex-row gap-2 md:gap-4 flex-1 min-h-0 w-full">
-                            <div data-swiper-parallax="-300" class="img-mask-modern relative group flex-1 min-h-0 shadow-xl w-full">
-                                <img src="imagenes/templo1.jpeg" alt="Antes" class="transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent pointer-events-none"></div>
+                            <div data-swiper-parallax="-300"
+                                class="img-mask-modern relative group flex-1 min-h-0 shadow-xl w-full">
+                                <img src="imagenes/templo1.jpeg" alt="Antes"
+                                    class="transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent pointer-events-none">
+                                </div>
                                 <div class="absolute bottom-3 left-3 md:bottom-5 md:left-5 text-left">
                                     <p class="t-badge text-slate-400 mb-0.5 drop-shadow-md">Actual</p>
-                                    <p class="font-heading font-bold text-white text-sm md:text-xl leading-tight text-wrap-balance">Bancas de Madera</p>
+                                    <p
+                                        class="font-heading font-bold text-white text-sm md:text-xl leading-tight text-wrap-balance">
+                                        Bancas de Madera</p>
                                 </div>
                             </div>
-                            <div data-swiper-parallax="-150" class="img-mask-modern border-emerald-500/40 relative group flex-1 min-h-0 shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full">
-                                <img src="imagenes/templo3.jpeg" alt="Proyecto" class="transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-900/40 to-transparent pointer-events-none"></div>
+                            <div data-swiper-parallax="-150"
+                                class="img-mask-modern border-emerald-500/40 relative group flex-1 min-h-0 shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full">
+                                <img src="imagenes/templo3.jpeg" alt="Proyecto"
+                                    class="transition-transform duration-700 group-hover:scale-105 w-full h-full object-cover">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-900/40 to-transparent pointer-events-none">
+                                </div>
                                 <div class="absolute bottom-3 left-3 md:bottom-5 md:left-5 text-left">
-                                    <div class="absolute -top-6 -right-2 text-emerald-500/20 text-5xl pointer-events-none"><i class="fas fa-couch"></i></div>
+                                    <div
+                                        class="absolute -top-6 -right-2 text-emerald-500/20 text-5xl pointer-events-none">
+                                        <i class="fas fa-couch"></i></div>
                                     <p class="t-badge text-emerald-400 mb-0.5 drop-shadow-md">Proyecto</p>
-                                    <p class="font-heading font-bold text-white text-sm md:text-xl leading-tight text-wrap-balance">Nuevas Butacas</p>
+                                    <p
+                                        class="font-heading font-bold text-white text-sm md:text-xl leading-tight text-wrap-balance">
+                                        Nuevas Butacas</p>
                                 </div>
                             </div>
                         </div>
@@ -598,8 +869,8 @@
                 </div>
             </div>
 
-            <!-- ==========================================
-                10. PROYECTO BUTACAS (FINANZAS)
+           <!-- ==========================================
+                 10. PROYECTO BUTACAS (FINANZAS)
             =========================================== -->
             <div class="swiper-slide" data-color1="#10b981" data-color2="#047857">
                 <div class="glass-panel items-center text-center">
@@ -614,39 +885,41 @@
                             </h2>
                         </div>
 
-                        <div data-swiper-parallax="-100" class="info-box bg-black/40 border-white/5 w-full p-4 md:p-8 relative overflow-hidden shadow-2xl backdrop-blur-xl shrink-0">
+                        <div data-swiper-parallax="-100" class="info-box bg-black/40 border-white/5 w-full p-4 md:p-6 lg:p-8 relative overflow-hidden shadow-2xl backdrop-blur-xl shrink-0">
                             <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-[50px] pointer-events-none"></div>
                             
-                            <div class="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-6 relative z-10 w-full">
-                                <div class="text-left">
-                                    <p class="t-badge text-slate-400 mb-0.5">Acumulado</p>
-                                    <p class="font-heading font-black t-money text-emerald-400 drop-shadow-lg break-words">
-                                        $1.119.455<span class="text-xl md:text-3xl lg:text-4xl"></span>
+                            <div class="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6 relative z-10 w-full">
+                                <!-- ACUMULADO -->
+                                <div class="text-left flex flex-col justify-end border-r border-white/10 pr-3">
+                                    <p class="t-badge text-slate-400 mb-1">Acumulado</p>
+                                    <p class="font-heading font-black t-money-md text-emerald-400 drop-shadow-lg leading-none tracking-tighter whitespace-nowrap">
+                                        $1.119.455
                                     </p>
                                 </div>
-                                <div class="text-right flex flex-col justify-end">
-                                    <p class="t-badge text-slate-400 mb-0.5">Meta</p>
-                                    <p class="font-heading font-bold text-lg md:text-3xl lg:text-3xl text-white tracking-tighter opacity-90 leading-none break-words">
-                                        $3.000.000<span class="text-base md:text-xl"></span>
+                                <!-- META -->
+                                <div class="text-right flex flex-col justify-end pl-3">
+                                    <p class="t-badge text-slate-400 mb-1">Meta</p>
+                                    <p class="font-heading font-black t-money-md text-white opacity-90 drop-shadow-lg leading-none tracking-tighter whitespace-nowrap">
+                                        $3.000.000
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="mb-4 md:mb-6 relative z-10 bg-white/5 p-3 md:p-4 rounded-2xl border border-white/5 w-full">
-                                <div class="flex justify-between items-end mb-1.5">
+                            <div class="mb-4 md:mb-5 relative z-10 bg-white/5 p-3 md:p-4 rounded-2xl border border-white/5 w-full">
+                                <div class="flex justify-between items-end mb-2">
                                     <span class="font-heading font-black text-xl md:text-2xl text-white">37.31% <span class="text-xs md:text-sm text-slate-400 font-normal ml-1">Logrado</span></span>
                                 </div>
-                                <div class="progress-neo-track p-0.5">
+                                <div class="progress-neo-track p-0.5 h-2.5 md:h-3.5">
                                     <div class="progress-neo-fill" style="width: 37.31%;"></div>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 relative z-10 w-full">
-                                <div class="bg-red-500/10 border border-red-500/20 text-red-400 px-3 py-2 rounded-xl t-badge flex items-center gap-1.5 w-full sm:w-auto justify-center shadow-lg shrink-0 text-center">
-                                    <i class="fas fa-exclamation-circle text-base"></i> Faltan: $1.880.545
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10 w-full">
+                                <div class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-2 rounded-xl t-badge flex items-center gap-2 w-full sm:w-auto justify-center shadow-lg shrink-0 text-center">
+                                    <i class="fas fa-exclamation-circle text-sm md:text-base"></i> Faltan: $1.880.545
                                 </div>
                                 <div class="text-center sm:text-right shrink-0">
-                                    <p class="text-[0.65rem] md:text-xs text-slate-300 italic max-w-[15rem] mx-auto sm:mx-0 text-wrap-balance">
+                                    <p class="text-xs md:text-sm text-slate-300 italic max-w-[16rem] mx-auto sm:mx-0 text-wrap-balance leading-tight">
                                         "Cada uno dé como propuso en su corazón..." (2 Cor 9:7)
                                     </p>
                                 </div>
@@ -655,65 +928,91 @@
                     </div>
                 </div>
             </div>
-
             <!-- ==========================================
-                 11. DIEZMOS Y OFRENDAS (HOLOGRAM)
+                11. DIEZMOS Y OFRENDAS (HOLOGRAM)
             =========================================== -->
             <div class="swiper-slide" data-color1="#b45309" data-color2="#f59e0b">
                 <div class="glass-panel items-center text-center">
                     <div class="bento-grid flex flex-col items-center justify-center w-full max-w-5xl h-full">
 
                         <div data-swiper-parallax="-200" class="mb-4 md:mb-6 text-center shrink-0">
-                            <h2 class="t-h1 font-heading font-black text-white uppercase tracking-tight leading-none mb-1 md:mb-2 text-wrap-balance">
+                            <h2
+                                class="t-h1 font-heading font-black text-white uppercase tracking-tight leading-none mb-1 md:mb-2 text-wrap-balance">
                                 Diezmos y <span class="text-amber-500">Ofrendas</span>
                             </h2>
-                            <p class="t-body text-slate-400 font-light text-wrap-balance">Información oficial para transferencias
+                            <p class="t-body text-slate-400 font-light text-wrap-balance">Información oficial para
+                                transferencias
                                 electrónicas.</p>
                         </div>
 
                         <div class="flex flex-col lg:flex-row gap-4 md:gap-6 w-full items-center shrink-0">
                             <!-- Tarjeta Estilo Fintech -->
-                            <div data-swiper-parallax="-300" class="card-holographic w-full max-w-md mx-auto flex flex-col justify-between text-left p-4 md:p-6 min-h-[180px] md:min-h-[220px]">
+                            <div data-swiper-parallax="-300"
+                                class="card-holographic w-full max-w-md mx-auto flex flex-col justify-between text-left p-4 md:p-6 min-h-[180px] md:min-h-[220px]">
                                 <div class="flex justify-between items-start mb-2">
-                                    <i class="fas fa-university text-2xl md:text-3xl text-amber-400 opacity-90 drop-shadow-md"></i>
-                                    <span class="font-heading font-bold text-[0.65rem] md:text-xs tracking-[0.2em] text-slate-200 uppercase">Banco de Chile</span>
+                                    <i
+                                        class="fas fa-university text-2xl md:text-3xl text-amber-400 opacity-90 drop-shadow-md"></i>
+                                    <span
+                                        class="font-heading font-bold text-[0.65rem] md:text-xs tracking-[0.2em] text-slate-200 uppercase">Banco
+                                        de Chile</span>
                                 </div>
-                                
+
                                 <div class="mt-auto">
                                     <p class="t-badge text-slate-300 opacity-80 mb-0.5">Cuenta Corriente</p>
-                                    <p class="font-heading font-black t-money text-white leading-none mb-3 drop-shadow-lg break-all">
+                                    <p
+                                        class="font-heading font-black t-money text-white leading-none mb-3 drop-shadow-lg break-all">
                                         9274507
                                     </p>
-                                    <div class="flex flex-row justify-between items-end border-t border-white/10 pt-2 md:pt-3">
+                                    <div
+                                        class="flex flex-row justify-between items-end border-t border-white/10 pt-2 md:pt-3">
                                         <div class="overflow-hidden pr-2">
-                                            <p class="text-[0.55rem] md:text-[0.65rem] text-slate-300 uppercase tracking-widest mb-0.5 opacity-80">Titular</p>
-                                            <p class="font-heading font-bold text-xs md:text-sm text-white uppercase tracking-wide text-wrap-balance">Iglesia Adventista del Séptimo Día</p>
+                                            <p
+                                                class="text-[0.55rem] md:text-[0.65rem] text-slate-300 uppercase tracking-widest mb-0.5 opacity-80">
+                                                Titular</p>
+                                            <p
+                                                class="font-heading font-bold text-xs md:text-sm text-white uppercase tracking-wide text-wrap-balance">
+                                                Iglesia Adventista del Séptimo Día</p>
                                         </div>
                                         <div class="text-right shrink-0">
-                                            <p class="text-[0.55rem] md:text-[0.65rem] text-slate-300 uppercase tracking-widest mb-0.5 opacity-80">RUT</p>
-                                            <p class="font-heading font-bold text-xs md:text-sm text-white tracking-widest">65.002.737-K</p>
+                                            <p
+                                                class="text-[0.55rem] md:text-[0.65rem] text-slate-300 uppercase tracking-widest mb-0.5 opacity-80">
+                                                RUT</p>
+                                            <p
+                                                class="font-heading font-bold text-xs md:text-sm text-white tracking-widest">
+                                                65.002.737-K</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Instrucciones -->
-                            <div data-swiper-parallax="-150" class="flex flex-row lg:flex-col gap-2 md:gap-4 text-left w-full max-w-md mx-auto">
-                                <div class="info-box bg-white/5 border-white/5 p-2.5 md:p-4 flex flex-1 gap-2 md:gap-3 items-center">
-                                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-sm md:text-lg shrink-0">1</div>
+                            <div data-swiper-parallax="-150"
+                                class="flex flex-row lg:flex-col gap-2 md:gap-4 text-left w-full max-w-md mx-auto">
+                                <div
+                                    class="info-box bg-white/5 border-white/5 p-2.5 md:p-4 flex flex-1 gap-2 md:gap-3 items-center">
+                                    <div
+                                        class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-sm md:text-lg shrink-0">
+                                        1</div>
                                     <div>
                                         <h4 class="font-heading font-bold text-white text-xs md:text-sm">Transfiere</h4>
-                                        <p class="text-[0.65rem] md:text-xs text-slate-400 mt-0.5 text-wrap-balance">Realiza el depósito desde la app de tu
+                                        <p class="text-[0.65rem] md:text-xs text-slate-400 mt-0.5 text-wrap-balance">
+                                            Realiza el depósito desde la app de tu
                                             banco con los datos de la tarjeta.</p>
                                     </div>
                                 </div>
-                                <div class="info-box bg-green-950/20 border-green-800/30 p-2.5 md:p-4 flex flex-1 gap-2 md:gap-3 items-center relative overflow-hidden">
-                                    <div class="absolute -right-2 -top-2 text-green-500/10 text-4xl"><i class="fab fa-whatsapp"></i></div>
-                                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center font-black text-sm md:text-lg shrink-0 z-10">2</div>
+                                <div
+                                    class="info-box bg-green-950/20 border-green-800/30 p-2.5 md:p-4 flex flex-1 gap-2 md:gap-3 items-center relative overflow-hidden">
+                                    <div class="absolute -right-2 -top-2 text-green-500/10 text-4xl"><i
+                                            class="fab fa-whatsapp"></i></div>
+                                    <div
+                                        class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center font-black text-sm md:text-lg shrink-0 z-10">
+                                        2</div>
                                     <div class="z-10 relative">
-                                        <h4 class="font-heading font-bold text-white text-xs md:text-sm">Envía el comprobante al WhatsApp de
+                                        <h4 class="font-heading font-bold text-white text-xs md:text-sm">Envía el
+                                            comprobante al WhatsApp de
                                             Tesorería</h4>
-                                        <p class="text-[0.65rem] md:text-xs text-slate-300 mt-0.5 text-wrap-balance">Envía recibo a Hna. Viviana Morales.especificando el destino del aporte.</p>
+                                        <p class="text-[0.65rem] md:text-xs text-slate-300 mt-0.5 text-wrap-balance">
+                                            Envía recibo a Hna. Viviana Morales.especificando el destino del aporte.</p>
                                     </div>
                                 </div>
                             </div>
@@ -724,34 +1023,44 @@
             </div>
 
             <!-- ==========================================
-                 12. ANCIANO DE TURNO
+                12. ANCIANO DE TURNO
             =========================================== -->
             <div class="swiper-slide" data-color1="#475569" data-color2="#94a3b8">
                 <div class="glass-panel items-center text-center">
                     <div class="bento-grid flex flex-col items-center justify-center w-full max-w-3xl relative h-full">
 
-                        <i class="fas fa-quote-right absolute top-0 left-0 text-7xl md:text-9xl text-white/[0.02] -z-10"></i>
+                        <i
+                            class="fas fa-quote-right absolute top-0 left-0 text-7xl md:text-9xl text-white/[0.02] -z-10"></i>
 
                         <div data-swiper-parallax="-300" class="relative mb-4 md:mb-6 shrink-0 mx-auto w-max mt-2">
-                            <div class="absolute inset-0 border border-slate-500/20 rounded-full scale-125 animate-spin-slow"></div>
-                            <div class="absolute inset-0 border-2 border-slate-400/10 rounded-full scale-150 animate-spin-slow" style="animation-direction: reverse; animation-duration: 20s;"></div>
-                            
-                            <img src="imagenes/anciano.jpg" alt="Anciano de Turno" 
+                            <div
+                                class="absolute inset-0 border border-slate-500/20 rounded-full scale-125 animate-spin-slow">
+                            </div>
+                            <div class="absolute inset-0 border-2 border-slate-400/10 rounded-full scale-150 animate-spin-slow"
+                                style="animation-direction: reverse; animation-duration: 20s;"></div>
+
+                            <img src="imagenes/anciano.jpg" alt="Anciano de Turno"
                                 class="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-slate-900 shadow-2xl relative z-10"
                                 onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400'">
                         </div>
 
                         <div data-swiper-parallax="-200" class="shrink-0 w-full px-2">
                             <p class="t-badge text-slate-400 mb-1 md:mb-2">Liderazgo Espiritual • Mes Actual</p>
-                            <h2 class="t-h1 font-heading font-black text-white uppercase tracking-tight leading-none mb-3 text-wrap-balance">
+                            <h2
+                                class="t-h1 font-heading font-black text-white uppercase tracking-tight leading-none mb-3 text-wrap-balance">
                                 Víctor Recabarren
                             </h2>
                         </div>
-                        
-                        <div data-swiper-parallax="-100" class="info-box bg-white/5 border-white/5 w-full max-w-lg mt-1 p-3 md:p-5 shrink-0 mx-auto">
-                            <p class="text-slate-300 font-light text-xs md:text-sm text-wrap-balance italic leading-snug">
-                                "Obedeced a vuestros pastores, y sujetaos a ellos; porque ellos velan por vuestras almas..." <br>
-                                <span class="text-[0.65rem] md:text-xs font-bold text-slate-500 mt-1 md:mt-2 block not-italic">— Hebreos 13:17</span>
+
+                        <div data-swiper-parallax="-100"
+                            class="info-box bg-white/5 border-white/5 w-full max-w-lg mt-1 p-3 md:p-5 shrink-0 mx-auto">
+                            <p
+                                class="text-slate-300 font-light text-xs md:text-sm text-wrap-balance italic leading-snug">
+                                "Obedeced a vuestros pastores, y sujetaos a ellos; porque ellos velan por vuestras
+                                almas..." <br>
+                                <span
+                                    class="text-[0.65rem] md:text-xs font-bold text-slate-500 mt-1 md:mt-2 block not-italic">—
+                                    Hebreos 13:17</span>
                             </p>
                         </div>
 
@@ -768,28 +1077,34 @@
 
                         <div data-swiper-parallax="-300" class="relative mx-auto shrink-0 mb-4 md:mb-6">
                             <div class="absolute inset-0 bg-white/20 blur-xl rounded-full"></div>
-                            <img src="imagenes/logo.jpg" alt="Logo IASD" 
+                            <img src="imagenes/logo.jpg" alt="Logo IASD"
                                 class="w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-2xl md:rounded-3xl object-cover shadow-2xl border border-white/10 p-1.5 bg-white relative z-10"
                                 onerror="this.src='https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=300'">
                         </div>
-                        
-                        <h2 data-swiper-parallax="-200" class="t-h2 font-heading font-black text-white uppercase tracking-tight mb-4 md:mb-6 shrink-0 text-wrap-balance">
+
+                        <h2 data-swiper-parallax="-200"
+                            class="t-h2 font-heading font-black text-white uppercase tracking-tight mb-4 md:mb-6 shrink-0 text-wrap-balance">
                             IASD San Francisco <br>de Limache
                         </h2>
 
-                        <div data-swiper-parallax="-150" class="flex justify-center gap-3 md:gap-4 mb-6 md:mb-8 shrink-0">
-                            <a href="#" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 text-white flex justify-center items-center text-base md:text-lg hover:bg-blue-600 hover:border-blue-500 transition-all shadow-lg hover:scale-110">
+                        <div data-swiper-parallax="-150"
+                            class="flex justify-center gap-3 md:gap-4 mb-6 md:mb-8 shrink-0">
+                            <a href="#"
+                                class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 text-white flex justify-center items-center text-base md:text-lg hover:bg-blue-600 hover:border-blue-500 transition-all shadow-lg hover:scale-110">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 text-white flex justify-center items-center text-base md:text-lg hover:bg-red-600 hover:border-red-500 transition-all shadow-lg hover:scale-110">
+                            <a href="https://www.youtube.com/@iasdsanfranciscodelimache" target="_blank"
+                                class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 text-white flex justify-center items-center text-base md:text-lg hover:bg-red-600 hover:border-red-500 transition-all shadow-lg hover:scale-110">
                                 <i class="fab fa-youtube"></i>
                             </a>
                         </div>
 
-                        <div data-swiper-parallax="-50" class="text-slate-500 text-[9px] md:text-[11px] space-y-1 opacity-70 shrink-0 w-full px-2 text-wrap-balance">
+                        <div data-swiper-parallax="-50"
+                            class="text-slate-500 text-[9px] md:text-[11px] space-y-1 opacity-70 shrink-0 w-full px-2 text-wrap-balance">
                             <p class="uppercase tracking-widest font-bold text-slate-400">Fin de los Avisos</p>
                             <p>&copy; 2026 Todos los derechos reservados</p>
-                            <p class="pt-1 font-sans font-normal">UI/UX Diseñado por <span class="text-amber-500 font-bold">Mauricio Galaz</span></p>
+                            <p class="pt-1 font-sans font-normal">UI/UX Diseñado por <span
+                                    class="text-amber-500 font-bold">Mauricio Galaz</span></p>
                         </div>
                     </div>
                 </div>
@@ -863,7 +1178,7 @@
             // Físicas ultra suaves
             resistance: true,
             resistanceRatio: 0.85,
-            touchRatio: 1.1, 
+            touchRatio: 1.1,
 
             keyboard: { enabled: true },
 
@@ -875,7 +1190,7 @@
                     const activeSlide = this.slides[this.activeIndex];
                     const c1 = activeSlide.getAttribute('data-color1') || '#3b82f6';
                     const c2 = activeSlide.getAttribute('data-color2') || '#f59e0b';
-                    
+
                     if (orb1 && orb2) {
                         orb1.style.backgroundColor = c1;
                         orb2.style.backgroundColor = c2;
@@ -885,4 +1200,5 @@
         });
     </script>
 </body>
+
 </html>

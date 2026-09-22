@@ -409,7 +409,9 @@ header h1 {
 }
 footer p {
     margin: 0;
-}       
+}     
+
+.t-money-md { font-size: clamp(1.2rem, min(4.5vw, 4.5vh), 3.5rem); line-height: 1; letter-spacing: -0.02em; }
 
 
 
